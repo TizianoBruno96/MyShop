@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
+import ModelFactory.ListaAcquistoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,10 +31,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                listaAcquisto = new ListaAcquisto();
-                listaAcquisto.setIdUtente(rs.getInt("idUtente"));
-                listaAcquisto.setIdListaAcquisto(rs.getInt("idListaAcquisto"));
-                listaAcquisto.setCostoTot(rs.getInt("CostoTotale"));
+                listaAcquisto = new ListaAcquistoFactory().create(rs);
                 return listaAcquisto;
             }
         } catch (SQLException e) {
@@ -55,10 +53,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                listaAcquisto = new ListaAcquisto();
-                listaAcquisto.setIdUtente(rs.getInt("idUtente"));
-                listaAcquisto.setIdListaAcquisto(rs.getInt("idListaAcquisto"));
-                listaAcquisto.setCostoTot(rs.getInt("CostoTotale"));
+                listaAcquisto = new ListaAcquistoFactory().create(rs);
                 return listaAcquisto;
             }
         } catch (SQLException e) {

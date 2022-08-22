@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Prodotto;
+import ModelFactory.ProdottoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,16 +31,7 @@ public class ProdottoDAO implements IProdottoDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                prodotto = new Prodotto();
-                prodotto.setIdProdotto(rs.getInt("idProdotto"));
-                prodotto.setNome(rs.getString("Nome"));
-                prodotto.setDescrizione(rs.getString("Descrizione"));
-                prodotto.setCosto(rs.getDouble("Costo"));
-                prodotto.setIdProdottoPadre(rs.getInt("idProdottoPadre"));
-                prodotto.setIdCategoria(rs.getInt("idCategoria"));
-                prodotto.setIdLista(rs.getInt("idListaAcquisto"));
-                prodotto.setIdPosizione(rs.getInt("idPosizione"));
-                prodotto.setIdProduttore(rs.getInt("idProduttore"));
+                prodotto = new ProdottoFactory().create(rs);
                 return prodotto;
             }
         } catch (SQLException e) {
@@ -61,19 +53,10 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new Prodotto();
-                prodotto.setIdProdotto(rs.getInt("idProdotto"));
-                prodotto.setNome(rs.getString("Nome"));
-                prodotto.setDescrizione(rs.getString("Descrizione"));
-                prodotto.setCosto(rs.getDouble("Costo"));
-                prodotto.setIdProdottoPadre(rs.getInt("idProdottoPadre"));
-                prodotto.setIdCategoria(rs.getInt("idCategoria"));
-                prodotto.setIdLista(rs.getInt("idListaAcquisto"));
-                prodotto.setIdPosizione(rs.getInt("idPosizione"));
-                prodotto.setIdProduttore(rs.getInt("idProduttore"));
+                prodotto = new ProdottoFactory().create(rs);
                 prodotti.add(prodotto);
-                return prodotti;
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -93,17 +76,7 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new Prodotto();
-                prodotto.setIdProdotto(rs.getInt("idProdotto"));
-                prodotto.setNome(rs.getString("Nome"));
-                prodotto.setDescrizione(rs.getString("Descrizione"));
-                prodotto.setCosto(rs.getDouble("Costo"));
-                prodotto.setIdProdottoPadre(rs.getInt("idProdottoPadre"));
-                prodotto.setIdCategoria(rs.getInt("idCategoria"));
-                prodotto.setIdLista(rs.getInt("idListaAcquisto"));
-                prodotto.setIdPosizione(rs.getInt("idPosizione"));
-                prodotto.setIdProduttore(rs.getInt("idProduttore"));
-                prodotti.add(prodotto);
+                prodotto = new ProdottoFactory().create(rs);
                 return prodotti;
             }
         } catch (SQLException e) {
@@ -125,17 +98,7 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new Prodotto();
-                prodotto.setIdProdotto(rs.getInt("idProdotto"));
-                prodotto.setNome(rs.getString("Nome"));
-                prodotto.setDescrizione(rs.getString("Descrizione"));
-                prodotto.setCosto(rs.getDouble("Costo"));
-                prodotto.setIdProdottoPadre(rs.getInt("idProdottoPadre"));
-                prodotto.setIdCategoria(rs.getInt("idCategoria"));
-                prodotto.setIdLista(rs.getInt("idListaAcquisto"));
-                prodotto.setIdPosizione(rs.getInt("idPosizione"));
-                prodotto.setIdProduttore(rs.getInt("idProduttore"));
-                prodotti.add(prodotto);
+                prodotto = new ProdottoFactory().create(rs);
                 return prodotti;
             }
         } catch (SQLException e) {
@@ -157,17 +120,7 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new Prodotto();
-                prodotto.setIdProdotto(rs.getInt("idProdotto"));
-                prodotto.setNome(rs.getString("Nome"));
-                prodotto.setDescrizione(rs.getString("Descrizione"));
-                prodotto.setCosto(rs.getDouble("Costo"));
-                prodotto.setIdProdottoPadre(rs.getInt("idProdottoPadre"));
-                prodotto.setIdCategoria(rs.getInt("idCategoria"));
-                prodotto.setIdLista(rs.getInt("idListaAcquisto"));
-                prodotto.setIdPosizione(rs.getInt("idPosizione"));
-                prodotto.setIdProduttore(rs.getInt("idProduttore"));
-                prodotti.add(prodotto);
+                prodotto = new ProdottoFactory().create(rs);
                 return prodotti;
             }
         } catch (SQLException e) {
@@ -189,17 +142,7 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new Prodotto();
-                prodotto.setIdProdotto(rs.getInt("idProdotto"));
-                prodotto.setNome(rs.getString("Nome"));
-                prodotto.setDescrizione(rs.getString("Descrizione"));
-                prodotto.setCosto(rs.getDouble("Costo"));
-                prodotto.setIdProdottoPadre(rs.getInt("idProdottoPadre"));
-                prodotto.setIdCategoria(rs.getInt("idCategoria"));
-                prodotto.setIdLista(rs.getInt("idListaAcquisto"));
-                prodotto.setIdPosizione(rs.getInt("idPosizione"));
-                prodotto.setIdProduttore(rs.getInt("idProduttore"));
-                prodotti.add(prodotto);
+                prodotto = new ProdottoFactory().create(rs);
                 return prodotti;
             }
         } catch (SQLException e) {

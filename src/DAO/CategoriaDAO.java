@@ -4,6 +4,7 @@ import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Categoria;
 import Model.Utente;
+import ModelFactory.CategoriaFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,10 +33,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                categoria = new Categoria();
-                categoria.setNome(rs.getString("Nome"));
-                categoria.setIdCategoria(rs.getInt("idCategoria"));
-                categoria.setIdCategoriaPadre(rs.getInt("idCategoriaPadre"));
+                categoria = new CategoriaFactory().create(rs);
                 return categoria;
             }
         } catch (SQLException e) {
@@ -58,10 +56,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while(rs.next()) {
-                categoria = new Categoria();
-                categoria.setNome(rs.getString("Nome"));
-                categoria.setIdCategoria(rs.getInt("idCategoria"));
-                categoria.setIdCategoriaPadre(rs.getInt("idCategoriaPadre"));
+                categoria = new CategoriaFactory().create(rs);
                 categorie.add(categoria);
             }
             return categorie;

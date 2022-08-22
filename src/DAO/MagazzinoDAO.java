@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Magazzino;
+import ModelFactory.MagazzinoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,11 +31,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                magazzino = new Magazzino();
-                magazzino.setIdMagazzino(rs.getInt("idMagazzino"));
-                magazzino.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                magazzino.setMaxCorsia(rs.getInt("maxCorsia"));
-                magazzino.setMaxScaffale(rs.getInt("maxScaffale"));
+                magazzino = new MagazzinoFactory().create(rs);
                 return magazzino;
             }
         } catch (SQLException e) {
@@ -56,11 +53,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                magazzino = new Magazzino();
-                magazzino.setIdMagazzino(rs.getInt("idMagazzino"));
-                magazzino.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                magazzino.setMaxCorsia(rs.getInt("maxCorsia"));
-                magazzino.setMaxScaffale(rs.getInt("maxScaffale"));
+                magazzino = new MagazzinoFactory().create(rs);
                 return magazzino;
             }
         } catch (SQLException e) {
@@ -82,11 +75,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         ArrayList<Magazzino> magazzini = new ArrayList<Magazzino>();
         try {
             while(rs.next()) {
-                magazzino = new Magazzino();
-                magazzino.setIdMagazzino(rs.getInt("idMagazzino"));
-                magazzino.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                magazzino.setMaxCorsia(rs.getInt("maxCorsia"));
-                magazzino.setMaxScaffale(rs.getInt("maxScaffale"));
+                magazzino = new MagazzinoFactory().create(rs);
                 magazzini.add(magazzino);
             }
         } catch (SQLException e) {

@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Produttore;
+import ModelFactory.ProduttoreFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,12 +32,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                produttore = new Produttore();
-                produttore.setNome(rs.getString("Nome"));
-                produttore.setIdProduttore(rs.getInt("idProduttore"));
-                produttore.setCitta(rs.getString("Citta"));
-                produttore.setNazione(rs.getString("Nazione"));
-                produttore.setSitoWeb(rs.getString("SitoWeb"));
+                produttore = new ProduttoreFactory().create(rs);
                 return produttore;
             }
         } catch (SQLException e) {
@@ -59,12 +55,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
         ArrayList<Produttore> produttori = new ArrayList<>();
         try {
             while(rs.next()) {
-                produttore = new Produttore();
-                produttore.setNome(rs.getString("Nome"));
-                produttore.setIdProduttore(rs.getInt("idProduttore"));
-                produttore.setCitta(rs.getString("Citta"));
-                produttore.setNazione(rs.getString("Nazione"));
-                produttore.setSitoWeb(rs.getString("SitoWeb"));
+                produttore = new ProduttoreFactory().create(rs);
                 produttori.add(produttore);
             }
             return produttori;

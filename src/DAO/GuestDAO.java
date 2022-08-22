@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Guest;
+import ModelFactory.GuestFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,9 +32,7 @@ public class GuestDAO implements IGuestDAO {
         ArrayList<Guest> guests = new ArrayList<>();
         try {
             while(rs.next()) {
-                guest = new Guest();
-                guest.setIdGuest(rs.getInt("idGuest"));
-                guest.setIPGuest(rs.getString("IPGuest"));
+                guest = new GuestFactory().create(rs);
                 guests.add(guest);
             }
         } catch (SQLException e) {
@@ -55,9 +54,7 @@ public class GuestDAO implements IGuestDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                guest = new Guest();
-                guest.setIPGuest(rs.getString("IP"));
-                guest.setIdGuest(rs.getInt("idGuest"));
+                guest = new GuestFactory().create(rs);
                 return guest;
             }
         } catch (SQLException e) {

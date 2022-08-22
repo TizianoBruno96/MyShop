@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.UtenteRegistrato;
+import ModelFactory.UtenteRegistratoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,9 +31,7 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
         ArrayList<UtenteRegistrato> utenti = new ArrayList<>();
         try {
             while (rs.next()) {
-                utenteRegistrato = new UtenteRegistrato();
-                utenteRegistrato.setIdUtenteRegistrato(rs.getInt("idUtenteRegistrato"));
-                utenteRegistrato.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
+                utenteRegistrato = new UtenteRegistratoFactory().create(rs);
                 utenti.add(utenteRegistrato);
             }
             return utenti;
@@ -51,9 +50,7 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
         ArrayList<UtenteRegistrato> utenti = new ArrayList<>();
         try {
             while (rs.next()) {
-                utenteRegistrato = new UtenteRegistrato();
-                utenteRegistrato.setIdUtenteRegistrato(rs.getInt("idUtenteRegistrato"));
-                utenteRegistrato.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
+                utenteRegistrato = new UtenteRegistratoFactory().create(rs);
                 utenti.add(utenteRegistrato);
             }
             return utenti;
