@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UtenteFactory implements IFactory<Utente> {
+    @Override
     public Utente create(ResultSet rs) throws SQLException {
         Utente utente = new Utente();
         utente.setIdUtente(rs.getInt("idUtente"));

@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Fornitore;
+import ModelFactory.FornitoreFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,9 +32,7 @@ public class FornitoreDAO implements IFornitoreDAO{
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                fornitore = new Fornitore();
-                fornitore.setNome(rs.getString("Nome"));
-                fornitore.setIdFornitore(rs.getInt("idFornitore"));
+                fornitore = new FornitoreFactory().create(rs);
                 return fornitore;
             }
         } catch (SQLException e) {
@@ -56,12 +55,10 @@ public class FornitoreDAO implements IFornitoreDAO{
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
             while(rs.next()) {
-                fornitore = new Fornitore();
-                fornitore.setNome(rs.getString("Nome"));
-                fornitore.setIdFornitore(rs.getInt("idFornitore"));
+                fornitore = new FornitoreFactory().create(rs);
                 fornitori.add(fornitore);
-                return fornitori;
             }
+            return fornitori;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());

@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.PuntoVendita;
+import ModelFactory.PuntoVenditaFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,12 +32,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                puntoVendita = new PuntoVendita();
-                puntoVendita.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                puntoVendita.setIdManager(rs.getInt("idManager"));
-                puntoVendita.setIdMagazzino(rs.getInt("idMagazzino"));
-                puntoVendita.setCitta(rs.getString("Citta"));
-                puntoVendita.setNome(rs.getString("Nome"));
+                puntoVendita = new PuntoVenditaFactory().create(rs);
                 return puntoVendita;
             }
         } catch (SQLException e) {
@@ -58,12 +54,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while(rs.next()) {
-                puntoVendita = new PuntoVendita();
-                puntoVendita.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                puntoVendita.setIdManager(rs.getInt("idManager"));
-                puntoVendita.setIdMagazzino(rs.getInt("idMagazzino"));
-                puntoVendita.setCitta(rs.getString("Citta"));
-                puntoVendita.setNome(rs.getString("Nome"));
+                puntoVendita = new PuntoVenditaFactory().create(rs);
                 puntiVendita.add(puntoVendita);
             }
             return puntiVendita;
@@ -87,12 +78,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while(rs.next()) {
-                puntoVendita = new PuntoVendita();
-                puntoVendita.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                puntoVendita.setIdManager(rs.getInt("idManager"));
-                puntoVendita.setIdMagazzino(rs.getInt("idMagazzino"));
-                puntoVendita.setCitta(rs.getString("Citta"));
-                puntoVendita.setNome(rs.getString("Nome"));
+                puntoVendita = new PuntoVenditaFactory().create(rs);
                 puntiVendita.add(puntoVendita);
             }
             return puntiVendita;

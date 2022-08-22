@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Servizio;
+import ModelFactory.ServizioFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,11 +31,7 @@ public class ServizioDAO implements IServizioDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                servizio = new Servizio();
-                servizio.setIdServizio(rs.getInt("idServizio"));
-                servizio.setNome(rs.getString("Nome"));
-                servizio.setIdCategoria(rs.getInt("idCategoria"));
-                servizio.setIdFornitore(rs.getInt("idFornitore"));
+                servizio = new ServizioFactory().create(rs);
                 return servizio;
             }
         } catch (SQLException e) {
@@ -56,11 +53,7 @@ public class ServizioDAO implements IServizioDAO {
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
             while(rs.next()) {
-                servizio = new Servizio();
-                servizio.setIdServizio(rs.getInt("idServizio"));
-                servizio.setNome(rs.getString("Nome"));
-                servizio.setIdCategoria(rs.getInt("idCategoria"));
-                servizio.setIdFornitore(rs.getInt("idFornitore"));
+                servizio = new ServizioFactory().create(rs);
                 servizi.add(servizio);
             }
             return servizi;

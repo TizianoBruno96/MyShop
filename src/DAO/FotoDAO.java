@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Foto;
+import ModelFactory.FotoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,11 +33,7 @@ public class FotoDAO implements IFotoDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                foto = new Foto();
-                foto.setValore(rs.getBytes("Valore"));
-                foto.setIdFoto(rs.getInt("idFoto"));
-                foto.setIdProdotto(rs.getInt("idProdotto"));
-                foto.setNome(rs.getString("Nome"));
+                foto = new FotoFactory().create(rs);
                 return foto;
             }
         } catch (SQLException e) {
@@ -59,11 +56,7 @@ public class FotoDAO implements IFotoDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                foto = new Foto();
-                foto.setValore(rs.getBytes("Valore"));
-                foto.setIdFoto(rs.getInt("idFoto"));
-                foto.setNome(rs.getString("Nome"));
-                foto.setIdProdotto(rs.getInt("idProdotto"));
+                foto = new FotoFactory().create(rs);
                 return foto;
             }
         } catch (SQLException e) {
@@ -105,11 +98,7 @@ public class FotoDAO implements IFotoDAO {
         ArrayList<Foto> fotoList = new ArrayList<Foto>();
         try {
             while(rs.next()) {
-                foto = new Foto();
-                foto.setValore(rs.getBytes("Valore"));
-                foto.setIdFoto(rs.getInt("idFoto"));
-                foto.setNome(rs.getString("Nome"));
-                foto.setIdProdotto(rs.getInt("idProdotto"));
+                foto = new FotoFactory().create(rs);
                 fotoList.add(foto);
             }
         } catch (SQLException e) {

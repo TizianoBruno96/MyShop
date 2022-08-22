@@ -11,7 +11,7 @@ public class UtenteDAOTest {
     @Before
     public void setUp() {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
-        utenteDAO.add(new Utente("Valentino", "Rossi", "VRossi", "valeRossi69420@gmail.com", "3334445555", 46, "catania", "Pilota di moto", "1234", "UA", 1, 1));
+        utenteDAO.add(new Utente("Valentino", "Rossi", "VRossi", "valeRossi69420@gmail.com", "3334445555", 46, "catania", "Pilota di moto", "1234", "UA"));
     }
 
     @After

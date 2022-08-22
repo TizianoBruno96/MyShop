@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Posizione;
+import ModelFactory.PosizioneFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,13 +31,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                posizione = new Posizione();
-                posizione.setIdPosizione(rs.getInt("idPosizione"));
-                posizione.setpCorsia(rs.getInt("pCorsia"));
-                posizione.setpScaffale(rs.getInt("pScaffale"));
-                posizione.setQuantita(rs.getInt("Quantita"));
-                posizione.setIdProdotto(rs.getInt("idProdotto"));
-                posizione.setIdMagazzino(rs.getInt("idMagazzino"));
+                posizione = new PosizioneFactory().create(rs);
                 return posizione;
             }
         } catch (SQLException e) {
@@ -58,13 +53,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         ArrayList<Posizione> listaPosizioni = new ArrayList<>();
         try {
             while(rs.next()) {
-                posizione = new Posizione();
-                posizione.setIdPosizione(rs.getInt("idPosizione"));
-                posizione.setpCorsia(rs.getInt("pCorsia"));
-                posizione.setpScaffale(rs.getInt("pScaffale"));
-                posizione.setQuantita(rs.getInt("Quantita"));
-                posizione.setIdProdotto(rs.getInt("idProdotto"));
-                posizione.setIdMagazzino(rs.getInt("idMagazzino"));
+                posizione = new PosizioneFactory().create(rs);
                 listaPosizioni.add(posizione);
             }
             return listaPosizioni;

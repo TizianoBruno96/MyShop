@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RecensioneFactory implements IFactory<Recensione> {
+    @Override
     public Recensione create(ResultSet rs) throws SQLException {
         Recensione recensione = new Recensione();
         recensione.setIdRecensione(rs.getInt("idRecensione"));
