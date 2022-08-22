@@ -1,0 +1,113 @@
+package Model;
+
+public class Prodotto {
+    private int idProdotto;
+    private String Nome;
+    private String Descrizione;
+    private double Costo;
+    private int idProdottoPadre;
+    private int idProduttore;
+    private int idPosizione;
+    private int idCategoria;
+    private int idLista;
+
+    public Prodotto() {
+        this.idProdotto = -1;
+        this.Nome = "";
+        this.Descrizione = "";
+        this.Costo = -1;
+        this.idProdottoPadre = -1;
+        this.idProduttore = -1;
+        this.idPosizione = -1;
+        this.idCategoria = -1;
+        this.idLista = -1;
+    }
+
+    public Prodotto(int idProdotto, String Nome, String Descrizione, double Costo, int idProdottoPadre, int idProduttore, int idPosizione, int idCategoria, int idLista) {
+        this.idProdotto = idProdotto;
+        this.Nome = Nome;
+        this.Descrizione = Descrizione;
+        this.Costo = Costo;
+        this.idProdottoPadre = idProdottoPadre;
+        this.idProduttore = idProduttore;
+        this.idPosizione = idPosizione;
+        this.idCategoria = idCategoria;
+        this.idLista = idLista;
+    }
+
+    public void setIdProdotto(int idProdotto) {
+        this.idProdotto = idProdotto;
+    }
+
+    public void setIdProdottoPadre(int idProdottoPadre) {
+        this.idProdottoPadre = idProdottoPadre;
+    }
+
+    public void setIdProduttore(int idProduttore) {
+        this.idProduttore = idProduttore;
+    }
+
+    public void setIdPosizione(int idPosizione) {
+        this.idPosizione = idPosizione;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public void setIdLista(int idLista) {
+        this.idLista = idLista;
+    }
+
+    public void setNome(String nome) {
+        Nome = nome;
+    }
+
+    public void setDescrizione(String descrizione) {
+        Descrizione = descrizione;
+    }
+
+    public void setCosto(double costo) {
+        Costo = costo;
+    }
+
+    public int getIdProdotto() {
+        return idProdotto;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public String getDescrizione() {
+        return Descrizione;
+    }
+
+    public double getCosto() {
+        return Costo;
+    }
+
+    public int getIdProdottoPadre() {
+        return idProdottoPadre;
+    }
+
+    public int getIdProduttore() {
+        return idProduttore;
+    }
+
+    public int getIdPosizione() {
+        return idPosizione;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public int getIdLista() {
+        return idLista;
+    }
+
+    public String toString() {
+        return "Prodotto{" + "idProdotto=" + idProdotto + ", Nome=" + Nome + ", Descrizione=" + Descrizione + ", Costo=" + Costo + ", idProdottoPadre=" + idProdottoPadre + ", idProduttore=" + idProduttore + ", idPosizione=" + idPosizione + ", idCategoria=" + idCategoria + ", idLista=" + idLista + '}';
+    }
+}
