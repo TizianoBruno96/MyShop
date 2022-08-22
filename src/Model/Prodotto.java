@@ -12,15 +12,15 @@ public class Prodotto {
     private int idLista;
 
     public Prodotto() {
-        this.idProdotto = -1;
+        this.idProdotto = 0;
         this.Nome = "";
         this.Descrizione = "";
-        this.Costo = -1;
-        this.idProdottoPadre = -1;
-        this.idProduttore = -1;
-        this.idPosizione = -1;
-        this.idCategoria = -1;
-        this.idLista = -1;
+        this.Costo = 0;
+        this.idProdottoPadre = 0;
+        this.idProduttore = 0;
+        this.idPosizione = 0;
+        this.idCategoria = 0;
+        this.idLista = 0;
     }
 
     public Prodotto(int idProdotto, String Nome, String Descrizione, double Costo, int idProdottoPadre, int idProduttore, int idPosizione, int idCategoria, int idLista) {

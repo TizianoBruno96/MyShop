@@ -2,6 +2,7 @@ package DAO;
 
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
+import ModelFactory.UtenteFactory;
 import Model.Utente;
 
 import java.sql.ResultSet;
@@ -31,20 +32,7 @@ public class UtenteDAO implements IUtenteDAO {
         try {
             rs.next();
             if(rs.getRow() == 1) {
-                utente = new Utente();
-                utente.setIdUtente(rs.getInt("idUtente"));
-                utente.setName(rs.getString("Nome"));
-                utente.setSurname(rs.getString("Cognome"));
-                utente.setUsername(rs.getString("Username"));
-                utente.setEmail(rs.getString("Email"));
-                utente.setTelefono(rs.getString("Telefono"));
-                utente.setEta(rs.getInt("Età"));
-                utente.setResidenza(rs.getString("Residenza"));
-                utente.setProfessione(rs.getString("Professione"));
-                utente.setPassword(rs.getString("Password"));
-                utente.setTipo(rs.getString("Tipo"));
-                utente.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                utente.setIdListaAcquisto(rs.getInt("idListaAcquisto"));
+                utente = new UtenteFactory().create(rs);
                 return utente;
             }
         } catch (SQLException e) {
@@ -67,20 +55,7 @@ public class UtenteDAO implements IUtenteDAO {
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             while(rs.next()) {
-                utente = new Utente();
-                utente.setIdUtente(rs.getInt("idUtente"));
-                utente.setName(rs.getString("Nome"));
-                utente.setSurname(rs.getString("Cognome"));
-                utente.setUsername(rs.getString("Username"));
-                utente.setEmail(rs.getString("Email"));
-                utente.setTelefono(rs.getString("Telefono"));
-                utente.setEta(rs.getInt("Età"));
-                utente.setResidenza(rs.getString("Residenza"));
-                utente.setProfessione(rs.getString("Professione"));
-                utente.setPassword(rs.getString("Password"));
-                utente.setTipo(rs.getString("Tipo"));
-                utente.setIdPuntoVendita(rs.getInt("idPuntoVendita"));
-                utente.setIdListaAcquisto(rs.getInt("idListaAcquisto"));
+                utente = new UtenteFactory().create(rs);
                 utenti.add(utente);
             }
             return utenti;
