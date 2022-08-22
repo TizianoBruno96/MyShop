@@ -3,6 +3,7 @@ package DAO;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Recensione;
+import ModelFactory.RecensioneFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,12 +31,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while(rs.next()) {
-                recensione = new Recensione();
-                recensione.setIdRecensione(rs.getInt("idRecensione"));
-                recensione.setVoto(rs.getInt("Voto"));
-                recensione.setCommento(rs.getString("Commento"));
-                recensione.setIdProdotto(rs.getInt("idProdotto"));
-                recensione.setIdUtente(rs.getInt("idUtente"));
+                recensione = new RecensioneFactory().create(rs);
                 recensioni.add(recensione);
             }
             return recensioni;
@@ -59,12 +55,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while(rs.next()) {
-                recensione = new Recensione();
-                recensione.setIdRecensione(rs.getInt("idRecensione"));
-                recensione.setVoto(rs.getInt("Voto"));
-                recensione.setCommento(rs.getString("Commento"));
-                recensione.setIdProdotto(rs.getInt("idProdotto"));
-                recensione.setIdUtente(rs.getInt("idUtente"));
+                recensione = new RecensioneFactory().create(rs);
                 recensioni.add(recensione);
             }
             return recensioni;

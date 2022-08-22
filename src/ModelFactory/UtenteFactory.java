@@ -1,5 +1,7 @@
 package ModelFactory;
 
+import Model.Categoria;
+import Model.Recensione;
 import Model.Utente;
 
 import java.sql.ResultSet;
@@ -24,3 +26,4 @@ public class UtenteFactory implements IFactory<Utente> {
         return utente;
     }
 }
+
