@@ -101,6 +101,7 @@ public class FotoDAO implements IFotoDAO {
                 foto = new FotoFactory().create(rs);
                 fotoList.add(foto);
             }
+            return fotoList;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -111,7 +112,7 @@ public class FotoDAO implements IFotoDAO {
         } finally {
             connection.close();
         }
-        return fotoList;
+        return null;
     }
 
     //TODO: sistemare codice per le foto (ho indicato il path ma le foto sono di tipo blob, ossia binary large object)

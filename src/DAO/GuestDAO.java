@@ -35,6 +35,7 @@ public class GuestDAO implements IGuestDAO {
                 guest = new GuestFactory().create(rs);
                 guests.add(guest);
             }
+            return guests;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -45,7 +46,7 @@ public class GuestDAO implements IGuestDAO {
         } finally {
             connection.close();
         }
-        return guests;
+        return null;
     }
 
     public Guest findByIP(String email) {

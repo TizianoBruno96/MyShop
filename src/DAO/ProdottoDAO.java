@@ -77,8 +77,9 @@ public class ProdottoDAO implements IProdottoDAO {
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -99,8 +100,9 @@ public class ProdottoDAO implements IProdottoDAO {
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -121,8 +123,9 @@ public class ProdottoDAO implements IProdottoDAO {
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -143,8 +146,32 @@ public class ProdottoDAO implements IProdottoDAO {
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
+    }
+
+    public ArrayList<Prodotto> findByProdottoPadre(int idProdottoPadre) {
+        connection = DBConnection.getInstance();
+        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE idProdottoPadre = " + idProdottoPadre);
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                prodotto = new ProdottoFactory().create(rs);
+                prodotti.add(prodotto);
+            }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());

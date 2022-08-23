@@ -12,7 +12,7 @@ public class FotoFactory implements IFactory<Foto> {
         foto.setIdFoto(rs.getInt("idFoto"));
         foto.setIdProdotto(rs.getInt("idProdotto"));
         foto.setNome(rs.getString("Nome"));
-        foto.setValore(rs.getString("Valore").getBytes());
+        foto.setValore(rs.getBytes("Valore"));
         return foto;
     }
 }

@@ -14,6 +14,7 @@ public interface IProdottoDAO {
     ArrayList<Prodotto> findByProduttore(int idProduttore);
     ArrayList<Prodotto> findByCategoria(int idCategoria);
     ArrayList<Prodotto> findByLista(int idLista);
+    ArrayList<Prodotto> findByProdottoPadre(int idProdottoPadre);
     Prodotto findByNome(String nome);
     ArrayList<Prodotto> findAll();
 }
