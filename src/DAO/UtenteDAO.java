@@ -51,7 +51,7 @@ public class UtenteDAO implements IUtenteDAO {
     @Override
     public ArrayList<Utente> findAll() {
         connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT Nome, Cognome, Username, Email FROM Utente;");
+        rs = connection.executeQuery("SELECT * FROM Utente;");
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -76,14 +76,17 @@ public class UtenteDAO implements IUtenteDAO {
     public int add(Utente utente) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("INSERT INTO Utente (Nome, Cognome, Username, Email, Telefono, Età, Residenza, Professione, Password, Tipo, idPuntoVendita, idListaAcquisto) VALUES ('" + utente.getName() + "', '" + utente.getSurname() + "', '" + utente.getUsername() + "', '" + utente.getEmail() + "', '" + utente.getTelefono() + "', " + utente.getEta() + ", '" + utente.getResidenza() + "', '" + utente.getProfessione() + "', '" + utente.getPassword() + "', '" + utente.getTipo() + "', " + utente.getIdPuntoVendita() + ", " + utente.getIdListaAcquisto() + ");");
+        rowCount += connection.executeUpdate("INSERT INTO ListaAcquisto (idUtente) VALUES (LAST_INSERT_ID());");
+        rowCount += connection.executeUpdate("UPDATE Utente SET idListaAcquisto = LAST_INSERT_ID() WHERE idUtente = LAST_INSERT_ID();");
         connection.close();
         return rowCount;
     }
 
     @Override
-    public int removeByID(String username) {
+    public int removeByUsername(String username) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Utente WHERE Username = '" + username + "';");
+        int rowCount = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+        rowCount += connection.executeUpdate("DELETE FROM Utente WHERE Username = '" + username + "';");
         connection.close();
         return rowCount;
     }
@@ -91,7 +94,7 @@ public class UtenteDAO implements IUtenteDAO {
     @Override
     public int update(Utente utente) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Utente SET Nome = '" + utente.getName() + "', Cognome = '" + utente.getSurname() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Età = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "', idPuntoVendita = " + utente.getIdPuntoVendita() + ", idListaAcquisto = " + utente.getIdListaAcquisto() + " WHERE idUtente = " + utente.getIdUtente() + ";");
+        int rowCount = connection.executeUpdate("UPDATE Utente SET Nome = '" + utente.getName() + "', Cognome = '" + utente.getSurname() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Età = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "', idPuntoVendita = " + utente.getIdPuntoVendita() + ";");
         connection.close();
         return rowCount;
     }

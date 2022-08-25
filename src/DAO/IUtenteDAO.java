@@ -8,6 +8,6 @@ public interface IUtenteDAO {
     Utente findByUsername(String username);
     ArrayList<Utente> findAll();
     int add(Utente utente);
-    int removeByID(String username);
+    int removeByUsername(String username);
     int update(Utente utente);
 }

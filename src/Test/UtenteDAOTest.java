@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class UtenteDAOTest {
     @Before
     public void setUp() {
@@ -17,7 +19,7 @@ public class UtenteDAOTest {
     @After
     public void tearDown() {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
-        utenteDAO.removeByID("VRossi");
+        utenteDAO.removeByUsername("VRossi");
     }
 
     @Test
@@ -25,5 +27,12 @@ public class UtenteDAOTest {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
         Utente utente = utenteDAO.findByUsername("VRossi");
         assert utente.getUsername().equals("VRossi");
+    }
+
+    @Test
+    public void findAllTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        ArrayList<Utente> utenti = utenteDAO.findAll();
+        assert utenti.size() == 3;
     }
 }
