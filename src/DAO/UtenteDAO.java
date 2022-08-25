@@ -94,7 +94,7 @@ public class UtenteDAO implements IUtenteDAO {
     @Override
     public int update(Utente utente) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Utente SET Nome = '" + utente.getName() + "', Cognome = '" + utente.getSurname() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Età = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "', idPuntoVendita = " + utente.getIdPuntoVendita() + ";");
+        int rowCount = connection.executeUpdate("UPDATE Utente SET Nome = '" + utente.getName() + "', Cognome = '" + utente.getSurname() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Età = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "', idPuntoVendita = " + utente.getIdPuntoVendita() + ", idListaAcquisto = " + utente.getIdListaAcquisto() + " WHERE idUtente = " + utente.getIdUtente() + ";");
         connection.close();
         return rowCount;
     }

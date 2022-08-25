@@ -33,6 +33,16 @@ public class UtenteDAOTest {
     public void findAllTest() {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
         ArrayList<Utente> utenti = utenteDAO.findAll();
-        assert utenti.size() == 3;
+        assert utenti.size() == 4;
     }
+
+    @Test
+    public void updateTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        Utente utente = utenteDAO.findByUsername("VRossi");
+        utente.setPassword("3542");
+        utenteDAO.update(utente);
+        assert utente.getPassword().equals("3542");
+    }
+
 }
