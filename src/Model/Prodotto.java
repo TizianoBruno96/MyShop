@@ -1,6 +1,6 @@
 package Model;
 
-public class Prodotto {
+public class Prodotto extends Articolo{
     private int idProdotto;
     private String Nome;
     private String Descrizione;

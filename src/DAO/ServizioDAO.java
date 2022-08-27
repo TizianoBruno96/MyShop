@@ -71,6 +71,30 @@ public class ServizioDAO implements IServizioDAO {
     }
 
     @Override
+    public ArrayList<Servizio> findByFornitore(int idFornitore) {
+        connection = DBConnection.getInstance();
+        rs = connection.executeQuery("SELECT * FROM Servizio WHERE idFornitore = " + idFornitore);
+        ArrayList<Servizio> servizi = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                servizio = new ServizioFactory().create(rs);
+                servizi.add(servizio);
+            }
+            return servizi;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
+    }
+
+    @Override
     public int add(Servizio servizio) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO Servizio (Nome, idCategoria, idFornitore) VALUES ('" + servizio.getNome() + "', " + servizio.getIdCategoria() + ", " + servizio.getIdFornitore() + ")");

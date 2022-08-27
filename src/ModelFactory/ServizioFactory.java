@@ -12,6 +12,7 @@ public class ServizioFactory implements IFactory<Servizio> {
         servizio.setNome(rs.getString("Nome"));
         servizio.setIdCategoria(rs.getInt("idCategoria"));
         servizio.setIdFornitore(rs.getInt("idFornitore"));
+        servizio.setCosto(rs.getDouble("Costo"));
         return servizio;
     }
 }

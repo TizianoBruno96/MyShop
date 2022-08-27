@@ -1,10 +1,28 @@
 package Model;
 
-public class Servizio {
+public class Servizio extends Articolo {
     private int idServizio;
     private int idCategoria;
     private int idFornitore;
     private String Nome;
+    private double Costo;
+
+
+    public Servizio() {
+        idServizio = 0;
+        idCategoria = 0;
+        idFornitore = 0;
+        Nome = "";
+        Costo = 0;
+    }
+
+    public Servizio(int idServizio, int idCategoria, int idFornitore, String Nome, double Costo) {
+        this.idServizio = idServizio;
+        this.idCategoria = idCategoria;
+        this.idFornitore = idFornitore;
+        this.Nome = Nome;
+        this.Costo = Costo;
+    }
 
     public void setIdServizio(int idServizio) {
         this.idServizio = idServizio;
@@ -16,20 +34,6 @@ public class Servizio {
 
     public void setIdFornitore(int idFornitore) {
         this.idFornitore = idFornitore;
-    }
-
-    public Servizio() {
-        idServizio = -1;
-        idCategoria = -1;
-        idFornitore = -1;
-        Nome = "";
-    }
-
-    public Servizio(int idServizio, int idCategoria, int idFornitore, String Nome) {
-        this.idServizio = idServizio;
-        this.idCategoria = idCategoria;
-        this.idFornitore = idFornitore;
-        this.Nome = Nome;
     }
 
     public void setNome(String nome) {
@@ -50,6 +54,14 @@ public class Servizio {
 
     public String getNome() {
         return Nome;
+    }
+
+    public double getCosto() {
+        return Costo;
+    }
+
+    public void setCosto(double costo) {
+        Costo = costo;
     }
 
     public String toString() {

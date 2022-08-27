@@ -186,6 +186,54 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     @Override
+    public ArrayList<Prodotto> findByProdottoPadre(String nomeProdottoPadre) {
+        connection = DBConnection.getInstance();
+        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE nomeProdottoPadre = '" + nomeProdottoPadre + "'");
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                prodotto = new ProdottoFactory().create(rs);
+                prodotti.add(prodotto);
+            }
+            return prodotti;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Prodotto> findSottoProdotti(int idProdotto) {
+        connection = DBConnection.getInstance();
+        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE idProdottoPadre = " + idProdotto);
+        ArrayList<Prodotto> prodotti = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                prodotto = new ProdottoFactory().create(rs);
+                prodotti.add(prodotto);
+            }
+            return prodotti;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
+    }
+
+    @Override
     public int add(Prodotto prodotto) {
         connection = DBConnection.getInstance();
         int id = connection.executeUpdate("INSERT INTO Prodotto (Nome, Descrizione, Costo, idProdottoPadre, idCategoria, idListaAcquisto, idPosizione, idProduttore) VALUES ('" + prodotto.getNome() + "', '" + prodotto.getDescrizione() + "', " + prodotto.getCosto() + ", " + prodotto.getIdProdottoPadre() + ", " + prodotto.getIdCategoria() + ", " + prodotto.getIdLista() + ", " + prodotto.getIdPosizione() + ", " + prodotto.getIdProduttore() + ")");
