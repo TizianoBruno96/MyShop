@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FornitoreDAO implements IFornitoreDAO{
-    private static FornitoreDAO instance = new FornitoreDAO();
+    private static final FornitoreDAO instance = new FornitoreDAO();
     private Fornitore fornitore;
     private static IDBConnection connection;
     private static ResultSet rs;
@@ -34,7 +34,7 @@ public class FornitoreDAO implements IFornitoreDAO{
         String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
 
         IDBOperation operation = new ReadOperation(sql);
-        rs = executor.executeOperation(operation);
+        rs = executor.executeOperation(operation).getResultSet();
 
         try {
             rs.next();
@@ -61,7 +61,7 @@ public class FornitoreDAO implements IFornitoreDAO{
         String sql = "SELECT * FROM fornitore";
 
         IDBOperation operation = new ReadOperation(sql);
-        rs = executor.executeOperation(operation);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
             while(rs.next()) {
