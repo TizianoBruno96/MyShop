@@ -15,6 +15,16 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     private static IDBConnection connection;
     private static ResultSet rs;
 
+    private ProdottoCompositoDAO() {
+        prodottoComposito = null;
+        connection = null;
+        rs = null;
+    }
+
+    public static ProdottoCompositoDAO getInstance() {
+        return instance;
+    }
+
     @Override
     public ProdottoComposito findByIDFiglio(int idProdottoFiglio) {
         connection = DBConnection.getInstance();
