@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.PuntoVendita;
@@ -27,8 +30,10 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     }
 
     public PuntoVendita findByManager(int idManager) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM PuntoVendita WHERE idManager = " + idManager);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM PuntoVendita WHERE IdManager = " + idManager;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -49,8 +54,10 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     }
 
     public ArrayList<PuntoVendita> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM PuntoVendita");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM PuntoVendita";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -73,8 +80,10 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
 
     @Override
     public ArrayList<PuntoVendita> findByCitta(String citta) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM PuntoVendita WHERE Citta = '" + citta + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM PuntoVendita WHERE Citta = '" + citta + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while(rs.next()) {

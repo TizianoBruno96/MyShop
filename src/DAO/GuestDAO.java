@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Guest;
@@ -27,8 +30,10 @@ public class GuestDAO implements IGuestDAO {
 
     @Override
     public ArrayList<Guest> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Guest");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Guest";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Guest> guests = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -50,8 +55,10 @@ public class GuestDAO implements IGuestDAO {
     }
 
     public Guest findByIP(String email) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Guest WHERE email = '" + email + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Guest WHERE email = '" + email + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {

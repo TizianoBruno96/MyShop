@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Servizio;
@@ -26,8 +29,10 @@ public class ServizioDAO implements IServizioDAO {
     }
 
     public Servizio findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Servizio WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -48,8 +53,10 @@ public class ServizioDAO implements IServizioDAO {
     }
 
     public ArrayList<Servizio> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Servizio");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -72,8 +79,10 @@ public class ServizioDAO implements IServizioDAO {
 
     @Override
     public ArrayList<Servizio> findByFornitore(int idFornitore) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Servizio WHERE idFornitore = " + idFornitore);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio WHERE IdFornitore = " + idFornitore;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
             while(rs.next()) {

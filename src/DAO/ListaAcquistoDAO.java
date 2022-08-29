@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
@@ -26,8 +29,10 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     }
 
     public ListaAcquisto findByIDUtente(int IdUtente) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM ListaAcquisto WHERE idUtente = '" + IdUtente + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM ListaAcquisto WHERE IdUtente = " + IdUtente;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -48,8 +53,10 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     }
 
     public ListaAcquisto findByID(int IdListaAcquisto) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM ListaAcquisto WHERE idListaAcquisto = '" + IdListaAcquisto + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM ListaAcquisto WHERE IdListaAcquisto = " + IdListaAcquisto;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {

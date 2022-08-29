@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Produttore;
@@ -27,8 +30,10 @@ public class ProduttoreDAO implements IProduttoreDAO {
 
     @Override
     public Produttore findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Produttore WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Produttore WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -50,8 +55,10 @@ public class ProduttoreDAO implements IProduttoreDAO {
 
     @Override
     public ArrayList<Produttore> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Produttore");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Produttore";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Produttore> produttori = new ArrayList<>();
         try {
             while(rs.next()) {

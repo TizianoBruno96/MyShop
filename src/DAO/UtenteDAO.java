@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import ModelFactory.UtenteFactory;
@@ -27,8 +30,10 @@ public class UtenteDAO implements IUtenteDAO {
 
     @Override
     public Utente findByUsername(String username) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Utente WHERE Username = '" + username + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Utente WHERE Username = '" + username + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -50,8 +55,10 @@ public class UtenteDAO implements IUtenteDAO {
 
     @Override
     public ArrayList<Utente> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Utente;");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Utente";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             while(rs.next()) {

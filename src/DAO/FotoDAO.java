@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Foto;
@@ -28,8 +31,10 @@ public class FotoDAO implements IFotoDAO {
 
     @Override
     public Foto findByValore(String Valore) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Foto WHERE Valore = '" + Valore + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM foto WHERE valore = '" + Valore + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -51,8 +56,10 @@ public class FotoDAO implements IFotoDAO {
 
     @Override
     public Foto findByName(String Nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Foto WHERE Nome = '" + Nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM foto WHERE nome = '" + Nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {

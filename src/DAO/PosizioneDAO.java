@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Posizione;
@@ -26,8 +29,10 @@ public class PosizioneDAO implements IPosizioneDAO {
     }
 
     public Posizione findByID(int IdPosizione) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Posizione WHERE idPosizione = '" + IdPosizione + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Posizione WHERE IdPosizione = " + IdPosizione;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -48,8 +53,10 @@ public class PosizioneDAO implements IPosizioneDAO {
     }
 
     public ArrayList<Posizione> findByMagazzino(int idMagazzino) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Posizione WHERE idMagazzino = '" + idMagazzino + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Posizione WHERE IdMagazzino = " + idMagazzino;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Posizione> listaPosizioni = new ArrayList<>();
         try {
             while(rs.next()) {

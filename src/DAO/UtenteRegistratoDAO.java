@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.UtenteRegistrato;
@@ -26,8 +29,10 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
     }
 
     public ArrayList<UtenteRegistrato> findByUtente(int idUtente) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM UtenteRegistrato WHERE idUtenteRegistrato = " + idUtente);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM UtenteRegistrato WHERE IdUtente = " + idUtente;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<UtenteRegistrato> utenti = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -45,8 +50,10 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
     }
 
     public ArrayList<UtenteRegistrato> findByPuntoVendita(int idPuntoVendita) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM UtenteRegistrato WHERE idPuntoVendita = " + idPuntoVendita);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM UtenteRegistrato WHERE IdPuntoVendita = " + idPuntoVendita;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<UtenteRegistrato> utenti = new ArrayList<>();
         try {
             while (rs.next()) {

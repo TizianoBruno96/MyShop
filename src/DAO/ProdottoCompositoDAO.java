@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ProdottoComposito;
@@ -27,8 +30,10 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
 
     @Override
     public ProdottoComposito findByIDFiglio(int idProdottoFiglio) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM ProdottoComposito WHERE IDProdottoFiglio = " + idProdottoFiglio);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM ProdottoComposito WHERE IdProdottoFiglio = " + idProdottoFiglio;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -50,8 +55,10 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
 
     @Override
     public ProdottoComposito findByIDPadre(int idProdottoPadre) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM ProdottoComposito WHERE IDProdottoPadre = " + idProdottoPadre);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM ProdottoComposito WHERE IdProdottoPadre = " + idProdottoPadre;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -73,8 +80,10 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
 
     @Override
     public ArrayList<ProdottoComposito> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM ProdottoComposito");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM ProdottoComposito";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
         try {
             while(rs.next()) {

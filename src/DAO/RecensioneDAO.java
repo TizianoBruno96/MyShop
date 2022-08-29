@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Recensione;
@@ -26,8 +29,10 @@ public class RecensioneDAO implements IRecensioneDAO {
     }
 
     public ArrayList<Recensione> findByProdotto(int idProdotto) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Recensione WHERE idProdotto = " + idProdotto);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Recensione WHERE IdProdotto = " + idProdotto;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -50,8 +55,10 @@ public class RecensioneDAO implements IRecensioneDAO {
 
     @Override
     public ArrayList<Recensione> findByUtente(int idUtente) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Recensione WHERE idUtente = " + idUtente);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Recensione WHERE IdUtente = " + idUtente;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while(rs.next()) {
