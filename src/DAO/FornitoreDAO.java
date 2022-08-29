@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Fornitore;
@@ -27,8 +30,12 @@ public class FornitoreDAO implements IFornitoreDAO{
 
     @Override
     public Fornitore findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Fornitore WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
+
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation);
+
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -50,8 +57,11 @@ public class FornitoreDAO implements IFornitoreDAO{
 
     @Override
     public ArrayList<Fornitore> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Fornitore");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM fornitore";
+
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation);
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
             while(rs.next()) {
