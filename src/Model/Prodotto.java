@@ -4,7 +4,7 @@ public class Prodotto extends Articolo{
     private int idProdotto;
     private String Nome;
     private String Descrizione;
-    private double Costo;
+    private float Costo;
     private int idProdottoPadre;
     private int idProduttore;
     private int idPosizione;
@@ -23,7 +23,7 @@ public class Prodotto extends Articolo{
         this.idLista = 0;
     }
 
-    public Prodotto(int idProdotto, String Nome, String Descrizione, double Costo, int idProdottoPadre, int idProduttore, int idPosizione, int idCategoria, int idLista) {
+    public Prodotto(int idProdotto, String Nome, String Descrizione, float Costo, int idProdottoPadre, int idProduttore, int idPosizione, int idCategoria, int idLista) {
         this.idProdotto = idProdotto;
         this.Nome = Nome;
         this.Descrizione = Descrizione;
@@ -67,7 +67,7 @@ public class Prodotto extends Articolo{
         Descrizione = descrizione;
     }
 
-    public void setCosto(double costo) {
+    public void setCosto(float costo) {
         Costo = costo;
     }
 

@@ -17,7 +17,7 @@ public class UtenteFactory implements IFactory<Utente> {
         utente.setUsername(rs.getString("Username"));
         utente.setEmail(rs.getString("Email"));
         utente.setTelefono(rs.getString("Telefono"));
-        utente.setEta(rs.getInt("Età"));
+        utente.setEta(rs.getInt("Eta"));
         utente.setResidenza(rs.getString("Residenza"));
         utente.setProfessione(rs.getString("Professione"));
         utente.setPassword(rs.getString("Password"));

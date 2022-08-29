@@ -1,5 +1,8 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Categoria;
@@ -28,8 +31,10 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public Categoria findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria WHERE nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -51,8 +56,10 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public ArrayList<Categoria> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -75,8 +82,10 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public ArrayList<Categoria> findByCategoriaPadre(int idCategoriaPadre) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria WHERE idCategoriaPadre = " + idCategoriaPadre);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria WHERE idCategoriaPadre = " + idCategoriaPadre;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while(rs.next()) {

@@ -11,7 +11,7 @@ public class ProdottoFactory implements IFactory<Prodotto> {
         prodotto.setIdProdotto(rs.getInt("idProdotto"));
         prodotto.setNome(rs.getString("Nome"));
         prodotto.setDescrizione(rs.getString("Descrizione"));
-        prodotto.setCosto(rs.getDouble("Costo"));
+        prodotto.setCosto(rs.getFloat("Costo"));
         prodotto.setIdCategoria(rs.getInt("idCategoria"));
         prodotto.setIdProdottoPadre(rs.getInt("idProdottoPadre"));
         prodotto.setIdProduttore(rs.getInt("idProduttore"));

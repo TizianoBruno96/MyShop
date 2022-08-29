@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProdottoDAO implements IProdottoDAO {
-    private static ProdottoDAO instance = new ProdottoDAO();
+    private static final ProdottoDAO instance = new ProdottoDAO();
     private Prodotto prodotto;
     private static IDBConnection connection;
     private static ResultSet rs;

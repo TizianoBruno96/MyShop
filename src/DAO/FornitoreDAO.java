@@ -32,7 +32,6 @@ public class FornitoreDAO implements IFornitoreDAO{
     public Fornitore findByNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
-
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
 
@@ -59,7 +58,6 @@ public class FornitoreDAO implements IFornitoreDAO{
     public ArrayList<Fornitore> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore";
-
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Fornitore> fornitori = new ArrayList<>();
