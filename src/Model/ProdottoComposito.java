@@ -1,6 +1,7 @@
 package Model;
 
-public class ProdottoComposito {
+import Model.Prodotto;
+public class ProdottoComposito extends Prodotto {
     private int idProdottoPadre;
     private int idProdottoFiglio;
 

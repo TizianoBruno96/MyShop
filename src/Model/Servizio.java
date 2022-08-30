@@ -5,7 +5,6 @@ public class Servizio extends Articolo {
     private int idCategoria;
     private int idFornitore;
     private String Nome;
-    private double Costo;
 
 
     public Servizio() {
@@ -13,15 +12,15 @@ public class Servizio extends Articolo {
         idCategoria = 0;
         idFornitore = 0;
         Nome = "";
-        Costo = 0;
+        this.setCosto(0);
     }
 
-    public Servizio(int idServizio, int idCategoria, int idFornitore, String Nome, double Costo) {
+    public Servizio(int idServizio, int idCategoria, int idFornitore, String Nome, float Costo) {
         this.idServizio = idServizio;
         this.idCategoria = idCategoria;
         this.idFornitore = idFornitore;
         this.Nome = Nome;
-        this.Costo = Costo;
+        this.setCosto(Costo);
     }
 
     public void setIdServizio(int idServizio) {
@@ -54,14 +53,6 @@ public class Servizio extends Articolo {
 
     public String getNome() {
         return Nome;
-    }
-
-    public double getCosto() {
-        return Costo;
-    }
-
-    public void setCosto(double costo) {
-        Costo = costo;
     }
 
     public String toString() {

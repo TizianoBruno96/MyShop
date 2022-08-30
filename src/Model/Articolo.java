@@ -1,14 +1,24 @@
 package Model;
 
-public class Articolo {
+import Business.AbstractFactory.IArticolo;
 
-    private double costo;
+public class Articolo implements IArticolo {
 
-    public void setCosto(double costo) {
+    private float costo;
+
+    public Articolo() {
+        this.costo = 0;
+    }
+
+    public Articolo(float costo) {
         this.costo = costo;
     }
 
-    public double getCosto() {
+    public void setCosto(float costo) {
+        this.costo = costo;
+    }
+
+    public float getCosto() {
         return this.costo;
     }
 }

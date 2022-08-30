@@ -21,9 +21,9 @@ public class PuntoVendita {
     }
 
     public PuntoVendita() {
-        this.idPuntoVendita = -1;
-        this.idManager = -1;
-        this.idMagazzino = -1;
+        this.idPuntoVendita = 0;
+        this.idManager = 0;
+        this.idMagazzino = 0;
         this.Citta = "";
         this.Nome = "";
     }
