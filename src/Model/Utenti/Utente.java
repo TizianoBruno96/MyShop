@@ -17,8 +17,6 @@ public class Utente {
     private String Password;
     private String Tipo;
 
-    public ArrayList<PuntoVendita> puntiVendita;
-
     public Utente() {
         Nome = "";
         Cognome = "";
@@ -29,11 +27,10 @@ public class Utente {
         Residenza = "";
         Professione = "";
         Password = "";
-        Tipo = "";
-        puntiVendita = new ArrayList<PuntoVendita>();
+        Tipo = "CL";
     }
 
-    public Utente(String Nome, String Surname, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password, String Tipo, ArrayList<PuntoVendita> puntiVendita) {
+    public Utente(String Nome, String Surname, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password, String Tipo) {
         this.Nome = Nome;
         this.Cognome = Surname;
         this.Username = Username;
@@ -44,7 +41,6 @@ public class Utente {
         this.Professione = Professione;
         this.Password = Password;
         this.Tipo = Tipo;
-        this.puntiVendita = puntiVendita;
     }
 
     public int getIdUtente() {
@@ -131,14 +127,6 @@ public class Utente {
 
     public void setIdUtente(int idUtente) {
         this.idUtente = idUtente;
-    }
-
-    public ArrayList<PuntoVendita> getPuntiVendita() {
-        return puntiVendita;
-    }
-
-    public void setPuntiVendita(ArrayList<PuntoVendita> puntiVendita) {
-        this.puntiVendita = puntiVendita;
     }
 
     public String toString() {

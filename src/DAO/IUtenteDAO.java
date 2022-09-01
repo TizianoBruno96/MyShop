@@ -2,6 +2,7 @@ package DAO;
 
 import Model.Utenti.Utente;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IUtenteDAO {
@@ -13,6 +14,7 @@ public interface IUtenteDAO {
     boolean checkUtente(String username, String password);
     boolean checkUsername(String username);
     int add(Utente utente);
-    int removeByUsername(String username);
+    int removeByUsername(String username) throws SQLException;
     int update(Utente utente);
+    int updateTipo(String username, String tipo);
 }

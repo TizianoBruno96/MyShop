@@ -203,15 +203,29 @@ public class UtenteDAO implements IUtenteDAO {
     public int add(Utente utente) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("INSERT INTO utente (Nome, Cognome, Username, Email, Telefono, Eta, Residenza, Professione, Password, Tipo) VALUES ('" + utente.getNome() + "', '" + utente.getCognome() + "', '" + utente.getUsername() + "', '" + utente.getEmail() + "', '" + utente.getTelefono() + "', " + utente.getEta() + ", '" + utente.getResidenza() + "', '" + utente.getProfessione() + "', '" + utente.getPassword() + "', '" + utente.getTipo() + "')");
+        switch (utente.getTipo()) {
+            case "CL":
+                rowCount += connection.executeUpdate("INSERT INTO cliente (idUtente) VALUES LAST_INSERT_ID())");
+                break;
+            case "AM":
+                rowCount += connection.executeUpdate("INSERT INTO amministratore (idUtente) VALUES LAST_INSERT_ID())");
+                break;
+            case "MN":
+                rowCount += connection.executeUpdate("INSERT INTO manager (idUtente) VALUES LAST_INSERT_ID())");
+                break;
+        }
         rowCount += connection.executeUpdate("INSERT INTO listaacquisto (idUtente) VALUES (LAST_INSERT_ID());");
         connection.close();
         return rowCount;
     }
 
     @Override
-    public int removeByUsername(String username) {
+    public int removeByUsername(String username) throws SQLException {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+        rowCount += connection.executeUpdate("DELETE FROM Cliente WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+        rowCount += connection.executeUpdate("DELETE FROM Amministratore WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+        rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
         rowCount += connection.executeUpdate("DELETE FROM Utente WHERE Username = '" + username + "';");
         connection.close();
         return rowCount;
@@ -224,4 +238,13 @@ public class UtenteDAO implements IUtenteDAO {
         connection.close();
         return rowCount;
     }
+
+    public int updateTipo(String username, String tipo) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("UPDATE Utente SET Tipo = '" + tipo + "' WHERE Username = '" + username + "';");
+        connection.close();
+        return rowCount;
+    }
+
+
 }
