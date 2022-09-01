@@ -1,29 +1,29 @@
 package Model.Utenti;
 
 public class UtenteRegistrato {
-    private int idUtenteRegistrato;
+    private int idUtente;
     private int idPuntoVendita;
 
-    public void setIdUtenteRegistrato(int idUtenteRegistrato) {
-        this.idUtenteRegistrato = idUtenteRegistrato;
+    public UtenteRegistrato() {
+        idUtente = 0;
+        idPuntoVendita = 0;
+    }
+
+    public UtenteRegistrato(int idUtenteRegistrato, int idPuntoVendita) {
+        this.idUtente = idUtenteRegistrato;
+        this.idPuntoVendita = idPuntoVendita;
+    }
+
+    public void setIdUtente(int idUtenteRegistrato) {
+        this.idUtente = idUtenteRegistrato;
     }
 
     public void setIdPuntoVendita(int idPuntoVendita) {
         this.idPuntoVendita = idPuntoVendita;
     }
 
-    public UtenteRegistrato() {
-        idUtenteRegistrato = -1;
-        idPuntoVendita = -1;
-    }
-
-    public UtenteRegistrato(int idUtenteRegistrato, int idPuntoVendita) {
-        this.idUtenteRegistrato = idUtenteRegistrato;
-        this.idPuntoVendita = idPuntoVendita;
-    }
-
-    public int getIdUtenteRegistrato() {
-        return idUtenteRegistrato;
+    public int getIdUtente() {
+        return idUtente;
     }
 
     public int getIdPuntoVendita() {
@@ -31,6 +31,6 @@ public class UtenteRegistrato {
     }
 
     public String toString() {
-        return "UtenteRegistrato{" + "idUtenteRegistrato=" + idUtenteRegistrato + ", idPuntoVendita=" + idPuntoVendita + '}';
+        return "UtenteRegistrato{" + "idUtenteRegistrato=" + idUtente + ", idPuntoVendita=" + idPuntoVendita + '}';
     }
 }

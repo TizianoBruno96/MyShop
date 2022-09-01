@@ -5,6 +5,8 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
+import Model.Articoli.Prodotto;
+import Model.Magazzino;
 import Model.Posizione;
 import Model.ModelFactory.PosizioneFactory;
 
@@ -75,6 +77,23 @@ public class PosizioneDAO implements IPosizioneDAO {
             connection.close();
         }
         return null;
+    }
+
+    public int addPosizioniInMagazzino(Magazzino magazzino) {
+        int result = 0;
+        for(int i = 0; i < magazzino.getMaxCorsia(); i++) {
+            for(int j = 0; j < magazzino.getMaxScaffale(); j++) {
+                result += add(new Posizione(i, j, 0, magazzino.getIdMagazzino(), 0));
+            }
+        }
+        return result;
+    }
+
+    public int addProdottoInPosizione(Prodotto prodotto, int idMagazzino, int pCorsia, int pScaffale, int quantita) {
+        connection = DBConnection.getInstance();
+        int result = connection.executeUpdate("UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + pCorsia + " AND pScaffale = " + pScaffale);
+        connection.close();
+        return result;
     }
 
     @Override

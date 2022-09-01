@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
 
 import java.util.ArrayList;
@@ -11,4 +12,7 @@ public interface IServizioDAO {
     int add(Servizio servizio);
     int update(Servizio servizio);
     int remove(Servizio servizio);
+    int removeByNome(String nome);
+    int removeByFornitore(int idFornitore);
+    int removeByFornitore(Fornitore Fornitore);
 }

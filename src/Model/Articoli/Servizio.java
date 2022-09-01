@@ -6,7 +6,6 @@ public class Servizio extends Articolo {
     private int idFornitore;
     private String Nome;
 
-
     public Servizio() {
         idServizio = 0;
         idCategoria = 0;

@@ -14,6 +14,7 @@ public class RecensioneFactory implements IFactory<Recensione> {
         recensione.setCommento(rs.getString("Commento"));
         recensione.setIdProdotto(rs.getInt("idProdotto"));
         recensione.setIdUtente(rs.getInt("idUtente"));
+        recensione.setData(rs.getDate("Data"));
         return recensione;
     }
 }

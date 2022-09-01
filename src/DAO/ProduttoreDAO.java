@@ -82,7 +82,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     @Override
     public int add(Produttore produttore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Produttore (Nome, Citta, Nazione, SitoWeb) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSitoWeb() + "')");
+        int result = connection.executeUpdate("INSERT INTO Produttore (Nome, Citta, Nazione, SitoWeb) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSito() + "')");
         connection.close();
         return result;
     }
@@ -98,7 +98,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     @Override
     public int update(Produttore produttore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', SitoWeb = '" + produttore.getSitoWeb() + "' WHERE idProduttore = " + produttore.getIdProduttore());
+        int result = connection.executeUpdate("UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', Sito = '" + produttore.getSito() + "' WHERE idProduttore = " + produttore.getIdProduttore());
         connection.close();
         return result;
     }

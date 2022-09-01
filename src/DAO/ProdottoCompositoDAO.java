@@ -29,17 +29,17 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     }
 
     @Override
-    public ProdottoComposito findByIDFiglio(int idProdottoFiglio) {
+    public ArrayList<ProdottoComposito> findByIDFiglio(int idProdottoFiglio) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM ProdottoComposito WHERE IdProdottoFiglio = " + idProdottoFiglio;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
-            rs.next();
-            if(rs.getRow() == 1) {
-                prodottoComposito = new ProdottoCompositoFactory().create(rs);
-                return prodottoComposito;
+            ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
+            while(rs.next()) {
+                prodottiCompositi.add(new ProdottoCompositoFactory().create(rs));
             }
+            return prodottiCompositi;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -54,17 +54,17 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     }
 
     @Override
-    public ProdottoComposito findByIDPadre(int idProdottoPadre) {
+    public ArrayList<ProdottoComposito> findByIDPadre(int idProdottoPadre) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM ProdottoComposito WHERE IdProdottoPadre = " + idProdottoPadre;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
-            rs.next();
-            if(rs.getRow() == 1) {
-                prodottoComposito = new ProdottoCompositoFactory().create(rs);
-                return prodottoComposito;
+            ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
+            while(rs.next()) {
+                prodottiCompositi.add(new ProdottoCompositoFactory().create(rs));
             }
+            return prodottiCompositi;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());

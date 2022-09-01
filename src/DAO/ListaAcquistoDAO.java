@@ -78,8 +78,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     @Override
     public int add(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
-
-        int result = connection.executeUpdate("INSERT INTO ListaAcquisto (idUtente, CostoTotale) VALUES ('" + listaAcquisto.getIdUtente() + "' , '" + listaAcquisto.getCostoTot() + "')");
+        int result = connection.executeUpdate("INSERT INTO ListaAcquisto (IdUtente, CostoTotale, isPagata) VALUES (" + listaAcquisto.getIdUtente() + ", " + listaAcquisto.getCostoTot() + ", " + listaAcquisto.isPagata() + ")");
         connection.close();
         return result;
     }
@@ -103,7 +102,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     @Override
     public int update(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE ListaAcquisto SET idUtente = '" + listaAcquisto.getIdUtente() + "', CostoTotale = '" + listaAcquisto.getCostoTot() + "' WHERE idListaAcquisto = '" + listaAcquisto.getIdListaAcquisto() + "'");
+        int result = connection.executeUpdate("UPDATE ListaAcquisto SET IdUtente = " + listaAcquisto.getIdUtente() + ", CostoTotale = " + listaAcquisto.getCostoTot() + ", isPagata = " + listaAcquisto.isPagata() + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto());
         connection.close();
         return result;
     }

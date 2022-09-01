@@ -12,7 +12,7 @@ public class ProduttoreFactory implements IFactory<Produttore> {
         produttore.setIdProduttore(rs.getInt("idProduttore"));
         produttore.setCitta(rs.getString("Citta"));
         produttore.setNazione(rs.getString("Nazione"));
-        produttore.setSitoWeb(rs.getString("SitoWeb"));
+        produttore.setSito(rs.getString("Sito"));
         return produttore;
     }
 }

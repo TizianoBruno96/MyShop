@@ -13,9 +13,9 @@ public class ListaAcquisto {
         this.isPagata = false;
     }
 
-    public ListaAcquisto(int idListaAcquisto, int idPuntoVendita, int CostoTot, boolean isPagata) {
+    public ListaAcquisto(int idListaAcquisto, int idUtente, int CostoTot, boolean isPagata) {
         this.idListaAcquisto = idListaAcquisto;
-        this.idUtente = idPuntoVendita;
+        this.idUtente = idUtente;
         this.CostoTot = CostoTot;
         this.isPagata = isPagata;
     }
@@ -41,9 +41,8 @@ public class ListaAcquisto {
     }
 
     public int getIdUtente() {
-        return idListaAcquisto;
+        return idUtente;
     }
-
 
     public int getIdListaAcquisto() {
         return idListaAcquisto;

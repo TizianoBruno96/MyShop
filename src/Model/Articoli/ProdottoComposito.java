@@ -1,6 +1,6 @@
 package Model.Articoli;
 
-public class ProdottoComposito extends Prodotto {
+public class ProdottoComposito extends Prodotto implements IProdotto {
     private int idProdottoPadre;
     private int idProdottoFiglio;
 

@@ -10,4 +10,5 @@ public interface IRecensioneDAO {
     int add(Recensione recensione);
     int update(Recensione recensione);
     int remove(int idRecensione);
+    int removeByProdottoAndUtente(int idProdotto, int idUtente);
 }

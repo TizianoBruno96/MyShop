@@ -1,104 +1,68 @@
 package Model.Utenti;
 
+import Model.PuntoVendita;
+
+import java.util.ArrayList;
+
 public class Utente {
-    private String Name;
-    private String Surname;
+    private int idUtente;
+    private String Nome;
+    private String Cognome;
     private String Username;
     private String Email;
     private String Telefono;
-    private int eta;
+    private int Eta;
     private String Residenza;
     private String Professione;
     private String Password;
     private String Tipo;
-    private int idUtente;
-    private Integer idPuntoVendita;
-    private Integer idListaAcquisto;
 
-    public void setIdUtente(int idUtente) {
-        this.idUtente = idUtente;
-    }
-
-    public void setIdPuntoVendita(int idPuntoVendita) {
-        this.idPuntoVendita = idPuntoVendita;
-    }
-
-    public void setIdListaAcquisto(int idListaAcquisto) {
-        this.idListaAcquisto = idListaAcquisto;
-    }
+    public ArrayList<PuntoVendita> puntiVendita;
 
     public Utente() {
-        Name = "";
-        Surname = "";
+        Nome = "";
+        Cognome = "";
         Username = "";
         Email = "";
         Telefono = "";
-        eta = 0;
+        Eta = 0;
         Residenza = "";
         Professione = "";
         Password = "";
         Tipo = "";
-        idPuntoVendita = null;
-        idListaAcquisto = null;
+        puntiVendita = new ArrayList<PuntoVendita>();
     }
 
-    public Utente(String Name, String Surname, String Username, String Email, String Telefono, int eta, String Residenza, String Professione, String Password, String Tipo, Integer idPuntoVendita, Integer idListaAcquisto) {
-        this.Name = Name;
-        this.Surname = Surname;
+    public Utente(String Nome, String Surname, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password, String Tipo, ArrayList<PuntoVendita> puntiVendita) {
+        this.Nome = Nome;
+        this.Cognome = Surname;
         this.Username = Username;
         this.Email = Email;
         this.Telefono = Telefono;
-        this.eta = eta;
+        this.Eta = Eta;
         this.Residenza = Residenza;
         this.Professione = Professione;
         this.Password = Password;
         this.Tipo = Tipo;
-        this.idPuntoVendita = idPuntoVendita;
-        this.idListaAcquisto = idListaAcquisto;
-    }
-
-    public Utente(String Name, String Surname, String Username, String Email, String Telefono, int eta, String Residenza, String Professione, String Password, String Tipo) {
-        this.Name = Name;
-        this.Surname = Surname;
-        this.Username = Username;
-        this.Email = Email;
-        this.Telefono = Telefono;
-        this.eta = eta;
-        this.Residenza = Residenza;
-        this.Professione = Professione;
-        this.Password = Password;
-        this.Tipo = Tipo;
-        this.idUtente = 0;
-        this.idPuntoVendita = 0;
-        this.idListaAcquisto = 0;
+        this.puntiVendita = puntiVendita;
     }
 
     public int getIdUtente() {
         return idUtente;
     }
 
-    public int getIdPuntoVendita() {
-        return idPuntoVendita;
+    public String getNome() {
+        return Nome;
     }
 
-    public int getIdListaAcquisto() {
-        return idListaAcquisto;
+    public void setNome(String Nome) {
+        Nome = Nome;
     }
-
-    public String getName() {
-        return Name;
+    public void setCognome(String Cognome) {
+        Cognome = Cognome;
     }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getSurname() {
-        return Surname;
-    }
-
-    public void setSurname(String surname) {
-        Surname = surname;
+    public String getCognome() {
+        return Cognome;
     }
 
     public String getUsername() {
@@ -126,11 +90,11 @@ public class Utente {
     }
 
     public int getEta() {
-        return eta;
+        return Eta;
     }
 
-    public void setEta(int eta) {
-        this.eta = eta;
+    public void setEta(int Eta) {
+        this.Eta = Eta;
     }
 
     public String getResidenza() {
@@ -165,21 +129,31 @@ public class Utente {
         Tipo = tipo;
     }
 
+    public void setIdUtente(int idUtente) {
+        this.idUtente = idUtente;
+    }
+
+    public ArrayList<PuntoVendita> getPuntiVendita() {
+        return puntiVendita;
+    }
+
+    public void setPuntiVendita(ArrayList<PuntoVendita> puntiVendita) {
+        this.puntiVendita = puntiVendita;
+    }
+
     public String toString() {
         return "Utente{" +
-                "Name='" + Name + '\'' +
-                ", Surname='" + Surname + '\'' +
+                "Name='" + Nome + '\'' +
+                ", Surname='" + Cognome + '\'' +
                 ", Username='" + Username + '\'' +
                 ", Email='" + Email + '\'' +
                 ", Telefono='" + Telefono + '\'' +
-                ", eta=" + eta +
+                ", Eta=" + Eta +
                 ", Residenza='" + Residenza + '\'' +
                 ", Professione='" + Professione + '\'' +
                 ", Password='" + Password + '\'' +
                 ", Tipo='" + Tipo + '\'' +
                 ", idUtente=" + idUtente +
-                ", idPuntoVendita=" + idPuntoVendita +
-                ", idListaAcquisto=" + idListaAcquisto +
                 '}';
     }
 }

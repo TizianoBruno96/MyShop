@@ -5,66 +5,43 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.PuntoVendita;
-import Model.ModelFactory.PuntoVenditaFactory;
+import Model.Articoli.Servizio;
+import Model.ModelFactory.OrdineFactory;
+import Model.Ordine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PuntoVenditaDAO implements IPuntoVenditaDAO {
-    private static PuntoVenditaDAO instance = new PuntoVenditaDAO();
-    private PuntoVendita puntoVendita;
+public class OrdineDAO implements IOrdineDAO {
+    private static OrdineDAO instance = new OrdineDAO();
+    private Ordine ordine;
     private static IDBConnection connection;
     private static ResultSet rs;
 
-
-    private PuntoVenditaDAO() {
-        puntoVendita = null;
+    private OrdineDAO() {
+        ordine = null;
         connection = null;
         rs = null;
     }
 
-    public static PuntoVenditaDAO getInstance() {
+    public static OrdineDAO getInstance() {
         return instance;
     }
 
-    public PuntoVendita findByManager(int idManager) {
+    @Override
+    public ArrayList<Ordine> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM puntovendita WHERE IdManager = " + idManager;
+        String sql = "SELECT * FROM Ordine";
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
-        try {
-            rs.next();
-            if(rs.getRow() == 1) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
-                return puntoVendita;
-            }
-        } catch (SQLException e) {
-            //handle any errors
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } catch (NullPointerException e) {
-            System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
-        }
-        return null;
-    }
-
-    public ArrayList<PuntoVendita> findAll() {
-        DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM puntovendita";
-        IDBOperation operation = new ReadOperation(sql);
-        rs = executor.executeOperation(operation).getResultSet();
-        ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
+        ArrayList<Ordine> ordini = new ArrayList<>();
         try {
             while(rs.next()) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
-                puntiVendita.add(puntoVendita);
+                ordine = new OrdineFactory().create(rs);
+                ordini.add(ordine);
             }
-            return puntiVendita;
+            return ordini;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -79,18 +56,18 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     }
 
     @Override
-    public ArrayList<PuntoVendita> findByCitta(String citta) {
+    public ArrayList<Ordine> findByListaAcquisto(int idListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM puntovendita WHERE Citta = '" + citta + "'";
+        String sql = "SELECT * FROM Ordine WHERE idListaAcquisto = " + idListaAcquisto;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
-        ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
+        ArrayList<Ordine> ordini = new ArrayList<>();
         try {
             while(rs.next()) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
-                puntiVendita.add(puntoVendita);
+                ordine = new OrdineFactory().create(rs);
+                ordini.add(ordine);
             }
-            return puntiVendita;
+            return ordini;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -105,34 +82,76 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     }
 
     @Override
-    public int add(PuntoVendita puntoVendita) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO puntovendita(Citta, Nome, Indirizzo, IdUtenteManager) VALUES ('" + puntoVendita.getCitta() + "', '" + puntoVendita.getNome() + "', '" + puntoVendita.getIndirizzo() + "', " + puntoVendita.getIdUtenteManager() + ")");
-        connection.close();
-        return result;
+    public ArrayList<Ordine> findByProdotto(int idProdotto) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Ordine WHERE idProdotto = " + idProdotto;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        ArrayList<Ordine> ordini = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                ordine = new OrdineFactory().create(rs);
+                ordini.add(ordine);
+            }
+            return ordini;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
     }
 
     @Override
-    public int update(PuntoVendita puntoVendita) {
+    public int add(Ordine ordine) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE puntovendita SET Citta = '" + puntoVendita.getCitta() + "', Nome = '" + puntoVendita.getNome() + "', Indirizzo = '" + puntoVendita.getIndirizzo() + "', IdUtenteManager = " + puntoVendita.getIdUtenteManager() + " WHERE Id = " + puntoVendita.getIdPuntoVendita());
+        int rowCount = connection.executeUpdate("INSERT INTO Ordine (idProdotto, idListaAcquisto) VALUES (" + ordine.getIdProdotto() + ", " + ordine.getIdListaAcquisto() + ")");
         connection.close();
-        return result;
+        return rowCount;
     }
 
     @Override
-    public int removeByID(int idPuntoVendita) {
+    public int removeByIDProdotto(int idProdotto) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM puntovendita WHERE idPuntoVendita = " + idPuntoVendita);
+        int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idProdotto = " + idProdotto);
         connection.close();
-        return result;
+        return rowCount;
     }
 
     @Override
-    public int removeByIDMagazzino(int idMagazzino) {
+    public int removeByIDListaAcquisto(int idListaAcquisto) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM puntovendita WHERE idMagazzino = " + idMagazzino);
+        int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idListaAcquisto = " + idListaAcquisto);
         connection.close();
-        return result;
+        return rowCount;
+    }
+
+    @Override
+    public int removeByID(int idProdotto, int idListaAcquisto) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idProdotto = " + idProdotto + " AND idListaAcquisto = " + idListaAcquisto);
+        connection.close();
+        return rowCount;
+    }
+
+    @Override
+    public int updateByProdotto(Ordine ordine) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("UPDATE Ordine SET idListaAcquisto = " + ordine.getIdListaAcquisto() + " WHERE idProdotto = " + ordine.getIdProdotto());
+        connection.close();
+        return rowCount;
+    }
+
+    @Override
+    public int updateByListaAcquisto(Ordine ordine) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("UPDATE Ordine SET idProdotto = " + ordine.getIdProdotto() + " WHERE idListaAcquisto = " + ordine.getIdListaAcquisto());
+        connection.close();
+        return rowCount;
     }
 }

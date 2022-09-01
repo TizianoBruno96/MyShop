@@ -6,11 +6,9 @@ public class Foto {
     private byte[] Valore;
     private String Nome;
 
-
-
     public Foto() {
-        this.idFoto = -1;
-        this.idProdotto = -1;
+        this.idFoto = 0;
+        this.idProdotto = 0;
         this.Valore = null;
         this.Nome = "";
     }

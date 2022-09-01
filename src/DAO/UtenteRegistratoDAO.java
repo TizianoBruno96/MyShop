@@ -73,18 +73,18 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
     @Override
     public int add(UtenteRegistrato utenteRegistrato) {
         connection = DBConnection.getInstance();
-        return connection.executeUpdate("INSERT INTO UtenteRegistrato (idUtenteRegistrato, idPuntoVendita) VALUES (" + utenteRegistrato.getIdUtenteRegistrato() + ", " + utenteRegistrato.getIdPuntoVendita() + ")");
+        return connection.executeUpdate("INSERT INTO UtenteRegistrato (idUtenteRegistrato, idPuntoVendita) VALUES (" + utenteRegistrato.getIdUtente() + ", " + utenteRegistrato.getIdPuntoVendita() + ")");
     }
 
     @Override
     public int update(UtenteRegistrato utenteRegistrato) {
         connection = DBConnection.getInstance();
-        return connection.executeUpdate("UPDATE UtenteRegistrato SET idPuntoVendita = " + utenteRegistrato.getIdPuntoVendita() + " WHERE idUtenteRegistrato = " + utenteRegistrato.getIdUtenteRegistrato());
+        return connection.executeUpdate("UPDATE UtenteRegistrato SET idPuntoVendita = " + utenteRegistrato.getIdPuntoVendita() + " WHERE idUtenteRegistrato = " + utenteRegistrato.getIdUtente());
     }
 
     @Override
     public int remove(UtenteRegistrato utenteRegistrato) {
         connection = DBConnection.getInstance();
-        return connection.executeUpdate("DELETE FROM UtenteRegistrato WHERE idUtenteRegistrato = " + utenteRegistrato.getIdUtenteRegistrato());
+        return connection.executeUpdate("DELETE FROM UtenteRegistrato WHERE idUtenteRegistrato = " + utenteRegistrato.getIdUtente());
     }
 }

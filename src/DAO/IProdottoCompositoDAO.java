@@ -5,8 +5,8 @@ import Model.Articoli.ProdottoComposito;
 import java.util.ArrayList;
 
 public interface IProdottoCompositoDAO {
-    ProdottoComposito findByIDFiglio(int idProdottoFiglio);
-    ProdottoComposito findByIDPadre(int idProdottoPadre);
+    ArrayList<ProdottoComposito> findByIDFiglio(int idProdottoFiglio);
+    ArrayList<ProdottoComposito> findByIDPadre(int idProdottoPadre);
     ArrayList<ProdottoComposito> findAll();
     int add(ProdottoComposito prodottoComposito);
     int removeByIDFiglio(int idProdottoFiglio);

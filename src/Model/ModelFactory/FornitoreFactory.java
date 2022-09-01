@@ -11,6 +11,7 @@ public class FornitoreFactory implements IFactory<Fornitore> {
         Fornitore fornitore = new Fornitore();
         fornitore.setIdFornitore(rs.getInt("idFornitore"));
         fornitore.setNome(rs.getString("Nome"));
+        fornitore.setSito(rs.getString("Sito"));
         return fornitore;
     }
 }

@@ -3,7 +3,7 @@ package Model.Articoli;
 public class Produttore {
     private int idProduttore;
     private String Nome;
-    private String SitoWeb;
+    private String Sito;
     private String Citta;
     private String Nazione;
 
@@ -14,15 +14,15 @@ public class Produttore {
     public Produttore() {
         this.idProduttore = -1;
         this.Nome = "";
-        this.SitoWeb = "";
+        this.Sito = "";
         this.Citta = "";
         this.Nazione = "";
     }
 
-    public Produttore(int idProduttore, String nome, String sitoWeb, String citta, String nazione) {
+    public Produttore(int idProduttore, String nome, String sito, String citta, String nazione) {
         this.idProduttore = idProduttore;
         this.Nome = nome;
-        this.SitoWeb = sitoWeb;
+        this.Sito = sito;
         this.Citta = citta;
         this.Nazione = nazione;
     }
@@ -31,8 +31,8 @@ public class Produttore {
         Nome = nome;
     }
 
-    public void setSitoWeb(String sitoWeb) {
-        SitoWeb = sitoWeb;
+    public void setSito(String sitoWeb) {
+        Sito = sitoWeb;
     }
 
     public void setCitta(String citta) {
@@ -51,8 +51,8 @@ public class Produttore {
         return Nome;
     }
 
-    public String getSitoWeb() {
-        return SitoWeb;
+    public String getSito() {
+        return Sito;
     }
 
     public String getCitta() {
@@ -64,6 +64,6 @@ public class Produttore {
     }
 
     public String toString() {
-        return "Nome: " + Nome + "\nSito Web: " + SitoWeb + "\nCitta: " + Citta + "\nNazione: " + Nazione;
+        return "Nome: " + Nome + "\nSito Web: " + Sito + "\nCitta: " + Citta + "\nNazione: " + Nazione;
     }
 }

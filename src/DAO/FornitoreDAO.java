@@ -83,7 +83,7 @@ public class FornitoreDAO implements IFornitoreDAO{
     @Override
     public int add(Fornitore fornitore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Fornitore (Nome) VALUES ('" + fornitore.getNome() + "')");
+        int result = connection.executeUpdate("INSERT INTO fornitore (nome, sito) VALUES ('" + fornitore.getNome() + "', '" + fornitore.getSito() + "')");
         connection.close();
         return result;
     }

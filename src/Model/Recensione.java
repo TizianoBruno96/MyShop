@@ -8,7 +8,6 @@ public class Recensione {
     private String commento;
     private int idProdotto;
     private int idUtente;
-
     private Date data;
 
     public void setIdRecensione(int idRecensione) {
@@ -34,6 +33,7 @@ public class Recensione {
         this.commento = commento;
         this.idProdotto = idProdotto;
         this.idUtente = idUtente;
+        this.data = data;
     }
 
     public int getIdUtente() {

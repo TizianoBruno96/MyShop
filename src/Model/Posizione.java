@@ -5,25 +5,25 @@ public class Posizione {
     private int pCorsia;
     private int pScaffale;
     private int Quantita;
-    private int idProdotto;
     private int idMagazzino;
+    private int idProdotto;
 
     public Posizione() {
-        this.idPosizione = -1;
-        this.pCorsia = -1;
-        this.pScaffale = -1;
-        this.Quantita = -1;
-        this.idProdotto = -1;
-        this.idMagazzino = -1;
+        this.idPosizione = 0;
+        this.pCorsia = 0;
+        this.pScaffale = 0;
+        this.Quantita = 0;
+        this.idMagazzino = 0;
+        this.idProdotto = 0;
     }
 
-    public Posizione(int idPosizione, int pCorsia, int pScaffale, int Quantita, int idProdotto, int idMagazzino) {
-        this.idPosizione = idPosizione;
+    public Posizione(int pCorsia, int pScaffale, int Quantita, int idMagazzino, int idProdotto) {
+        this.idPosizione = 0;
         this.pCorsia = pCorsia;
         this.pScaffale = pScaffale;
         this.Quantita = Quantita;
-        this.idProdotto = idProdotto;
         this.idMagazzino = idMagazzino;
+        this.idProdotto = idProdotto;
     }
 
     public void setIdPosizione(int idPosizione) {
