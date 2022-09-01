@@ -1,9 +1,12 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Magazzino;
-import ModelFactory.MagazzinoFactory;
+import Model.ModelFactory.MagazzinoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +29,10 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     }
 
     public Magazzino findByID(int IdMagazzino) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Magazzino WHERE idMagazzino = '" + IdMagazzino + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Magazzino WHERE IdMagazzino = " + IdMagazzino;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -48,8 +53,10 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     }
 
     public Magazzino findByPuntoVendita(int IdPuntoVendita) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Magazzino WHERE idPuntoVendita = '" + IdPuntoVendita + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Magazzino WHERE IdPuntoVendita = " + IdPuntoVendita;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -70,8 +77,10 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     }
 
     public ArrayList<Magazzino> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Magazzino");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Magazzino";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Magazzino> magazzini = new ArrayList<Magazzino>();
         try {
             while(rs.next()) {

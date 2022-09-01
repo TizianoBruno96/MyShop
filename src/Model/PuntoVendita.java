@@ -2,38 +2,47 @@ package Model;
 
 public class PuntoVendita {
     private int idPuntoVendita;
-    private int idManager;
-    private int idMagazzino;
     private String Citta;
-
     private String Nome;
+    private String Indirizzo;
+    private int idUtenteManager;
+
+
+
+    public PuntoVendita() {
+        this.idPuntoVendita = 0;
+        this.Citta = "";
+        this.Nome = "";
+        this.Indirizzo = "";
+        this.idUtenteManager = 0;
+    }
+
+    public PuntoVendita(int idPuntoVendita, String Citta, String Nome, String Indirizzo, int idUtenteManager) {
+        this.idPuntoVendita = idPuntoVendita;
+        this.Citta = Citta;
+        this.Nome = Nome;
+        this.Indirizzo = Indirizzo;
+        this.idUtenteManager = idUtenteManager;
+    }
+
+    public String getIndirizzo() {
+        return Indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        Indirizzo = indirizzo;
+    }
+
+    public int getIdUtenteManager() {
+        return idUtenteManager;
+    }
+
+    public void setIdUtenteManager(int idUtenteManager) {
+        this.idUtenteManager = idUtenteManager;
+    }
 
     public void setIdPuntoVendita(int idPuntoVendita) {
         this.idPuntoVendita = idPuntoVendita;
-    }
-
-    public void setIdManager(int idManager) {
-        this.idManager = idManager;
-    }
-
-    public void setIdMagazzino(int idMagazzino) {
-        this.idMagazzino = idMagazzino;
-    }
-
-    public PuntoVendita() {
-        this.idPuntoVendita = -1;
-        this.idManager = -1;
-        this.idMagazzino = -1;
-        this.Citta = "";
-        this.Nome = "";
-    }
-
-    public PuntoVendita(int idPuntoVendita, int idManager, int idMagazzino, String Citta, String Nome) {
-        this.idPuntoVendita = idPuntoVendita;
-        this.idManager = idManager;
-        this.idMagazzino = idMagazzino;
-        this.Citta = Citta;
-        this.Nome = Nome;
     }
 
     public void setCitta(String citta) {
@@ -44,13 +53,7 @@ public class PuntoVendita {
         return idPuntoVendita;
     }
 
-    public int getIdManager() {
-        return idManager;
-    }
 
-    public int getIdMagazzino() {
-        return idMagazzino;
-    }
 
     public String getCitta() {
         return Citta;
@@ -67,10 +70,10 @@ public class PuntoVendita {
     public String toString() {
         return "PuntoVendita{" +
                 "idPuntoVendita=" + idPuntoVendita +
-                ", idManager=" + idManager +
-                ", idMagazzino=" + idMagazzino +
                 ", Citta='" + Citta + '\'' +
                 ", Nome='" + Nome + '\'' +
+                ", Indirizzo='" + Indirizzo + '\'' +
+                ", idUtenteManager=" + idUtenteManager +
                 '}';
     }
 }

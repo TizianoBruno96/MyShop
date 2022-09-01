@@ -1,5 +1,7 @@
 package Model;
 
+import Business.AbstractFactory.ICategoria;
+
 public class Categoria {
     private int idCategoria;
     private int idCategoriaPadre;

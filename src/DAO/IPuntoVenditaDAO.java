@@ -9,6 +9,7 @@ public interface IPuntoVenditaDAO {
     ArrayList<PuntoVendita> findAll();
     int add(PuntoVendita puntoVendita);
     int update(PuntoVendita puntoVendita);
-    int remove(int idPuntoVendita);
+    int removeByID(int idPuntoVendita);
+    int removeByIDMagazzino(int idPuntoVendita);
     ArrayList<PuntoVendita> findByCitta(String citta);
 }

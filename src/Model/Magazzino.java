@@ -7,10 +7,10 @@ public class Magazzino {
     private int maxScaffale;
 
     public Magazzino() {
-        this.idMagazzino = -1;
-        this.idPuntoVendita = -1;
-        this.maxCorsia = -1;
-        this.maxScaffale = -1;
+        this.idMagazzino = 0;
+        this.idPuntoVendita = 0;
+        this.maxCorsia = 0;
+        this.maxScaffale = 0;
     }
 
     public Magazzino(int idMagazzino, int idPuntoVendita, int maxCorsia, int maxScaffale) {

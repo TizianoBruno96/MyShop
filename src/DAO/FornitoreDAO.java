@@ -1,16 +1,19 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Fornitore;
-import ModelFactory.FornitoreFactory;
+import Model.Articoli.Fornitore;
+import Model.ModelFactory.FornitoreFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FornitoreDAO implements IFornitoreDAO{
-    private static FornitoreDAO instance = new FornitoreDAO();
+    private static final FornitoreDAO instance = new FornitoreDAO();
     private Fornitore fornitore;
     private static IDBConnection connection;
     private static ResultSet rs;
@@ -27,8 +30,11 @@ public class FornitoreDAO implements IFornitoreDAO{
 
     @Override
     public Fornitore findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Fornitore WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -50,8 +56,10 @@ public class FornitoreDAO implements IFornitoreDAO{
 
     @Override
     public ArrayList<Fornitore> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Fornitore");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM fornitore";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -75,7 +83,7 @@ public class FornitoreDAO implements IFornitoreDAO{
     @Override
     public int add(Fornitore fornitore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Fornitore (Nome) VALUES ('" + fornitore.getNome() + "')");
+        int result = connection.executeUpdate("INSERT INTO fornitore (nome, sito) VALUES ('" + fornitore.getNome() + "', '" + fornitore.getSito() + "')");
         connection.close();
         return result;
     }

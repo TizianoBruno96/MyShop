@@ -2,22 +2,24 @@ package Test;
 
 import DAO.IUtenteDAO;
 import DAO.UtenteDAO;
-import Model.Utente;
+import Model.Utenti.Utente;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class UtenteDAOTest {
     @Before
     public void setUp() {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
-        utenteDAO.add(new Utente("Valentino", "Rossi", "VRossi", "valeRossi69420@gmail.com", "3334445555", 46, "catania", "Pilota di moto", "1234", "UA"));
+        utenteDAO.add(new Utente());
     }
 
     @After
     public void tearDown() {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
-        utenteDAO.removeByID("VRossi");
+        utenteDAO.removeByUsername("VRossi");
     }
 
     @Test
@@ -26,4 +28,21 @@ public class UtenteDAOTest {
         Utente utente = utenteDAO.findByUsername("VRossi");
         assert utente.getUsername().equals("VRossi");
     }
+
+    @Test
+    public void findAllTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        ArrayList<Utente> utenti = utenteDAO.findAll();
+        assert utenti.size() == 4;
+    }
+
+    @Test
+    public void updateTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        Utente utente = utenteDAO.findByUsername("VRossi");
+        utente.setPassword("3542");
+        utenteDAO.update(utente);
+        assert utente.getPassword().equals("3542");
+    }
+
 }

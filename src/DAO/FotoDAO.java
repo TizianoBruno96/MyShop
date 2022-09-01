@@ -1,9 +1,12 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Foto;
-import ModelFactory.FotoFactory;
+import Model.Articoli.Foto;
+import Model.ModelFactory.FotoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +31,10 @@ public class FotoDAO implements IFotoDAO {
 
     @Override
     public Foto findByValore(String Valore) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Foto WHERE Valore = '" + Valore + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM foto WHERE valore = '" + Valore + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -51,8 +56,10 @@ public class FotoDAO implements IFotoDAO {
 
     @Override
     public Foto findByName(String Nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Foto WHERE Nome = '" + Nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM foto WHERE nome = '" + Nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -101,6 +108,7 @@ public class FotoDAO implements IFotoDAO {
                 foto = new FotoFactory().create(rs);
                 fotoList.add(foto);
             }
+            return fotoList;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -111,7 +119,7 @@ public class FotoDAO implements IFotoDAO {
         } finally {
             connection.close();
         }
-        return fotoList;
+        return null;
     }
 
     //TODO: sistemare codice per le foto (ho indicato il path ma le foto sono di tipo blob, ossia binary large object)

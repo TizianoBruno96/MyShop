@@ -1,10 +1,12 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Categoria;
-import Model.Utente;
-import ModelFactory.CategoriaFactory;
+import Model.ModelFactory.CategoriaFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +30,10 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public Categoria findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria WHERE nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -51,8 +55,10 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public ArrayList<Categoria> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -75,15 +81,62 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public ArrayList<Categoria> findByCategoriaPadre(int idCategoriaPadre) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria WHERE idCategoriaPadre = " + idCategoriaPadre);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria WHERE idCategoriaPadre = " + idCategoriaPadre;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while(rs.next()) {
-                categoria = new Categoria();
-                categoria.setNome(rs.getString("Nome"));
-                categoria.setIdCategoria(rs.getInt("idCategoria"));
-                categoria.setIdCategoriaPadre(rs.getInt("idCategoriaPadre"));
+                categoria = new CategoriaFactory().create(rs);
+                categorie.add(categoria);
+            }
+            return categorie;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Categoria> findByCategoriaPadre(String nomeCategoriaPadre) {
+        connection = DBConnection.getInstance();
+        rs = connection.executeQuery("SELECT * FROM Categoria WHERE idCategoriaPadre = (SELECT idCategoria FROM Categoria WHERE Nome = '" + nomeCategoriaPadre + "')");
+        ArrayList<Categoria> categorie = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                categoria = new CategoriaFactory().create(rs);
+                categorie.add(categoria);
+            }
+            return categorie;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Categoria> findSottoCategorie(int idCategoria) {
+        connection = DBConnection.getInstance();
+        rs = connection.executeQuery("SELECT * FROM Categoria WHERE idCategoriaPadre = " + idCategoria);
+        ArrayList<Categoria> categorie = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                categoria = new CategoriaFactory().create(rs);
                 categorie.add(categoria);
             }
             return categorie;

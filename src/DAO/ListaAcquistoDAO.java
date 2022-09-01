@@ -1,13 +1,15 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
-import ModelFactory.ListaAcquistoFactory;
+import Model.ModelFactory.ListaAcquistoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ListaAcquistoDAO implements IListaAcquistoDAO {
     private static ListaAcquistoDAO instance = new ListaAcquistoDAO();
@@ -26,8 +28,10 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     }
 
     public ListaAcquisto findByIDUtente(int IdUtente) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM ListaAcquisto WHERE idUtente = '" + IdUtente + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM ListaAcquisto WHERE IdUtente = " + IdUtente;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -48,8 +52,10 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     }
 
     public ListaAcquisto findByID(int IdListaAcquisto) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM ListaAcquisto WHERE idListaAcquisto = '" + IdListaAcquisto + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM ListaAcquisto WHERE IdListaAcquisto = " + IdListaAcquisto;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -72,8 +78,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     @Override
     public int add(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
-
-        int result = connection.executeUpdate("INSERT INTO ListaAcquisto (idUtente, CostoTotale) VALUES ('" + listaAcquisto.getIdUtente() + "' , '" + listaAcquisto.getCostoTot() + "')");
+        int result = connection.executeUpdate("INSERT INTO ListaAcquisto (IdUtente, CostoTotale, isPagata) VALUES (" + listaAcquisto.getIdUtente() + ", " + listaAcquisto.getCostoTot() + ", " + listaAcquisto.isPagata() + ")");
         connection.close();
         return result;
     }
@@ -97,7 +102,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     @Override
     public int update(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE ListaAcquisto SET idUtente = '" + listaAcquisto.getIdUtente() + "', CostoTotale = '" + listaAcquisto.getCostoTot() + "' WHERE idListaAcquisto = '" + listaAcquisto.getIdListaAcquisto() + "'");
+        int result = connection.executeUpdate("UPDATE ListaAcquisto SET IdUtente = " + listaAcquisto.getIdUtente() + ", CostoTotale = " + listaAcquisto.getCostoTot() + ", isPagata = " + listaAcquisto.isPagata() + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto());
         connection.close();
         return result;
     }
