@@ -207,7 +207,7 @@ public class UtenteDAO implements IUtenteDAO {
             case "AM" ->
                     rowCount += connection.executeUpdate("INSERT INTO amministratore (idUtente) VALUES (LAST_INSERT_ID())");
             case "MN" ->
-                    rowCount += connection.executeUpdate("INSERT INTO manager (idUtente) VALUES LAST_INSERT_ID())");
+                    rowCount += connection.executeUpdate("INSERT INTO manager (idUtente) VALUES (LAST_INSERT_ID())");
             default   ->
                     rowCount += connection.executeUpdate("INSERT INTO cliente (idUtente) VALUES (LAST_INSERT_ID())");
         }
@@ -246,19 +246,19 @@ public class UtenteDAO implements IUtenteDAO {
             int rowCount = connection.executeUpdate("UPDATE Utente SET Tipo = '" + tipo + "' WHERE Username = '" + username + "';");
             switch (tipo) {
                 case "AM" -> {
-                    rowCount += connection.executeUpdate("INSERT INTO Amministratore (idUtente) VALUES (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+                    rowCount += connection.executeUpdate("INSERT INTO amministratore (idUtente) VALUES ((SELECT idUtente FROM Utente WHERE Username = '" + username + "'));");
                     //Rimuovo l'utente dagli altri tipi
                     rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
                     rowCount += connection.executeUpdate("DELETE FROM Cliente WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
                 }
                 case "MN" -> {
-                    rowCount += connection.executeUpdate("INSERT INTO Manager (idUtente) VALUES (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+                    rowCount += connection.executeUpdate("INSERT INTO manager (idUtente) VALUES ((SELECT idUtente FROM Utente WHERE Username = '" + username + "'));");
                     //Rimuovo l'utente dagli altri tipi
                     rowCount += connection.executeUpdate("DELETE FROM Amministratore WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
                     rowCount += connection.executeUpdate("DELETE FROM Cliente WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
                 }
                 default -> {
-                    rowCount += connection.executeUpdate("INSERT INTO Cliente (idUtente) VALUES (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+                    rowCount += connection.executeUpdate("INSERT INTO cliente (idUtente) VALUES ((SELECT idUtente FROM Utente WHERE Username = '" + username + "'));");
                     //Rimuovo l'utente dagli altri tipi
                     rowCount += connection.executeUpdate("DELETE FROM Amministratore WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
                     rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");

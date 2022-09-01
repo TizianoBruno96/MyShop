@@ -57,6 +57,40 @@ public class UtenteDAOTest {
     public void updateTipoTest() throws SQLException {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
         utenteDAO.updateTipo("Frama19", "MN");
+        assert utenteDAO.findByUsername("Frama19").getTipo().equals("MN");
+        utenteDAO.updateTipo("Frama19", "CL");
         assert utenteDAO.findByUsername("Frama19").getTipo().equals("CL");
+        utenteDAO.updateTipo("Frama19", "AM");
+        assert utenteDAO.findByUsername("Frama19").getTipo().equals("AM");
+    }
+
+    @Test
+    public void checkUsernameTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        assert utenteDAO.checkUsername("Frama19");
+    }
+
+    @Test
+    public void checkUtenteTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        assert utenteDAO.checkUtente("Frama19", "Gomorra");
+    }
+
+    @Test
+    public void isManagerTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        assert !utenteDAO.isManager("Frama19");
+    }
+
+    @Test
+    public void isAmministratoreTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        assert !utenteDAO.isAmministratore("Frama19");
+    }
+
+    @Test
+    public void isClienteTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        assert utenteDAO.isCliente("Frama19");
     }
 }
