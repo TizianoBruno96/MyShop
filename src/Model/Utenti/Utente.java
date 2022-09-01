@@ -52,10 +52,10 @@ public class Utente {
     }
 
     public void setNome(String Nome) {
-        Nome = Nome;
+        this.Nome = Nome;
     }
     public void setCognome(String Cognome) {
-        Cognome = Cognome;
+        this.Cognome = Cognome;
     }
     public String getCognome() {
         return Cognome;
