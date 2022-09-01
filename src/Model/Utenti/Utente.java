@@ -39,6 +39,19 @@ public class Utente {
         this.Tipo = Tipo;
     }
 
+    public Utente(String Nome, String Surname, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password) {
+        this.Nome = Nome;
+        this.Cognome = Surname;
+        this.Username = Username;
+        this.Email = Email;
+        this.Telefono = Telefono;
+        this.Eta = Eta;
+        this.Residenza = Residenza;
+        this.Professione = Professione;
+        this.Password = Password;
+        this.Tipo = "CL";
+    }
+
     public int getIdUtente() {
         return idUtente;
     }
@@ -127,8 +140,8 @@ public class Utente {
 
     public String toString() {
         return "Utente{" +
-                "Name='" + Nome + '\'' +
-                ", Surname='" + Cognome + '\'' +
+                "Nome='" + Nome + '\'' +
+                ", Cognome='" + Cognome + '\'' +
                 ", Username='" + Username + '\'' +
                 ", Email='" + Email + '\'' +
                 ", Telefono='" + Telefono + '\'' +

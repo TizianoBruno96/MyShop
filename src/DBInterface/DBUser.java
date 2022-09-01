@@ -7,7 +7,7 @@ public class DBUser {
     private String pwd;
 
     private DBUser() {
-        schemaName = "myshopdefinitiveedition";
+        schemaName = "myshop";
         username = "root";
         pwd = "Der0net09620.";
     }

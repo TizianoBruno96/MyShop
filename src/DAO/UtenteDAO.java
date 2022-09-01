@@ -200,32 +200,33 @@ public class UtenteDAO implements IUtenteDAO {
     }
 
     @Override
-    public int add(Utente utente) {
+    public int add(Utente utente, int idPuntoVendita) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("INSERT INTO utente (Nome, Cognome, Username, Email, Telefono, Eta, Residenza, Professione, Password, Tipo) VALUES ('" + utente.getNome() + "', '" + utente.getCognome() + "', '" + utente.getUsername() + "', '" + utente.getEmail() + "', '" + utente.getTelefono() + "', " + utente.getEta() + ", '" + utente.getResidenza() + "', '" + utente.getProfessione() + "', '" + utente.getPassword() + "', '" + utente.getTipo() + "')");
         switch (utente.getTipo()) {
-            case "CL":
-                rowCount += connection.executeUpdate("INSERT INTO cliente (idUtente) VALUES LAST_INSERT_ID())");
-                break;
-            case "AM":
-                rowCount += connection.executeUpdate("INSERT INTO amministratore (idUtente) VALUES LAST_INSERT_ID())");
-                break;
-            case "MN":
-                rowCount += connection.executeUpdate("INSERT INTO manager (idUtente) VALUES LAST_INSERT_ID())");
-                break;
+            case "AM" ->
+                    rowCount += connection.executeUpdate("INSERT INTO amministratore (idUtente) VALUES (LAST_INSERT_ID())");
+            case "MN" ->
+                    rowCount += connection.executeUpdate("INSERT INTO manager (idUtente) VALUES LAST_INSERT_ID())");
+            default   ->
+                    rowCount += connection.executeUpdate("INSERT INTO cliente (idUtente) VALUES (LAST_INSERT_ID())");
         }
-        rowCount += connection.executeUpdate("INSERT INTO listaacquisto (idUtente) VALUES (LAST_INSERT_ID());");
+        //Associo l'utente al punto vendita
+        rowCount += connection.executeUpdate("INSERT INTO utenteregistrato (idPuntoVendita, idUtente) VALUES (" + idPuntoVendita + ", LAST_INSERT_ID())");
+        //creo la lista di acquisto dell'utente
+        rowCount += connection.executeUpdate("INSERT INTO listaacquisto (idUtente) VALUES (LAST_INSERT_ID())");
         connection.close();
         return rowCount;
     }
 
     @Override
-    public int removeByUsername(String username) throws SQLException {
+    public int removeByUsername(String username) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
         rowCount += connection.executeUpdate("DELETE FROM Cliente WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
         rowCount += connection.executeUpdate("DELETE FROM Amministratore WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
         rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+        rowCount += connection.executeUpdate("DELETE FROM UtenteRegistrato WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
         rowCount += connection.executeUpdate("DELETE FROM Utente WHERE Username = '" + username + "';");
         connection.close();
         return rowCount;
@@ -234,17 +235,67 @@ public class UtenteDAO implements IUtenteDAO {
     @Override
     public int update(Utente utente) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Utente SET Nome = '" + utente.getNome() + "', Cognome = '" + utente.getCognome() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Eta = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "' WHERE Username = '" + utente.getUsername() + "';");
+        int rowCount = connection.executeUpdate("UPDATE Utente SET Nome = '" + utente.getNome() + "', Cognome = '" + utente.getCognome() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Eta = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "' WHERE idUtente = '" + utente.getIdUtente() + "';");
         connection.close();
         return rowCount;
     }
 
     public int updateTipo(String username, String tipo) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Utente SET Tipo = '" + tipo + "' WHERE Username = '" + username + "';");
-        connection.close();
-        return rowCount;
+        try {
+            connection = DBConnection.getInstance();
+            int rowCount = connection.executeUpdate("UPDATE Utente SET Tipo = '" + tipo + "' WHERE Username = '" + username + "';");
+            switch (tipo) {
+                case "AM" -> {
+                    rowCount += connection.executeUpdate("INSERT INTO Amministratore (idUtente) VALUES (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+                    //Rimuovo l'utente dagli altri tipi
+                    rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
+                    rowCount += connection.executeUpdate("DELETE FROM Cliente WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
+                }
+                case "MN" -> {
+                    rowCount += connection.executeUpdate("INSERT INTO Manager (idUtente) VALUES (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+                    //Rimuovo l'utente dagli altri tipi
+                    rowCount += connection.executeUpdate("DELETE FROM Amministratore WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
+                    rowCount += connection.executeUpdate("DELETE FROM Cliente WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
+                }
+                default -> {
+                    rowCount += connection.executeUpdate("INSERT INTO Cliente (idUtente) VALUES (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
+                    //Rimuovo l'utente dagli altri tipi
+                    rowCount += connection.executeUpdate("DELETE FROM Amministratore WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
+                    rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
+                }
+            }
+            connection.close();
+            return rowCount;
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return 0;
     }
 
-
+    @Override
+    public String checkTipo(String username) {
+        connection = DBConnection.getInstance();
+        String tipo = "";
+        try {
+            ResultSet resultSet = connection.executeQuery("SELECT Tipo FROM Utente WHERE Username = '" + username + "';");
+            while (resultSet.next()) {
+                tipo = resultSet.getString("Tipo");
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            connection.close();
+        }
+        return tipo;
+    }
 }
+
+
+
+
+
