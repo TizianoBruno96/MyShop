@@ -5,8 +5,8 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Servizio;
-import ModelFactory.ServizioFactory;
+import Model.Articoli.Servizio;
+import Model.ModelFactory.ServizioFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

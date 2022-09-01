@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.ProdottoComposito;
+import Model.Articoli.ProdottoComposito;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,15 @@
 package Model;
 
+import java.util.Date;
+
 public class Recensione {
     private int idRecensione;
     private int voto;
     private String commento;
     private int idProdotto;
     private int idUtente;
+
+    private Date data;
 
     public void setIdRecensione(int idRecensione) {
         this.idRecensione = idRecensione;
@@ -16,14 +20,15 @@ public class Recensione {
     }
 
     public Recensione() {
-        this.idRecensione = -1;
+        this.idRecensione = 0;
         this.voto = 0;
         this.commento = "";
-        this.idProdotto = -1;
-        this.idUtente = -1;
+        this.idProdotto = 0;
+        this.idUtente = 0;
+        this.data = new Date();
     }
 
-    public Recensione(int idRecensione, int voto, String commento, int idProdotto, int idUtente) {
+    public Recensione(int idRecensione, int voto, String commento, int idProdotto, int idUtente, Date data) {
         this.idRecensione = idRecensione;
         this.voto = voto;
         this.commento = commento;
@@ -61,6 +66,14 @@ public class Recensione {
 
     public void setCommento(String commento) {
         this.commento = commento;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public String toString() {

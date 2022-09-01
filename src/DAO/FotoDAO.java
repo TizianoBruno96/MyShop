@@ -5,8 +5,8 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Foto;
-import ModelFactory.FotoFactory;
+import Model.Articoli.Foto;
+import Model.ModelFactory.FotoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

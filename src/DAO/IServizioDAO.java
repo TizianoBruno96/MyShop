@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Servizio;
+import Model.Articoli.Servizio;
 
 import java.util.ArrayList;
 

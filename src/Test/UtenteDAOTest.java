@@ -2,7 +2,7 @@ package Test;
 
 import DAO.IUtenteDAO;
 import DAO.UtenteDAO;
-import Model.Utente;
+import Model.Utenti.Utente;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

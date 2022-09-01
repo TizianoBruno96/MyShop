@@ -2,6 +2,9 @@ package Test;
 
 import Business.AbstractFactory.*;
 import Model.*;
+import Model.Articoli.Prodotto;
+import Model.Articoli.ProdottoComposito;
+import Model.Articoli.Servizio;
 import org.junit.Assert;
 import org.junit.Test;
 

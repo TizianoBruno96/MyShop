@@ -1,6 +1,6 @@
 package Business.FactoryMethod;
 
-import Model.Utente;
+import Model.Utenti.Utente;
 
 public abstract class Notifica {
 

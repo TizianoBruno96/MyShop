@@ -6,8 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Categoria;
-import Model.Utente;
-import ModelFactory.CategoriaFactory;
+import Model.ModelFactory.CategoriaFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

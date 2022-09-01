@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Recensione;
-import ModelFactory.RecensioneFactory;
+import Model.ModelFactory.RecensioneFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

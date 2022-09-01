@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Utente;
+import Model.Utenti.Utente;
 
 import java.util.ArrayList;
 

@@ -6,11 +6,10 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
-import ModelFactory.ListaAcquistoFactory;
+import Model.ModelFactory.ListaAcquistoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ListaAcquistoDAO implements IListaAcquistoDAO {
     private static ListaAcquistoDAO instance = new ListaAcquistoDAO();

@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Posizione;
-import ModelFactory.PosizioneFactory;
+import Model.ModelFactory.PosizioneFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Foto;
+import Model.Articoli.Foto;
 
 import java.util.ArrayList;
 
