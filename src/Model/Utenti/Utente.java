@@ -1,9 +1,5 @@
 package Model.Utenti;
 
-import Model.PuntoVendita;
-
-import java.util.ArrayList;
-
 public class Utente {
     private int idUtente;
     private String Nome;
