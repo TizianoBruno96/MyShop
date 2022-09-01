@@ -1,9 +1,12 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Guest;
-import ModelFactory.GuestFactory;
+import Model.ModelFactory.GuestFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,14 +30,17 @@ public class GuestDAO implements IGuestDAO {
 
     @Override
     public ArrayList<Guest> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Guest");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Guest";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Guest> guests = new ArrayList<>();
         try {
             while(rs.next()) {
                 guest = new GuestFactory().create(rs);
                 guests.add(guest);
             }
+            return guests;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -45,12 +51,14 @@ public class GuestDAO implements IGuestDAO {
         } finally {
             connection.close();
         }
-        return guests;
+        return null;
     }
 
     public Guest findByIP(String email) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Guest WHERE email = '" + email + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Guest WHERE email = '" + email + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {

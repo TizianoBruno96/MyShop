@@ -1,9 +1,12 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Recensione;
-import ModelFactory.RecensioneFactory;
+import Model.ModelFactory.RecensioneFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +29,10 @@ public class RecensioneDAO implements IRecensioneDAO {
     }
 
     public ArrayList<Recensione> findByProdotto(int idProdotto) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Recensione WHERE idProdotto = " + idProdotto);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Recensione WHERE IdProdotto = " + idProdotto;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -50,8 +55,10 @@ public class RecensioneDAO implements IRecensioneDAO {
 
     @Override
     public ArrayList<Recensione> findByUtente(int idUtente) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Recensione WHERE idUtente = " + idUtente);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Recensione WHERE IdUtente = " + idUtente;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -75,7 +82,7 @@ public class RecensioneDAO implements IRecensioneDAO {
     @Override
     public int add(Recensione recensione) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Recensione (Voto, Commento, idProdotto, idUtente) VALUES (" + recensione.getVoto() + ", '" + recensione.getCommento() + "', " + recensione.getIdProdotto() + ", " + recensione.getIdUtente() + ")");
+        int result = connection.executeUpdate("INSERT INTO Recensione (Voto, Commento, Data, IdProdotto, IdUtente) VALUES (" + recensione.getVoto() + ", '" + recensione.getCommento() + "', '" + recensione.getData() + "', " + recensione.getIdProdotto() + ", " + recensione.getIdUtente() + ")");
         connection.close();
         return result;
     }
@@ -83,7 +90,7 @@ public class RecensioneDAO implements IRecensioneDAO {
     @Override
     public int update(Recensione recensione) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', idProdotto = " + recensione.getIdProdotto() + ", idUtente = " + recensione.getIdUtente() + " WHERE idRecensione = " + recensione.getIdRecensione());
+        int result = connection.executeUpdate("UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', Data = '" + recensione.getData() + "', IdProdotto = " + recensione.getIdProdotto() + ", IdUtente = " + recensione.getIdUtente() + " WHERE IdRecensione = " + recensione.getIdRecensione());
         connection.close();
         return result;
     }
@@ -92,6 +99,14 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int remove(int idRecensione) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Recensione WHERE idRecensione = " + idRecensione);
+        connection.close();
+        return result;
+    }
+
+    @Override
+    public int removeByProdottoAndUtente(int idProdotto, int idUtente) {
+        connection = DBConnection.getInstance();
+        int result = connection.executeUpdate("DELETE FROM Recensione WHERE IdProdotto = " + idProdotto + " AND IdUtente = " + idUtente);
         connection.close();
         return result;
     }

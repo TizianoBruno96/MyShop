@@ -1,16 +1,19 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Prodotto;
-import ModelFactory.ProdottoFactory;
+import Model.Articoli.Prodotto;
+import Model.ModelFactory.ProdottoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProdottoDAO implements IProdottoDAO {
-    private static ProdottoDAO instance = new ProdottoDAO();
+    private static final ProdottoDAO instance = new ProdottoDAO();
     private Prodotto prodotto;
     private static IDBConnection connection;
     private static ResultSet rs;
@@ -26,8 +29,10 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     public Prodotto findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Prodotto WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -48,8 +53,10 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     public ArrayList<Prodotto> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Prodotto");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Prodotto";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -71,14 +78,17 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     public ArrayList<Prodotto> findByPosizione(int idPosizione) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE idPosizione = " + idPosizione);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Prodotto WHERE IdPosizione = " + idPosizione;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -93,14 +103,17 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     public ArrayList<Prodotto> findByCategoria(int idCategoria) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE idCategoria = " + idCategoria);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Prodotto WHERE IdCategoria = " + idCategoria;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -115,14 +128,17 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     public ArrayList<Prodotto> findByProduttore(int idProduttore) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE idProduttore = " + idProduttore);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Prodotto WHERE IdProduttore = " + idProduttore;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());
@@ -137,14 +153,17 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     public ArrayList<Prodotto> findByLista(int idLista) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Prodotto WHERE idListaAcquisto = " + idLista);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Prodotto WHERE IdLista = " + idLista;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
                 prodotto = new ProdottoFactory().create(rs);
-                return prodotti;
+                prodotti.add(prodotto);
             }
+            return prodotti;
         } catch (SQLException e) {
             //handle any errors
             System.out.println("SQLException: " + e.getMessage());

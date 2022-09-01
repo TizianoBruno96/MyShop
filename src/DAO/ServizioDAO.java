@@ -1,9 +1,13 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Servizio;
-import ModelFactory.ServizioFactory;
+import Model.Articoli.Fornitore;
+import Model.Articoli.Servizio;
+import Model.ModelFactory.ServizioFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +30,10 @@ public class ServizioDAO implements IServizioDAO {
     }
 
     public Servizio findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Servizio WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -48,8 +54,36 @@ public class ServizioDAO implements IServizioDAO {
     }
 
     public ArrayList<Servizio> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Servizio");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        ArrayList<Servizio> servizi = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                servizio = new ServizioFactory().create(rs);
+                servizi.add(servizio);
+            }
+            return servizi;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        } finally {
+            connection.close();
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Servizio> findByFornitore(int idFornitore) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio WHERE IdFornitore = " + idFornitore;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -73,7 +107,7 @@ public class ServizioDAO implements IServizioDAO {
     @Override
     public int add(Servizio servizio) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Servizio (Nome, idCategoria, idFornitore) VALUES ('" + servizio.getNome() + "', " + servizio.getIdCategoria() + ", " + servizio.getIdFornitore() + ")");
+        int result = connection.executeUpdate("INSERT INTO Servizio (Nome, IdCategoria, IdFornitore, Costo) VALUES ('" + servizio.getNome() + "', " + servizio.getIdCategoria() + ", " + servizio.getIdFornitore() + ", " + servizio.getCosto() + ")");
         connection.close();
         return result;
     }
@@ -81,7 +115,7 @@ public class ServizioDAO implements IServizioDAO {
     @Override
     public int update(Servizio servizio) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Servizio SET Nome = '" + servizio.getNome() + "', idCategoria = " + servizio.getIdCategoria() + ", idFornitore = " + servizio.getIdFornitore() + " WHERE idServizio = " + servizio.getIdServizio());
+        int result = connection.executeUpdate("UPDATE Servizio SET Nome = '" + servizio.getNome() + "', IdCategoria = " + servizio.getIdCategoria() + ", IdFornitore = " + servizio.getIdFornitore() + ", Costo = " + servizio.getCosto() + " WHERE IdServizio = " + servizio.getIdServizio());
         connection.close();
         return result;
     }
@@ -90,6 +124,30 @@ public class ServizioDAO implements IServizioDAO {
     public int remove(Servizio servizio) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Servizio WHERE idServizio = " + servizio.getIdServizio());
+        connection.close();
+        return result;
+    }
+
+    @Override
+    public int removeByNome(String nome) {
+        connection = DBConnection.getInstance();
+        int result = connection.executeUpdate("DELETE FROM Servizio WHERE Nome = '" + nome + "'");
+        connection.close();
+        return result;
+    }
+
+    @Override
+    public int removeByFornitore(int idFornitore) {
+        connection = DBConnection.getInstance();
+        int result = connection.executeUpdate("DELETE FROM Servizio WHERE IdFornitore = " + idFornitore);
+        connection.close();
+        return result;
+    }
+
+    @Override
+    public int removeByFornitore(Fornitore Fornitore) {
+        connection = DBConnection.getInstance();
+        int result = connection.executeUpdate("DELETE FROM Servizio WHERE IdFornitore = " + Fornitore.getIdFornitore());
         connection.close();
         return result;
     }

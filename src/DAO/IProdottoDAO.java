@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Prodotto;
+import Model.Articoli.Prodotto;
 
 import java.util.ArrayList;
 

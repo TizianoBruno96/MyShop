@@ -1,9 +1,12 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Produttore;
-import ModelFactory.ProduttoreFactory;
+import Model.Articoli.Produttore;
+import Model.ModelFactory.ProduttoreFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,8 +30,10 @@ public class ProduttoreDAO implements IProduttoreDAO {
 
     @Override
     public Produttore findByNome(String nome) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Produttore WHERE Nome = '" + nome + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Produttore WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -50,8 +55,10 @@ public class ProduttoreDAO implements IProduttoreDAO {
 
     @Override
     public ArrayList<Produttore> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Produttore");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Produttore";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Produttore> produttori = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -75,7 +82,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     @Override
     public int add(Produttore produttore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Produttore (Nome, Citta, Nazione, SitoWeb) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSitoWeb() + "')");
+        int result = connection.executeUpdate("INSERT INTO Produttore (Nome, Citta, Nazione, SitoWeb) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSito() + "')");
         connection.close();
         return result;
     }
@@ -91,7 +98,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     @Override
     public int update(Produttore produttore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', SitoWeb = '" + produttore.getSitoWeb() + "' WHERE idProduttore = " + produttore.getIdProduttore());
+        int result = connection.executeUpdate("UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', Sito = '" + produttore.getSito() + "' WHERE idProduttore = " + produttore.getIdProduttore());
         connection.close();
         return result;
     }

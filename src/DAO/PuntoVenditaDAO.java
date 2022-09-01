@@ -1,9 +1,12 @@
 package DAO;
 
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
+import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.PuntoVendita;
-import ModelFactory.PuntoVenditaFactory;
+import Model.ModelFactory.PuntoVenditaFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,8 +30,10 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     }
 
     public PuntoVendita findByManager(int idManager) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM PuntoVendita WHERE idManager = " + idManager);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM puntovendita WHERE IdManager = " + idManager;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if(rs.getRow() == 1) {
@@ -49,8 +54,10 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     }
 
     public ArrayList<PuntoVendita> findAll() {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM PuntoVendita");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM puntovendita";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -73,8 +80,10 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
 
     @Override
     public ArrayList<PuntoVendita> findByCitta(String citta) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM PuntoVendita WHERE Citta = '" + citta + "'");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM puntovendita WHERE Citta = '" + citta + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -98,7 +107,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     @Override
     public int add(PuntoVendita puntoVendita) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO PuntoVendita (idManager, idMagazzino, Citta, Nome) VALUES (" + puntoVendita.getIdManager() + ", " + puntoVendita.getIdMagazzino() + ", '" + puntoVendita.getCitta() + "', '" + puntoVendita.getNome() + "')");
+        int result = connection.executeUpdate("INSERT INTO puntovendita(Citta, Nome, Indirizzo, IdUtenteManager) VALUES ('" + puntoVendita.getCitta() + "', '" + puntoVendita.getNome() + "', '" + puntoVendita.getIndirizzo() + "', " + puntoVendita.getIdUtenteManager() + ")");
         connection.close();
         return result;
     }
@@ -106,15 +115,23 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     @Override
     public int update(PuntoVendita puntoVendita) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE PuntoVendita SET idManager = " + puntoVendita.getIdManager() + ", idMagazzino = " + puntoVendita.getIdMagazzino() + ", Citta = '" + puntoVendita.getCitta() + "', Nome = '" + puntoVendita.getNome() + "' WHERE idPuntoVendita = " + puntoVendita.getIdPuntoVendita());
+        int result = connection.executeUpdate("UPDATE puntovendita SET Citta = '" + puntoVendita.getCitta() + "', Nome = '" + puntoVendita.getNome() + "', Indirizzo = '" + puntoVendita.getIndirizzo() + "', IdUtenteManager = " + puntoVendita.getIdUtenteManager() + " WHERE Id = " + puntoVendita.getIdPuntoVendita());
         connection.close();
         return result;
     }
 
     @Override
-    public int remove(int idPuntoVendita) {
+    public int removeByID(int idPuntoVendita) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM PuntoVendita WHERE idPuntoVendita = " + idPuntoVendita);
+        int result = connection.executeUpdate("DELETE FROM puntovendita WHERE idPuntoVendita = " + idPuntoVendita);
+        connection.close();
+        return result;
+    }
+
+    @Override
+    public int removeByIDMagazzino(int idMagazzino) {
+        connection = DBConnection.getInstance();
+        int result = connection.executeUpdate("DELETE FROM puntovendita WHERE idMagazzino = " + idMagazzino);
         connection.close();
         return result;
     }
