@@ -8,14 +8,20 @@ public class Categoria {
     private String Nome;
 
     public Categoria() {
-        this.idCategoria = -1;
-        this.idCategoriaPadre = -1;
+        this.idCategoria = 0;
+        this.idCategoriaPadre = 0;
         this.Nome = "";
     }
 
     public Categoria(int idCategoria, int idCategoriaPadre, String Nome) {
         this.idCategoria = idCategoria;
         this.idCategoriaPadre = idCategoriaPadre;
+        this.Nome = Nome;
+    }
+
+    public Categoria(String Nome) {
+        this.idCategoria = 0;
+        this.idCategoriaPadre = 0;
         this.Nome = Nome;
     }
 
