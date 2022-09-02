@@ -10,6 +10,7 @@ public class OrdineFactory implements IFactory<Ordine> {
         Ordine ordine = new Ordine();
         ordine.setIdProdotto(rs.getInt("idProdotto"));
         ordine.setIdListaAcquisto(rs.getInt("idListaAcquisto"));
+        ordine.setQuantita(rs.getInt("Quantita"));
         return ordine;
     }
 }

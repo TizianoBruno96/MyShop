@@ -181,25 +181,26 @@ public class CategoriaDAO implements ICategoriaDAO {
     }
 
     @Override
-    public int addCategoriaFiglia(Categoria categoria, String nomeCategoriaPadre) {
+    public int addCategoriaFiglia(Categoria categoria, Categoria categoriaPadre) {
         connection = DBConnection.getInstance();
-        Categoria categoriaPadre = this.findByNome(nomeCategoriaPadre);
-        System.out.println("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoriaPadre.getIdCategoria() + ")");
-        int rowCount = connection.executeUpdate("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoriaPadre.getIdCategoria() + ")");
+        String sqlStatement = "INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoriaPadre.getIdCategoria() + ")";
+        int rowCount = connection.executeUpdate(sqlStatement);
         return rowCount;
     }
 
     @Override
     public int removeByName(String nome) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Categoria WHERE Nome = '" + nome + "'");
-        return result;
+        String sqlStatement = "DELETE FROM Categoria WHERE Nome = '" + nome + "'";
+        int rowCount = connection.executeUpdate(sqlStatement);
+        return rowCount;
     }
 
     @Override
     public int update(Categoria categoria) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Categoria SET Nome = '" + categoria.getNome() + "', idCategoriaPadre = " + categoria.getIdCategoriaPadre() + " WHERE idCategoria = " + categoria.getIdCategoria());
-        return result;
+        String sqlStatement = "UPDATE Categoria SET Nome = '" + categoria.getNome() + "', idCategoriaPadre = " + categoria.getIdCategoriaPadre() + " WHERE idCategoria = " + categoria.getIdCategoria();
+        int rowCount = connection.executeUpdate(sqlStatement);
+        return rowCount;
     }
 }

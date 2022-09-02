@@ -103,7 +103,7 @@ public class OrdineDAO implements IOrdineDAO {
     @Override
     public int add(Ordine ordine) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Ordine (idProdotto, idListaAcquisto) VALUES (" + ordine.getIdProdotto() + ", " + ordine.getIdListaAcquisto() + ")");
+        int rowCount = connection.executeUpdate("INSERT INTO Ordine (idProdotto, idListaAcquisto, Quantita) VALUES (" + ordine.getIdProdotto() + ", " + ordine.getIdListaAcquisto() + ", " + ordine.getQuantita() + ")");
         return rowCount;
     }
 
@@ -131,7 +131,7 @@ public class OrdineDAO implements IOrdineDAO {
     @Override
     public int updateByProdotto(Ordine ordine) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Ordine SET idListaAcquisto = " + ordine.getIdListaAcquisto() + " WHERE idProdotto = " + ordine.getIdProdotto());
+        int rowCount = connection.executeUpdate("UPDATE Ordine SET idProdotto = " + ordine.getIdProdotto() + ", idListaAcquisto = " + ordine.getIdListaAcquisto() + ", Quantita = " + ordine.getQuantita() + " WHERE idProdotto = " + ordine.getIdProdotto());
         return rowCount;
     }
 

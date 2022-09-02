@@ -12,7 +12,7 @@ public interface ICategoriaDAO {
     ArrayList<Categoria> findByCategoriaPadre(String nomeCategoriaPadre);
     ArrayList<Categoria> findSottoCategorie(int idCategoria);
     int add(Categoria categoria);
-    int addCategoriaFiglia(Categoria categoria, String nomeCategoriaPadre);
+    int addCategoriaFiglia(Categoria categoria, Categoria categoriaPadre);
     int removeByName(String nome);
     int update(Categoria categoria);
 }

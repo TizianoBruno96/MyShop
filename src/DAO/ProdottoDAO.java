@@ -6,6 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Articoli.Prodotto;
+import Model.Articoli.ProdottoComposito;
 import Model.Articoli.Produttore;
 import Model.Categoria;
 import Model.ModelFactory.ProdottoFactory;
@@ -49,8 +50,6 @@ public class ProdottoDAO implements IProdottoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -75,8 +74,6 @@ public class ProdottoDAO implements IProdottoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -130,52 +127,62 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     @Override
-    public int add(Prodotto prodotto, String nomeCategoria, String nomeProduttore) {
+    public int add(Prodotto prodotto, Categoria categoria, Produttore produttore) {
         connection = DBConnection.getInstance();
-        ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
-        IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
-
-        Categoria categoria = categoriaDAO.findByNome(nomeCategoria);
-        Produttore produttore = produttoreDAO.findByNome(nomeProduttore);
-
         String sqlStatement = "INSERT INTO Prodotto (Nome, Descrizione, Costo, IdCategoria, IdProduttore) VALUES ('" + prodotto.getNome() + "', '" + prodotto.getDescrizione() + "', " + prodotto.getCosto() + ", " + categoria.getIdCategoria() + ", " + produttore.getIdProduttore() + ")";
-        System.out.println(sqlStatement);
         int rowCount = connection.executeUpdate(sqlStatement);
         return rowCount;
     }
 
     @Override
-    public int addFiglio(Prodotto prodotto, String nomeCategoria, String nomeProduttore, String nomeProdottoPadre) {
+    public int addFiglio(Prodotto prodotto, Categoria categoria, Produttore produttore, Prodotto prodottoPadre) {
         connection = DBConnection.getInstance();
-        ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
-        IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
-        IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
-
-        Categoria categoria = categoriaDAO.findByNome(nomeCategoria);
-        Produttore produttore = produttoreDAO.findByNome(nomeProduttore);
-        Prodotto prodottoPadre = prodottoDAO.findByNome(nomeProdottoPadre);
-        int rowCount = connection.executeUpdate("INSERT INTO Prodotto (Nome, Descrizione, Costo, IdCategoria, IdProduttore, IdProdottoPadre) VALUES ('" + prodotto.getNome() + "', '" + prodotto.getDescrizione() + "', " + prodotto.getCosto() + ", " + categoria.getIdCategoria() + ", " + produttore.getIdProduttore() + ", " + prodottoPadre.getIdProdotto() + ")");
+        IProdottoCompositoDAO prodottoCompositoDAO = ProdottoCompositoDAO.getInstance();
+        int rowCount = connection.executeUpdate("INSERT INTO Prodotto (Nome, Descrizione, Costo, IdCategoria, IdProduttore) VALUES ('" + prodotto.getNome() + "', '" + prodotto.getDescrizione() + "', " + prodotto.getCosto() + ", " + categoria.getIdCategoria() + ", " + produttore.getIdProduttore() + ")");
+        prodottoCompositoDAO.add(new ProdottoComposito(prodottoPadre.getIdProdotto(), prodotto.getIdProdotto()));
         return rowCount;
     }
 
     @Override
     public int removeByID(int idProdotto) {
         connection = DBConnection.getInstance();
-        int id = connection.executeUpdate("DELETE FROM Prodotto WHERE idProdotto = " + idProdotto);
-        return id;
+        int rowCount = connection.executeUpdate("DELETE FROM Prodotto WHERE IdProdotto = " + idProdotto);
+        return rowCount;
     }
 
     @Override
     public int update(Prodotto prodotto) {
         connection = DBConnection.getInstance();
-        int id = connection.executeUpdate("UPDATE Prodotto SET Nome = '" + prodotto.getNome() + "', Descrizione = '" + prodotto.getDescrizione() + "', Costo = " + prodotto.getCosto() + ", IdCategoria = " + prodotto.getIdCategoria() + ", IdProduttore = " + prodotto.getIdProduttore() + " WHERE idProdotto = " + prodotto.getIdProdotto());
-        return id;
+        String sqlStatement = "UPDATE Prodotto SET Nome = '" + prodotto.getNome() + "', Descrizione = '" + prodotto.getDescrizione() + "', Costo = " + prodotto.getCosto() + " WHERE IdProdotto = " + prodotto.getIdProdotto();
+        int rowCount = connection.executeUpdate("UPDATE Prodotto SET Nome = '" + prodotto.getNome() + "', Descrizione = '" + prodotto.getDescrizione() + "', Costo = " + prodotto.getCosto() + ", IdCategoria = " + prodotto.getIdCategoria() + ", IdProduttore = " + prodotto.getIdProduttore() + " WHERE idProdotto = " + prodotto.getIdProdotto());
+        return rowCount;
+    }
+
+    public int updateCategoria(Prodotto prodotto, Categoria categoria) {
+        connection = DBConnection.getInstance();
+        String sqlStatement = "UPDATE Prodotto SET IdCategoria = " + categoria.getIdCategoria() + " WHERE IdProdotto = " + prodotto.getIdProdotto();
+        int rowCount = connection.executeUpdate(sqlStatement);
+        return rowCount;
+    }
+
+    public int updateProduttore(Prodotto prodotto, Produttore produttore) {
+        connection = DBConnection.getInstance();
+        String sqlStatement = "UPDATE Prodotto SET IdProduttore = " + produttore.getIdProduttore() + " WHERE IdProdotto = " + prodotto.getIdProdotto();
+        int rowCount = connection.executeUpdate(sqlStatement);
+        return rowCount;
     }
 
     @Override
     public int removeByNome(String nome) {
         connection = DBConnection.getInstance();
-        int id = connection.executeUpdate("DELETE FROM Prodotto WHERE Nome = '" + nome + "'");
-        return id;
+        int rowCount = connection.executeUpdate("DELETE FROM Prodotto WHERE Nome = '" + nome + "'");
+        return rowCount;
+    }
+
+    @Override
+    public int remove(Prodotto prodotto) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("DELETE FROM Prodotto WHERE idProdotto = " + prodotto.getIdProdotto() + " AND Nome = '" + prodotto.getNome() + "' AND Descrizione = '" + prodotto.getDescrizione() + "' AND Costo = " + prodotto.getCosto() + " AND IdCategoria = " + prodotto.getIdCategoria() + " AND IdProduttore = " + prodotto.getIdProduttore());
+        return rowCount;
     }
 }
