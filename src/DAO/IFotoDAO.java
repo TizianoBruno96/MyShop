@@ -9,6 +9,7 @@ public interface IFotoDAO {
     Foto findByValore(String Valore);
     Foto findByName(String Nome);
     int add(Foto foto);
-    int removeByPath(String nome);
+    int removeByValore(byte[] valore);
+    int removeByNome(String nome);
     int update(Foto foto);
 }

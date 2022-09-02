@@ -13,8 +13,8 @@ public class Foto {
         this.Nome = "";
     }
 
-    public Foto(int idFoto, int idProdotto, byte[] Valore, String Nome) {
-        this.idFoto = idFoto;
+    public Foto(int idProdotto, byte[] Valore, String Nome) {
+        this.idFoto = 0;
         this.idProdotto = idProdotto;
         this.Valore = Valore;
         this.Nome = Nome;

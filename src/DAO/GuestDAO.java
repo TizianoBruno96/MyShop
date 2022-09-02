@@ -48,8 +48,6 @@ public class GuestDAO implements IGuestDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -72,8 +70,6 @@ public class GuestDAO implements IGuestDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -82,7 +78,6 @@ public class GuestDAO implements IGuestDAO {
     public int add(Guest guest) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO Guest (IPGuest) VALUES ('" + guest.getIPGuest() + "')");
-        connection.close();
         return result;
     }
 
@@ -90,7 +85,6 @@ public class GuestDAO implements IGuestDAO {
     public int removeByName(String nome) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Guest WHERE IPGuest = '" + nome + "'");
-        connection.close();
         return result;
     }
 
@@ -98,7 +92,6 @@ public class GuestDAO implements IGuestDAO {
     public int update(Guest guest) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Guest SET IPGuest = '" + guest.getIPGuest() + "' WHERE idGuest = " + guest.getIdGuest());
-        connection.close();
         return result;
     }
 }

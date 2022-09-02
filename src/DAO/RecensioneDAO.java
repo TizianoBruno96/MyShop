@@ -47,8 +47,6 @@ public class RecensioneDAO implements IRecensioneDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -73,8 +71,6 @@ public class RecensioneDAO implements IRecensioneDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -83,7 +79,6 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int add(Recensione recensione) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO Recensione (Voto, Commento, Data, IdProdotto, IdUtente) VALUES (" + recensione.getVoto() + ", '" + recensione.getCommento() + "', '" + recensione.getData() + "', " + recensione.getIdProdotto() + ", " + recensione.getIdUtente() + ")");
-        connection.close();
         return result;
     }
 
@@ -91,7 +86,6 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int update(Recensione recensione) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', Data = '" + recensione.getData() + "', IdProdotto = " + recensione.getIdProdotto() + ", IdUtente = " + recensione.getIdUtente() + " WHERE IdRecensione = " + recensione.getIdRecensione());
-        connection.close();
         return result;
     }
 
@@ -99,7 +93,6 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int remove(int idRecensione) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Recensione WHERE idRecensione = " + idRecensione);
-        connection.close();
         return result;
     }
 
@@ -107,7 +100,6 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int removeByProdottoAndUtente(int idProdotto, int idUtente) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Recensione WHERE IdProdotto = " + idProdotto + " AND IdUtente = " + idUtente);
-        connection.close();
         return result;
     }
 }

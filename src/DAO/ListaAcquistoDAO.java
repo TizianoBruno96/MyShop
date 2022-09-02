@@ -45,8 +45,6 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -69,8 +67,6 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -79,7 +75,6 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int add(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO ListaAcquisto (IdUtente, CostoTotale, isPagata) VALUES (" + listaAcquisto.getIdUtente() + ", " + listaAcquisto.getCostoTot() + ", " + listaAcquisto.isPagata() + ")");
-        connection.close();
         return result;
     }
 
@@ -87,7 +82,6 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int removeByIDUtente(int idUtente) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idUtente = '" + idUtente + "'");
-        connection.close();
         return result;
     }
 
@@ -95,7 +89,6 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int removeByID(int idListaAcquisto) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idListaAcquisto = '" + idListaAcquisto + "'");
-        connection.close();
         return result;
     }
 
@@ -103,7 +96,6 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int update(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE ListaAcquisto SET IdUtente = " + listaAcquisto.getIdUtente() + ", CostoTotale = " + listaAcquisto.getCostoTot() + ", isPagata = " + listaAcquisto.isPagata() + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto());
-        connection.close();
         return result;
     }
 
@@ -111,7 +103,6 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int updateCostoTot(int idListaAcquisto, int costoTot) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = '" + costoTot + "' WHERE idListaAcquisto = '" + idListaAcquisto + "'");
-        connection.close();
         return result;
     }
 }

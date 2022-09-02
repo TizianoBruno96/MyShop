@@ -11,8 +11,8 @@ public class Fornitore {
         this.Sito = "";
     }
 
-    public Fornitore(int idFornitore, String Nome, String Sito) {
-        this.idFornitore = idFornitore;
+    public Fornitore(String Nome, String Sito) {
+        this.idFornitore = 0;
         this.Nome = Nome;
         this.Sito = Sito;
     }

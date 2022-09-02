@@ -47,8 +47,6 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -72,8 +70,6 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -98,8 +94,6 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -108,7 +102,6 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     public int add(ProdottoComposito prodottoComposito) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO ProdottoComposito (IDProdottoPadre, IDProdottoFiglio) VALUES (" + prodottoComposito.getIdProdottoPadre() + ", " + prodottoComposito.getIdProdottoFiglio() + ")");
-        connection.close();
         return result;
     }
 
@@ -116,7 +109,6 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     public int removeByIDFiglio(int idProdottoFiglio) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM ProdottoComposito WHERE IDProdottoFiglio = " + idProdottoFiglio);
-        connection.close();
         return result;
     }
 
@@ -124,7 +116,6 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     public int removeByIDPadre(int idProdottoPadre) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM ProdottoComposito WHERE IDProdottoPadre = " + idProdottoPadre);
-        connection.close();
         return result;
     }
 
@@ -132,7 +123,6 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     public int update(ProdottoComposito prodottoComposito) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE ProdottoComposito SET IDProdottoPadre = " + prodottoComposito.getIdProdottoPadre() + ", IDProdottoFiglio = " + prodottoComposito.getIdProdottoFiglio() + " WHERE IDProdottoFiglio = " + prodottoComposito.getIdProdottoFiglio());
-        connection.close();
         return result;
     }
 }

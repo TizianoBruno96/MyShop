@@ -47,8 +47,29 @@ public class CategoriaDAO implements ICategoriaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
+        }
+        return null;
+    }
+
+    @Override
+    public Categoria findByID(int idCategoria) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria WHERE idCategoria = '" + idCategoria + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                categoria = new CategoriaFactory().create(rs);
+                return categoria;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
         }
         return null;
     }
@@ -73,8 +94,6 @@ public class CategoriaDAO implements ICategoriaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -99,16 +118,16 @@ public class CategoriaDAO implements ICategoriaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
 
     @Override
     public ArrayList<Categoria> findByCategoriaPadre(String nomeCategoriaPadre) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria WHERE idCategoriaPadre = (SELECT idCategoria FROM Categoria WHERE Nome = '" + nomeCategoriaPadre + "')");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM categoria WHERE idCategoriaPadre = (SELECT idCategoria FROM categoria WHERE nome = '" + nomeCategoriaPadre + "')";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -123,8 +142,6 @@ public class CategoriaDAO implements ICategoriaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -147,8 +164,6 @@ public class CategoriaDAO implements ICategoriaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -156,16 +171,28 @@ public class CategoriaDAO implements ICategoriaDAO {
     @Override
     public int add(Categoria categoria) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoria.getIdCategoriaPadre() + ")");
-        connection.close();
-        return result;
+        int rowCount;
+        if(categoria.getIdCategoriaPadre() == null) {
+            rowCount = connection.executeUpdate("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', NULL)");
+        } else {
+            rowCount = connection.executeUpdate("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoria.getIdCategoriaPadre() + ")");
+        }
+        return rowCount;
+    }
+
+    @Override
+    public int addCategoriaFiglia(Categoria categoria, String nomeCategoriaPadre) {
+        connection = DBConnection.getInstance();
+        Categoria categoriaPadre = this.findByNome(nomeCategoriaPadre);
+        System.out.println("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoriaPadre.getIdCategoria() + ")");
+        int rowCount = connection.executeUpdate("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoriaPadre.getIdCategoria() + ")");
+        return rowCount;
     }
 
     @Override
     public int removeByName(String nome) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Categoria WHERE Nome = '" + nome + "'");
-        connection.close();
         return result;
     }
 
@@ -173,7 +200,6 @@ public class CategoriaDAO implements ICategoriaDAO {
     public int update(Categoria categoria) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Categoria SET Nome = '" + categoria.getNome() + "', idCategoriaPadre = " + categoria.getIdCategoriaPadre() + " WHERE idCategoria = " + categoria.getIdCategoria());
-        connection.close();
         return result;
     }
 }

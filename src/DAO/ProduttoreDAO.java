@@ -47,8 +47,29 @@ public class ProduttoreDAO implements IProduttoreDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
+        }
+        return null;
+    }
+
+    @Override
+    public Produttore findByID(int idProduttore) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Produttore WHERE idProduttore = '" + idProduttore + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                produttore = new ProduttoreFactory().create(rs);
+                return produttore;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
         }
         return null;
     }
@@ -73,8 +94,6 @@ public class ProduttoreDAO implements IProduttoreDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -82,8 +101,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     @Override
     public int add(Produttore produttore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Produttore (Nome, Citta, Nazione, SitoWeb) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSito() + "')");
-        connection.close();
+        int result = connection.executeUpdate("INSERT INTO Produttore (Nome, Citta, Nazione, Sito) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSito() + "')");
         return result;
     }
 
@@ -91,7 +109,6 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public int removeByID(int idProduttore) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Produttore WHERE idProduttore = " + idProduttore);
-        connection.close();
         return result;
     }
 
@@ -99,7 +116,6 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public int update(Produttore produttore) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', Sito = '" + produttore.getSito() + "' WHERE idProduttore = " + produttore.getIdProduttore());
-        connection.close();
         return result;
     }
 
@@ -107,7 +123,6 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public int removeByNome(String nome) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Produttore WHERE Nome = '" + nome + "'");
-        connection.close();
         return result;
     }
 }

@@ -5,7 +5,6 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.Articoli.Servizio;
 import Model.ModelFactory.OrdineFactory;
 import Model.Ordine;
 
@@ -49,8 +48,6 @@ public class OrdineDAO implements IOrdineDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -75,8 +72,6 @@ public class OrdineDAO implements IOrdineDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -101,8 +96,6 @@ public class OrdineDAO implements IOrdineDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -111,7 +104,6 @@ public class OrdineDAO implements IOrdineDAO {
     public int add(Ordine ordine) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("INSERT INTO Ordine (idProdotto, idListaAcquisto) VALUES (" + ordine.getIdProdotto() + ", " + ordine.getIdListaAcquisto() + ")");
-        connection.close();
         return rowCount;
     }
 
@@ -119,7 +111,6 @@ public class OrdineDAO implements IOrdineDAO {
     public int removeByIDProdotto(int idProdotto) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idProdotto = " + idProdotto);
-        connection.close();
         return rowCount;
     }
 
@@ -127,7 +118,6 @@ public class OrdineDAO implements IOrdineDAO {
     public int removeByIDListaAcquisto(int idListaAcquisto) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idListaAcquisto = " + idListaAcquisto);
-        connection.close();
         return rowCount;
     }
 
@@ -135,7 +125,6 @@ public class OrdineDAO implements IOrdineDAO {
     public int removeByID(int idProdotto, int idListaAcquisto) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idProdotto = " + idProdotto + " AND idListaAcquisto = " + idListaAcquisto);
-        connection.close();
         return rowCount;
     }
 
@@ -143,7 +132,6 @@ public class OrdineDAO implements IOrdineDAO {
     public int updateByProdotto(Ordine ordine) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("UPDATE Ordine SET idListaAcquisto = " + ordine.getIdListaAcquisto() + " WHERE idProdotto = " + ordine.getIdProdotto());
-        connection.close();
         return rowCount;
     }
 
@@ -151,7 +139,6 @@ public class OrdineDAO implements IOrdineDAO {
     public int updateByListaAcquisto(Ordine ordine) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("UPDATE Ordine SET idProdotto = " + ordine.getIdProdotto() + " WHERE idListaAcquisto = " + ordine.getIdListaAcquisto());
-        connection.close();
         return rowCount;
     }
 }

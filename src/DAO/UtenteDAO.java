@@ -47,8 +47,6 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -73,8 +71,6 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -97,8 +93,6 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return false;
     }
@@ -121,8 +115,6 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return false;
     }
@@ -145,8 +137,6 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return false;
     }
@@ -169,8 +159,6 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return false;
     }
@@ -193,8 +181,6 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return false;
     }
@@ -215,7 +201,6 @@ public class UtenteDAO implements IUtenteDAO {
         rowCount += connection.executeUpdate("INSERT INTO utenteregistrato (idPuntoVendita, idUtente) VALUES (" + idPuntoVendita + ", LAST_INSERT_ID())");
         //creo la lista di acquisto dell'utente
         rowCount += connection.executeUpdate("INSERT INTO listaacquisto (idUtente) VALUES (LAST_INSERT_ID())");
-        connection.close();
         return rowCount;
     }
 
@@ -228,7 +213,6 @@ public class UtenteDAO implements IUtenteDAO {
         rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
         rowCount += connection.executeUpdate("DELETE FROM UtenteRegistrato WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
         rowCount += connection.executeUpdate("DELETE FROM Utente WHERE Username = '" + username + "';");
-        connection.close();
         return rowCount;
     }
 
@@ -236,7 +220,6 @@ public class UtenteDAO implements IUtenteDAO {
     public int update(Utente utente) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("UPDATE Utente SET Nome = '" + utente.getNome() + "', Cognome = '" + utente.getCognome() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Eta = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "' WHERE idUtente = '" + utente.getIdUtente() + "';");
-        connection.close();
         return rowCount;
     }
 
@@ -264,12 +247,9 @@ public class UtenteDAO implements IUtenteDAO {
                     rowCount += connection.executeUpdate("DELETE FROM Manager WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "')");
                 }
             }
-            connection.close();
             return rowCount;
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return 0;
     }
@@ -288,14 +268,7 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("SQLException: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
             System.out.println("VendorError: " + e.getErrorCode());
-        } finally {
-            connection.close();
         }
         return tipo;
     }
 }
-
-
-
-
-

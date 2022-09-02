@@ -46,8 +46,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -70,8 +68,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -94,8 +90,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return magazzini;
     }
@@ -104,7 +98,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public int add(Magazzino magazzino) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + magazzino.getIdPuntoVendita() + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')");
-        connection.close();
         return result;
     }
 
@@ -112,7 +105,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public int removeByID(int idMagazzino) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'");
-        connection.close();
         return result;
     }
 
@@ -120,7 +112,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public int removeByPuntoVendita(int idPuntoVendita) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Magazzino WHERE idPuntoVendita = '" + idPuntoVendita + "'");
-        connection.close();
         return result;
     }
 
@@ -128,7 +119,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public int update(Magazzino magazzino) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Magazzino SET idPuntoVendita = '" + magazzino.getIdPuntoVendita() + "', maxCorsia = '" + magazzino.getMaxCorsia() + "', maxScaffale = '" + magazzino.getMaxScaffale() + "' WHERE idMagazzino = '" + magazzino.getIdMagazzino() + "'");
-        connection.close();
         return result;
     }
 }

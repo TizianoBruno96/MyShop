@@ -10,5 +10,6 @@ public interface IProduttoreDAO {
     int update(Produttore produttore);
     int removeByNome(String nome);
     Produttore findByNome(String nome);
+    Produttore findByID(int idProduttore);
     ArrayList<Produttore> findAll();
 }

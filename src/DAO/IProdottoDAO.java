@@ -5,15 +5,13 @@ import Model.Articoli.Prodotto;
 import java.util.ArrayList;
 
 public interface IProdottoDAO {
-    int add(Prodotto prodotto);
+    int add(Prodotto prodotto, String nomeCategoria, String nomeProduttore);
+    int addFiglio(Prodotto prodotto, String nomeCategoria, String nomeProduttore, String nomeProdottoPadre);
     int removeByID(int idProdotto);
     int update(Prodotto prodotto);
     int removeByNome(String nome);
-    int removeByLista(int idLista);
-    ArrayList<Prodotto> findByPosizione(int idPosizione);
     ArrayList<Prodotto> findByProduttore(int idProduttore);
     ArrayList<Prodotto> findByCategoria(int idCategoria);
-    ArrayList<Prodotto> findByLista(int idLista);
     Prodotto findByNome(String nome);
     ArrayList<Prodotto> findAll();
 }

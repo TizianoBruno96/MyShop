@@ -12,15 +12,15 @@ public class Produttore {
     }
 
     public Produttore() {
-        this.idProduttore = -1;
+        this.idProduttore = 0;
         this.Nome = "";
         this.Sito = "";
         this.Citta = "";
         this.Nazione = "";
     }
 
-    public Produttore(int idProduttore, String nome, String sito, String citta, String nazione) {
-        this.idProduttore = idProduttore;
+    public Produttore(String nome, String sito, String citta, String nazione) {
+        this.idProduttore = 0;
         this.Nome = nome;
         this.Sito = sito;
         this.Citta = citta;
@@ -64,6 +64,6 @@ public class Produttore {
     }
 
     public String toString() {
-        return "Nome: " + Nome + "\nSito Web: " + Sito + "\nCitta: " + Citta + "\nNazione: " + Nazione;
+        return idProduttore + " " + Nome + " " + Sito + " " + Citta + " " + Nazione;
     }
 }

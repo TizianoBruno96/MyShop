@@ -82,14 +82,22 @@ public class FotoDAO implements IFotoDAO {
     @Override
     public int add(Foto foto) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Foto (Nome, Valore, idProdotto) VALUES ('" + foto.getNome() + "', '" + foto.getValore() + "', '" + foto.getIdProdotto() + "')");
-        return result;
+        int rowCount = connection.executeUpdate("INSERT INTO Foto (Nome, Valore, idProdotto) VALUES ('" + foto.getNome() + "', '" + foto.getValore() + "', '" + foto.getIdProdotto() + "')");
+        return rowCount;
     }
 
     @Override
-    public int removeByPath(String Valore) {
+    public int removeByValore(byte[] Valore) {
         connection = DBConnection.getInstance();
-        return connection.executeUpdate("DELETE FROM Foto WHERE Nome = '" + Valore + "'");
+        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE Valore = '" + Valore + "'");
+        return rowCount;
+    }
+
+    @Override
+    public int removeByNome(String Nome) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE Nome = '" + Nome + "'");
+        return rowCount;
     }
 
     @Override

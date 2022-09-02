@@ -47,8 +47,6 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -72,8 +70,6 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -98,8 +94,6 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -108,7 +102,6 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     public int add(PuntoVendita puntoVendita) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO puntovendita(Citta, Nome, Indirizzo, IdUtenteManager) VALUES ('" + puntoVendita.getCitta() + "', '" + puntoVendita.getNome() + "', '" + puntoVendita.getIndirizzo() + "', " + puntoVendita.getIdUtenteManager() + ")");
-        connection.close();
         return result;
     }
 
@@ -116,7 +109,6 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     public int update(PuntoVendita puntoVendita) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE puntovendita SET Citta = '" + puntoVendita.getCitta() + "', Nome = '" + puntoVendita.getNome() + "', Indirizzo = '" + puntoVendita.getIndirizzo() + "', IdUtenteManager = " + puntoVendita.getIdUtenteManager() + " WHERE Id = " + puntoVendita.getIdPuntoVendita());
-        connection.close();
         return result;
     }
 
@@ -124,7 +116,6 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     public int removeByID(int idPuntoVendita) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM puntovendita WHERE idPuntoVendita = " + idPuntoVendita);
-        connection.close();
         return result;
     }
 
@@ -132,7 +123,6 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     public int removeByIDMagazzino(int idMagazzino) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM puntovendita WHERE idMagazzino = " + idMagazzino);
-        connection.close();
         return result;
     }
 }

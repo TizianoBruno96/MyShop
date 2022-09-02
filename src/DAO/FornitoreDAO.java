@@ -48,8 +48,6 @@ public class FornitoreDAO implements IFornitoreDAO{
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -74,8 +72,6 @@ public class FornitoreDAO implements IFornitoreDAO{
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -84,7 +80,6 @@ public class FornitoreDAO implements IFornitoreDAO{
     public int add(Fornitore fornitore) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO fornitore (nome, sito) VALUES ('" + fornitore.getNome() + "', '" + fornitore.getSito() + "')");
-        connection.close();
         return result;
     }
 
@@ -92,7 +87,6 @@ public class FornitoreDAO implements IFornitoreDAO{
     public int removeByName(String nome) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Fornitore WHERE Nome = '" + nome + "'");
-        connection.close();
         return result;
     }
 
@@ -100,7 +94,6 @@ public class FornitoreDAO implements IFornitoreDAO{
     public int update(Fornitore fornitore) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Fornitore SET Nome = '" + fornitore.getNome() + "' WHERE idFornitore = " + fornitore.getIdFornitore());
-        connection.close();
         return result;
     }
 }

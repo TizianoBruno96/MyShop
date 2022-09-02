@@ -48,8 +48,6 @@ public class PosizioneDAO implements IPosizioneDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -73,8 +71,6 @@ public class PosizioneDAO implements IPosizioneDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
@@ -92,7 +88,6 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int addProdottoInPosizione(Prodotto prodotto, int idMagazzino, int pCorsia, int pScaffale, int quantita) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + pCorsia + " AND pScaffale = " + pScaffale);
-        connection.close();
         return result;
     }
 
@@ -100,7 +95,6 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int add(Posizione posizione) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', '" + posizione.getIdProdotto() + "', '" + posizione.getIdMagazzino() + "')");
-        connection.close();
         return result;
     }
 
@@ -108,7 +102,6 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int removeByID(int idPosizione) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("DELETE FROM Posizione WHERE idPosizione = '" + idPosizione + "'");
-        connection.close();
         return result;
     }
 
@@ -116,7 +109,6 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int update(Posizione posizione) {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE Posizione SET pCorsia = '" + posizione.getpCorsia() + "', pScaffale = '" + posizione.getpScaffale() + "', Quantita = '" + posizione.getQuantita() + "', idProdotto = '" + posizione.getIdProdotto() + "', idMagazzino = '" + posizione.getIdMagazzino() + "' WHERE idPosizione = '" + posizione.getIdPosizione() + "'");
-        connection.close();
         return result;
     }
 }

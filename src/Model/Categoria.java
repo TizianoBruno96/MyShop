@@ -4,12 +4,12 @@ import Business.AbstractFactory.ICategoria;
 
 public class Categoria {
     private int idCategoria;
-    private int idCategoriaPadre;
+    private Integer idCategoriaPadre;
     private String Nome;
 
     public Categoria() {
         this.idCategoria = 0;
-        this.idCategoriaPadre = 0;
+        this.idCategoriaPadre = null;
         this.Nome = "";
     }
 
@@ -21,7 +21,7 @@ public class Categoria {
 
     public Categoria(String Nome) {
         this.idCategoria = 0;
-        this.idCategoriaPadre = 0;
+        this.idCategoriaPadre = null;
         this.Nome = Nome;
     }
 
@@ -41,7 +41,7 @@ public class Categoria {
         return idCategoria;
     }
 
-    public int getIdCategoriaPadre() {
+    public Integer getIdCategoriaPadre() {
         return idCategoriaPadre;
     }
 
@@ -50,6 +50,6 @@ public class Categoria {
     }
 
     public String toString() {
-        return Nome;
+        return idCategoria + " " + idCategoriaPadre + " " + Nome;
     }
 }
