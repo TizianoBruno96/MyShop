@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Articoli.Foto;
-import Model.ModelFactory.FotoFactory;
+import DAO.ModelFactory.FotoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

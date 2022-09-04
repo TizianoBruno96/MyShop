@@ -93,4 +93,10 @@ public class UtenteDAOTest {
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
         assert utenteDAO.isCliente("Frama19");
     }
+
+    @Test
+    public void checkTipoTest() {
+        IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+        assert utenteDAO.checkTipo("Frama19").equals("CL");
+    }
 }

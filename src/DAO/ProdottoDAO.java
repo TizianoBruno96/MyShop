@@ -9,7 +9,7 @@ import Model.Articoli.Prodotto;
 import Model.Articoli.ProdottoComposito;
 import Model.Articoli.Produttore;
 import Model.Categoria;
-import Model.ModelFactory.ProdottoFactory;
+import DAO.ModelFactory.ProdottoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

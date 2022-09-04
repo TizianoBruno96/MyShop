@@ -13,8 +13,7 @@ public class ListaAcquisto {
         this.isPagata = false;
     }
 
-    public ListaAcquisto(int idListaAcquisto, int idUtente, int CostoTot, boolean isPagata) {
-        this.idListaAcquisto = idListaAcquisto;
+    public ListaAcquisto(int idUtente, int CostoTot, boolean isPagata) {
         this.idUtente = idUtente;
         this.CostoTot = CostoTot;
         this.isPagata = isPagata;

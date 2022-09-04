@@ -7,7 +7,7 @@ import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
-import Model.ModelFactory.ServizioFactory;
+import DAO.ModelFactory.ServizioFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

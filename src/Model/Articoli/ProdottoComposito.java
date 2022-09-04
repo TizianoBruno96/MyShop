@@ -13,7 +13,6 @@ public class ProdottoComposito extends Prodotto implements IProdotto {
         this.idProdottoPadre = idProdottoPadre;
         this.idProdottoFiglio = idProdottoFiglio;
     }
-
     public int getIdProdottoPadre() {
         return idProdottoPadre;
     }

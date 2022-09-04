@@ -1,4 +1,4 @@
-package Model.ModelFactory;
+package DAO.ModelFactory;
 
 import Model.Articoli.Prodotto;
 

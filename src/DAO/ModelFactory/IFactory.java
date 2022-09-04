@@ -1,4 +1,4 @@
-package Model.ModelFactory;
+package DAO.ModelFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

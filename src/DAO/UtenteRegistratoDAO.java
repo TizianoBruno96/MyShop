@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Utenti.UtenteRegistrato;
-import Model.ModelFactory.UtenteRegistratoFactory;
+import DAO.ModelFactory.UtenteRegistratoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

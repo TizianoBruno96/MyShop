@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
-import Model.ModelFactory.ListaAcquistoFactory;
+import DAO.ModelFactory.ListaAcquistoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,9 +100,9 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     }
 
     @Override
-    public int updateCostoTot(int idListaAcquisto, int costoTot) {
+    public int updateCostoTot(ListaAcquisto listaAcquisto, int costoTot) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = '" + costoTot + "' WHERE idListaAcquisto = '" + idListaAcquisto + "'");
+        int result = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = '" + costoTot + "' WHERE idListaAcquisto = '" + listaAcquisto.getIdListaAcquisto() + "'");
         return result;
     }
 }

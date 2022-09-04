@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Magazzino;
-import Model.ModelFactory.MagazzinoFactory;
+import DAO.ModelFactory.MagazzinoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

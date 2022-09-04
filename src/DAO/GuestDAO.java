@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Guest;
-import Model.ModelFactory.GuestFactory;
+import DAO.ModelFactory.GuestFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -5,7 +5,9 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.ModelFactory.OrdineFactory;
+import DAO.ModelFactory.OrdineFactory;
+import Model.Articoli.Prodotto;
+import Model.ListaAcquisto;
 import Model.Ordine;
 
 import java.sql.ResultSet;
@@ -101,6 +103,28 @@ public class OrdineDAO implements IOrdineDAO {
     }
 
     @Override
+    public Ordine find(Prodotto prodotto, ListaAcquisto listaAcquisto) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Ordine WHERE idProdotto = " + prodotto.getIdProdotto() + " AND idListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            if(rs.next()) {
+                ordine = new OrdineFactory().create(rs);
+                return ordine;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public int add(Ordine ordine) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("INSERT INTO Ordine (idProdotto, idListaAcquisto, Quantita) VALUES (" + ordine.getIdProdotto() + ", " + ordine.getIdListaAcquisto() + ", " + ordine.getQuantita() + ")");
@@ -129,16 +153,9 @@ public class OrdineDAO implements IOrdineDAO {
     }
 
     @Override
-    public int updateByProdotto(Ordine ordine) {
+    public int update(Ordine ordine) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Ordine SET idProdotto = " + ordine.getIdProdotto() + ", idListaAcquisto = " + ordine.getIdListaAcquisto() + ", Quantita = " + ordine.getQuantita() + " WHERE idProdotto = " + ordine.getIdProdotto());
-        return rowCount;
-    }
-
-    @Override
-    public int updateByListaAcquisto(Ordine ordine) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Ordine SET idProdotto = " + ordine.getIdProdotto() + " WHERE idListaAcquisto = " + ordine.getIdListaAcquisto());
+        int rowCount = connection.executeUpdate("UPDATE Ordine SET Quantita = " + ordine.getQuantita() + " WHERE idProdotto = " + ordine.getIdProdotto() + " AND idListaAcquisto = " + ordine.getIdListaAcquisto());
         return rowCount;
     }
 }

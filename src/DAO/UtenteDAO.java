@@ -5,7 +5,7 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import Model.ModelFactory.UtenteFactory;
+import DAO.ModelFactory.UtenteFactory;
 import Model.Utenti.Utente;
 
 import java.sql.ResultSet;

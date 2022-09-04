@@ -6,7 +6,7 @@ import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Articoli.ProdottoComposito;
-import Model.ModelFactory.ProdottoCompositoFactory;
+import DAO.ModelFactory.ProdottoCompositoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

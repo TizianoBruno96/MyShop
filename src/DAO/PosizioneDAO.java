@@ -8,7 +8,7 @@ import DBInterface.IDBConnection;
 import Model.Articoli.Prodotto;
 import Model.Magazzino;
 import Model.Posizione;
-import Model.ModelFactory.PosizioneFactory;
+import DAO.ModelFactory.PosizioneFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
