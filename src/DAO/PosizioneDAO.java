@@ -80,6 +80,9 @@ public class PosizioneDAO implements IPosizioneDAO {
     @Override
     public int addPosizioniInMagazzino(Magazzino magazzino) {
         int rowCount = 0;
+        System.out.println("ID: " + magazzino.getIdMagazzino());
+        System.out.println("MaxScaffale: " + magazzino.getMaxScaffale());
+        System.out.println("MaxCorsia: " + magazzino.getMaxCorsia());
         for(int i = 0; i < magazzino.getMaxCorsia(); i++) {
             for(int j = 0; j < magazzino.getMaxScaffale(); j++) {
                 rowCount += add(new Posizione(i, j, 0), magazzino.getIdMagazzino());
@@ -98,7 +101,7 @@ public class PosizioneDAO implements IPosizioneDAO {
     @Override
     public int add(Posizione posizione, int idMagazzino) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', '" + posizione.getIdProdotto() + "', '" + idMagazzino + "')");
+        int rowCount = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', NULL, '" + idMagazzino + "')");
         return rowCount;
     }
 

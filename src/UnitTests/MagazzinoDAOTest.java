@@ -14,9 +14,10 @@ public class MagazzinoDAOTest {
     IMagazzinoDAO magazzinoDAO = MagazzinoDAO.getInstance();
     IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+    IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
         utenteDAO.add(new Utente("Francesca", "Maurizi", "Frama19", "francesca1922@gmail.com", "3394287546", 19, "Via del bosco 19", "estetista", "Gomorra", "MN"), 1);
         Utente utente = utenteDAO.findByUsername("Frama19");
 
@@ -26,6 +27,7 @@ public class MagazzinoDAOTest {
 
     @After
     public void tearDown() throws SQLException {
+        posizioneDAO.removeByMagazzino(magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita()).getIdMagazzino());
         magazzinoDAO.removeByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         puntoVenditaDAO.removeByIDManager(utenteDAO.findByUsername("Frama19").getIdUtente());
         utenteDAO.removeByUsername("Frama19");
