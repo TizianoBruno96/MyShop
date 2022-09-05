@@ -28,6 +28,29 @@ public class RecensioneDAO implements IRecensioneDAO {
         return instance;
     }
 
+    @Override
+    public Recensione findByID(int idRecensione) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Recensione WHERE IdRecensione = " + idRecensione;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                recensione = new RecensioneFactory().create(rs);
+                return recensione;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
     public ArrayList<Recensione> findByProdotto(int idProdotto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Recensione WHERE IdProdotto = " + idProdotto;

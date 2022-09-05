@@ -3,7 +3,7 @@ package Model;
 public class ListaAcquisto {
     private int idListaAcquisto;
     private int idUtente;
-    private int CostoTot;
+    private float CostoTot;
     private boolean isPagata;
 
     public ListaAcquisto() {
@@ -35,7 +35,7 @@ public class ListaAcquisto {
         isPagata = pagata;
     }
 
-    public void setCostoTot(int costoTot) {
+    public void setCostoTot(float costoTot) {
         CostoTot = costoTot;
     }
 
@@ -47,7 +47,7 @@ public class ListaAcquisto {
         return idListaAcquisto;
     }
 
-    public int getCostoTot() {
+    public float getCostoTot() {
         return CostoTot;
     }
 

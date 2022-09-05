@@ -10,4 +10,5 @@ public interface IListaAcquistoDAO {
     int removeByID(int idListaAcquisto);
     int update(ListaAcquisto listaAcquisto);
     int updateCostoTot(ListaAcquisto listaAcquisto, int costoTot);
+    int updateCostoTot(ListaAcquisto listaAcquisto);
 }

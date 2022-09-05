@@ -7,7 +7,7 @@ public class Articolo implements IArticolo {
     private float costo;
 
     public Articolo() {
-        this.costo = 0;
+        this.costo = 0.0f;
     }
 
     public Articolo(float costo) {

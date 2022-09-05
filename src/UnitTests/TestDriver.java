@@ -1,4 +1,4 @@
-package Test;
+package UnitTests;
 
 public class TestDriver {
     public static void main(String[] args) {

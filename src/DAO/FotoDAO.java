@@ -55,9 +55,9 @@ public class FotoDAO implements IFotoDAO {
     }
 
     @Override
-    public Foto findByName(String Nome) {
+    public Foto findByID(int idFoto) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM foto WHERE nome = '" + Nome + "'";
+        String sql = "SELECT * FROM foto WHERE idFoto = " + idFoto;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {

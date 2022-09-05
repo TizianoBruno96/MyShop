@@ -17,13 +17,13 @@ public class Posizione {
         this.idProdotto = 0;
     }
 
-    public Posizione(int pCorsia, int pScaffale, int Quantita, int idMagazzino, int idProdotto) {
+    public Posizione(int pCorsia, int pScaffale, int Quantita) {
         this.idPosizione = 0;
         this.pCorsia = pCorsia;
         this.pScaffale = pScaffale;
         this.Quantita = Quantita;
-        this.idMagazzino = idMagazzino;
-        this.idProdotto = idProdotto;
+        this.idMagazzino = 0;
+        this.idProdotto = 0;
     }
 
     public void setIdPosizione(int idPosizione) {

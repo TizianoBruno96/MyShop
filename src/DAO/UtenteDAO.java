@@ -29,6 +29,29 @@ public class UtenteDAO implements IUtenteDAO {
     }
 
     @Override
+    public Utente findByID(int idUtente) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Utente WHERE IdUtente = " + idUtente;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                utente = new UtenteFactory().create(rs);
+                return utente;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public Utente findByUsername(String username) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Username = '" + username + "'";

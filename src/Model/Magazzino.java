@@ -13,9 +13,9 @@ public class Magazzino {
         this.maxScaffale = 0;
     }
 
-    public Magazzino(int idMagazzino, int idPuntoVendita, int maxCorsia, int maxScaffale) {
-        this.idMagazzino = idMagazzino;
-        this.idPuntoVendita = idPuntoVendita;
+    public Magazzino(int maxCorsia, int maxScaffale) {
+        this.idMagazzino = 0;
+        this.idPuntoVendita = 0;
         this.maxCorsia = maxCorsia;
         this.maxScaffale = maxScaffale;
     }

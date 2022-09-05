@@ -17,12 +17,12 @@ public class PuntoVendita {
         this.idUtenteManager = 0;
     }
 
-    public PuntoVendita(int idPuntoVendita, String Citta, String Nome, String Indirizzo, int idUtenteManager) {
-        this.idPuntoVendita = idPuntoVendita;
+    public PuntoVendita(String Citta, String Nome, String Indirizzo) {
+        this.idPuntoVendita = 0;
         this.Citta = Citta;
         this.Nome = Nome;
         this.Indirizzo = Indirizzo;
-        this.idUtenteManager = idUtenteManager;
+        this.idUtenteManager = 0;
     }
 
     public String getIndirizzo() {

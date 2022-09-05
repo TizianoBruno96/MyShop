@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public interface IProdottoDAO {
     int add(Prodotto prodotto, Categoria categoria, Produttore produttore);
     int addFiglio(Prodotto prodotto, Categoria categoria, Produttore produttore, Prodotto prodottoPadre);
+    Prodotto findByID(int idProdotto);
     int removeByID(int idProdotto);
     int update(Prodotto prodotto);
     int removeByNome(String nome);

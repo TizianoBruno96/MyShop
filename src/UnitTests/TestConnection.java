@@ -1,4 +1,4 @@
-package Test;
+package UnitTests;
 
 import DBInterface.DBUser;
 

@@ -5,6 +5,7 @@ import Model.Recensione;
 import java.util.ArrayList;
 
 public interface IRecensioneDAO {
+    Recensione findByID(int idRecensione);
     ArrayList<Recensione> findByProdotto(int idProdotto);
     ArrayList<Recensione> findByUtente(int idUtente);
     int add(Recensione recensione);

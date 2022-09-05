@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IUtenteDAO {
+    Utente findByID(int idUtente);
     Utente findByUsername(String username);
     ArrayList<Utente> findAll();
     boolean isCliente(String username);

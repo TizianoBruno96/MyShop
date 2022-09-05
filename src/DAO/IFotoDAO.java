@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface IFotoDAO {
     public ArrayList<Foto> findByProdotto(int idProdotto);
     Foto findByValore(String Valore);
-    Foto findByName(String Nome);
+    Foto findByID(int idFoto);
     int add(Foto foto);
     int removeByValore(byte[] valore);
     int removeByNome(String nome);

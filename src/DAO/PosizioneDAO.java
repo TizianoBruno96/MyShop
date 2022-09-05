@@ -30,6 +30,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         return instance;
     }
 
+    @Override
     public Posizione findByID(int IdPosizione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE IdPosizione = " + IdPosizione;
@@ -52,6 +53,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         return null;
     }
 
+    @Override
     public ArrayList<Posizione> findByMagazzino(int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE IdMagazzino = " + idMagazzino;
@@ -75,40 +77,49 @@ public class PosizioneDAO implements IPosizioneDAO {
         return null;
     }
 
+    @Override
     public int addPosizioniInMagazzino(Magazzino magazzino) {
-        int result = 0;
+        int rowCount = 0;
         for(int i = 0; i < magazzino.getMaxCorsia(); i++) {
             for(int j = 0; j < magazzino.getMaxScaffale(); j++) {
-                result += add(new Posizione(i, j, 0, magazzino.getIdMagazzino(), 0));
+                rowCount += add(new Posizione(i, j, 0), magazzino.getIdMagazzino());
             }
         }
-        return result;
-    }
-
-    public int addProdottoInPosizione(Prodotto prodotto, int idMagazzino, int pCorsia, int pScaffale, int quantita) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + pCorsia + " AND pScaffale = " + pScaffale);
-        return result;
+        return rowCount;
     }
 
     @Override
-    public int add(Posizione posizione) {
+    public int addProdottoInPosizione(Prodotto prodotto, Posizione posizione, int idMagazzino, int quantita) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', '" + posizione.getIdProdotto() + "', '" + posizione.getIdMagazzino() + "')");
-        return result;
+        int rowCount = connection.executeUpdate("UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + posizione.getpCorsia() + " AND pScaffale = " + posizione.getpScaffale());
+        return rowCount;
+    }
+
+    @Override
+    public int add(Posizione posizione, int idMagazzino) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', '" + posizione.getIdProdotto() + "', '" + idMagazzino + "')");
+        return rowCount;
     }
 
     @Override
     public int removeByID(int idPosizione) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Posizione WHERE idPosizione = '" + idPosizione + "'");
-        return result;
+        int rowCount = connection.executeUpdate("DELETE FROM Posizione WHERE idPosizione = '" + idPosizione + "'");
+        return rowCount;
+    }
+
+    @Override
+    public int removeByMagazzino(int idMagazzino) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("DELETE FROM Posizione WHERE idMagazzino = '" + idMagazzino + "'");
+        return rowCount;
     }
 
     @Override
     public int update(Posizione posizione) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Posizione SET pCorsia = '" + posizione.getpCorsia() + "', pScaffale = '" + posizione.getpScaffale() + "', Quantita = '" + posizione.getQuantita() + "', idProdotto = '" + posizione.getIdProdotto() + "', idMagazzino = '" + posizione.getIdMagazzino() + "' WHERE idPosizione = '" + posizione.getIdPosizione() + "'");
-        return result;
+        int rowCount = connection.executeUpdate("UPDATE Posizione SET pCorsia = '" + posizione.getpCorsia() + "', pScaffale = '" + posizione.getpScaffale() + "', Quantita = '" + posizione.getQuantita() + "', idProdotto = '" + posizione.getIdProdotto() + "', idMagazzino = '" + posizione.getIdMagazzino() + "' WHERE idPosizione = '" + posizione.getIdPosizione() + "'");
+        return rowCount;
     }
 }

@@ -5,6 +5,7 @@ import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
+import Model.Articoli.Prodotto;
 import Model.Articoli.ProdottoComposito;
 import DAO.ModelFactory.ProdottoCompositoFactory;
 
@@ -26,6 +27,52 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
 
     public static ProdottoCompositoDAO getInstance() {
         return instance;
+    }
+
+    @Override
+    public ProdottoComposito find(Prodotto prodottoPadre, Prodotto prodottoFiglio) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM prodotto_composito WHERE IdProdottoPadre = " + prodottoPadre.getIdProdotto() + " AND IdProdottoFiglio = " + prodottoFiglio.getIdProdotto();
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                prodottoComposito = new ProdottoCompositoFactory().create(rs);
+                return prodottoComposito;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public ProdottoComposito find(int idProdottoPadre, int idProdottoFiglio) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM prodotto_composito WHERE IdProdottoPadre = " + idProdottoPadre + " AND IdProdottoFiglio = " + idProdottoFiglio;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                prodottoComposito = new ProdottoCompositoFactory().create(rs);
+                return prodottoComposito;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
     }
 
     @Override

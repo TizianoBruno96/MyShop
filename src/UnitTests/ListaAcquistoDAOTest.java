@@ -1,22 +1,25 @@
-package Test;
+package UnitTests;
 
 import DAO.*;
-import Model.*;
-import Model.Articoli.*;
-import Model.Utenti.*;
+import Model.Articoli.Prodotto;
+import Model.Articoli.Produttore;
+import Model.Categoria;
+import Model.ListaAcquisto;
+import Model.Ordine;
+import Model.Utenti.Utente;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
 
-public class OrdineDAOTest {
-    IOrdineDAO ordineDAO = OrdineDAO.getInstance();
+public class ListaAcquistoDAOTest {
+    IListaAcquistoDAO listaAcquistoDAO = ListaAcquistoDAO.getInstance();
+    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
-    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
-    ListaAcquistoDAO listaAcquistoDAO = ListaAcquistoDAO.getInstance();
+    IOrdineDAO ordineDAO = OrdineDAO.getInstance();
 
     @Before
     public void setUp() {
@@ -70,43 +73,52 @@ public class OrdineDAOTest {
         categoriaDAO.removeByName("Sedie");
         categoriaDAO.removeByName("Tavoli");
         utenteDAO.removeByUsername("Frama19");
+        utenteDAO.removeByUsername("Maurotizi");
     }
 
     @Test
-    public void findByListaAcquistoTest() {
-        assert ordineDAO.findByListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()).size() == 4;
+    public void findByIDUtenteTest() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        assert listaAcquisto.getIdUtente() == utenteDAO.findByUsername("Frama19").getIdUtente();
     }
 
     @Test
-    public void findByProdottoTest() {
-        Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
-        Prodotto prodotto2 = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
-        Prodotto prodotto3 = prodottoDAO.findByNome("Tavolo Da Ufficio Blu");
-        Prodotto prodotto4 = prodottoDAO.findByNome("Tavolo Da Ufficio Magenta");
-        assert ordineDAO.findByProdotto(prodotto1.getIdProdotto()).size() == 1;
-        assert ordineDAO.findByProdotto(prodotto2.getIdProdotto()).size() == 1;
-        assert ordineDAO.findByProdotto(prodotto3.getIdProdotto()).size() == 1;
-        assert ordineDAO.findByProdotto(prodotto4.getIdProdotto()).size() == 1;
+    public void findByIDTest() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        ListaAcquisto listaAcquisto1 = listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto());
+        assert listaAcquisto1.getIdListaAcquisto() == listaAcquisto.getIdListaAcquisto();
     }
 
     @Test
-    public void findTest() {
-        Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
-        Prodotto prodotto2 = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
-        Prodotto prodotto3 = prodottoDAO.findByNome("Tavolo Da Ufficio Blu");
-        Prodotto prodotto4 = prodottoDAO.findByNome("Tavolo Da Ufficio Magenta");
-        assert (ordineDAO.find(prodotto1, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 3);
-        assert (ordineDAO.find(prodotto2, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 2);
-        assert (ordineDAO.find(prodotto3, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 1);
-        assert (ordineDAO.find(prodotto4, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 4);
+    public void removeByIDUtenteTest() throws SQLException {
+        utenteDAO.add(new Utente("Mauro", "Maurizi", "Maurotizi", "Mauro4492@gmail.com", "3394326546", 23, "Via del bosco 19", "imprenditore", "Giorgio"), 1);
+        Utente utente = utenteDAO.findByUsername("Maurotizi");
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utente.getIdUtente());
+        listaAcquistoDAO.removeByID(listaAcquisto.getIdListaAcquisto());
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()) == null;
     }
 
     @Test
-    public void updateByProdottoTest() {
-        Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
-        Ordine ordine = ordineDAO.find(prodotto1, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()));
-        ordine.setQuantita(5);
-        ordineDAO.update(ordine);
-        assert (ordineDAO.find(prodotto1, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 5);
+    public void removeByIDTest() throws SQLException {
+        utenteDAO.add(new Utente("Mauro", "Maurizi", "Maurotizi", "Mauro4492@gmail.com", "3394326546", 23, "Via del bosco 19", "imprenditore", "Giorgio"), 1);
+        Utente utente = utenteDAO.findByUsername("Maurotizi");
+        utenteDAO.removeByUsername("Maurotizi");
+        assert listaAcquistoDAO.findByIDUtente(utente.getIdUtente()) == null;
+    }
+
+    @Test
+    public void updateTest() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        listaAcquisto.setCostoTot(100);
+        listaAcquistoDAO.update(listaAcquisto);
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() == 100;
+    }
+
+    @Test
+    public void updateCostoTotTest() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        listaAcquistoDAO.updateCostoTot(listaAcquisto);
+        System.out.println(listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot());
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() == 141;
     }
 }

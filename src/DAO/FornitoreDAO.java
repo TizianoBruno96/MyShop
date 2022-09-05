@@ -53,6 +53,30 @@ public class FornitoreDAO implements IFornitoreDAO{
     }
 
     @Override
+    public Fornitore findByID(int idFornitore) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM fornitore WHERE idFornitore = " + idFornitore;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                fornitore = new FornitoreFactory().create(rs);
+                return fornitore;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public ArrayList<Fornitore> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore";

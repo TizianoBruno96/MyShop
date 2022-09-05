@@ -29,6 +29,29 @@ public class ServizioDAO implements IServizioDAO {
         return instance;
     }
 
+    @Override
+    public Servizio findByID(int idServizio) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio WHERE IdServizio = " + idServizio;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                servizio = new ServizioFactory().create(rs);
+                return servizio;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
     public Servizio findByNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Servizio WHERE Nome = '" + nome + "'";

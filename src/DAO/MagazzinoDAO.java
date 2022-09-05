@@ -7,6 +7,7 @@ import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.Magazzino;
 import DAO.ModelFactory.MagazzinoFactory;
+import Model.PuntoVendita;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,6 +73,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         return null;
     }
 
+    @Override
     public ArrayList<Magazzino> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Magazzino";
@@ -95,30 +97,38 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     }
 
     @Override
-    public int add(Magazzino magazzino) {
+    public int add(Magazzino magazzino, int idPuntoVendita) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + magazzino.getIdPuntoVendita() + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')");
-        return result;
+        //IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
+        //Controllo se esiste già un magazzino per quel punto vendita
+        if(MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita) != null) {
+            return -1;
+        }
+
+
+        int rowCount = connection.executeUpdate("INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + idPuntoVendita + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')");
+        //rowCount += posizioneDAO.addPosizioniInMagazzino(magazzino);
+        return rowCount;
     }
 
     @Override
     public int removeByID(int idMagazzino) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'");
-        return result;
+        int rowCount = connection.executeUpdate("DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'");
+        return rowCount;
     }
 
     @Override
     public int removeByPuntoVendita(int idPuntoVendita) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Magazzino WHERE idPuntoVendita = '" + idPuntoVendita + "'");
-        return result;
+        int rowCount = connection.executeUpdate("DELETE FROM Magazzino WHERE idPuntoVendita = '" + idPuntoVendita + "'");
+        return rowCount;
     }
 
     @Override
     public int update(Magazzino magazzino) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Magazzino SET idPuntoVendita = '" + magazzino.getIdPuntoVendita() + "', maxCorsia = '" + magazzino.getMaxCorsia() + "', maxScaffale = '" + magazzino.getMaxScaffale() + "' WHERE idMagazzino = '" + magazzino.getIdMagazzino() + "'");
-        return result;
+        int rowCount = connection.executeUpdate("UPDATE Magazzino SET idPuntoVendita = '" + magazzino.getIdPuntoVendita() + "', maxCorsia = '" + magazzino.getMaxCorsia() + "', maxScaffale = '" + magazzino.getMaxScaffale() + "' WHERE idMagazzino = '" + magazzino.getIdMagazzino() + "'");
+        return rowCount;
     }
 }

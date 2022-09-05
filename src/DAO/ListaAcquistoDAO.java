@@ -7,9 +7,12 @@ import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
 import DAO.ModelFactory.ListaAcquistoFactory;
+import Model.Ordine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 public class ListaAcquistoDAO implements IListaAcquistoDAO {
     private static ListaAcquistoDAO instance = new ListaAcquistoDAO();
@@ -104,5 +107,27 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         connection = DBConnection.getInstance();
         int result = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = '" + costoTot + "' WHERE idListaAcquisto = '" + listaAcquisto.getIdListaAcquisto() + "'");
         return result;
+    }
+
+    @Override
+    public int updateCostoTot(ListaAcquisto listaAcquisto) {
+        connection = DBConnection.getInstance();
+        IOrdineDAO ordineDAO = OrdineDAO.getInstance();
+        IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
+
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        DecimalFormat format = new DecimalFormat("0.00", dfs);
+        dfs.setDecimalSeparator(',');
+
+        float tot = 0;
+        for (Ordine o : ordineDAO.findByListaAcquisto(listaAcquisto.getIdListaAcquisto())) {
+            tot += o.getQuantita() * prodottoDAO.findByID(o.getIdProdotto()).getCosto();
+        }
+        System.out.println("tot: " + tot);
+        System.out.println("format: " + format.format(tot));
+
+        //TODO sistemare il formato del costo totale
+        int rowCount = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = " + tot + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto());
+        return rowCount;
     }
 }
