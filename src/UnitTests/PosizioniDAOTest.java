@@ -25,7 +25,7 @@ public class PosizioniDAOTest {
 
     @Before
     public void setUp() {
-        utenteDAO.add(new Utente("Francesca", "Maurizi", "Frama19", "francesca1922@gmail.com", "3394287546", 19, "Via del bosco 19", "estetista", "Gomorra", "MN"), 1);
+        utenteDAO.add(new Utente("Francesca", "Maurizi", "Frama19", "francesca1922@gmail.com", "3394287546", 19, "Via del bosco 19", "estetista", "Gomorra", "MN"));
         Utente utente = utenteDAO.findByUsername("Frama19");
 
         Categoria sedie = new Categoria("Sedie");

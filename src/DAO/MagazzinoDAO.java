@@ -99,25 +99,21 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     @Override
     public int add(Magazzino magazzino, int idPuntoVendita) {
         connection = DBConnection.getInstance();
-        IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
+        //IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
         //Controllo se esiste già un magazzino per quel punto vendita
         if(MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita) != null) {
             return -1;
         }
 
+
         int rowCount = connection.executeUpdate("INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + idPuntoVendita + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')");
-        magazzino = MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita);
-        rowCount += posizioneDAO.addPosizioniInMagazzino(magazzino);
+        //rowCount += posizioneDAO.addPosizioniInMagazzino(magazzino);
         return rowCount;
     }
 
     @Override
     public int removeByID(int idMagazzino) {
         connection = DBConnection.getInstance();
-        //Rimuovo tutte le posizioni del magazzino
-        IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
-        posizioneDAO.removeByMagazzino(idMagazzino);
-        //Rimuovo il magazzino
         int rowCount = connection.executeUpdate("DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'");
         return rowCount;
     }
@@ -125,10 +121,6 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     @Override
     public int removeByPuntoVendita(int idPuntoVendita) {
         connection = DBConnection.getInstance();
-        //Rimuovo tutte le posizioni del magazzino
-        IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
-        posizioneDAO.removeByMagazzino(MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita).getIdMagazzino());
-        //Rimuovo il magazzino
         int rowCount = connection.executeUpdate("DELETE FROM Magazzino WHERE idPuntoVendita = '" + idPuntoVendita + "'");
         return rowCount;
     }

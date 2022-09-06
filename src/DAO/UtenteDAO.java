@@ -228,6 +228,21 @@ public class UtenteDAO implements IUtenteDAO {
     }
 
     @Override
+    public int add(Utente utente) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("INSERT INTO utente (Nome, Cognome, Username, Email, Telefono, Eta, Residenza, Professione, Password, Tipo) VALUES ('" + utente.getNome() + "', '" + utente.getCognome() + "', '" + utente.getUsername() + "', '" + utente.getEmail() + "', '" + utente.getTelefono() + "', " + utente.getEta() + ", '" + utente.getResidenza() + "', '" + utente.getProfessione() + "', '" + utente.getPassword() + "', '" + utente.getTipo() + "')");
+        switch (utente.getTipo()) {
+            case "AM" ->
+                    rowCount += connection.executeUpdate("INSERT INTO amministratore (idUtente) VALUES (LAST_INSERT_ID())");
+            case "MN" ->
+                    rowCount += connection.executeUpdate("INSERT INTO manager (idUtente) VALUES (LAST_INSERT_ID())");
+        }
+        //creo la lista di acquisto dell'utente
+        rowCount += connection.executeUpdate("INSERT INTO listaacquisto (idUtente) VALUES (LAST_INSERT_ID())");
+        return rowCount;
+    }
+
+    @Override
     public int removeByUsername(String username) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idUtente = (SELECT idUtente FROM Utente WHERE Username = '" + username + "');");
