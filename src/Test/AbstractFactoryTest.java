@@ -1,4 +1,4 @@
-package UnitTests;
+package Test;
 
 import Business.AbstractFactory.*;
 import Model.*;

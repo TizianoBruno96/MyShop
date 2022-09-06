@@ -1,4 +1,4 @@
-package UnitTests;
+package Test.UnitTests;
 
 import DAO.CategoriaDAO;
 import DAO.ICategoriaDAO;

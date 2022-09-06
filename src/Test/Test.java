@@ -1,4 +1,4 @@
-package UnitTests;
+package Test;
 
 import DAO.*;
 import Model.Magazzino;

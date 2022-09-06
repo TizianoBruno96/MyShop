@@ -1,4 +1,4 @@
-package UnitTests;
+package Test.UnitTests;
 
 import DAO.*;
 import Model.Magazzino;
@@ -26,6 +26,7 @@ public class MagazzinoDAOTest {
 
     @After
     public void tearDown() throws SQLException {
+
         magazzinoDAO.removeByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         puntoVenditaDAO.removeByIDManager(utenteDAO.findByUsername("Frama19").getIdUtente());
         utenteDAO.removeByUsername("Frama19");

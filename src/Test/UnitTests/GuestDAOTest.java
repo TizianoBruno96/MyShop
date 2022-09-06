@@ -1,4 +1,4 @@
-package UnitTests;
+package Test.UnitTests;
 
 import org.junit.Before;
 

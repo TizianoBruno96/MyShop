@@ -80,8 +80,8 @@ public class PosizioneDAO implements IPosizioneDAO {
     @Override
     public int addPosizioniInMagazzino(Magazzino magazzino) {
         int rowCount = 0;
-        for(int i = 0; i < magazzino.getMaxCorsia(); i++) {
-            for(int j = 0; j < magazzino.getMaxScaffale(); j++) {
+        for(int i = 1; i < magazzino.getMaxCorsia() + 1; i++) {
+            for(int j = 1; j < magazzino.getMaxScaffale() + 1; j++) {
                 rowCount += add(new Posizione(i, j, 0), magazzino.getIdMagazzino());
             }
         }

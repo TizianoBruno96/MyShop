@@ -9,14 +9,8 @@ public class Recensione {
     private int idProdotto;
     private int idUtente;
     private Date data;
+    long millis = System.currentTimeMillis();
 
-    public void setIdRecensione(int idRecensione) {
-        this.idRecensione = idRecensione;
-    }
-
-    public void setIdProdotto(int idProdotto) {
-        this.idProdotto = idProdotto;
-    }
 
     public Recensione() {
         this.idRecensione = 0;
@@ -24,16 +18,23 @@ public class Recensione {
         this.commento = "";
         this.idProdotto = 0;
         this.idUtente = 0;
-        this.data = new Date();
     }
 
-    public Recensione(int idRecensione, int voto, String commento, int idProdotto, int idUtente, Date data) {
-        this.idRecensione = idRecensione;
+    public Recensione(int voto, String commento, int idProdotto, int idUtente) {
+        this.idRecensione = 0;
         this.voto = voto;
         this.commento = commento;
         this.idProdotto = idProdotto;
         this.idUtente = idUtente;
-        this.data = data;
+        this.data = new Date(millis);
+    }
+
+    public void setIdRecensione(int idRecensione) {
+        this.idRecensione = idRecensione;
+    }
+
+    public void setIdProdotto(int idProdotto) {
+        this.idProdotto = idProdotto;
     }
 
     public int getIdUtente() {
@@ -57,7 +58,8 @@ public class Recensione {
     }
 
     public void setVoto(int voto) {
-        this.voto = voto;
+        if(voto >= 1 && voto <= 5)
+            this.voto = voto;
     }
 
     public String getCommento() {
