@@ -122,9 +122,33 @@ public class ServizioDAO implements IServizioDAO {
     }
 
     @Override
-    public int add(Servizio servizio) {
+    public ArrayList<Servizio> findByCategoria(int idCategoria) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Servizio WHERE IdCategoria = " + idCategoria;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        ArrayList<Servizio> servizi = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                servizio = new ServizioFactory().create(rs);
+                servizi.add(servizio);
+            }
+            return servizi;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public int add(Servizio servizio, int idCategoria, int idFornitore) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Servizio (Nome, IdCategoria, IdFornitore, Costo) VALUES ('" + servizio.getNome() + "', " + servizio.getIdCategoria() + ", " + servizio.getIdFornitore() + ", " + servizio.getCosto() + ")");
+        int result = connection.executeUpdate("INSERT INTO Servizio (Nome, IdCategoria, IdFornitore, Costo) VALUES ('" + servizio.getNome() + "', " + idCategoria + ", " + idFornitore + ", " + servizio.getCosto() + ")");
         return result;
     }
 
@@ -136,9 +160,9 @@ public class ServizioDAO implements IServizioDAO {
     }
 
     @Override
-    public int remove(Servizio servizio) {
+    public int removeByID(int idServizio) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Servizio WHERE idServizio = " + servizio.getIdServizio());
+        int result = connection.executeUpdate("DELETE FROM Servizio WHERE idServizio = " + idServizio);
         return result;
     }
 

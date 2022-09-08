@@ -7,9 +7,8 @@ import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
 import DAO.ModelFactory.ListaAcquistoFactory;
-import Model.Ordine;
+import Model.OrdineProdotto;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -113,7 +112,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     @Override
     public int updateCostoTot(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
-        IOrdineDAO ordineDAO = OrdineDAO.getInstance();
+        IOrdineProdottoDAO ordineDAO = OrdineProdottoDAO.getInstance();
         IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
 
         DecimalFormatSymbols dfs = new DecimalFormatSymbols();
@@ -121,7 +120,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         dfs.setDecimalSeparator(',');
 
         float tot = 0;
-        for (Ordine o : ordineDAO.findByListaAcquisto(listaAcquisto.getIdListaAcquisto())) {
+        for (OrdineProdotto o : ordineDAO.findByListaAcquisto(listaAcquisto.getIdListaAcquisto())) {
             tot += o.getQuantita() * prodottoDAO.findByID(o.getIdProdotto()).getCosto();
         }
         System.out.println("tot: " + tot);

@@ -14,10 +14,10 @@ public class Servizio extends Articolo {
         this.setCosto(0);
     }
 
-    public Servizio(int idServizio, int idCategoria, int idFornitore, String Nome, float Costo) {
-        this.idServizio = idServizio;
-        this.idCategoria = idCategoria;
-        this.idFornitore = idFornitore;
+    public Servizio(String Nome, float Costo) {
+        this.idServizio = 0;
+        this.idCategoria = 0;
+        this.idFornitore = 0;
         this.Nome = Nome;
         this.setCosto(Costo);
     }

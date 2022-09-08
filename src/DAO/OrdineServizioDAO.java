@@ -1,46 +1,46 @@
 package DAO;
 
+import DAO.ModelFactory.OrdineServizioFactory;
 import DBInterface.Command.DBOperationExecutor;
 import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
 import DBInterface.DBConnection;
 import DBInterface.IDBConnection;
-import DAO.ModelFactory.OrdineFactory;
-import Model.Articoli.Prodotto;
+import Model.Articoli.Servizio;
 import Model.ListaAcquisto;
-import Model.Ordine;
+import Model.OrdineServizio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrdineDAO implements IOrdineDAO {
-    private static OrdineDAO instance = new OrdineDAO();
-    private Ordine ordine;
+public class OrdineServizioDAO implements IOrdineServizioDAO {
+    private static OrdineServizioDAO instance = new OrdineServizioDAO();
+    private OrdineServizio ordineServizio;
     private static IDBConnection connection;
     private static ResultSet rs;
 
-    private OrdineDAO() {
-        ordine = null;
+    private OrdineServizioDAO() {
+        ordineServizio = null;
         connection = null;
         rs = null;
     }
 
-    public static OrdineDAO getInstance() {
+    public static OrdineServizioDAO getInstance() {
         return instance;
     }
 
     @Override
-    public ArrayList<Ordine> findAll() {
+    public ArrayList<OrdineServizio> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM Ordine";
+        String sql = "SELECT * FROM OrdineServizio";
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
-        ArrayList<Ordine> ordini = new ArrayList<>();
+        ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while(rs.next()) {
-                ordine = new OrdineFactory().create(rs);
-                ordini.add(ordine);
+                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordini.add(ordineServizio);
             }
             return ordini;
         } catch (SQLException e) {
@@ -55,16 +55,16 @@ public class OrdineDAO implements IOrdineDAO {
     }
 
     @Override
-    public ArrayList<Ordine> findByListaAcquisto(int idListaAcquisto) {
+    public ArrayList<OrdineServizio> findByIDServizio(int idServizio) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM Ordine WHERE idListaAcquisto = " + idListaAcquisto;
+        String sql = "SELECT * FROM OrdineServizio WHERE idServizio = " + idServizio;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
-        ArrayList<Ordine> ordini = new ArrayList<>();
+        ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while(rs.next()) {
-                ordine = new OrdineFactory().create(rs);
-                ordini.add(ordine);
+                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordini.add(ordineServizio);
             }
             return ordini;
         } catch (SQLException e) {
@@ -79,16 +79,16 @@ public class OrdineDAO implements IOrdineDAO {
     }
 
     @Override
-    public ArrayList<Ordine> findByProdotto(int idProdotto) {
+    public ArrayList<OrdineServizio> findByIDListaAcquisto(int idListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM Ordine WHERE idProdotto = " + idProdotto;
+        String sql = "SELECT * FROM OrdineServizio WHERE idListaAcquisto = " + idListaAcquisto;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
-        ArrayList<Ordine> ordini = new ArrayList<>();
+        ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while(rs.next()) {
-                ordine = new OrdineFactory().create(rs);
-                ordini.add(ordine);
+                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordini.add(ordineServizio);
             }
             return ordini;
         } catch (SQLException e) {
@@ -103,15 +103,15 @@ public class OrdineDAO implements IOrdineDAO {
     }
 
     @Override
-    public Ordine find(Prodotto prodotto, ListaAcquisto listaAcquisto) {
+    public OrdineServizio find(Servizio servizio, ListaAcquisto listaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM Ordine WHERE idProdotto = " + prodotto.getIdProdotto() + " AND idListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
+        String sql = "SELECT * FROM OrdineServizio WHERE idServizio = " + servizio.getIdServizio() + " AND idListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             if(rs.next()) {
-                ordine = new OrdineFactory().create(rs);
-                return ordine;
+                ordineServizio = new OrdineServizioFactory().create(rs);
+                return ordineServizio;
             }
         } catch (SQLException e) {
             //handle any errors
@@ -125,37 +125,37 @@ public class OrdineDAO implements IOrdineDAO {
     }
 
     @Override
-    public int add(Ordine ordine) {
+    public int add(OrdineServizio ordineServizio) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Ordine (idProdotto, idListaAcquisto, Quantita) VALUES (" + ordine.getIdProdotto() + ", " + ordine.getIdListaAcquisto() + ", " + ordine.getQuantita() + ")");
-        return rowCount;
+        String sql = "INSERT INTO OrdineServizio (idServizio, idListaAcquisto) VALUES (" + ordineServizio.getIdServizio() + ", " + ordineServizio.getIdListaAcquisto() + ")";
+        return connection.executeUpdate(sql);
     }
 
     @Override
-    public int removeByIDProdotto(int idProdotto) {
+    public int removeByIDServizio(int idServizio) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idProdotto = " + idProdotto);
-        return rowCount;
+        String sql = "DELETE FROM OrdineServizio WHERE idServizio = " + idServizio;
+        return connection.executeUpdate(sql);
     }
 
     @Override
     public int removeByIDListaAcquisto(int idListaAcquisto) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idListaAcquisto = " + idListaAcquisto);
-        return rowCount;
+        String sql = "DELETE FROM OrdineServizio WHERE idListaAcquisto = " + idListaAcquisto;
+        return connection.executeUpdate(sql);
     }
 
     @Override
-    public int removeByID(int idProdotto, int idListaAcquisto) {
+    public int removeByID(int idServizio, int idListaAcquisto) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Ordine WHERE idProdotto = " + idProdotto + " AND idListaAcquisto = " + idListaAcquisto);
-        return rowCount;
+        String sql = "DELETE FROM OrdineServizio WHERE idServizio = " + idServizio + " AND idListaAcquisto = " + idListaAcquisto;
+        return connection.executeUpdate(sql);
     }
 
     @Override
-    public int update(Ordine ordine) {
+    public int update(Servizio servizio) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Ordine SET Quantita = " + ordine.getQuantita() + " WHERE idProdotto = " + ordine.getIdProdotto() + " AND idListaAcquisto = " + ordine.getIdListaAcquisto());
-        return rowCount;
+        String sql = "UPDATE OrdineServizio SET idServizio = " + servizio.getIdServizio() + " WHERE idServizio = " + servizio.getIdServizio();
+        return connection.executeUpdate(sql);
     }
 }
