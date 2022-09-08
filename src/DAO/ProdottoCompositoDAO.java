@@ -55,7 +55,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     @Override
     public ProdottoComposito find(int idProdottoPadre, int idProdottoFiglio) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM prodotto_composito WHERE IdProdottoPadre = " + idProdottoPadre + " AND IdProdottoFiglio = " + idProdottoFiglio;
+        String sql = "SELECT * FROM prodottocomposito WHERE IdProdottoPadre = " + idProdottoPadre + " AND IdProdottoFiglio = " + idProdottoFiglio;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
@@ -148,28 +148,35 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     @Override
     public int add(ProdottoComposito prodottoComposito) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO ProdottoComposito (IDProdottoPadre, IDProdottoFiglio) VALUES (" + prodottoComposito.getIdProdottoPadre() + ", " + prodottoComposito.getIdProdottoFiglio() + ")");
-        return result;
+        int rowCount = connection.executeUpdate("INSERT INTO ProdottoComposito (IDProdottoPadre, IDProdottoFiglio) VALUES (" + prodottoComposito.getIdProdottoPadre() + ", " + prodottoComposito.getIdProdottoFiglio() + ")");
+        return rowCount;
+    }
+
+    @Override
+    public int remove(int idProdottoPadre, int idProdottoFiglio) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("DELETE FROM ProdottoComposito WHERE IDProdottoPadre = " + idProdottoPadre + " AND IDProdottoFiglio = " + idProdottoFiglio);
+        return rowCount;
     }
 
     @Override
     public int removeByIDFiglio(int idProdottoFiglio) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM ProdottoComposito WHERE IDProdottoFiglio = " + idProdottoFiglio);
-        return result;
+        int rowCount = connection.executeUpdate("DELETE FROM ProdottoComposito WHERE IDProdottoFiglio = " + idProdottoFiglio);
+        return rowCount;
     }
 
     @Override
     public int removeByIDPadre(int idProdottoPadre) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM ProdottoComposito WHERE IDProdottoPadre = " + idProdottoPadre);
-        return result;
+        int rowCount = connection.executeUpdate("DELETE FROM ProdottoComposito WHERE IDProdottoPadre = " + idProdottoPadre);
+        return rowCount;
     }
 
     @Override
     public int update(ProdottoComposito prodottoComposito) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE ProdottoComposito SET IDProdottoPadre = " + prodottoComposito.getIdProdottoPadre() + ", IDProdottoFiglio = " + prodottoComposito.getIdProdottoFiglio() + " WHERE IDProdottoFiglio = " + prodottoComposito.getIdProdottoFiglio());
-        return result;
+        int rowCount = connection.executeUpdate("UPDATE ProdottoComposito SET IDProdottoPadre = " + prodottoComposito.getIdProdottoPadre() + ", IDProdottoFiglio = " + prodottoComposito.getIdProdottoFiglio() + " WHERE IDProdottoFiglio = " + prodottoComposito.getIdProdottoFiglio());
+        return rowCount;
     }
 }

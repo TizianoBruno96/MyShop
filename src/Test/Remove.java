@@ -20,19 +20,37 @@ public class Remove {
             recensioneDAO.removeByProdottoAndUtente(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Nikhammer").getIdUtente());
         }
 
+        //Elimino i prodotti
         if (prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null) {
-            //Elimino i prodotti
             prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
         }
-
-        if (categoriaDAO.findByNome("Sedie") != null) {
-            //Elimino le categorie
-            categoriaDAO.removeByName("Sedie");
+        if (prodottoDAO.findByNome("Sedia Da Ufficio Verde") != null) {
+            prodottoDAO.removeByNome("Sedia Da Ufficio Verde");
+        }
+        if (prodottoDAO.findByNome("Sedia Da Ufficio Bianca") != null) {
+            prodottoDAO.removeByNome("Sedia Da Ufficio Bianca");
+        }
+        if (prodottoDAO.findByNome("Tavolo Da Ufficio Blu") != null) {
+            prodottoDAO.removeByNome("Tavolo Da Ufficio Blu");
+        }
+        if (prodottoDAO.findByNome("Tavolo Da Ufficio Nero") != null) {
+            prodottoDAO.removeByNome("Tavolo Da Ufficio Nero");
         }
 
+        //Elimino le categorie
+        if (categoriaDAO.findByNome("Sedie") != null) {
+            categoriaDAO.removeByName("Sedie");
+        }
+        if (categoriaDAO.findByNome("Tavoli") != null) {
+            categoriaDAO.removeByName("Tavoli");
+        }
+
+        //Elimino i produttori
         if (produttoreDAO.findByNome("SedieINC") != null) {
-            //Elimino i produttori
             produttoreDAO.removeByNome("SedieINC");
+        }
+        if (produttoreDAO.findByNome("TavoliINC") != null) {
+            produttoreDAO.removeByNome("TavoliINC");
         }
 
         if (utenteDAO.findByUsername("Frama19") != null) {

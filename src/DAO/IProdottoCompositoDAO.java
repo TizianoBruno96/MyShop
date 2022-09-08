@@ -12,6 +12,7 @@ public interface IProdottoCompositoDAO {
     ArrayList<ProdottoComposito> findByIDPadre(int idProdottoPadre);
     ArrayList<ProdottoComposito> findAll();
     int add(ProdottoComposito prodottoComposito);
+    int remove(int idProdottoPadre, int idProdottoFiglio);
     int removeByIDFiglio(int idProdottoFiglio);
     int removeByIDPadre(int idProdottoPadre);
     int update(ProdottoComposito prodottoComposito);
