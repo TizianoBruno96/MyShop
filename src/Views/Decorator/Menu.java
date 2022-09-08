@@ -1,4 +1,4 @@
-package Views.Decoretor;
+package Views.Decorator;
 
 import javax.swing.*;
 import java.util.ArrayList;

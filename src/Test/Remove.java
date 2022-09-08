@@ -1,4 +1,4 @@
-package Test.UnitTests;
+package Test;
 
 import DAO.*;
 
@@ -12,19 +12,36 @@ public class Remove {
         IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
         ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
 
-        //Elimino le recensioni
-        //recensioneDAO.removeByProdottoAndUtente(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente());
-        //recensioneDAO.removeByProdottoAndUtente(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Nikhammer").getIdUtente());
+        if(utenteDAO.findByUsername("Frama19") != null && prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null) {
+            //Elimino le recensioni
+            recensioneDAO.removeByProdottoAndUtente(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente());
+        }
+        if (utenteDAO.findByUsername("Nikhammer") != null && prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null) {
+            recensioneDAO.removeByProdottoAndUtente(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Nikhammer").getIdUtente());
+        }
 
-        //Elimino i prodotti
-        //prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
-        //Elimino le categorie
-        //categoriaDAO.removeByName("Sedie");
+        if (prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null) {
+            //Elimino i prodotti
+            prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
+        }
 
-        //Elimino i produttori
-        //produttoreDAO.removeByNome("SedieINC");
+        if (categoriaDAO.findByNome("Sedie") != null) {
+            //Elimino le categorie
+            categoriaDAO.removeByName("Sedie");
+        }
 
-        //Elimino L'utente
-        utenteDAO.removeByUsername("Frama19");
+        if (produttoreDAO.findByNome("SedieINC") != null) {
+            //Elimino i produttori
+            produttoreDAO.removeByNome("SedieINC");
+        }
+
+        if (utenteDAO.findByUsername("Frama19") != null) {
+            //Elimino l'utente
+            utenteDAO.removeByUsername("Frama19");
+        }
+
+        if (utenteDAO.findByUsername("Nikhammer") != null) {
+            utenteDAO.removeByUsername("Nikhammer");
+        }
     }
 }

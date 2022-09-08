@@ -99,31 +99,16 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     @Override
     public int add(Magazzino magazzino, int idPuntoVendita) {
         connection = DBConnection.getInstance();
-
-        //Per qualche motivo crea problema
-        IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
-
-        //Controllo se esiste già un magazzino per quel punto vendita
         if(MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita) != null) {
             return -1;
         }
-
-
         int rowCount = connection.executeUpdate("INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + idPuntoVendita + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')");
-
-        //Per qualche motivo crea problema
-        //rowCount += posizioneDAO.addPosizioniInMagazzino(magazzino);
-
         return rowCount;
     }
 
     @Override
     public int removeByID(int idMagazzino) {
         connection = DBConnection.getInstance();
-
-        IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
-        posizioneDAO.removeByMagazzino(idMagazzino);
-
         int rowCount = connection.executeUpdate("DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'");
         return rowCount;
     }

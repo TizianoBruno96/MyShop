@@ -54,6 +54,77 @@ public class PosizioneDAO implements IPosizioneDAO {
     }
 
     @Override
+    public Posizione find(int pCorsia, int pScaffale, int idMagazzino) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Posizione WHERE pCorsia = " + pCorsia + " AND pScaffale = " + pScaffale + " AND IdMagazzino = " + idMagazzino;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                posizione = new PosizioneFactory().create(rs);
+                return posizione;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Posizione> findByProdotto(Prodotto prodotto) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Posizione WHERE IdProdotto = " + prodotto.getIdProdotto();
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        ArrayList<Posizione> posizioni = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                posizione = new PosizioneFactory().create(rs);
+                posizioni.add(posizione);
+            }
+            return posizioni;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Posizione> find(int idProdotto, int idMagazzino) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Posizione WHERE IdProdotto = " + idProdotto + " AND IdMagazzino = " + idMagazzino;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        ArrayList<Posizione> posizioni = new ArrayList<>();
+        try {
+            while(rs.next()) {
+                posizione = new PosizioneFactory().create(rs);
+                posizioni.add(posizione);
+            }
+            return posizioni;
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public ArrayList<Posizione> findByMagazzino(int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE IdMagazzino = " + idMagazzino;
@@ -89,16 +160,16 @@ public class PosizioneDAO implements IPosizioneDAO {
     }
 
     @Override
-    public int addProdottoInPosizione(Prodotto prodotto, Posizione posizione, int idMagazzino, int quantita) {
+    public int addProdottoInPosizione(Prodotto prodotto, int corsia, int scaffale, int idMagazzino, int quantita) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + posizione.getpCorsia() + " AND pScaffale = " + posizione.getpScaffale());
+        int rowCount = connection.executeUpdate("UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + corsia + " AND pScaffale = " + scaffale);
         return rowCount;
     }
 
     @Override
     public int add(Posizione posizione, int idMagazzino) {
         connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', '" + posizione.getIdProdotto() + "', '" + idMagazzino + "')");
+        int rowCount = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', NULL, '" + idMagazzino + "')");
         return rowCount;
     }
 

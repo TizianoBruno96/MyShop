@@ -76,17 +76,17 @@ public class FinestraPrincipale extends JFrame {
 
 
     public void mostraPannelloLogin(){
-
         //rimuovo i pannelli precedenti
         remove(pannelloNord);
         remove(pannelloCentro);
+
         //aggiungo i pannelli di login
         add(pannelloLoginNord,BorderLayout.NORTH);
         add(pannelloLoginCentro,BorderLayout.CENTER);
+
         //faccio il refresh
         repaint();
         validate();
-
     }
 
     public void mostraCatalogo(){
@@ -95,7 +95,9 @@ public class FinestraPrincipale extends JFrame {
         pannelloCentro.add(new CatalogoPanel());
         repaint();
         validate();
-
     }
 
+    public void mostraMessaggioBenvenuto(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
 }

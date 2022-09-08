@@ -8,9 +8,7 @@ public class Recensione {
     private String commento;
     private int idProdotto;
     private int idUtente;
-    private Date data;
-    long millis = System.currentTimeMillis();
-
+    private java.sql.Date data;
 
     public Recensione() {
         this.idRecensione = 0;
@@ -18,6 +16,7 @@ public class Recensione {
         this.commento = "";
         this.idProdotto = 0;
         this.idUtente = 0;
+        data = new java.sql.Date(new Date().getTime());
     }
 
     public Recensione(int voto, String commento, int idProdotto, int idUtente) {
@@ -26,7 +25,7 @@ public class Recensione {
         this.commento = commento;
         this.idProdotto = idProdotto;
         this.idUtente = idUtente;
-        this.data = new Date(millis);
+        this.data = new java.sql.Date(new Date().getTime());
     }
 
     public void setIdRecensione(int idRecensione) {
@@ -58,7 +57,6 @@ public class Recensione {
     }
 
     public void setVoto(int voto) {
-        if(voto >= 1 && voto <= 5)
             this.voto = voto;
     }
 
@@ -70,14 +68,13 @@ public class Recensione {
         this.commento = commento;
     }
 
-    public Date getData() {
+    public java.sql.Date getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(java.sql.Date data) {
         this.data = data;
     }
-
     public String toString() {
         return "Recensione [idRecensione=" + idRecensione + ", voto=" + voto + ", commento=" + commento + ", idProdotto=" + idProdotto + "]";
     }

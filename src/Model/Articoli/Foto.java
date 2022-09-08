@@ -1,9 +1,11 @@
 package Model.Articoli;
 
+import com.mysql.cj.jdbc.Blob;
+
 public class Foto {
     private int idFoto;
     private int idProdotto;
-    private byte[] Valore;
+    private java.sql.Blob Valore;
     private String Nome;
 
     public Foto() {
@@ -13,7 +15,7 @@ public class Foto {
         this.Nome = "";
     }
 
-    public Foto(int idProdotto, byte[] Valore, String Nome) {
+    public Foto(int idProdotto, java.sql.Blob Valore, String Nome) {
         this.idFoto = 0;
         this.idProdotto = idProdotto;
         this.Valore = Valore;
@@ -28,11 +30,11 @@ public class Foto {
         return idProdotto;
     }
 
-    public byte[] getValore() {
+    public java.sql.Blob getValore() {
         return Valore;
     }
 
-    public void setValore(byte[] Valore) {
+    public void setValore(java.sql.Blob Valore) {
         this.Valore = Valore;
     }
 

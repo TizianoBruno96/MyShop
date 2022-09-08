@@ -30,31 +30,6 @@ public class FotoDAO implements IFotoDAO {
     }
 
     @Override
-    public Foto findByValore(String Valore) {
-        DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM foto WHERE valore = '" + Valore + "'";
-        IDBOperation operation = new ReadOperation(sql);
-        rs = executor.executeOperation(operation).getResultSet();
-        try {
-            rs.next();
-            if(rs.getRow() == 1) {
-                foto = new FotoFactory().create(rs);
-                return foto;
-            }
-        } catch (SQLException e) {
-            //handle any errors
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } catch (NullPointerException e) {
-            System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
-        }
-        return null;
-    }
-
-    @Override
     public Foto findByID(int idFoto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM foto WHERE idFoto = " + idFoto;
@@ -73,37 +48,31 @@ public class FotoDAO implements IFotoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
 
     @Override
-    public int add(Foto foto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Foto (Nome, Valore, idProdotto) VALUES ('" + foto.getNome() + "', '" + foto.getValore() + "', '" + foto.getIdProdotto() + "')");
-        return rowCount;
-    }
-
-    @Override
-    public int removeByValore(byte[] Valore) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE Valore = '" + Valore + "'");
-        return rowCount;
-    }
-
-    @Override
-    public int removeByNome(String Nome) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE Nome = '" + Nome + "'");
-        return rowCount;
-    }
-
-    @Override
-    public int update(Foto foto) {
-        connection = DBConnection.getInstance();
-        return connection.executeUpdate("UPDATE Foto SET Nome = '" + foto.getValore() + "' WHERE idFoto = " + foto.getIdFoto());
+    public Foto findByNome(String nome) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM foto WHERE nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if(rs.getRow() == 1) {
+                foto = new FotoFactory().create(rs);
+                return foto;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
     }
 
     @Override
@@ -124,11 +93,34 @@ public class FotoDAO implements IFotoDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
-        } finally {
-            connection.close();
         }
         return null;
     }
 
-    //TODO: sistemare codice per le foto (ho indicato il path ma le foto sono di tipo blob, ossia binary large object)
+    @Override
+    public int add(Foto foto) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("INSERT INTO Foto (Nome, Valore, idProdotto) VALUES ('" + foto.getNome() + "', '" + foto.getValore() + "', '" + foto.getIdProdotto() + "')");
+        return rowCount;
+    }
+
+    @Override
+    public int removeByID(int idFoto) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE idFoto = " + idFoto);
+        return rowCount;
+    }
+
+    @Override
+    public int removeByNome(String Nome) {
+        connection = DBConnection.getInstance();
+        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE Nome = '" + Nome + "'");
+        return rowCount;
+    }
+
+    @Override
+    public int update(Foto foto) {
+        connection = DBConnection.getInstance();
+        return connection.executeUpdate("UPDATE Foto SET Nome = '" + foto.getNome() + "' WHERE idFoto = " + foto.getIdFoto());
+    }
 }

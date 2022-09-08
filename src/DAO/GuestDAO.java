@@ -52,14 +52,35 @@ public class GuestDAO implements IGuestDAO {
         return null;
     }
 
-    public Guest findByIP(String email) {
+    @Override
+    public Guest findByID(int id) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM Guest WHERE email = '" + email + "'";
+        String sql = "SELECT * FROM Guest WHERE idGuest = " + id;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
-            rs.next();
-            if(rs.getRow() == 1) {
+            if(rs.next()) {
+                guest = new GuestFactory().create(rs);
+                return guest;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public Guest findByIP(String IP) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Guest WHERE IP = '" + IP + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            if(rs.next()) {
                 guest = new GuestFactory().create(rs);
                 return guest;
             }
@@ -77,21 +98,28 @@ public class GuestDAO implements IGuestDAO {
     @Override
     public int add(Guest guest) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Guest (IPGuest) VALUES ('" + guest.getIPGuest() + "')");
+        int result = connection.executeUpdate("INSERT INTO Guest (IP) VALUES ('" + guest.getIPGuest() + "')");
         return result;
     }
 
     @Override
-    public int removeByName(String nome) {
+    public int removeByID(int id) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Guest WHERE IPGuest = '" + nome + "'");
+        int result = connection.executeUpdate("DELETE FROM Guest WHERE idGuest = " + id);
+        return result;
+    }
+
+    @Override
+    public int removeByIP(String IP) {
+        connection = DBConnection.getInstance();
+        int result = connection.executeUpdate("DELETE FROM Guest WHERE IP = '" + IP + "'");
         return result;
     }
 
     @Override
     public int update(Guest guest) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Guest SET IPGuest = '" + guest.getIPGuest() + "' WHERE idGuest = " + guest.getIdGuest());
+        int result = connection.executeUpdate("UPDATE Guest SET IP = '" + guest.getIPGuest() + "' WHERE idGuest = " + guest.getIdGuest());
         return result;
     }
 }

@@ -4,6 +4,7 @@ import Model.Posizione;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class PosizioneFactory implements IFactory<Posizione> {
     public Posizione create(ResultSet rs) throws SQLException {

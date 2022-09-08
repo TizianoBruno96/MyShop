@@ -5,9 +5,11 @@ import Model.Guest;
 import java.util.ArrayList;
 
 public interface IGuestDAO {
-    public ArrayList<Guest> findAll();
-    public Guest findByIP(String IP);
-    public int add(Guest guest);
-    public int removeByName(String nome);
-    public int update(Guest guest);
+     ArrayList<Guest> findAll();
+     Guest findByIP(String IP);
+     Guest findByID(int id);
+     int add(Guest guest);
+     int removeByIP(String nome);
+     int removeByID(int id);
+     int update(Guest guest);
 }

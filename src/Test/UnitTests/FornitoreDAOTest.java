@@ -20,6 +20,7 @@ public class FornitoreDAOTest {
         IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
         fornitoreDAO.removeByName("SedieINC");
         fornitoreDAO.removeByName("TavoliINC");
+        fornitoreDAO.removeByName("TavoliINC2");
     }
 
     @Test
@@ -39,9 +40,9 @@ public class FornitoreDAOTest {
     public void updateTest() {
         IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
         Fornitore fornitore = fornitoreDAO.findByNome("SedieINC");
-        fornitore.setNome("TavoliINC");
+        fornitore.setNome("TavoliINC2");
         fornitoreDAO.update(fornitore);
-        assert fornitore.getNome().equals("TavoliINC");
+        assert fornitore.getNome().equals("TavoliINC2");
     }
 
     @Test

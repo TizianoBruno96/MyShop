@@ -5,12 +5,12 @@ public class Guest {
     private String IPGuest;
 
     public Guest() {
-        this.idGuest = -1;
+        this.idGuest = 0;
         this.IPGuest = "";
     }
 
-    public Guest(int idGuest, String IPGuest) {
-        this.idGuest = idGuest;
+    public Guest(String IPGuest) {
+        this.idGuest = 0;
         this.IPGuest = IPGuest;
     }
 

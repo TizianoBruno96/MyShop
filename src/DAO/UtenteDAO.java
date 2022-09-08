@@ -70,6 +70,7 @@ public class UtenteDAO implements IUtenteDAO {
             System.out.println("VendorError: " + e.getErrorCode());
         } catch (NullPointerException e) {
             System.out.println("NullPointerException: " + e.getMessage());
+            return null;
         }
         return null;
     }
