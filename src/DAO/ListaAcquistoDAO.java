@@ -8,6 +8,7 @@ import DBInterface.IDBConnection;
 import Model.ListaAcquisto;
 import DAO.ModelFactory.ListaAcquistoFactory;
 import Model.OrdineProdotto;
+import Model.OrdineServizio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,18 +114,17 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int updateCostoTot(ListaAcquisto listaAcquisto) {
         connection = DBConnection.getInstance();
         IOrdineProdottoDAO ordineDAO = OrdineProdottoDAO.getInstance();
+        IOrdineServizioDAO ordineServizioDAO = OrdineServizioDAO.getInstance();
         IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
-
-        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-        DecimalFormat format = new DecimalFormat("0.00", dfs);
-        dfs.setDecimalSeparator(',');
+        IServizioDAO servizioDAO = ServizioDAO.getInstance();
 
         float tot = 0;
         for (OrdineProdotto o : ordineDAO.findByListaAcquisto(listaAcquisto.getIdListaAcquisto())) {
             tot += o.getQuantita() * prodottoDAO.findByID(o.getIdProdotto()).getCosto();
         }
-        System.out.println("tot: " + tot);
-        System.out.println("format: " + format.format(tot));
+        for (OrdineServizio o : ordineServizioDAO.findByIDListaAcquisto(listaAcquisto.getIdListaAcquisto())) {
+            tot += servizioDAO.findByID(o.getIdServizio()).getCosto();
+        }
 
         //TODO sistemare il formato del costo totale
         int rowCount = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = " + tot + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto());

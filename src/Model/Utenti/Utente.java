@@ -26,9 +26,9 @@ public class Utente {
         Tipo = "CL";
     }
 
-    public Utente(String Nome, String Surname, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password, String Tipo) {
+    public Utente(String Nome, String Cognome, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password, String Tipo) {
         this.Nome = Nome;
-        this.Cognome = Surname;
+        this.Cognome = Cognome;
         this.Username = Username;
         this.Email = Email;
         this.Telefono = Telefono;
