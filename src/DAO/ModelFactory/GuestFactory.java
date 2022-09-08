@@ -9,7 +9,7 @@ public class GuestFactory implements IFactory<Guest> {
     public Guest create(ResultSet rs) throws SQLException {
         Guest guest = new Guest();
         guest.setIdGuest(rs.getInt("idGuest"));
-        guest.setIPGuest(rs.getString("IPGuest"));
+        guest.setIPGuest(rs.getString("IP"));
         return guest;
     }
 }

@@ -28,65 +28,114 @@ public class PosizioniDAOTest {
         utenteDAO.add(new Utente("Francesca", "Maurizi", "Frama19", "francesca1922@gmail.com", "3394287546", 19, "Via del bosco 19", "estetista", "Gomorra", "MN"));
         Utente utente = utenteDAO.findByUsername("Frama19");
 
-        Categoria sedie = new Categoria("Sedie");
-        Categoria tavoli = new Categoria("Tavoli");
+        puntoVenditaDAO.add(new PuntoVendita("Milano", "MilanoShop", "Via 45esima fanteria"), new Magazzino(10, 10), utente.getIdUtente());
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
 
-        Produttore SedieINC = new Produttore("SedieINC", "www.sedieinc.it", "Milano", "Italia");
-        Produttore TavoliINC = new Produttore("TavoliINC", "www.tavoliinc.it", "Milano", "Italia");
-
-        //Creo le categorie
-        categoriaDAO.add(sedie);
-        categoriaDAO.add(tavoli);
-
-        //Creo i produttori
-        produttoreDAO.add(SedieINC);
-        produttoreDAO.add(TavoliINC);
-
-        sedie = categoriaDAO.findByNome("Sedie");
-        tavoli = categoriaDAO.findByNome("Tavoli");
-        SedieINC = produttoreDAO.findByNome("SedieINC");
-        TavoliINC = produttoreDAO.findByNome("TavoliINC");
-
-
-        //Creo i prodotti
-        prodottoDAO.add(new Prodotto("Sedia Da Ufficio Rossa", "Sedia da ufficio", 10.5f), sedie, SedieINC);
-        prodottoDAO.add(new Prodotto("Sedia Da Ufficio Bianca", "Sedia da ufficio", 12.4f), sedie, SedieINC);
-        prodottoDAO.add(new Prodotto("Tavolo Da Ufficio Blu", "Tavolo da ufficio", 15.5f), tavoli, TavoliINC);
-        prodottoDAO.add(new Prodotto("Tavolo Da Ufficio Magenta", "Tavolo da ufficio", 17.4f), tavoli, TavoliINC);
-        Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
-        Prodotto prodotto2 = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
-        Prodotto prodotto3 = prodottoDAO.findByNome("Tavolo Da Ufficio Blu");
-        Prodotto prodotto4 = prodottoDAO.findByNome("Tavolo Da Ufficio Magenta");
-
-        //creo il punto vendita
-        puntoVenditaDAO.add(new PuntoVendita("Milano", "MilanoShop", "Piazzale Loreto 27"), new Magazzino(10, 10), utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        posizioneDAO.addPosizioniInMagazzino(magazzino);
     }
 
     @After
     public void tearDown() throws SQLException {
-        posizioneDAO.removeByMagazzino(
-                magazzinoDAO.findByPuntoVendita(
-                puntoVenditaDAO.findByManager
-                (utenteDAO.findByUsername("Frama19")
-                        .getIdUtente())
-                        .getIdPuntoVendita())
-                        .getIdMagazzino());
-        magazzinoDAO.removeByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
-        puntoVenditaDAO.removeByIDManager(utenteDAO.findByUsername("Frama19").getIdUtente());
-        prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
-        prodottoDAO.removeByNome("Sedia Da Ufficio Bianca");
-        prodottoDAO.removeByNome("Tavolo Da Ufficio Blu");
-        prodottoDAO.removeByNome("Tavolo Da Ufficio Magenta");
-        produttoreDAO.removeByNome("SedieINC");
-        produttoreDAO.removeByNome("TavoliINC");
-        categoriaDAO.removeByName("Sedie");
-        categoriaDAO.removeByName("Tavoli");
-        utenteDAO.removeByUsername("Frama19");
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+
+        posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
+        magazzinoDAO.removeByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        puntoVenditaDAO.removeByIDManager(utente.getIdUtente());
+        utenteDAO.removeByUsername(utente.getUsername());
+
+        if(prodottoDAO.findByNome("Profumo uomo 104") != null) {
+            prodottoDAO.removeByNome("Profumo uomo 104");
+        }
+        if(produttoreDAO.findByNome("Gucci") != null) {
+            produttoreDAO.removeByNome("Gucci");
+        }
+        if (categoriaDAO.findByNome("Profumi") != null) {
+            categoriaDAO.removeByName("Profumi");
+        }
     }
 
     @Test
     public void addTest() {
-        posizioneDAO.add(new Posizione(11, 12, 0), magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita()).getIdMagazzino());
-        assert (posizioneDAO.findByMagazzino(magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita()).getIdMagazzino()).size() == 101);
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        posizioneDAO.add(new Posizione(11, 11,0), magazzino.getIdMagazzino());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 101;
+    }
+
+    @Test
+    public void removeTest() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 0;
+    }
+
+    @Test
+    public void addProdottoInPosizioneTest() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 1, 1, magazzino.getIdMagazzino(), 10);
+        assert posizioneDAO.find(1, 1, magazzino.getIdMagazzino()).getQuantita() == 10;
+    }
+
+    @Test
+    public void findByMagazzinoTest() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 100;
+    }
+
+    @Test
+    public void findByProdottoTest() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 1, 1, magazzino.getIdMagazzino(), 10);
+        posizioneDAO.addProdottoInPosizione(prodotto, 1, 2, magazzino.getIdMagazzino(), 10);
+        posizioneDAO.addProdottoInPosizione(prodotto, 2, 4, magazzino.getIdMagazzino(), 10);
+        assert posizioneDAO.findByProdotto(prodotto).size() == 3;
+    }
+
+    @Test
+    public void findTest() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 5, 9, magazzino.getIdMagazzino(), 10);
+        assert posizioneDAO.find(5, 9, magazzino.getIdMagazzino()).getQuantita() == 10;
+    }
+
+    @Test
+    public void removeByMagazzinoTest() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 0;
     }
 }

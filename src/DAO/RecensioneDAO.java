@@ -131,7 +131,7 @@ public class RecensioneDAO implements IRecensioneDAO {
     @Override
     public int update(Recensione recensione) {
         connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', Data = '" + recensione.getData() + "', IdProdotto = " + recensione.getIdProdotto() + ", IdUtente = " + recensione.getIdUtente() + " WHERE IdRecensione = " + recensione.getIdRecensione());
+        int result = connection.executeUpdate("UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', Data = '" + recensione.getData() + "' WHERE idProdotto = " + recensione.getIdProdotto() + " AND idUtente = " + recensione.getIdUtente() + " AND idRecensione = " + recensione.getIdRecensione());
         return result;
     }
 

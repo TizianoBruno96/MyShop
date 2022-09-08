@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public interface IFotoDAO {
     public ArrayList<Foto> findByProdotto(int idProdotto);
-    Foto findByValore(String Valore);
     Foto findByID(int idFoto);
+    Foto findByNome(String nome);
     int add(Foto foto);
-    int removeByValore(byte[] valore);
+    int removeByID(int idFoto);
     int removeByNome(String nome);
     int update(Foto foto);
 }

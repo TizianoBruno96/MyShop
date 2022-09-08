@@ -1,10 +1,10 @@
-package Views.Decoretor;
+package Views.Decorator;
 
 import javax.swing.*;
 import java.util.List;
 
-public class ClienteMenuDecoretor extends CustomMenuDecoretor{
-    public ClienteMenuDecoretor(Menu menu) {
+public class ClienteMenuDecorator extends CustomMenuDecorator {
+    public ClienteMenuDecorator(Menu menu) {
         this.menu = menu;
     }
 

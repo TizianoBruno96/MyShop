@@ -1,9 +1,9 @@
-package Views.Decoretor;
+package Views.Decorator;
 
 import javax.swing.*;
 import java.util.List;
 
-public abstract class CustomMenuDecoretor extends Menu{
+public abstract class CustomMenuDecorator extends Menu{
     public Menu menu;
 
     @Override
