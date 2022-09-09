@@ -1,17 +1,17 @@
 package Model;
 
-public class Ordine {
+public class OrdineProdotto {
     private int idProdotto;
     private int idListaAcquisto;
     private int quantita;
 
-    public Ordine() {
+    public OrdineProdotto() {
         this.idProdotto = 0;
         this.idListaAcquisto = 0;
         this.quantita = 0;
     }
 
-    public Ordine(int idProdotto, int idListaAcquisto, int quantita) {
+    public OrdineProdotto(int idProdotto, int idListaAcquisto, int quantita) {
         this.idProdotto = idProdotto;
         this.idListaAcquisto = idListaAcquisto;
         this.quantita = quantita;

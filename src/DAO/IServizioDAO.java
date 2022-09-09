@@ -10,9 +10,10 @@ public interface IServizioDAO {
     Servizio findByNome(String nome);
     ArrayList<Servizio> findAll();
     ArrayList<Servizio> findByFornitore(int idFornitore);
-    int add(Servizio servizio);
+    ArrayList<Servizio> findByCategoria(int idCategoria);
+    int add(Servizio servizio, int idCategoria, int idFornitore);
     int update(Servizio servizio);
-    int remove(Servizio servizio);
+    int removeByID(int idServizio);
     int removeByNome(String nome);
     int removeByFornitore(int idFornitore);
     int removeByFornitore(Fornitore Fornitore);

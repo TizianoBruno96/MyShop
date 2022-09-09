@@ -12,28 +12,22 @@ public class ProdottoDAOTest {
     IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
+    IProdottoCompositoDAO prodottoCompositoDAO = ProdottoCompositoDAO.getInstance();
 
     @Before
     public void setUp() {
-
-        Categoria sedie = new Categoria("Sedie");
-        Categoria tavoli = new Categoria("Tavoli");
-
-        Produttore SedieINC = new Produttore("SedieINC", "www.sedieinc.it", "Milano", "Italia");
-        Produttore TavoliINC = new Produttore("TavoliINC", "www.tavoliinc.it", "Milano", "Italia");
-
         //Creo le categorie
-        categoriaDAO.add(sedie);
-        categoriaDAO.add(tavoli);
+        categoriaDAO.add(new Categoria("Sedie"));
+        categoriaDAO.add(new Categoria("Tavoli"));
 
         //Creo i produttori
-        produttoreDAO.add(SedieINC);
-        produttoreDAO.add(TavoliINC);
+        produttoreDAO.add(new Produttore("SedieINC", "www.sedieinc.it", "Milano", "Italia"));
+        produttoreDAO.add(new Produttore("TavoliINC", "www.tavoliinc.it", "Milano", "Italia"));
 
-        sedie = categoriaDAO.findByNome("Sedie");
-        tavoli = categoriaDAO.findByNome("Tavoli");
-        SedieINC = produttoreDAO.findByNome("SedieINC");
-        TavoliINC = produttoreDAO.findByNome("TavoliINC");
+        Categoria sedie = categoriaDAO.findByNome("Sedie");
+        Categoria tavoli = categoriaDAO.findByNome("Tavoli");
+        Produttore SedieINC = produttoreDAO.findByNome("SedieINC");
+        Produttore TavoliINC = produttoreDAO.findByNome("TavoliINC");
 
 
         //Creo i prodotti
@@ -45,7 +39,12 @@ public class ProdottoDAOTest {
 
     @After
     public void tearDown() {
+        //Elimino i prodotti compositi
+        if (prodottoDAO.findByNome("Sedia Da Ufficio Verde") != null && prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null)
+            prodottoCompositoDAO.remove(prodottoDAO.findByNome("Sedia Da Ufficio Verde").getIdProdotto(), prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto());
+
         //Elimino i prodotti
+        prodottoDAO.removeByNome("Sedia Da Ufficio Verde");
         prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
         prodottoDAO.removeByNome("Sedia Da Ufficio Bianca");
         prodottoDAO.removeByNome("Tavolo Da Ufficio Blu");
@@ -64,7 +63,6 @@ public class ProdottoDAOTest {
 
     @Test
     public void findbyNomeTest() {
-        IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
         assert prodotto.getNome().equals("Sedia Da Ufficio Rossa");
         Prodotto prodotto2 = prodottoDAO.findByNome("Tavolo Da Ufficio Magenta");
@@ -77,13 +75,11 @@ public class ProdottoDAOTest {
 
     @Test
     public void findAllTest() {
-        IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
         assert prodottoDAO.findAll().size() == 4;
     }
 
     @Test
     public void removeTest() {
-        IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
         prodottoDAO.remove(prodotto);
         assert prodottoDAO.findAll().size() == 3;
@@ -91,17 +87,21 @@ public class ProdottoDAOTest {
 
     @Test
     public void removeByNomeTest() {
-        IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
         prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
         assert prodottoDAO.findAll().size() == 3;
     }
 
     @Test
     public void updateTest() {
-        IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
         prodotto.setNome("Sedia Da Ufficio Rossa Modificata");
         prodottoDAO.update(prodotto);
         assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa Modificata").getNome().equals("Sedia Da Ufficio Rossa Modificata");
+    }
+
+    @Test
+    public void findByCategoriaTest() {
+        Categoria sedie = categoriaDAO.findByNome("Sedie");
+        assert prodottoDAO.findByCategoria(sedie.getIdCategoria()).size() == 2;
     }
 }

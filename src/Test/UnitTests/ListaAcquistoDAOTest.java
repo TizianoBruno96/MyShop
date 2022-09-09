@@ -5,7 +5,7 @@ import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
 import Model.Categoria;
 import Model.ListaAcquisto;
-import Model.Ordine;
+import Model.OrdineProdotto;
 import Model.Utenti.Utente;
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,7 @@ public class ListaAcquistoDAOTest {
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
-    IOrdineDAO ordineDAO = OrdineDAO.getInstance();
+    IOrdineProdottoDAO ordineDAO = OrdineProdottoDAO.getInstance();
 
     @Before
     public void setUp() {
@@ -55,10 +55,10 @@ public class ListaAcquistoDAOTest {
         Prodotto prodotto3 = prodottoDAO.findByNome("Tavolo Da Ufficio Blu");
         Prodotto prodotto4 = prodottoDAO.findByNome("Tavolo Da Ufficio Magenta");
 
-        ordineDAO.add(new Ordine(prodotto1.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 3));
-        ordineDAO.add(new Ordine(prodotto2.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 2));
-        ordineDAO.add(new Ordine(prodotto3.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 1));
-        ordineDAO.add(new Ordine(prodotto4.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 4));
+        ordineDAO.add(new OrdineProdotto(prodotto1.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 3));
+        ordineDAO.add(new OrdineProdotto(prodotto2.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 2));
+        ordineDAO.add(new OrdineProdotto(prodotto3.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 1));
+        ordineDAO.add(new OrdineProdotto(prodotto4.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 4));
     }
 
     @After

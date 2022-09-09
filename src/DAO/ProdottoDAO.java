@@ -157,15 +157,6 @@ public class ProdottoDAO implements IProdottoDAO {
     }
 
     @Override
-    public int addFiglio(Prodotto prodotto, Categoria categoria, Produttore produttore, Prodotto prodottoPadre) {
-        connection = DBConnection.getInstance();
-        IProdottoCompositoDAO prodottoCompositoDAO = ProdottoCompositoDAO.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Prodotto (Nome, Descrizione, Costo, IdCategoria, IdProduttore) VALUES ('" + prodotto.getNome() + "', '" + prodotto.getDescrizione() + "', " + prodotto.getCosto() + ", " + categoria.getIdCategoria() + ", " + produttore.getIdProduttore() + ")");
-        prodottoCompositoDAO.add(new ProdottoComposito(prodottoPadre.getIdProdotto(), prodotto.getIdProdotto()));
-        return rowCount;
-    }
-
-    @Override
     public int removeByID(int idProdotto) {
         connection = DBConnection.getInstance();
         int rowCount = connection.executeUpdate("DELETE FROM Prodotto WHERE IdProdotto = " + idProdotto);

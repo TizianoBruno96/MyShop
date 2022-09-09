@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
-public class OrdineDAOTest {
-    IOrdineDAO ordineDAO = OrdineDAO.getInstance();
+public class OrdineProdottoDAOTest {
+    IOrdineProdottoDAO ordineDAO = OrdineProdottoDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
@@ -52,10 +52,10 @@ public class OrdineDAOTest {
         Prodotto prodotto3 = prodottoDAO.findByNome("Tavolo Da Ufficio Blu");
         Prodotto prodotto4 = prodottoDAO.findByNome("Tavolo Da Ufficio Magenta");
 
-        ordineDAO.add(new Ordine(prodotto1.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 3));
-        ordineDAO.add(new Ordine(prodotto2.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 2));
-        ordineDAO.add(new Ordine(prodotto3.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 1));
-        ordineDAO.add(new Ordine(prodotto4.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 4));
+        ordineDAO.add(new OrdineProdotto(prodotto1.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 3));
+        ordineDAO.add(new OrdineProdotto(prodotto2.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 2));
+        ordineDAO.add(new OrdineProdotto(prodotto3.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 1));
+        ordineDAO.add(new OrdineProdotto(prodotto4.getIdProdotto(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto(), 4));
     }
 
     @After
@@ -104,9 +104,9 @@ public class OrdineDAOTest {
     @Test
     public void updateTest() {
         Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
-        Ordine ordine = ordineDAO.find(prodotto1, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()));
-        ordine.setQuantita(5);
-        ordineDAO.update(ordine);
+        OrdineProdotto ordineProdotto = ordineDAO.find(prodotto1, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()));
+        ordineProdotto.setQuantita(5);
+        ordineDAO.update(ordineProdotto);
         assert (ordineDAO.find(prodotto1, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 5);
     }
 }
