@@ -1,6 +1,11 @@
 package Views;
 
 import ActionListeners.LoginListeners;
+import ActionListeners.LogoutListeners;
+import Business.SessionManager;
+import Model.Utenti.Utente;
+import Views.Decorator.*;
+import Views.Decorator.Menu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +16,9 @@ public class FinestraPrincipale extends JFrame {
     private JPanel pannelloCentro = new JPanel();
     private JPanel pannelloSud = new JPanel();
     private JPanel pannelloOvest = new JPanel();
-    private JPanel pannelloEst = new JPanel();
-    private JPanel pannelloLoginNord = new JPanel();
-    private JPanel pannelloLoginCentro = new JPanel();
+    private JPanel utenteLoggato =new JPanel();
 
-
+    JButton logout = new JButton("Logout");
 
     public FinestraPrincipale() {
         super("Finestra MyShop");
@@ -23,29 +26,34 @@ public class FinestraPrincipale extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //istanzio gli elementi da inserire nei pannelli
+
+
+        JLabel etichettaCentro1 = new JLabel("Benvenuto nel sistema di MyShop!\nIn questa schermata puoi decidere se effettuare il login oppure navigare nei cataloghi.");
+        Menu guestMenu = new GuestMenu(this);
+        JTextField username = new JTextField(20);
+        JPasswordField password = new JPasswordField(20);
         JButton login = new JButton("Login");
-        login.setActionCommand(LoginListeners.LOGIN_BTN);//associo un'etichetta al pulsante
-        JButton navigaCatalogo = new JButton("Naviga catalogo");
-        JLabel etichettaNord = new JLabel(" MY SHOP");
-        JLabel etichettaCentro1 = new JLabel("Benvenuto nel sistema di MyShop!\n");
-        JLabel etichettaCentro2 = new JLabel("In questa schermata puoi decidere se effettuare il login oppure navigare nel catalogo.");
+        login.setActionCommand(LoginListeners.LOGIN_BTN);
+
 
 
         //setto i layout di ogni singolo pannello
         pannelloNord.setLayout(new FlowLayout());
-        pannelloCentro.setLayout(new FlowLayout());
+        pannelloCentro.setLayout(new GridLayout(2,1));
         pannelloOvest.setLayout(new GridLayout(10,1));
-        pannelloEst.setLayout(new FlowLayout());
+        pannelloSud.setLayout(new FlowLayout());
+        utenteLoggato.setLayout(new FlowLayout());
 
 
         //inserisco gli elementi nei pannelli
-        pannelloNord.add(etichettaNord);
+        pannelloNord.add(username);
+        pannelloNord.add(password);
+        pannelloNord.add(login);
         pannelloCentro.add(etichettaCentro1);
-        pannelloCentro.add(etichettaCentro2);
-        pannelloOvest.add(login);
-        pannelloOvest.add(navigaCatalogo);
-        pannelloEst.add(new JLabel("         "));
         pannelloSud.add(new JLabel("Interfaccia grafica per il progetto di PIS"));
+        for (JButton btn : guestMenu.getPulsanti()){
+            pannelloOvest.add(btn);
+        }
 
 
         Container c = getContentPane();
@@ -53,51 +61,93 @@ public class FinestraPrincipale extends JFrame {
         c.add(pannelloNord,BorderLayout.NORTH);
         c.add(pannelloCentro,BorderLayout.CENTER);
         c.add(pannelloOvest,BorderLayout.WEST);
-        c.add(pannelloEst,BorderLayout.EAST);
         c.add(pannelloSud,BorderLayout.SOUTH);
 
-        //lavoro sui pannelli di login
-        JTextField username = new JTextField(20);
-        JPasswordField password = new JPasswordField(20);
-        JButton effettualogin = new JButton("Login");
-        pannelloLoginNord.setLayout(new GridLayout(1,3));
-        pannelloLoginCentro.setLayout(new FlowLayout());
-        pannelloLoginNord.add(username);
-        pannelloLoginNord.add(password);
-        pannelloLoginNord.add(effettualogin);
-        pannelloLoginCentro.add(new JLabel("Inserire username e password , successivamente premere il pulsante di login per confermare"));
 
         //parte dei listeners
-        LoginListeners loginListeners = new LoginListeners(this);
+        LoginListeners loginListeners = new LoginListeners(username,password);
         loginListeners.setFrame(this);
         login.addActionListener(loginListeners);
+
+        logout.setActionCommand(LogoutListeners.LOGOUT_BTN);
+        LogoutListeners logoutListeners = new LogoutListeners(this);
+        logout.addActionListener(logoutListeners);
         this.setVisible(true);
     }
 
+    public void mostraPannelloUtenteLoggato(String message) {
 
-    public void mostraPannelloLogin(){
-        //rimuovo i pannelli precedenti
+        //togliere il pannello precedente
         remove(pannelloNord);
-        remove(pannelloCentro);
 
-        //aggiungo i pannelli di login
-        add(pannelloLoginNord,BorderLayout.NORTH);
-        add(pannelloLoginCentro,BorderLayout.CENTER);
+        //aggiungere il pannello successivo
+        utenteLoggato.removeAll();
+        utenteLoggato.add(new JLabel(message));
+        utenteLoggato.add(logout);
+        add(utenteLoggato,BorderLayout.NORTH);
 
-        //faccio il refresh
+        //per il refresh
         repaint();
         validate();
     }
 
-    public void mostraCatalogo(){
-        pannelloNord.removeAll();
+
+    public void aggiornaMenuPulsanti() {
+        pannelloOvest.removeAll();
+
+        Utente u = (Utente) SessionManager.getSession().get(SessionManager.LOGGED_USER);
+
+        if (u.getTipo().equals("CL")){
+            //decoriamo il menu usando il ClienteMenudecorator
+            Menu guestMenu = new GuestMenu(this);
+            Menu clienteMenu = new ClienteMenuDecorator(guestMenu,this);
+            for (JButton btn : clienteMenu.getPulsanti()){
+                pannelloOvest.add(btn);
+            }
+        }else if (u.getTipo().equals("MN")) {
+            Menu guestMenu = new GuestMenu(this);
+            Menu managerMenu = new ManagerMenuDecorator(guestMenu,this);
+            for (JButton btn : managerMenu.getPulsanti()){
+                pannelloOvest.add(btn);
+            }
+        }else if (u.getTipo().equals("AM")){
+            Menu guestMenu = new GuestMenu(this);
+            Menu amministratoreMenu = new AmministratoreMenuDecorator(guestMenu,this);
+            for (JButton btn : amministratoreMenu.getPulsanti()){
+                pannelloOvest.add(btn);
+            }
+        }
+
+        repaint();
+        validate();
+    }
+
+    public void mostraCatalogoProdotti(){
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CatalogoPanel());
+        pannelloCentro.add(new CatalogoProdottiPanel());
         repaint();
         validate();
     }
 
-    public void mostraMessaggioBenvenuto(String message) {
-        JOptionPane.showMessageDialog(null, message);
+    public void mostraPannelloRegistrazione(){
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new RegistrazionePanel());
+        repaint();
+        validate();
+    }
+
+
+    public void effettuaLogout() {
+        this.setVisible(false);
+        add(new FinestraPrincipale());
+        repaint();
+        validate();
+    }
+
+    public void mostraCatalogoServizi() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new CatalogoServiziPanel());
+        repaint();
+        validate();
     }
 }

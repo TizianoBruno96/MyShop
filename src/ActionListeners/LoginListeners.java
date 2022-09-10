@@ -1,6 +1,7 @@
 package ActionListeners;
 
 import Business.LoginResult;
+import Business.SessionManager;
 import Business.UtenteBusiness;
 import Views.FinestraPrincipale;
 
@@ -10,9 +11,9 @@ import java.awt.event.ActionListener;
 
 public class LoginListeners implements ActionListener {
 
-    //dichiaro le due costanti che userò come etichetta per i pulsanti
+    //dichiaro le costanti che userò come etichetta per i pulsanti
     public final static String LOGIN_BTN = "Login_btn";
-    public final static String ACCEDI_BTN ="Accedi_btn";
+
 
     //dichiaro il frame che deve ricevere dal chiamante
     private FinestraPrincipale frame;
@@ -36,20 +37,18 @@ public class LoginListeners implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand(); //serve per catturare il tasto premuto
-        if (LOGIN_BTN.equals(azione)) {
-            frame.mostraPannelloLogin();
-        }
-        if (ACCEDI_BTN.equals(azione)){
+
+        if (LOGIN_BTN.equals(azione)){
             String user = username.getText();
             String pwd = new String(password.getPassword());
 
             LoginResult result = UtenteBusiness.getInstance().login(user,pwd);
             if (result.getResult() == LoginResult.Result.LOGIN_OK){
-                frame.mostraMessaggioBenvenuto(result.getMessage());
-                //devo refreshare i pulsanti
-                //...
+                frame.mostraPannelloUtenteLoggato(result.getMessage());
+                frame.aggiornaMenuPulsanti();
             }else
                 JOptionPane.showMessageDialog(null,result.getMessage());
         }
+
     }
 }

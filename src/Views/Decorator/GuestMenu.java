@@ -1,5 +1,6 @@
 package Views.Decorator;
 
+import ActionListeners.RegistrazioneListeners;
 import ActionListeners.SfogliaCatalogoListeners;
 import Views.FinestraPrincipale;
 
@@ -11,11 +12,24 @@ public class GuestMenu extends Menu{
     public GuestMenu(FinestraPrincipale finestra) {
         this.finestra = finestra;
 
-        JButton catalogo = new JButton("Sfoglia catalogo"); //questo button serve per sfogliare il catalogo
-        catalogo.setActionCommand(SfogliaCatalogoListeners.SFOGLIA_CATALOGO);
-        SfogliaCatalogoListeners sfogliaCatalogoListeners = new SfogliaCatalogoListeners(finestra);
-        catalogo.addActionListener(sfogliaCatalogoListeners);
-        pulsanti.add(catalogo);
-    }
+        JButton catalogoProdotti = new JButton("Sfoglia catalogo prodotti"); //questo button serve per sfogliare il catalogo
+        JButton registrati = new JButton("Registrati");
+        JButton catalogoServizi = new JButton("Sfoglia catalogo servizi");
 
+        registrati.setActionCommand(RegistrazioneListeners.REGISTRATI_BTN);
+        catalogoServizi.setActionCommand(SfogliaCatalogoListeners.SFOGLIACATALOGOSERVIZI_BTN);
+        catalogoProdotti.setActionCommand(SfogliaCatalogoListeners.SFOGLIACATALOGOPRODOTTI_BTN);
+
+        SfogliaCatalogoListeners sfogliaCatalogoListeners = new SfogliaCatalogoListeners(finestra);
+        RegistrazioneListeners registrazioneListeners = new RegistrazioneListeners(finestra);
+
+        catalogoProdotti.addActionListener(sfogliaCatalogoListeners);
+        catalogoServizi.addActionListener(sfogliaCatalogoListeners);
+        registrati.addActionListener(registrazioneListeners);
+
+        pulsanti.add(catalogoProdotti);
+        pulsanti.add(catalogoServizi);
+        pulsanti.add(registrati);
+
+    }
 }
