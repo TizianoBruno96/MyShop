@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="weicoder.fork.mysql.connector.java.jdk11" level="project" />
     <orderEntry type="library" name="bluecatcode.junit.4.12.extended" level="project" />
+    <orderEntry type="library" name="apache.pdfbox" level="project" />
   </component>
 </module>

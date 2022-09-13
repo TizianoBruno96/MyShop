@@ -1,10 +1,7 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DAO.Interfaces.ICategoriaDAO;
+import DBInterface.Command.*;
 import Model.Categoria;
 import DAO.ModelFactory.CategoriaFactory;
 
@@ -13,14 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CategoriaDAO implements ICategoriaDAO {
-    private static CategoriaDAO instance = new CategoriaDAO();
+    private static final CategoriaDAO instance = new CategoriaDAO();
     private Categoria categoria;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private CategoriaDAO() {
         categoria = null;
-        connection = null;
         rs = null;
     }
 
@@ -148,8 +143,10 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public ArrayList<Categoria> findSottoCategorie(int idCategoria) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Categoria WHERE idCategoriaPadre = " + idCategoria);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Categoria WHERE idCategoriaPadre = " + idCategoria;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while(rs.next()) {
@@ -170,37 +167,42 @@ public class CategoriaDAO implements ICategoriaDAO {
 
     @Override
     public int add(Categoria categoria) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
+
         int rowCount;
         if(categoria.getIdCategoriaPadre() == null) {
-            rowCount = connection.executeUpdate("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', NULL)");
+            String sql = "INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', NULL)";
+            IDBOperation operation = new WriteOperation(sql);
+            rowCount = executor.executeOperation(operation).getAffectedRows();
         } else {
-            rowCount = connection.executeUpdate("INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoria.getIdCategoriaPadre() + ")");
+            String sql = "INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoria.getIdCategoriaPadre() + ")";
+            IDBOperation operation = new WriteOperation(sql);
+            rowCount = executor.executeOperation(operation).getAffectedRows();
         }
         return rowCount;
     }
 
     @Override
     public int addCategoriaFiglia(Categoria categoria, Categoria categoriaPadre) {
-        connection = DBConnection.getInstance();
-        String sqlStatement = "INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoriaPadre.getIdCategoria() + ")";
-        int rowCount = connection.executeUpdate(sqlStatement);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', " + categoriaPadre.getIdCategoria() + ")";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByName(String nome) {
-        connection = DBConnection.getInstance();
-        String sqlStatement = "DELETE FROM Categoria WHERE Nome = '" + nome + "'";
-        int rowCount = connection.executeUpdate(sqlStatement);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Categoria WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Categoria categoria) {
-        connection = DBConnection.getInstance();
-        String sqlStatement = "UPDATE Categoria SET Nome = '" + categoria.getNome() + "', idCategoriaPadre = " + categoria.getIdCategoriaPadre() + " WHERE idCategoria = " + categoria.getIdCategoria();
-        int rowCount = connection.executeUpdate(sqlStatement);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Categoria SET Nome = '" + categoria.getNome() + "' WHERE idCategoria = " + categoria.getIdCategoria();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

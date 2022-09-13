@@ -1,7 +1,7 @@
 package ActionListeners;
 
 import Business.RegistrazioneBusiness;
-import DAO.IUtenteDAO;
+import DAO.Interfaces.IUtenteDAO;
 import DAO.UtenteDAO;
 
 import javax.swing.*;

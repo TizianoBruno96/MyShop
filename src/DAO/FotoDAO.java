@@ -1,12 +1,12 @@
 package DAO;
 
+import DAO.Interfaces.IFotoDAO;
+import DAO.ModelFactory.FotoFactory;
 import DBInterface.Command.DBOperationExecutor;
 import DBInterface.Command.IDBOperation;
 import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DBInterface.Command.WriteOperation;
 import Model.Articoli.Foto;
-import DAO.ModelFactory.FotoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,14 +14,12 @@ import java.util.ArrayList;
 
 
 public class FotoDAO implements IFotoDAO {
-    private static FotoDAO instance = new FotoDAO();
+    private static final FotoDAO instance = new FotoDAO();
     private Foto foto;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private FotoDAO() {
         foto = null;
-        connection = null;
         rs = null;
     }
 
@@ -77,8 +75,10 @@ public class FotoDAO implements IFotoDAO {
 
     @Override
     public ArrayList<Foto> findByProdotto(int idProdotto) {
-        connection = DBConnection.getInstance();
-        rs = connection.executeQuery("SELECT * FROM Foto WHERE idProdotto = " + idProdotto);
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Foto WHERE idProdotto = " + idProdotto;
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Foto> fotoList = new ArrayList<Foto>();
         try {
             while(rs.next()) {
@@ -99,28 +99,33 @@ public class FotoDAO implements IFotoDAO {
 
     @Override
     public int add(Foto foto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Foto (Nome, Valore, idProdotto) VALUES ('" + foto.getNome() + "', '" + foto.getValore() + "', '" + foto.getIdProdotto() + "')");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO Foto (Nome, Valore, idProdotto) VALUES ('" + foto.getNome() + "', '" + foto.getValore() + "', '" + foto.getIdProdotto() + "')";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idFoto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE idFoto = " + idFoto);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Foto WHERE idFoto = " + idFoto;
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByNome(String Nome) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Foto WHERE Nome = '" + Nome + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Foto WHERE Nome = '" + Nome + "'";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Foto foto) {
-        connection = DBConnection.getInstance();
-        return connection.executeUpdate("UPDATE Foto SET Nome = '" + foto.getNome() + "' WHERE idFoto = " + foto.getIdFoto());
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Foto SET Nome = '" + foto.getNome() + "' WHERE idFoto = " + foto.getIdFoto();
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

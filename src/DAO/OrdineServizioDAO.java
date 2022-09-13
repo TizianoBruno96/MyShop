@@ -1,11 +1,8 @@
 package DAO;
 
+import DAO.Interfaces.IOrdineServizioDAO;
 import DAO.ModelFactory.OrdineServizioFactory;
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DBInterface.Command.*;
 import Model.Articoli.Servizio;
 import Model.ListaAcquisto;
 import Model.OrdineServizio;
@@ -15,14 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrdineServizioDAO implements IOrdineServizioDAO {
-    private static OrdineServizioDAO instance = new OrdineServizioDAO();
+    private static final OrdineServizioDAO instance = new OrdineServizioDAO();
     private OrdineServizio ordineServizio;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private OrdineServizioDAO() {
         ordineServizio = null;
-        connection = null;
         rs = null;
     }
 
@@ -126,36 +121,41 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
 
     @Override
     public int add(OrdineServizio ordineServizio) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO OrdineServizio (idServizio, idListaAcquisto) VALUES (" + ordineServizio.getIdServizio() + ", " + ordineServizio.getIdListaAcquisto() + ")";
-        return connection.executeUpdate(sql);
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByIDServizio(int idServizio) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM OrdineServizio WHERE idServizio = " + idServizio;
-        return connection.executeUpdate(sql);
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByIDListaAcquisto(int idListaAcquisto) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM OrdineServizio WHERE idListaAcquisto = " + idListaAcquisto;
-        return connection.executeUpdate(sql);
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idServizio, int idListaAcquisto) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM OrdineServizio WHERE idServizio = " + idServizio + " AND idListaAcquisto = " + idListaAcquisto;
-        return connection.executeUpdate(sql);
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Servizio servizio) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE OrdineServizio SET idServizio = " + servizio.getIdServizio() + " WHERE idServizio = " + servizio.getIdServizio();
-        return connection.executeUpdate(sql);
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

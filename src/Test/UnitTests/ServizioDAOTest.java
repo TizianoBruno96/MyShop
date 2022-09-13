@@ -1,10 +1,12 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.ICategoriaDAO;
+import DAO.Interfaces.IFornitoreDAO;
+import DAO.Interfaces.IServizioDAO;
 import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
 import Model.Categoria;
-import Model.Utenti.Utente;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

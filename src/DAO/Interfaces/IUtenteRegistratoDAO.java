@@ -1,4 +1,4 @@
-package DAO;
+package DAO.Interfaces;
 
 import Model.Utenti.UtenteRegistrato;
 
@@ -10,4 +10,6 @@ public interface IUtenteRegistratoDAO {
     int add(UtenteRegistrato utenteRegistrato);
     int update(UtenteRegistrato utenteRegistrato);
     int remove(UtenteRegistrato utenteRegistrato);
+    int removeByIDUtente(int idUtente);
+    int removeByIDPuntoVendita(int idPuntoVendita);
 }

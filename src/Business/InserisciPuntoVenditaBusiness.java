@@ -1,7 +1,7 @@
 package Business;
 
-import DAO.IPuntoVenditaDAO;
-import DAO.IUtenteDAO;
+
+import DAO.Interfaces.IPuntoVenditaDAO;
 import DAO.PuntoVenditaDAO;
 import DAO.UtenteDAO;
 import Model.PuntoVendita;

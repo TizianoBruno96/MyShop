@@ -1,6 +1,6 @@
 package Test.UnitTests;
 
-import DAO.IUtenteDAO;
+import DAO.Interfaces.IUtenteDAO;
 import DAO.UtenteDAO;
 import Model.Utenti.Utente;
 import org.junit.After;
@@ -13,19 +13,30 @@ import java.util.ArrayList;
 public class UtenteDAOTest {
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
         utenteDAO.add(new Utente("Francesca", "Maurizi", "Frama19", "francesca1922@gmail.com", "3394287546", 19, "Via del bosco 19", "estetista", "Gomorra"), 1);
     }
 
     @After
     public void tearDown() throws SQLException {
-        utenteDAO.removeByUsername("Frama19");
+        if (utenteDAO.findByUsername("Frama19") != null) {
+            utenteDAO.removeByUsername("Frama19");
+        }
+        if (utenteDAO.findByUsername("Gigiux12") != null) {
+            utenteDAO.removeByUsername("Gigiux12");
+        }
     }
 
     @Test
     public void findByUsernameTest() {
         Utente utente = utenteDAO.findByUsername("Frama19");
         assert utente.getUsername().equals("Frama19");
+    }
+
+    @Test
+    public void addTest() {
+        utenteDAO.add(new Utente("Francesco", "Marroni", "Gigiux12", "Francesco.Marroni@Studenti.unisalento.it", "0832759618", 20, "Via del bosco 20", "muratore", "Giorgio", "MN"));
+        assert utenteDAO.findByUsername("Gigiux12") != null;
     }
 
     @Test
@@ -81,10 +92,5 @@ public class UtenteDAOTest {
     @Test
     public void isClienteTest() {
         assert utenteDAO.isCliente("Frama19");
-    }
-
-    @Test
-    public void checkTipoTest() {
-        assert utenteDAO.checkTipo("Frama19").equals("CL");
     }
 }

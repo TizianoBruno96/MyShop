@@ -1,6 +1,8 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.IPuntoVenditaDAO;
+import DAO.Interfaces.IUtenteDAO;
 import Model.PuntoVendita;
 import Model.Utenti.Utente;
 import org.junit.After;
@@ -65,5 +67,11 @@ public class PuntoVenditaDAOTest {
     public void findAllTest() {
         ArrayList<PuntoVendita> puntiVendita = puntoVenditaDAO.findAll();
         assert puntiVendita.size() > 0;
+    }
+
+    @Test
+    public void findByNomeTest() {
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByNome("MilanoShop");
+        assert puntoVendita != null;
     }
 }

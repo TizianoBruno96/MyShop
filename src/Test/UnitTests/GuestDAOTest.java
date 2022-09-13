@@ -1,7 +1,7 @@
 package Test.UnitTests;
 
 import DAO.GuestDAO;
-import DAO.IGuestDAO;
+import DAO.Interfaces.IGuestDAO;
 import Model.Guest;
 import org.junit.After;
 import org.junit.Before;

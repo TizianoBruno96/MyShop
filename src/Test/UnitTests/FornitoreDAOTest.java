@@ -1,7 +1,7 @@
 package Test.UnitTests;
 
 import DAO.FornitoreDAO;
-import DAO.IFornitoreDAO;
+import DAO.Interfaces.IFornitoreDAO;
 import Model.Articoli.Fornitore;
 import org.junit.After;
 import org.junit.Before;

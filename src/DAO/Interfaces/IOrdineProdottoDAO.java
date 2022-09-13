@@ -1,4 +1,4 @@
-package DAO;
+package DAO.Interfaces;
 
 import Model.Articoli.Prodotto;
 import Model.ListaAcquisto;
