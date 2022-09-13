@@ -144,7 +144,7 @@ public class CategoriaDAO implements ICategoriaDAO {
     @Override
     public ArrayList<Categoria> findSottoCategorie(int idCategoria) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM categoria WHERE idCategoriaPadre = " + idCategoria;
+        String sql = "SELECT * FROM Categoria WHERE idCategoriaPadre = " + idCategoria;
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();

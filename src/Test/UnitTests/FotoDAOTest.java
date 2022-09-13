@@ -25,20 +25,6 @@ public class FotoDAOTest {
 
     @Before
     public void setUp() throws FileNotFoundException {
-        if (fotoDAO.findByNome("Hello") != null)
-            fotoDAO.removeByNome("Hello");
-        if (fotoDAO.findByNome("Barca") != null)
-            fotoDAO.removeByNome("Barca");
-
-        if (fotoDAO.findByNome("Ciccio") != null)
-            fotoDAO.removeByNome("Ciccio");
-        if (prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null)
-            prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
-        if (categoriaDAO.findByNome("Sedie") != null)
-            categoriaDAO.removeByName("Sedie");
-        if (produttoreDAO.findByNome("SedieINC") != null)
-            produttoreDAO.removeByNome("SedieINC");
-
         categoriaDAO.add(new Categoria("Sedie"));
         Categoria sedie = categoriaDAO.findByNome("Sedie");
 
@@ -84,7 +70,8 @@ public class FotoDAOTest {
 
     @Test
     public void addTest() {
-        File foto = new File("C:\\Users\\Msi\\OneDrive\\Immagini\\Catture di schermata\\Screenshot (140).png");
+        File foto = new File("./Resources/Foto/Sedia.jpg");
+        System.out.println(foto.getAbsolutePath());
         try {
             InputStream inputStream = new FileInputStream(foto);
             java.sql.Blob blob = new javax.sql.rowset.serial.SerialBlob(inputStream.readAllBytes());
@@ -99,7 +86,6 @@ public class FotoDAOTest {
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file");
         }
-
         assert fotoDAO.findByNome("Barca") != null;
     }
 
