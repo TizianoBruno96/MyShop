@@ -50,22 +50,38 @@ public class OrdineServizioDAOTest {
 
     @Test
     public void testFindAll() {
-        assert ordineServizioDAO.findAll().size() == 1;
+        assert ordineServizioDAO.findAll().size() >= 1;
+    }
+    @Test
+    public void testFindAllWrong() {
+        assert ordineServizioDAO.findAll().size() < 1;
     }
 
     @Test
     public void testFindByIDServizio() {
         assert ordineServizioDAO.findByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio()).size() == 1;
     }
+    @Test
+    public void testFindByIDServizioWrong() {
+        assert ordineServizioDAO.findByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio()).size() != 1;
+    }
 
     @Test
     public void testFindByIDListaAcquisto() {
         assert ordineServizioDAO.findByIDListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()).size() == 1;
     }
+    @Test
+    public void testFindByIDListaAcquistoWrong() {
+        assert ordineServizioDAO.findByIDListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()).size() != 1;
+    }
 
     @Test
     public void findTest() {
         assert ordineServizioDAO.find(servizioDAO.findByNome("Montaggio"), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())) != null;
+    }
+    @Test
+    public void findTestWrong() {
+        assert ordineServizioDAO.find(servizioDAO.findByNome("Montaggio"), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())) == null;
     }
 
     @Test
@@ -73,16 +89,31 @@ public class OrdineServizioDAOTest {
         ordineServizioDAO.removeByID(servizioDAO.findByNome("Montaggio").getIdServizio(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto());
         assert ordineServizioDAO.findByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio()).size() == 0;
     }
+    @Test
+    public void removeTestWrong() {
+        ordineServizioDAO.removeByID(servizioDAO.findByNome("Montaggio").getIdServizio(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto());
+        assert ordineServizioDAO.findByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio()).size() != 0;
+    }
 
     @Test
     public void removeByIDServizioTest() {
         ordineServizioDAO.removeByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio());
         assert ordineServizioDAO.findByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio()).size() == 0;
     }
+    @Test
+    public void removeByIDServizioTestWrong() {
+        ordineServizioDAO.removeByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio());
+        assert ordineServizioDAO.findByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio()).size() != 0;
+    }
 
     @Test
     public void removeByIDListaAcquistoTest() {
         ordineServizioDAO.removeByIDListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto());
         assert ordineServizioDAO.findByIDListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()).size() == 0;
+    }
+    @Test
+    public void removeByIDListaAcquistoTestWrong() {
+        ordineServizioDAO.removeByIDListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto());
+        assert ordineServizioDAO.findByIDListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()).size() != 0;
     }
 }

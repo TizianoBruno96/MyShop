@@ -72,6 +72,12 @@ public class RecensioneDAOTest {
         recensioneDAO.add(new Recensione(5, "Questa sedia è bellissima", prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Nikhammer").getIdUtente()));
         assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Nikhammer").getIdUtente()).getCommento().equals("Questa sedia è bellissima");
     }
+    @Test
+    public void addTestWrong() {
+        utenteDAO.add(new Utente("Nicola", "Martello", "Nikhammer", "nikyniky@yahoo.it", "3886759090", 22, "Via milano 37", "gamer", "maPerche"), 1);
+        recensioneDAO.add(new Recensione(5, "Questa sedia è bellissima", prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Nikhammer").getIdUtente()));
+        assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Nikhammer").getIdUtente()).getCommento().equals("Questa sedia è bellissimaaaaaaaaaa");
+    }
 
     @Test
     public void updateTest() {
@@ -81,21 +87,42 @@ public class RecensioneDAOTest {
         System.out.println(recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()).getCommento());
         assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()).getCommento().equals("Questa sedia è meravigliosa");
     }
+    @Test
+    public void updateTestWrong() {
+        Recensione recensione = recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente());
+        recensione.setCommento("Questa sedia è meravigliosa");
+        recensioneDAO.update(recensione);
+        System.out.println(recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()).getCommento());
+        assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()).getCommento().equals("Questa sedia è meravigliosaaaaaaaaa");
+    }
 
     @Test
     public void removeTest() {
         recensioneDAO.removeByProdottoAndUtente(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente());
         assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()) == null;
     }
+    @Test
+    public void removeTestWrong() {
+        recensioneDAO.removeByProdottoAndUtente(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente());
+        assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()) != null;
+    }
 
     @Test
     public void findTest() {
         assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()).getCommento().equals("Questa sedia è brutta");
     }
+    @Test
+    public void findTestWrong() {
+        assert recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente()).getCommento().equals("Questa sedia è bruttaaaaaa");
+    }
 
     @Test
     public void findByProdottoTest() {
-        assert recensioneDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() == 1;
+        assert recensioneDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() >= 1;
+    }
+    @Test
+    public void findByProdottoTestWrong() {
+        assert recensioneDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() < 1;
     }
 
     @Test
@@ -103,9 +130,18 @@ public class RecensioneDAOTest {
         Recensione recensione = recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente());
         assert recensioneDAO.findByID(recensione.getIdRecensione()).getCommento().equals("Questa sedia è brutta");
     }
+    @Test
+    public void findByIDTestWrong() {
+        Recensione recensione = recensioneDAO.find(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), utenteDAO.findByUsername("Frama19").getIdUtente());
+        assert recensioneDAO.findByID(recensione.getIdRecensione()).getCommento().equals("Questa sedia è bruttaaaaaaa");
+    }
 
     @Test
     public void findByUtenteTest() {
-        assert recensioneDAO.findByUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).size() == 1;
+        assert recensioneDAO.findByUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).size() >= 1;
+    }
+    @Test
+    public void findByUtenteTestWrong() {
+        assert recensioneDAO.findByUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).size() < 1;
     }
 }

@@ -20,6 +20,7 @@ public class ProduttoreDAOTest {
     public void tearDown() {
         produttoreDAO.removeByNome("SedieINC");
         produttoreDAO.removeByNome("TavoliINC");
+        produttoreDAO.removeByNome("TappetiINC");
     }
 
     @Test
@@ -27,11 +28,21 @@ public class ProduttoreDAOTest {
         Produttore produttore = produttoreDAO.findByNome("SedieINC");
         assert produttore.getNome().equals("SedieINC");
     }
+    @Test
+    public void findByNomeTestWrong() {
+        Produttore produttore = produttoreDAO.findByNome("SedieINC");
+        assert produttore.getNome().equals("SedieINC4");
+    }
 
     @Test
     public void findAllTest() {
         System.out.println(produttoreDAO.findAll().size());
-        assert produttoreDAO.findAll().size() == 2;
+        assert produttoreDAO.findAll().size() >= 2;
+    }
+    @Test
+    public void findAllTestWrong() {
+        System.out.println(produttoreDAO.findAll().size());
+        assert produttoreDAO.findAll().size() < 2;
     }
 
     @Test
@@ -40,12 +51,23 @@ public class ProduttoreDAOTest {
         produttore.setNome("TappetiINC");
         produttoreDAO.update(produttore);
         assert produttore.getNome().equals("TappetiINC");
-        produttoreDAO.removeByNome("TappetiINC");
+    }
+    @Test
+    public void updateTestWrong() {
+        Produttore produttore = produttoreDAO.findByNome("SedieINC");
+        produttore.setNome("TappetiINC");
+        produttoreDAO.update(produttore);
+        assert produttore.getNome().equals("TappetiINC51");
     }
 
     @Test
     public void removeByNomeTest() {
         produttoreDAO.removeByNome("SedieINC");
-        assert produttoreDAO.findAll().size() == 1;
+        assert produttoreDAO.findAll().size() >= 1;
+    }
+    @Test
+    public void removeByNomeTestWrong() {
+        produttoreDAO.removeByNome("SedieINC");
+        assert produttoreDAO.findAll().size() < 1;
     }
 }

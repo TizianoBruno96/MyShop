@@ -59,12 +59,28 @@ public class ProdottoCompositoDAOTest {
         prodottoCompositoDAO.add(new ProdottoComposito(padre.getIdProdotto(), figlio.getIdProdotto()));
         assert (prodottoCompositoDAO.find(padre.getIdProdotto(), figlio.getIdProdotto()) != null);
     }
+    @Test
+    public void addTestWrong() {
+        prodottoDAO.add(new Prodotto("Sedia Da Ufficio Verde", "Sedia da ufficio", 10.8f), categoriaDAO.findByNome("Sedie"), produttoreDAO.findByNome("SedieINC"));
+
+        Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Verde");
+
+        prodottoCompositoDAO.add(new ProdottoComposito(padre.getIdProdotto(), figlio.getIdProdotto()));
+        assert (prodottoCompositoDAO.find(padre.getIdProdotto(), figlio.getIdProdotto()) == null);
+    }
 
     @Test
     public void findByIDFiglioTest() {
         Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
         Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
         assert prodottoCompositoDAO.findByIDFiglio(figlio.getIdProdotto()).get(0).getIdProdottoPadre() == padre.getIdProdotto();
+    }
+    @Test
+    public void findByIDFiglioTestWrong() {
+        Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
+        assert prodottoCompositoDAO.findByIDFiglio(figlio.getIdProdotto()).get(0).getIdProdottoPadre() != padre.getIdProdotto();
     }
 
     @Test
@@ -73,10 +89,20 @@ public class ProdottoCompositoDAOTest {
         Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
         assert prodottoCompositoDAO.findByIDPadre(padre.getIdProdotto()).get(0).getIdProdottoFiglio() == figlio.getIdProdotto();
     }
+    @Test
+    public void findByIDPadreTestWrong() {
+        Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
+        assert prodottoCompositoDAO.findByIDPadre(padre.getIdProdotto()).get(0).getIdProdottoFiglio() != figlio.getIdProdotto();
+    }
 
     @Test
     public void findAllTest() {
-        assert prodottoCompositoDAO.findAll().size() == 1;
+        assert prodottoCompositoDAO.findAll().size() >= 1;
+    }
+    @Test
+    public void findAllTestWrong() {
+        assert prodottoCompositoDAO.findAll().size() < 1;
     }
 
     @Test
@@ -84,14 +110,27 @@ public class ProdottoCompositoDAOTest {
         Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
         Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
         prodottoCompositoDAO.remove(padre.getIdProdotto(), figlio.getIdProdotto());
-        assert prodottoCompositoDAO.findAll().size() == 0;
+        assert prodottoCompositoDAO.find(padre.getIdProdotto(), figlio.getIdProdotto()) == null;
+    }
+    @Test
+    public void removeTestWrong() {
+        Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
+        prodottoCompositoDAO.remove(padre.getIdProdotto(), figlio.getIdProdotto());
+        assert prodottoCompositoDAO.find(padre.getIdProdotto(), figlio.getIdProdotto()) != null;
     }
 
     @Test
     public void removeByIDPadreTest() {
         Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
         prodottoCompositoDAO.removeByIDPadre(padre.getIdProdotto());
-        assert prodottoCompositoDAO.findAll().size() == 0;
+        assert prodottoCompositoDAO.findByIDPadre(padre.getIdProdotto()).size() == 0;
+    }
+    @Test
+    public void removeByIDPadreTestWrong() {
+        Prodotto padre = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        prodottoCompositoDAO.removeByIDPadre(padre.getIdProdotto());
+        assert prodottoCompositoDAO.findByIDPadre(padre.getIdProdotto()).size() != 0;
     }
 
     @Test
@@ -99,5 +138,11 @@ public class ProdottoCompositoDAOTest {
         Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
         prodottoCompositoDAO.removeByIDFiglio(figlio.getIdProdotto());
         assert prodottoCompositoDAO.findAll().size() == 0;
+    }
+    @Test
+    public void removeByIDFiglioTestWrong() {
+        Prodotto figlio = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
+        prodottoCompositoDAO.removeByIDFiglio(figlio.getIdProdotto());
+        assert prodottoCompositoDAO.findAll().size() != 0;
     }
 }

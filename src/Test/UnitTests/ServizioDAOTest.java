@@ -38,7 +38,11 @@ public class ServizioDAOTest {
 
     @Test
     public void testFindAll() {
-        assert servizioDAO.findAll().size() == 1;
+        assert servizioDAO.findAll().size() >= 1;
+    }
+    @Test
+    public void testFindAllWrong() {
+        assert servizioDAO.findAll().size() < 1;
     }
 
     @Test
@@ -47,27 +51,52 @@ public class ServizioDAOTest {
         Fornitore fornitore = fornitoreDAO.findByNome("MontaggioINC");
 
         servizioDAO.add(new Servizio("Montaggio2", 13.5f), categoria.getIdCategoria(), fornitore.getIdFornitore());
-        assert servizioDAO.findAll().size() == 2;
+        assert servizioDAO.findAll().size() >= 2;
+    }
+    @Test
+    public void addTestWrong() {
+        Categoria categoria = categoriaDAO.findByNome("Mobili");
+        Fornitore fornitore = fornitoreDAO.findByNome("MontaggioINC");
+
+        servizioDAO.add(new Servizio("Montaggio2", 13.5f), categoria.getIdCategoria(), fornitore.getIdFornitore());
+        assert servizioDAO.findAll().size() < 2;
     }
 
     @Test
     public void removeByNomeTest() {
         servizioDAO.removeByNome("Montaggio");
-        assert servizioDAO.findAll().size() == 0;
+        assert servizioDAO.findByNome("Montaggio") == null;
+    }
+    @Test
+    public void removeByNomeTestWrong() {
+        servizioDAO.removeByNome("Montaggio");
+        assert servizioDAO.findByNome("Montaggio") != null;
     }
 
     @Test
     public void removeByIDTest() {
         Servizio servizio = servizioDAO.findByNome("Montaggio");
         servizioDAO.removeByID(servizio.getIdServizio());
-        assert servizioDAO.findAll().size() == 0;
+        assert servizioDAO.findByNome("Montaggio") == null;
+    }
+    @Test
+    public void removeByIDTestWrong() {
+        Servizio servizio = servizioDAO.findByNome("Montaggio");
+        servizioDAO.removeByID(servizio.getIdServizio());
+        assert servizioDAO.findByNome("Montaggio") != null;
     }
 
     @Test
     public void removeByFornitoreTest() {
         Fornitore fornitore = fornitoreDAO.findByNome("MontaggioINC");
         servizioDAO.removeByFornitore(fornitore.getIdFornitore());
-        assert servizioDAO.findAll().size() == 0;
+        assert servizioDAO.findByNome("Montaggio") == null;
+    }
+    @Test
+    public void removeByFornitoreTestWrong() {
+        Fornitore fornitore = fornitoreDAO.findByNome("MontaggioINC");
+        servizioDAO.removeByFornitore(fornitore.getIdFornitore());
+        assert servizioDAO.findByNome("Montaggio") != null;
     }
 
     @Test
@@ -77,10 +106,21 @@ public class ServizioDAOTest {
         servizioDAO.update(servizio);
         assert servizioDAO.findByNome("Montaggio3") != null;
     }
+    @Test
+    public void updateTestWrong() {
+        Servizio servizio = servizioDAO.findByNome("Montaggio");
+        servizio.setNome("Montaggio3");
+        servizioDAO.update(servizio);
+        assert servizioDAO.findByNome("Montaggio3") == null;
+    }
 
     @Test
     public void findByNomeTest() {
         assert servizioDAO.findByNome("Montaggio") != null;
+    }
+    @Test
+    public void findByNomeTestWrong() {
+        assert servizioDAO.findByNome("Montaggio") == null;
     }
 
     @Test
@@ -88,16 +128,31 @@ public class ServizioDAOTest {
         Servizio servizio = servizioDAO.findByNome("Montaggio");
         assert servizioDAO.findByID(servizio.getIdServizio()) != null;
     }
+    @Test
+    public void findByIDTestWrong() {
+        Servizio servizio = servizioDAO.findByNome("Montaggio");
+        assert servizioDAO.findByID(servizio.getIdServizio()) == null;
+    }
 
     @Test
     public void findByFornitoreTest() {
         Fornitore fornitore = fornitoreDAO.findByNome("MontaggioINC");
-        assert servizioDAO.findByFornitore(fornitore.getIdFornitore()).size() == 1;
+        assert servizioDAO.findByFornitore(fornitore.getIdFornitore()).size() >= 1;
+    }
+    @Test
+    public void findByFornitoreTestWrong() {
+        Fornitore fornitore = fornitoreDAO.findByNome("MontaggioINC");
+        assert servizioDAO.findByFornitore(fornitore.getIdFornitore()).size() < 1;
     }
 
     @Test
     public void findByCategoriaTest() {
         Categoria categoria = categoriaDAO.findByNome("Mobili");
         assert servizioDAO.findByCategoria(categoria.getIdCategoria()).size() == 1;
+    }
+    @Test
+    public void findByCategoriaTestWrong() {
+        Categoria categoria = categoriaDAO.findByNome("Mobili");
+        assert servizioDAO.findByCategoria(categoria.getIdCategoria()).size() != 1;
     }
 }
