@@ -1,10 +1,7 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DAO.Interfaces.IProduttoreDAO;
+import DBInterface.Command.*;
 import Model.Articoli.Produttore;
 import DAO.ModelFactory.ProduttoreFactory;
 
@@ -13,14 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProduttoreDAO implements IProduttoreDAO {
-    private static ProduttoreDAO instance = new ProduttoreDAO();
+    private static final ProduttoreDAO instance = new ProduttoreDAO();
     private Produttore produttore;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private ProduttoreDAO() {
         produttore = null;
-        connection = null;
         rs = null;
     }
 
@@ -100,29 +95,33 @@ public class ProduttoreDAO implements IProduttoreDAO {
 
     @Override
     public int add(Produttore produttore) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Produttore (Nome, Citta, Nazione, Sito) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSito() + "')");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO Produttore (Nome, Citta, Nazione, Sito) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSito() + "')";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idProduttore) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Produttore WHERE idProduttore = " + idProduttore);
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Produttore WHERE idProduttore = '" + idProduttore + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Produttore produttore) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', Sito = '" + produttore.getSito() + "' WHERE idProduttore = " + produttore.getIdProduttore());
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', Sito = '" + produttore.getSito() + "' WHERE idProduttore = " + produttore.getIdProduttore();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByNome(String nome) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Produttore WHERE Nome = '" + nome + "'");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Produttore WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

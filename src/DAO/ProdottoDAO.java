@@ -1,12 +1,8 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DAO.Interfaces.IProdottoDAO;
+import DBInterface.Command.*;
 import Model.Articoli.Prodotto;
-import Model.Articoli.ProdottoComposito;
 import Model.Articoli.Produttore;
 import Model.Categoria;
 import DAO.ModelFactory.ProdottoFactory;
@@ -18,12 +14,10 @@ import java.util.ArrayList;
 public class ProdottoDAO implements IProdottoDAO {
     private static final ProdottoDAO instance = new ProdottoDAO();
     private Prodotto prodotto;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private ProdottoDAO() {
         prodotto = null;
-        connection = null;
         rs = null;
     }
 
@@ -150,52 +144,55 @@ public class ProdottoDAO implements IProdottoDAO {
 
     @Override
     public int add(Prodotto prodotto, Categoria categoria, Produttore produttore) {
-        connection = DBConnection.getInstance();
-        String sqlStatement = "INSERT INTO Prodotto (Nome, Descrizione, Costo, IdCategoria, IdProduttore) VALUES ('" + prodotto.getNome() + "', '" + prodotto.getDescrizione() + "', " + prodotto.getCosto() + ", " + categoria.getIdCategoria() + ", " + produttore.getIdProduttore() + ")";
-        int rowCount = connection.executeUpdate(sqlStatement);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO Prodotto (Nome, Descrizione, Costo, IdCategoria, IdProduttore) VALUES ('" + prodotto.getNome() + "', '" + prodotto.getDescrizione() + "', " + prodotto.getCosto() + ", " + categoria.getIdCategoria() + ", " + produttore.getIdProduttore() + ")";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idProdotto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Prodotto WHERE IdProdotto = " + idProdotto);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Prodotto WHERE IDProdotto = " + idProdotto;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Prodotto prodotto) {
-        connection = DBConnection.getInstance();
-        String sqlStatement = "UPDATE Prodotto SET Nome = '" + prodotto.getNome() + "', Descrizione = '" + prodotto.getDescrizione() + "', Costo = " + prodotto.getCosto() + " WHERE IdProdotto = " + prodotto.getIdProdotto();
-        int rowCount = connection.executeUpdate("UPDATE Prodotto SET Nome = '" + prodotto.getNome() + "', Descrizione = '" + prodotto.getDescrizione() + "', Costo = " + prodotto.getCosto() + ", IdCategoria = " + prodotto.getIdCategoria() + ", IdProduttore = " + prodotto.getIdProduttore() + " WHERE idProdotto = " + prodotto.getIdProdotto());
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Prodotto SET Nome = '" + prodotto.getNome() + "', Descrizione = '" + prodotto.getDescrizione() + "', Costo = " + prodotto.getCosto() + ", IdCategoria = " + prodotto.getIdCategoria() + ", IdProduttore = " + prodotto.getIdProduttore() + " WHERE idProdotto = " + prodotto.getIdProdotto();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     public int updateCategoria(Prodotto prodotto, Categoria categoria) {
-        connection = DBConnection.getInstance();
-        String sqlStatement = "UPDATE Prodotto SET IdCategoria = " + categoria.getIdCategoria() + " WHERE IdProdotto = " + prodotto.getIdProdotto();
-        int rowCount = connection.executeUpdate(sqlStatement);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Prodotto SET IdCategoria = " + categoria.getIdCategoria() + " WHERE idProdotto = " + prodotto.getIdProdotto();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     public int updateProduttore(Prodotto prodotto, Produttore produttore) {
-        connection = DBConnection.getInstance();
-        String sqlStatement = "UPDATE Prodotto SET IdProduttore = " + produttore.getIdProduttore() + " WHERE IdProdotto = " + prodotto.getIdProdotto();
-        int rowCount = connection.executeUpdate(sqlStatement);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Prodotto SET IdProduttore = " + produttore.getIdProduttore() + " WHERE IdProdotto = " + prodotto.getIdProdotto();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByNome(String nome) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Prodotto WHERE Nome = '" + nome + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Prodotto WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int remove(Prodotto prodotto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Prodotto WHERE idProdotto = " + prodotto.getIdProdotto() + " AND Nome = '" + prodotto.getNome() + "' AND Descrizione = '" + prodotto.getDescrizione() + "' AND Costo = " + prodotto.getCosto() + " AND IdCategoria = " + prodotto.getIdCategoria() + " AND IdProduttore = " + prodotto.getIdProduttore());
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Prodotto WHERE idProdotto = " + prodotto.getIdProdotto() + " AND Nome = '" + prodotto.getNome() + "' AND Descrizione = '" + prodotto.getDescrizione() + "' AND Costo = " + prodotto.getCosto() + " AND IdCategoria = " + prodotto.getIdCategoria() + " AND IdProduttore = " + prodotto.getIdProduttore();
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

@@ -1,10 +1,7 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DAO.Interfaces.IOrdineProdottoDAO;
+import DBInterface.Command.*;
 import DAO.ModelFactory.OrdineProdottoFactory;
 import Model.Articoli.Prodotto;
 import Model.ListaAcquisto;
@@ -15,14 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrdineProdottoDAO implements IOrdineProdottoDAO {
-    private static OrdineProdottoDAO instance = new OrdineProdottoDAO();
+    private static final OrdineProdottoDAO instance = new OrdineProdottoDAO();
     private OrdineProdotto ordineProdotto;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private OrdineProdottoDAO() {
         ordineProdotto = null;
-        connection = null;
         rs = null;
     }
 
@@ -126,36 +121,41 @@ public class OrdineProdottoDAO implements IOrdineProdottoDAO {
 
     @Override
     public int add(OrdineProdotto ordineProdotto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO OrdineProdotto (idProdotto, idListaAcquisto, Quantita) VALUES (" + ordineProdotto.getIdProdotto() + ", " + ordineProdotto.getIdListaAcquisto() + ", " + ordineProdotto.getQuantita() + ")");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO OrdineProdotto (idProdotto, idListaAcquisto, Quantita) VALUES (" + ordineProdotto.getIdProdotto() + ", " + ordineProdotto.getIdListaAcquisto() + ", " + ordineProdotto.getQuantita() + ")";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByIDProdotto(int idProdotto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM OrdineProdotto WHERE idProdotto = " + idProdotto);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM OrdineProdotto WHERE idProdotto = " + idProdotto;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByIDListaAcquisto(int idListaAcquisto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM OrdineProdotto WHERE idListaAcquisto = " + idListaAcquisto);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM OrdineProdotto WHERE idListaAcquisto = " + idListaAcquisto;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idProdotto, int idListaAcquisto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM OrdineProdotto WHERE idProdotto = " + idProdotto + " AND idListaAcquisto = " + idListaAcquisto);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM OrdineProdotto WHERE idProdotto = " + idProdotto + " AND idListaAcquisto = " + idListaAcquisto;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(OrdineProdotto ordineProdotto) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE OrdineProdotto SET Quantita = " + ordineProdotto.getQuantita() + " WHERE idProdotto = " + ordineProdotto.getIdProdotto() + " AND idListaAcquisto = " + ordineProdotto.getIdListaAcquisto());
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE OrdineProdotto SET Quantita = " + ordineProdotto.getQuantita() + " WHERE idProdotto = " + ordineProdotto.getIdProdotto() + " AND idListaAcquisto = " + ordineProdotto.getIdListaAcquisto();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

@@ -10,7 +10,7 @@ public class ListaAcquistoFactory implements IFactory<ListaAcquisto> {
         ListaAcquisto listaAcquisto = new ListaAcquisto();
         listaAcquisto.setIdUtente(rs.getInt("idUtente"));
         listaAcquisto.setIdListaAcquisto(rs.getInt("idListaAcquisto"));
-        listaAcquisto.setCostoTot(rs.getInt("CostoTotale"));
+        listaAcquisto.setCostoTot(rs.getFloat("CostoTotale"));
         listaAcquisto.setPagata(rs.getBoolean("isPagata"));
         return listaAcquisto;
     }

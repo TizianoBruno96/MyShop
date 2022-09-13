@@ -1,6 +1,8 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.IPuntoVenditaDAO;
+import DAO.Interfaces.IUtenteDAO;
 import Model.PuntoVendita;
 import Model.Utenti.Utente;
 import org.junit.After;

@@ -1,27 +1,21 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
-import Model.Magazzino;
+import DAO.Interfaces.IMagazzinoDAO;
 import DAO.ModelFactory.MagazzinoFactory;
-import Model.PuntoVendita;
+import DBInterface.Command.*;
+import Model.Magazzino;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MagazzinoDAO implements IMagazzinoDAO {
-    private static MagazzinoDAO instance = new MagazzinoDAO();
+    private static final MagazzinoDAO instance = new MagazzinoDAO();
     private Magazzino magazzino;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private MagazzinoDAO() {
         magazzino = null;
-        connection = null;
         rs = null;
     }
 
@@ -98,33 +92,36 @@ public class MagazzinoDAO implements IMagazzinoDAO {
 
     @Override
     public int add(Magazzino magazzino, int idPuntoVendita) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
         if(MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita) != null) {
             return -1;
         }
-        int rowCount = connection.executeUpdate("INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + idPuntoVendita + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')");
-        return rowCount;
+        String sql = "INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + idPuntoVendita + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idMagazzino) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByPuntoVendita(int idPuntoVendita) {
-        connection = DBConnection.getInstance();
-
-        int rowCount = connection.executeUpdate("DELETE FROM Magazzino WHERE idPuntoVendita = '" + idPuntoVendita + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Magazzino WHERE idPuntoVendita = '" + idPuntoVendita + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Magazzino magazzino) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Magazzino SET idPuntoVendita = '" + magazzino.getIdPuntoVendita() + "', maxCorsia = '" + magazzino.getMaxCorsia() + "', maxScaffale = '" + magazzino.getMaxScaffale() + "' WHERE idMagazzino = '" + magazzino.getIdMagazzino() + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Magazzino SET idPuntoVendita = '" + magazzino.getIdPuntoVendita() + "', maxCorsia = '" + magazzino.getMaxCorsia() + "', maxScaffale = '" + magazzino.getMaxScaffale() + "' WHERE idMagazzino = '" + magazzino.getIdMagazzino() + "'";
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

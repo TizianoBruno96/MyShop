@@ -1,6 +1,7 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.*;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
 import Model.Categoria;
@@ -22,7 +23,7 @@ public class ListaAcquistoDAOTest {
     IOrdineProdottoDAO ordineDAO = OrdineProdottoDAO.getInstance();
 
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
         utenteDAO.add(new Utente("Francesca", "Maurizi", "Frama19", "francesca1922@gmail.com", "3394287546", 19, "Via del bosco 19", "estetista", "Gomorra"), 1);
 
         Categoria sedie = new Categoria("Sedie");
@@ -119,6 +120,6 @@ public class ListaAcquistoDAOTest {
         ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
         listaAcquistoDAO.updateCostoTot(listaAcquisto);
         System.out.println(listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot());
-        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() == 141;
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() == 141.4f;
     }
 }

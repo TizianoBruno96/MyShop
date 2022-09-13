@@ -1,4 +1,4 @@
-package DAO;
+package DAO.Interfaces;
 
 import Model.Articoli.Prodotto;
 import Model.Magazzino;
@@ -18,4 +18,5 @@ public interface IPosizioneDAO {
     int removeByID(int idPosizione);
     int removeByMagazzino(int idMagazzino);
     int update(Posizione posizione);
+    int updateQuantita(Posizione posizione, int quantita);
 }

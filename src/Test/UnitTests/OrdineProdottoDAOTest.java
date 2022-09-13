@@ -1,6 +1,7 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.*;
 import Model.*;
 import Model.Articoli.*;
 import Model.Utenti.*;
