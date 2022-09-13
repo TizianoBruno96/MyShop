@@ -149,4 +149,13 @@ public class UtenteDAOTest {
     public void isClienteTestWrong() {
         assert !utenteDAO.isCliente("Frama19");
     }
+
+    @Test
+    public void checkEmailTest() {
+        assert utenteDAO.checkEmail("francesca1922@gmail.com");
+    }
+    @Test
+    public void checkEmailTestWrong() {
+        assert !utenteDAO.checkEmail("francesca1922@gmail.com");
+    }
 }
