@@ -1,26 +1,21 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
-import Model.Recensione;
+import DAO.Interfaces.IRecensioneDAO;
 import DAO.ModelFactory.RecensioneFactory;
+import DBInterface.Command.*;
+import Model.Recensione;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RecensioneDAO implements IRecensioneDAO {
-    private static RecensioneDAO instance = new RecensioneDAO();
+    private static final RecensioneDAO instance = new RecensioneDAO();
     private Recensione recensione;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private RecensioneDAO() {
         recensione = null;
-        connection = null;
         rs = null;
     }
 
@@ -123,29 +118,33 @@ public class RecensioneDAO implements IRecensioneDAO {
 
     @Override
     public int add(Recensione recensione) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Recensione (Voto, Commento, Data, IdProdotto, IdUtente) VALUES (" + recensione.getVoto() + ", '" + recensione.getCommento() + "', '" + recensione.getData() + "', " + recensione.getIdProdotto() + ", " + recensione.getIdUtente() + ")");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO Recensione (Voto, Commento, Data, IdProdotto, IdUtente) VALUES (" + recensione.getVoto() + ", '" + recensione.getCommento() + "', '" + recensione.getData() + "', " + recensione.getIdProdotto() + ", " + recensione.getIdUtente() + ")";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Recensione recensione) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', Data = '" + recensione.getData() + "' WHERE idProdotto = " + recensione.getIdProdotto() + " AND idUtente = " + recensione.getIdUtente() + " AND idRecensione = " + recensione.getIdRecensione());
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', Data = '" + recensione.getData() + "' WHERE idProdotto = " + recensione.getIdProdotto() + " AND idUtente = " + recensione.getIdUtente() + " AND idRecensione = " + recensione.getIdRecensione();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int remove(int idRecensione) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Recensione WHERE idRecensione = " + idRecensione);
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Recensione WHERE idRecensione = " + idRecensione;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByProdottoAndUtente(int idProdotto, int idUtente) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Recensione WHERE IdProdotto = " + idProdotto + " AND IdUtente = " + idUtente);
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Recensione WHERE idProdotto = " + idProdotto + " AND idUtente = " + idUtente;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

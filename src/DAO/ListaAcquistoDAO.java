@@ -1,10 +1,7 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DAO.Interfaces.*;
+import DBInterface.Command.*;
 import Model.ListaAcquisto;
 import DAO.ModelFactory.ListaAcquistoFactory;
 import Model.OrdineProdotto;
@@ -12,18 +9,14 @@ import Model.OrdineServizio;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 
 public class ListaAcquistoDAO implements IListaAcquistoDAO {
-    private static ListaAcquistoDAO instance = new ListaAcquistoDAO();
+    private static final ListaAcquistoDAO instance = new ListaAcquistoDAO();
     private ListaAcquisto listaAcquisto;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private ListaAcquistoDAO() {
         listaAcquisto = null;
-        connection = null;
         rs = null;
     }
 
@@ -77,42 +70,47 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
 
     @Override
     public int add(ListaAcquisto listaAcquisto) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO ListaAcquisto (IdUtente, CostoTotale, isPagata) VALUES (" + listaAcquisto.getIdUtente() + ", " + listaAcquisto.getCostoTot() + ", " + listaAcquisto.isPagata() + ")");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO ListaAcquisto (IdUtente, CostoTotale, isPagata) VALUES (" + listaAcquisto.getIdUtente() + ", " + listaAcquisto.getCostoTot() + ", " + listaAcquisto.isPagata() + ")";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByIDUtente(int idUtente) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idUtente = '" + idUtente + "'");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM ListaAcquisto WHERE IdUtente = " + idUtente;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idListaAcquisto) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM ListaAcquisto WHERE idListaAcquisto = '" + idListaAcquisto + "'");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM ListaAcquisto WHERE IdListaAcquisto = " + idListaAcquisto;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(ListaAcquisto listaAcquisto) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE ListaAcquisto SET IdUtente = " + listaAcquisto.getIdUtente() + ", CostoTotale = " + listaAcquisto.getCostoTot() + ", isPagata = " + listaAcquisto.isPagata() + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto());
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE ListaAcquisto SET CostoTotale = " + listaAcquisto.getCostoTot() + ", isPagata = " + listaAcquisto.isPagata() + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int updateCostoTot(ListaAcquisto listaAcquisto, int costoTot) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = '" + costoTot + "' WHERE idListaAcquisto = '" + listaAcquisto.getIdListaAcquisto() + "'");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE ListaAcquisto SET CostoTotale = " + costoTot + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int updateCostoTot(ListaAcquisto listaAcquisto) {
-        connection = DBConnection.getInstance();
+        DBOperationExecutor executor = new DBOperationExecutor();
         IOrdineProdottoDAO ordineDAO = OrdineProdottoDAO.getInstance();
         IOrdineServizioDAO ordineServizioDAO = OrdineServizioDAO.getInstance();
         IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
@@ -126,8 +124,9 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
             tot += servizioDAO.findByID(o.getIdServizio()).getCosto();
         }
 
-        //TODO sistemare il formato del costo totale
-        int rowCount = connection.executeUpdate("UPDATE ListaAcquisto SET CostoTotale = " + tot + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto());
-        return rowCount;
+
+        String sql = "UPDATE ListaAcquisto SET CostoTotale = " + tot + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

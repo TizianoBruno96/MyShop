@@ -1,6 +1,7 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.*;
 import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
 import Model.Categoria;
@@ -38,7 +39,9 @@ public class OrdineServizioDAOTest {
 
     @After
     public void tearDown() throws SQLException {
-        ordineServizioDAO.removeByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio());
+        if (servizioDAO.findByNome("Montaggio") != null) {
+            ordineServizioDAO.removeByIDServizio(servizioDAO.findByNome("Montaggio").getIdServizio());
+        }
         servizioDAO.removeByNome("Montaggio");
         categoriaDAO.removeByName("Mobili");
         fornitoreDAO.removeByName("MontaggioINC");

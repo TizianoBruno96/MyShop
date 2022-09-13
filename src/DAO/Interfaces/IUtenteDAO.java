@@ -1,4 +1,4 @@
-package DAO;
+package DAO.Interfaces;
 
 import Model.Utenti.Utente;
 
@@ -19,5 +19,4 @@ public interface IUtenteDAO {
     int removeByUsername(String username) throws SQLException;
     int update(Utente utente);
     int updateTipo(String username, String tipo) throws SQLException;
-    String checkTipo(String username);
 }

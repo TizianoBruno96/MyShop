@@ -1,26 +1,21 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
-import Model.Articoli.Fornitore;
+import DAO.Interfaces.IFornitoreDAO;
 import DAO.ModelFactory.FornitoreFactory;
+import DBInterface.Command.*;
+import Model.Articoli.Fornitore;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class FornitoreDAO implements IFornitoreDAO{
+public class FornitoreDAO implements IFornitoreDAO {
     private static final FornitoreDAO instance = new FornitoreDAO();
     private Fornitore fornitore;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private FornitoreDAO() {
         fornitore = null;
-        connection = null;
         rs = null;
     }
 
@@ -102,22 +97,25 @@ public class FornitoreDAO implements IFornitoreDAO{
 
     @Override
     public int add(Fornitore fornitore) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO fornitore (nome, sito) VALUES ('" + fornitore.getNome() + "', '" + fornitore.getSito() + "')");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO fornitore (nome, sito) VALUES ('" + fornitore.getNome() + "', '" + fornitore.getSito() + "')";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByName(String nome) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Fornitore WHERE Nome = '" + nome + "'");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Fornitore WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Fornitore fornitore) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Fornitore SET Nome = '" + fornitore.getNome() + "' WHERE idFornitore = " + fornitore.getIdFornitore());
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Fornitore SET Nome = '" + fornitore.getNome() + "' WHERE idFornitore = " + fornitore.getIdFornitore();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

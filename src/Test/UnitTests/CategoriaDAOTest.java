@@ -1,7 +1,7 @@
 package Test.UnitTests;
 
 import DAO.CategoriaDAO;
-import DAO.ICategoriaDAO;
+import DAO.Interfaces.ICategoriaDAO;
 import Model.Categoria;
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +17,6 @@ public class CategoriaDAOTest {
         categoriaDAO.add(informatica);
         categoriaDAO.add(elettronica);
         informatica = categoriaDAO.findByNome("Informatica");
-        elettronica = categoriaDAO.findByNome("Elettronica");
         categoriaDAO.addCategoriaFiglia(new Categoria("Notebook"), informatica);
     }
 
@@ -26,6 +25,7 @@ public class CategoriaDAOTest {
         categoriaDAO.removeByName("Notebook");
         categoriaDAO.removeByName("Cellulare");
         categoriaDAO.removeByName("Informatica");
+        categoriaDAO.removeByName("Informatica2");
         categoriaDAO.removeByName("Elettronica");
         categoriaDAO.removeByName("Cucina");
     }
@@ -49,5 +49,19 @@ public class CategoriaDAOTest {
     public void findSottoCategorie() {
         categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
         assert categoriaDAO.findSottoCategorie(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() == 2;
+    }
+
+    @Test
+    public void findByCategoriaPadre() {
+        categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
+        assert categoriaDAO.findByCategoriaPadre(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() == 2;
+    }
+
+    @Test
+    public void updateTest() {
+        Categoria categoria = categoriaDAO.findByNome("Informatica");
+        categoria.setNome("Informatica2");
+        categoriaDAO.update(categoria);
+        assert categoriaDAO.findByNome("Informatica2") != null;
     }
 }

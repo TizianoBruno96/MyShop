@@ -1,6 +1,6 @@
 package Test.UnitTests;
 
-import DAO.IProduttoreDAO;
+import DAO.Interfaces.IProduttoreDAO;
 import DAO.ProduttoreDAO;
 import Model.Articoli.Produttore;
 import org.junit.After;

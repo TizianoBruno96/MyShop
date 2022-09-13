@@ -1,26 +1,21 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
-import Model.Utenti.UtenteRegistrato;
+import DAO.Interfaces.IUtenteRegistratoDAO;
 import DAO.ModelFactory.UtenteRegistratoFactory;
+import DBInterface.Command.*;
+import Model.Utenti.UtenteRegistrato;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
-    private static UtenteRegistratoDAO instance = new UtenteRegistratoDAO();
+    private static final UtenteRegistratoDAO instance = new UtenteRegistratoDAO();
     private UtenteRegistrato utenteRegistrato;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private UtenteRegistratoDAO() {
         utenteRegistrato = null;
-        connection = null;
         rs = null;
     }
 
@@ -72,19 +67,41 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
 
     @Override
     public int add(UtenteRegistrato utenteRegistrato) {
-        connection = DBConnection.getInstance();
-        return connection.executeUpdate("INSERT INTO UtenteRegistrato (idUtenteRegistrato, idPuntoVendita) VALUES (" + utenteRegistrato.getIdUtente() + ", " + utenteRegistrato.getIdPuntoVendita() + ")");
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO UtenteRegistrato (idUtente, idPuntoVendita) VALUES (" + utenteRegistrato.getIdUtente() + ", " + utenteRegistrato.getIdPuntoVendita() + ")";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(UtenteRegistrato utenteRegistrato) {
-        connection = DBConnection.getInstance();
-        return connection.executeUpdate("UPDATE UtenteRegistrato SET idPuntoVendita = " + utenteRegistrato.getIdPuntoVendita() + " WHERE idUtenteRegistrato = " + utenteRegistrato.getIdUtente());
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE UtenteRegistrato SET idPuntoVendita = " + utenteRegistrato.getIdPuntoVendita() + " WHERE idUtente = " + utenteRegistrato.getIdUtente();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int remove(UtenteRegistrato utenteRegistrato) {
-        connection = DBConnection.getInstance();
-        return connection.executeUpdate("DELETE FROM UtenteRegistrato WHERE idUtenteRegistrato = " + utenteRegistrato.getIdUtente());
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM UtenteRegistrato WHERE idUtente = " + utenteRegistrato.getIdUtente() + " AND idPuntoVendita = " + utenteRegistrato.getIdPuntoVendita();
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
+    }
+
+    @Override
+    public int removeByIDUtente(int idUtente) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM UtenteRegistrato WHERE idUtente = " + idUtente;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
+    }
+
+    @Override
+    public int removeByIDPuntoVendita(int idPuntoVendita) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM UtenteRegistrato WHERE idPuntoVendita = " + idPuntoVendita;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

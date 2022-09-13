@@ -1,6 +1,9 @@
 package Test;
 
 import DAO.*;
+import DAO.Interfaces.IMagazzinoDAO;
+import DAO.Interfaces.IPuntoVenditaDAO;
+import DAO.Interfaces.IUtenteDAO;
 import Model.Magazzino;
 import Model.PuntoVendita;
 import Model.Utenti.Utente;

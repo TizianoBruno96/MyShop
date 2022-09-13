@@ -1,26 +1,21 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
-import Model.Guest;
+import DAO.Interfaces.IGuestDAO;
 import DAO.ModelFactory.GuestFactory;
+import DBInterface.Command.*;
+import Model.Guest;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GuestDAO implements IGuestDAO {
-    private static GuestDAO instance = new GuestDAO();
+    private static final GuestDAO instance = new GuestDAO();
     private Guest guest;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private GuestDAO() {
         guest = null;
-        connection = null;
         rs = null;
     }
 
@@ -97,29 +92,33 @@ public class GuestDAO implements IGuestDAO {
 
     @Override
     public int add(Guest guest) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("INSERT INTO Guest (IP) VALUES ('" + guest.getIPGuest() + "')");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO Guest (IP) VALUES ('" + guest.getIPGuest() + "')";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int id) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Guest WHERE idGuest = " + id);
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Guest WHERE idGuest = " + id;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByIP(String IP) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("DELETE FROM Guest WHERE IP = '" + IP + "'");
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Guest WHERE IP = '" + IP + "'";
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Guest guest) {
-        connection = DBConnection.getInstance();
-        int result = connection.executeUpdate("UPDATE Guest SET IP = '" + guest.getIPGuest() + "' WHERE idGuest = " + guest.getIdGuest());
-        return result;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Guest SET IP = '" + guest.getIPGuest() + "' WHERE idGuest = " + guest.getIdGuest();
+        IDBOperation operation = new UpdateOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

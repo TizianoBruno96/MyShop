@@ -1,10 +1,7 @@
 package DAO;
 
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.DBConnection;
-import DBInterface.IDBConnection;
+import DAO.Interfaces.IPosizioneDAO;
+import DBInterface.Command.*;
 import Model.Articoli.Prodotto;
 import Model.Magazzino;
 import Model.Posizione;
@@ -15,14 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PosizioneDAO implements IPosizioneDAO {
-    private static PosizioneDAO instance = new PosizioneDAO();
+    private static final PosizioneDAO instance = new PosizioneDAO();
     private Posizione posizione;
-    private static IDBConnection connection;
     private static ResultSet rs;
 
     private PosizioneDAO() {
         posizione = null;
-        connection = null;
         rs = null;
     }
 
@@ -161,36 +156,49 @@ public class PosizioneDAO implements IPosizioneDAO {
 
     @Override
     public int addProdottoInPosizione(Prodotto prodotto, int corsia, int scaffale, int idMagazzino, int quantita) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + corsia + " AND pScaffale = " + scaffale);
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + corsia + " AND pScaffale = " + scaffale;
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int add(Posizione posizione, int idMagazzino) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', NULL, '" + idMagazzino + "')");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', NULL, '" + idMagazzino + "')";
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByID(int idPosizione) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Posizione WHERE idPosizione = '" + idPosizione + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Posizione WHERE idPosizione = " + idPosizione;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int removeByMagazzino(int idMagazzino) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("DELETE FROM Posizione WHERE idMagazzino = '" + idMagazzino + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Posizione WHERE idMagazzino = " + idMagazzino;
+        IDBOperation operation = new RemoveOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 
     @Override
     public int update(Posizione posizione) {
-        connection = DBConnection.getInstance();
-        int rowCount = connection.executeUpdate("UPDATE Posizione SET pCorsia = '" + posizione.getpCorsia() + "', pScaffale = '" + posizione.getpScaffale() + "', Quantita = '" + posizione.getQuantita() + "', idProdotto = '" + posizione.getIdProdotto() + "', idMagazzino = '" + posizione.getIdMagazzino() + "' WHERE idPosizione = '" + posizione.getIdPosizione() + "'");
-        return rowCount;
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Posizione SET pCorsia = " + posizione.getpCorsia() + ", pScaffale = " + posizione.getpScaffale() + ", Quantita = " + posizione.getQuantita() + ", idProdotto = " + posizione.getIdProdotto() + " WHERE idPosizione = " + posizione.getIdPosizione();
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
+    }
+
+    @Override
+    public int updateQuantita(Posizione posizione, int quantita) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "UPDATE Posizione SET Quantita = " + quantita + " WHERE idPosizione = " + posizione.getIdPosizione();
+        IDBOperation operation = new WriteOperation(sql);
+        return executor.executeOperation(operation).getAffectedRows();
     }
 }

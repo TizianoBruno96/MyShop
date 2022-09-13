@@ -1,6 +1,7 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.*;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
 import Model.Categoria;
@@ -137,5 +138,22 @@ public class PosizioniDAOTest {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
         posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
         assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 0;
+    }
+
+    @Test
+    public void updateQuantitaTest() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 5, 9, magazzino.getIdMagazzino(), 10);
+        Posizione posizione = posizioneDAO.find(5, 9, magazzino.getIdMagazzino());
+        posizioneDAO.updateQuantita(posizione, 20);
+        assert posizioneDAO.find(5, 9, magazzino.getIdMagazzino()).getQuantita() == 20;
     }
 }

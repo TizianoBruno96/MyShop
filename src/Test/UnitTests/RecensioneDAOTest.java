@@ -1,6 +1,7 @@
 package Test.UnitTests;
 
 import DAO.*;
+import DAO.Interfaces.*;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
 import Model.Categoria;

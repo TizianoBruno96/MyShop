@@ -1,6 +1,7 @@
 package Test;
 
 import DAO.*;
+import DAO.Interfaces.*;
 
 import java.sql.SQLException;
 
