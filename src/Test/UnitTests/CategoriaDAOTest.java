@@ -37,6 +37,11 @@ public class CategoriaDAOTest {
     }
 
     @Test
+    public void findByNameTestWrong() {
+        Categoria categoria = categoriaDAO.findByNome("Informatica");
+        assert categoria.getNome().equals("Informatica4");
+    }
+    @Test
     public void findAllTest() {
         categoriaDAO.add(new Categoria("Cucina"));
         for(Categoria categoria : categoriaDAO.findAll()) {

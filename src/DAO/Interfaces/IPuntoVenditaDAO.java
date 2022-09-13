@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public interface IPuntoVenditaDAO {
     PuntoVendita findByID(int idPuntoVendita);
     PuntoVendita findByManager(int idManager);
+    PuntoVendita findByNome(String nome);
     ArrayList<PuntoVendita> findByCitta(String citta);
     ArrayList<PuntoVendita> findAll();
     int add(PuntoVendita puntoVendita, Magazzino magazzino, int idManager);
