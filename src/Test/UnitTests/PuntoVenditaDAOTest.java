@@ -68,4 +68,10 @@ public class PuntoVenditaDAOTest {
         ArrayList<PuntoVendita> puntiVendita = puntoVenditaDAO.findAll();
         assert puntiVendita.size() > 0;
     }
+
+    @Test
+    public void findByNomeTest() {
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByNome("MilanoShop");
+        assert puntoVendita != null;
+    }
 }
