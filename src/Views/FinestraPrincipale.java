@@ -2,6 +2,7 @@ package Views;
 
 import ActionListeners.LoginListeners;
 import ActionListeners.LogoutListeners;
+import ActionListeners.RegistrazioneListeners;
 import Business.SessionManager;
 import Model.Utenti.Utente;
 import Views.Decorator.*;
@@ -34,6 +35,10 @@ public class FinestraPrincipale extends JFrame {
         JPasswordField password = new JPasswordField(20);
         JButton login = new JButton("Login");
         login.setActionCommand(LoginListeners.LOGIN_BTN);
+        JButton registrati = new JButton("Registrati");
+        registrati.setActionCommand(RegistrazioneListeners.REGISTRATI_BTN);
+        RegistrazioneListeners registrazioneListeners = new RegistrazioneListeners(this);
+        registrati.addActionListener(registrazioneListeners);
 
 
 
@@ -49,6 +54,7 @@ public class FinestraPrincipale extends JFrame {
         pannelloNord.add(username);
         pannelloNord.add(password);
         pannelloNord.add(login);
+        pannelloNord.add(registrati);
         pannelloCentro.add(etichettaCentro1);
         pannelloSud.add(new JLabel("Interfaccia grafica per il progetto di PIS"));
         for (JButton btn : guestMenu.getPulsanti()){
@@ -68,6 +74,7 @@ public class FinestraPrincipale extends JFrame {
         LoginListeners loginListeners = new LoginListeners(username,password);
         loginListeners.setFrame(this);
         login.addActionListener(loginListeners);
+
 
         logout.setActionCommand(LogoutListeners.LOGOUT_BTN);
         LogoutListeners logoutListeners = new LogoutListeners(this);
@@ -139,7 +146,7 @@ public class FinestraPrincipale extends JFrame {
 
     public void effettuaLogout() {
         this.setVisible(false);
-        add(new FinestraPrincipale());
+        new FinestraPrincipale();
         repaint();
         validate();
     }
@@ -147,6 +154,20 @@ public class FinestraPrincipale extends JFrame {
     public void mostraCatalogoServizi() {
         pannelloCentro.removeAll();
         pannelloCentro.add(new CatalogoServiziPanel());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloCreazioneManager() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new CreaManagerPanel());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloCreazionePuntoVendita() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new CreaPuntoVenditaPanel());
         repaint();
         validate();
     }

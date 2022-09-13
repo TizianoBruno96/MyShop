@@ -19,6 +19,9 @@ public class CrearePuntoVenditaListeners implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String azione = e.getActionCommand();
+        if (CREAPUNTOVENDITA_BTN.equals(azione)){
+            frame.mostraPannelloCreazionePuntoVendita();
+        }
     }
 }

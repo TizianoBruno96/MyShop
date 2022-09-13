@@ -9,7 +9,7 @@ public class DBUser {
     private DBUser() {
         schemaName = "myshop";
         username = "root";
-        pwd = "Der0net09620.";
+        pwd = "Alessio.1999";
     }
 
     public static DBUser getInstance() {

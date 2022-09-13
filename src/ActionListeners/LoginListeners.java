@@ -1,8 +1,7 @@
 package ActionListeners;
 
 import Business.LoginResult;
-import Business.SessionManager;
-import Business.UtenteBusiness;
+import Business.LoginBusiness;
 import Views.FinestraPrincipale;
 
 import javax.swing.*;
@@ -42,7 +41,7 @@ public class LoginListeners implements ActionListener {
             String user = username.getText();
             String pwd = new String(password.getPassword());
 
-            LoginResult result = UtenteBusiness.getInstance().login(user,pwd);
+            LoginResult result = LoginBusiness.getInstance().login(user,pwd);
             if (result.getResult() == LoginResult.Result.LOGIN_OK){
                 frame.mostraPannelloUtenteLoggato(result.getMessage());
                 frame.aggiornaMenuPulsanti();

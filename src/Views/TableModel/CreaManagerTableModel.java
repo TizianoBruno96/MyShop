@@ -1,21 +1,18 @@
 package Views.TableModel;
 
 import Utilities.IntegerExt;
+import Views.Model.RigaCreazioneManager;
 import Views.Model.RigaRegistrazione;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistrazioneTableModel extends AbstractTableModel {
-    private List<RigaRegistrazione> righe = new ArrayList<>();
+public class CreaManagerTableModel extends AbstractTableModel {
+    private List<RigaCreazioneManager> righe = new ArrayList<>();
 
-    public RegistrazioneTableModel(List<RigaRegistrazione> righe) {
+    public CreaManagerTableModel(List<RigaCreazioneManager> righe) {
         this.righe = righe;
-    }
-
-    public List<RigaRegistrazione> getRighe() {
-        return righe;
     }
 
     @Override
@@ -25,12 +22,12 @@ public class RegistrazioneTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 10;
+        return 9;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        RigaRegistrazione riga = righe.get(rowIndex);
+        RigaCreazioneManager riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return riga.getNome();
@@ -50,8 +47,6 @@ public class RegistrazioneTableModel extends AbstractTableModel {
                 return riga.getProfessione();
             case 8 :
                 return riga.getPassword();
-            case 9 :
-                return riga.getNomePuntoVendita();
         }
         return null;
     }
@@ -68,14 +63,13 @@ public class RegistrazioneTableModel extends AbstractTableModel {
             case 6 : return "Residenza";
             case 7 : return "Professione";
             case 8 : return "Password";
-            case 9 : return "Nome Punto Vendita";
         }
         return null;
     }
 
     @Override
     public void setValueAt(Object value,int rowIndex, int columnIndex){
-        RigaRegistrazione riga = righe.get(rowIndex);
+        RigaCreazioneManager riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 riga.setNome(value.toString());
@@ -104,7 +98,6 @@ public class RegistrazioneTableModel extends AbstractTableModel {
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return columnIndex >= 0 ;
     }
-
 
 
 }

@@ -38,6 +38,7 @@ public class CatalogoProdottiPanel extends JPanel {
             riga.setNomeProduttore(produttore.getNome());
             riga.setCategoria(categoria.getNome());
             righe.add(riga);
+
         }
 
 
@@ -63,7 +64,6 @@ public class CatalogoProdottiPanel extends JPanel {
         carrelloListeners.setTabella(tabella);
         mettiNelCarrello.setActionCommand(CarrelloListeners.METTINELCARRELLO_BTN);
         mettiNelCarrello.addActionListener(carrelloListeners);
-
 
 
 

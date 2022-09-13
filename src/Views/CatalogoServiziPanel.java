@@ -40,6 +40,6 @@ public class CatalogoServiziPanel extends JPanel {
         JTable tabella = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(tabella);
         add(scrollPane,BorderLayout.CENTER);
-        tabella.setRowHeight(20);
+        tabella.setRowHeight(50);
     }
 }

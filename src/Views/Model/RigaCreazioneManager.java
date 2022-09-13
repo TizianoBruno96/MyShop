@@ -1,7 +1,6 @@
 package Views.Model;
 
-public class RigaRegistrazione {
-
+public class RigaCreazioneManager {
     private String Nome;
     private String Cognome;
     private String Username;
@@ -11,7 +10,6 @@ public class RigaRegistrazione {
     private String Residenza;
     private String Professione;
     private String Password;
-    private String NomePuntoVendita;
 
     public String getNome() {
         return Nome;
@@ -83,13 +81,5 @@ public class RigaRegistrazione {
 
     public void setPassword(String password) {
         Password = password;
-    }
-
-    public String getNomePuntoVendita() {
-        return NomePuntoVendita;
-    }
-
-    public void setNomePuntoVendita(String nomePuntoVendita) {
-        NomePuntoVendita = nomePuntoVendita;
     }
 }
