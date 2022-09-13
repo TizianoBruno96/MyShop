@@ -9,7 +9,7 @@ import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 import java.io.IOException;
 
-public class PdfBoxAPI implements PdfAPI {
+public class PdfBoxAPI implements IPdfAPI {
     @Override
     public void creaPdf(String message, String outFile) {
         try (PDDocument doc = new PDDocument())

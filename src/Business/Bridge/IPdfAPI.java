@@ -1,5 +1,5 @@
 package Business.Bridge;
 
-public interface PdfAPI {
+public interface IPdfAPI {
     public void creaPdf(String text, String outPath);
 }

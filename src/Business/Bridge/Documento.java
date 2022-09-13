@@ -3,9 +3,9 @@ package Business.Bridge;
 
 
 public abstract class Documento {
-    protected PdfAPI pdfAPI;
-    public Documento(PdfAPI pdfAPI) {
-        this.pdfAPI = pdfAPI;
+    protected IPdfAPI IPdfAPI;
+    public Documento(IPdfAPI IPdfAPI) {
+        this.IPdfAPI = IPdfAPI;
     }
     public abstract void invia(String indirizzo);
 }

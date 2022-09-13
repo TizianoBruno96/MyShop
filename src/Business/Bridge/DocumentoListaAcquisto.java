@@ -23,8 +23,8 @@ public class DocumentoListaAcquisto extends Documento {
 
     private final ListaAcquisto lista;
 
-    public DocumentoListaAcquisto(ListaAcquisto lista, PdfAPI pdfAPI) {
-        super(pdfAPI);
+    public DocumentoListaAcquisto(ListaAcquisto lista, IPdfAPI IPdfAPI) {
+        super(IPdfAPI);
         this.lista = lista;
     }
 
@@ -63,7 +63,7 @@ public class DocumentoListaAcquisto extends Documento {
 
         try {
             File tempFile = File.createTempFile("MyShopCart", ".pdf", new File(indirizzo));
-            pdfAPI.creaPdf(String.valueOf(text), indirizzo);
+            IPdfAPI.creaPdf(String.valueOf(text), indirizzo);
         } catch (IOException e) {
             e.printStackTrace();
         }
