@@ -155,4 +155,13 @@ public class ServizioDAOTest {
         Categoria categoria = categoriaDAO.findByNome("Mobili");
         assert servizioDAO.findByCategoria(categoria.getIdCategoria()).size() != 1;
     }
+
+    @Test
+    public void checkNomeTest() {
+        assert servizioDAO.checkNome("Montaggio");
+    }
+    @Test
+    public void checkNomeTestWrong() {
+        assert !servizioDAO.checkNome("Montaggio");
+    }
 }

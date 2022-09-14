@@ -13,6 +13,7 @@ public interface IProdottoDAO {
     int update(Prodotto prodotto);
     int removeByNome(String nome);
     int remove(Prodotto prodotto);
+    boolean checkNome(String nome);
     int updateCategoria(Prodotto prodotto, Categoria categoria);
     int updateProduttore(Prodotto prodotto, Produttore produttore);
     ArrayList<Prodotto> findByProduttore(int idProduttore);

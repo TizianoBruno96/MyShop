@@ -177,4 +177,13 @@ public class FotoDAOTest {
     public void findByProdottoTestWrong() {
         assert fotoDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() < 2;
     }
+
+    @Test
+    public void checkNomeTest() {
+        assert fotoDAO.checkNome("Lavandino");
+    }
+    @Test
+    public void checkNomeTestWrong() {
+        assert !fotoDAO.checkNome("Lavandino");
+    }
 }

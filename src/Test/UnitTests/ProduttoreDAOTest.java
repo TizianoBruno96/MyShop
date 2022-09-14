@@ -70,4 +70,13 @@ public class ProduttoreDAOTest {
         produttoreDAO.removeByNome("SedieINC");
         assert produttoreDAO.findAll().size() < 1;
     }
+
+    @Test
+    public void checkNomeTest() {
+        assert produttoreDAO.checkNome("SedieINC");
+    }
+    @Test
+    public void checkNomeTestWrong() {
+        assert produttoreDAO.checkNome("SedieINC4");
+    }
 }

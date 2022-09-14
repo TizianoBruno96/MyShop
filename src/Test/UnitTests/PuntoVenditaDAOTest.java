@@ -109,4 +109,13 @@ public class PuntoVenditaDAOTest {
     public void findByNomeTestWrong() {
         assert puntoVenditaDAO.findByNome("MilanoShop") == null;
     }
+
+    @Test
+    public void checkNomeTest() {
+        assert puntoVenditaDAO.checkNome("MilanoShop");
+    }
+    @Test
+    public void checkNomeTestWrong() {
+        assert !puntoVenditaDAO.checkNome("MilanoShop");
+    }
 }

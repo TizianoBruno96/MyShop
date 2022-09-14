@@ -76,4 +76,15 @@ public class FornitoreDAOTest {
         fornitoreDAO.removeByName("SedieINC");
         assert fornitoreDAO.findAll().size() == 0;
     }
+
+    @Test
+    public void checkNomeTest() {
+        IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
+        assert fornitoreDAO.checkNome("SedieINC");
+    }
+    @Test
+    public void checkNomeTestWrong() {
+        IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
+        assert !fornitoreDAO.checkNome("SedieINC");
+    }
 }

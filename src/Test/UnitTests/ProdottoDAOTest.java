@@ -146,4 +146,13 @@ public class ProdottoDAOTest {
         Categoria sedie = categoriaDAO.findByNome("Sedie");
         assert prodottoDAO.findByCategoria(sedie.getIdCategoria()).size() < 2;
     }
+
+    @Test
+    public void checkNomeTest() {
+        assert prodottoDAO.checkNome("Sedia Da Ufficio Rossa");
+    }
+    @Test
+    public void checkNomeTestWrong() {
+        assert !prodottoDAO.checkNome("Sedia Da Ufficio Rossa");
+    }
 }
