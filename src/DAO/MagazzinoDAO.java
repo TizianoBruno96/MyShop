@@ -30,7 +30,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 magazzino = new MagazzinoFactory().create(rs);
                 return magazzino;
             }
@@ -52,7 +52,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 magazzino = new MagazzinoFactory().create(rs);
                 return magazzino;
             }
@@ -75,7 +75,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Magazzino> magazzini = new ArrayList<Magazzino>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 magazzino = new MagazzinoFactory().create(rs);
                 magazzini.add(magazzino);
             }
@@ -93,7 +93,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     @Override
     public int add(Magazzino magazzino, int idPuntoVendita) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        if(MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita) != null) {
+        if (MagazzinoDAO.getInstance().findByPuntoVendita(idPuntoVendita) != null) {
             return -1;
         }
         String sql = "INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + idPuntoVendita + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')";

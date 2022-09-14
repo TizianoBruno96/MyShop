@@ -8,7 +8,6 @@ public class PuntoVendita {
     private int idUtenteManager;
 
 
-
     public PuntoVendita() {
         this.idPuntoVendita = 0;
         this.Citta = "";
@@ -52,7 +51,6 @@ public class PuntoVendita {
     public int getIdPuntoVendita() {
         return idPuntoVendita;
     }
-
 
 
     public String getCitta() {

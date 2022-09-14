@@ -31,7 +31,7 @@ public class GuestDAO implements IGuestDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Guest> guests = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 guest = new GuestFactory().create(rs);
                 guests.add(guest);
             }
@@ -54,7 +54,7 @@ public class GuestDAO implements IGuestDAO {
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
-            if(rs.next()) {
+            if (rs.next()) {
                 guest = new GuestFactory().create(rs);
                 return guest;
             }
@@ -75,7 +75,7 @@ public class GuestDAO implements IGuestDAO {
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
-            if(rs.next()) {
+            if (rs.next()) {
                 guest = new GuestFactory().create(rs);
                 return guest;
             }

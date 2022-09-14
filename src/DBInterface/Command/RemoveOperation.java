@@ -2,7 +2,7 @@ package DBInterface.Command;
 
 import DBInterface.DBConnection;
 
-public class RemoveOperation implements IDBOperation{
+public class RemoveOperation implements IDBOperation {
     private DBConnection connection = DBConnection.getInstance();
     private String sql;
 

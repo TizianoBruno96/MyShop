@@ -35,7 +35,7 @@ public class FotoDAO implements IFotoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 foto = new FotoFactory().create(rs);
                 return foto;
             }
@@ -58,7 +58,7 @@ public class FotoDAO implements IFotoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 foto = new FotoFactory().create(rs);
                 return foto;
             }
@@ -81,7 +81,7 @@ public class FotoDAO implements IFotoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class FotoDAO implements IFotoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Foto> fotoList = new ArrayList<Foto>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 foto = new FotoFactory().create(rs);
                 fotoList.add(foto);
             }

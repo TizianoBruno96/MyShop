@@ -32,7 +32,7 @@ public class FornitoreDAO implements IFornitoreDAO {
 
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 fornitore = new FornitoreFactory().create(rs);
                 return fornitore;
             }
@@ -56,7 +56,7 @@ public class FornitoreDAO implements IFornitoreDAO {
 
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 fornitore = new FornitoreFactory().create(rs);
                 return fornitore;
             }
@@ -80,7 +80,7 @@ public class FornitoreDAO implements IFornitoreDAO {
 
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -102,7 +102,7 @@ public class FornitoreDAO implements IFornitoreDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 fornitore = new FornitoreFactory().create(rs);
                 fornitori.add(fornitore);
             }

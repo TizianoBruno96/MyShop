@@ -57,7 +57,7 @@ public class Recensione {
     }
 
     public void setVoto(int voto) {
-            this.voto = voto;
+        this.voto = voto;
     }
 
     public String getCommento() {
@@ -75,6 +75,7 @@ public class Recensione {
     public void setData(java.sql.Date data) {
         this.data = data;
     }
+
     public String toString() {
         return "Recensione [idRecensione=" + idRecensione + ", voto=" + voto + ", commento=" + commento + ", idProdotto=" + idProdotto + "]";
     }

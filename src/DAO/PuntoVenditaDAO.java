@@ -33,7 +33,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 puntoVendita = new PuntoVenditaFactory().create(rs);
                 return puntoVendita;
             }
@@ -55,7 +55,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 puntoVendita = new PuntoVenditaFactory().create(rs);
                 return puntoVendita;
             }
@@ -78,7 +78,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 puntoVendita = new PuntoVenditaFactory().create(rs);
                 return puntoVendita;
             }
@@ -101,7 +101,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -122,7 +122,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 puntoVendita = new PuntoVenditaFactory().create(rs);
                 puntiVendita.add(puntoVendita);
             }
@@ -146,7 +146,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 puntoVendita = new PuntoVenditaFactory().create(rs);
                 puntiVendita.add(puntoVendita);
             }

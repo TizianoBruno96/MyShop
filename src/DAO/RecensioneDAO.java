@@ -31,7 +31,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 recensione = new RecensioneFactory().create(rs);
                 return recensione;
             }
@@ -54,7 +54,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 recensione = new RecensioneFactory().create(rs);
                 return recensione;
             }
@@ -76,7 +76,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 recensione = new RecensioneFactory().create(rs);
                 recensioni.add(recensione);
             }
@@ -100,7 +100,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 recensione = new RecensioneFactory().create(rs);
                 recensioni.add(recensione);
             }

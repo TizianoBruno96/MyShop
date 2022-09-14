@@ -2,7 +2,7 @@ package DBInterface.Command;
 
 import DBInterface.DBConnection;
 
-public class WriteOperation implements IDBOperation{
+public class WriteOperation implements IDBOperation {
     private DBConnection connection = DBConnection.getInstance();
     private String sql;
 

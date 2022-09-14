@@ -23,7 +23,7 @@ public class TestConnection {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/" + dbUser.getSchemaName() + "?serverTimezone=UTC", dbUser.getUsername(), dbUser.getPwd());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT Nome, Cognome, Username, Email FROM Utente");
-            while(rs.next()) {
+            while (rs.next()) {
                 System.out.println("Nome: " + rs.getString("Nome") + "");
                 System.out.println("Cognome: " + rs.getString("Cognome") + "");
                 System.out.println("Username: " + rs.getString("Username") + "");
@@ -35,7 +35,7 @@ public class TestConnection {
             System.out.println("SQL State: " + e.getSQLState());
             System.out.println("Vendor Error: " + e.getErrorCode());
         } finally {
-            if(rs != null) {
+            if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {

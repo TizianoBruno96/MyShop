@@ -77,6 +77,7 @@ public class OrdineProdottoDAOTest {
     public void findByListaAcquistoTest() {
         assert ordineDAO.findByListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()).size() >= 4;
     }
+
     @Test
     public void findByListaAcquistoTestWrong() {
         assert ordineDAO.findByListaAcquisto(listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()).size() < 4;
@@ -93,6 +94,7 @@ public class OrdineProdottoDAOTest {
         assert ordineDAO.findByProdotto(prodotto3.getIdProdotto()).size() == 1;
         assert ordineDAO.findByProdotto(prodotto4.getIdProdotto()).size() == 1;
     }
+
     @Test
     public void findByProdottoTestWrong() {
         Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
@@ -116,6 +118,7 @@ public class OrdineProdottoDAOTest {
         assert (ordineDAO.find(prodotto3, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 1);
         assert (ordineDAO.find(prodotto4, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 4);
     }
+
     @Test
     public void findTestWrong() {
         Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
@@ -136,6 +139,7 @@ public class OrdineProdottoDAOTest {
         ordineDAO.update(ordineProdotto);
         assert (ordineDAO.find(prodotto1, listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())).getQuantita() == 5);
     }
+
     @Test
     public void updateTestWrong() {
         Prodotto prodotto1 = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");

@@ -33,7 +33,7 @@ public class ProdottoDAO implements IProdottoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 prodotto = new ProdottoFactory().create(rs);
                 return prodotto;
             }
@@ -79,7 +79,7 @@ public class ProdottoDAO implements IProdottoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 prodotto = new ProdottoFactory().create(rs);
                 return prodotto;
             }

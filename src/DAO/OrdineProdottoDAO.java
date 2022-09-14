@@ -33,7 +33,7 @@ public class OrdineProdottoDAO implements IOrdineProdottoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineProdotto> ordini = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 ordineProdotto = new OrdineProdottoFactory().create(rs);
                 ordini.add(ordineProdotto);
             }
@@ -57,7 +57,7 @@ public class OrdineProdottoDAO implements IOrdineProdottoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineProdotto> ordini = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 ordineProdotto = new OrdineProdottoFactory().create(rs);
                 ordini.add(ordineProdotto);
             }
@@ -81,7 +81,7 @@ public class OrdineProdottoDAO implements IOrdineProdottoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineProdotto> ordini = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 ordineProdotto = new OrdineProdottoFactory().create(rs);
                 ordini.add(ordineProdotto);
             }
@@ -104,7 +104,7 @@ public class OrdineProdottoDAO implements IOrdineProdottoDAO {
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
-            if(rs.next()) {
+            if (rs.next()) {
                 ordineProdotto = new OrdineProdottoFactory().create(rs);
                 return ordineProdotto;
             }

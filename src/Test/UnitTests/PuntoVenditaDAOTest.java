@@ -35,6 +35,7 @@ public class PuntoVenditaDAOTest {
         PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente());
         assert puntoVendita != null;
     }
+
     @Test
     public void findByIDManagerTestWrong() {
         PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente());
@@ -46,6 +47,7 @@ public class PuntoVenditaDAOTest {
         PuntoVendita puntoVendita = puntoVenditaDAO.findByID(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         assert puntoVendita.getNome().equals("MilanoShop");
     }
+
     @Test
     public void findByIDTestWrong() {
         PuntoVendita puntoVendita = puntoVenditaDAO.findByID(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
@@ -57,6 +59,7 @@ public class PuntoVenditaDAOTest {
         ArrayList<PuntoVendita> puntiVendita = puntoVenditaDAO.findByCitta("Milano");
         assert puntiVendita.size() >= 1;
     }
+
     @Test
     public void findByCittaTestWrong() {
         ArrayList<PuntoVendita> puntiVendita = puntoVenditaDAO.findByCitta("Milano");
@@ -71,6 +74,7 @@ public class PuntoVenditaDAOTest {
         puntoVenditaDAO.update(puntoVendita);
         assert puntoVenditaDAO.findByID(puntoVendita.getIdPuntoVendita()).getNome().equals("MilanoShop2");
     }
+
     @Test
     public void updateTestWrong() {
         PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente());
@@ -85,6 +89,7 @@ public class PuntoVenditaDAOTest {
         puntoVenditaDAO.removeByID(puntoVendita.getIdPuntoVendita());
         assert puntoVenditaDAO.findByID(puntoVendita.getIdPuntoVendita()) == null;
     }
+
     @Test
     public void removeTestWrong() {
         PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente());
@@ -96,6 +101,7 @@ public class PuntoVenditaDAOTest {
     public void findAllTest() {
         assert puntoVenditaDAO.findAll().size() > 0;
     }
+
     @Test
     public void findAllTestWrong() {
         assert puntoVenditaDAO.findAll().size() == 0;
@@ -105,6 +111,7 @@ public class PuntoVenditaDAOTest {
     public void findByNomeTest() {
         assert puntoVenditaDAO.findByNome("MilanoShop") != null;
     }
+
     @Test
     public void findByNomeTestWrong() {
         assert puntoVenditaDAO.findByNome("MilanoShop") == null;
@@ -114,6 +121,7 @@ public class PuntoVenditaDAOTest {
     public void checkNomeTest() {
         assert puntoVenditaDAO.checkNome("MilanoShop");
     }
+
     @Test
     public void checkNomeTestWrong() {
         assert !puntoVenditaDAO.checkNome("MilanoShop");
