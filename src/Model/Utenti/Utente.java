@@ -63,9 +63,11 @@ public class Utente {
     public void setNome(String Nome) {
         this.Nome = Nome;
     }
+
     public void setCognome(String Cognome) {
         this.Cognome = Cognome;
     }
+
     public String getCognome() {
         return Cognome;
     }

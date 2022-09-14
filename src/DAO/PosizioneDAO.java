@@ -33,7 +33,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 posizione = new PosizioneFactory().create(rs);
                 return posizione;
             }
@@ -56,7 +56,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 posizione = new PosizioneFactory().create(rs);
                 return posizione;
             }
@@ -79,7 +79,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Posizione> posizioni = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 posizione = new PosizioneFactory().create(rs);
                 posizioni.add(posizione);
             }
@@ -103,7 +103,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Posizione> posizioni = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 posizione = new PosizioneFactory().create(rs);
                 posizioni.add(posizione);
             }
@@ -127,7 +127,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Posizione> listaPosizioni = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 posizione = new PosizioneFactory().create(rs);
                 listaPosizioni.add(posizione);
             }
@@ -146,8 +146,8 @@ public class PosizioneDAO implements IPosizioneDAO {
     @Override
     public int addPosizioniInMagazzino(Magazzino magazzino) {
         int rowCount = 0;
-        for(int i = 1; i < magazzino.getMaxCorsia() + 1; i++) {
-            for(int j = 1; j < magazzino.getMaxScaffale() + 1; j++) {
+        for (int i = 1; i < magazzino.getMaxCorsia() + 1; i++) {
+            for (int j = 1; j < magazzino.getMaxScaffale() + 1; j++) {
                 rowCount += add(new Posizione(i, j, 0), magazzino.getIdMagazzino());
             }
         }

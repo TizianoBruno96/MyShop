@@ -32,7 +32,7 @@ public class ServizioDAO implements IServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 servizio = new ServizioFactory().create(rs);
                 return servizio;
             }
@@ -54,7 +54,7 @@ public class ServizioDAO implements IServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 servizio = new ServizioFactory().create(rs);
                 return servizio;
             }
@@ -76,7 +76,7 @@ public class ServizioDAO implements IServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 servizio = new ServizioFactory().create(rs);
                 servizi.add(servizio);
             }
@@ -100,7 +100,7 @@ public class ServizioDAO implements IServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 servizio = new ServizioFactory().create(rs);
                 servizi.add(servizio);
             }
@@ -124,7 +124,7 @@ public class ServizioDAO implements IServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 servizio = new ServizioFactory().create(rs);
                 servizi.add(servizio);
             }
@@ -148,7 +148,7 @@ public class ServizioDAO implements IServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {

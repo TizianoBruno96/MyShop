@@ -39,11 +39,13 @@ public class CategoriaDAOTest {
     public void findByNameTestWrong() {
         assert categoriaDAO.findByNome("Informatica") == null;
     }
+
     @Test
     public void findAllTest() {
         categoriaDAO.add(new Categoria("Cucina"));
         assert categoriaDAO.findAll().size() >= 4;
     }
+
     @Test
     public void findAllTestWrong() {
         categoriaDAO.add(new Categoria("Cucina"));
@@ -55,6 +57,7 @@ public class CategoriaDAOTest {
         categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
         assert categoriaDAO.findSottoCategorie(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() >= 2;
     }
+
     @Test
     public void findSottoCategorieWrong() {
         categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
@@ -66,6 +69,7 @@ public class CategoriaDAOTest {
         categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
         assert categoriaDAO.findByCategoriaPadre(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() >= 2;
     }
+
     @Test
     public void findByCategoriaPadreWrong() {
         categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
@@ -79,6 +83,7 @@ public class CategoriaDAOTest {
         categoriaDAO.update(categoria);
         assert categoriaDAO.findByNome("Informatica2") != null;
     }
+
     @Test
     public void updateTestWrong() {
         Categoria categoria = categoriaDAO.findByNome("Informatica");

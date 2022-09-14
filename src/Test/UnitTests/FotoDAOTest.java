@@ -40,7 +40,7 @@ public class FotoDAOTest {
         try {
             InputStream inputStream = new FileInputStream(foto);
             Blob blob = new SerialBlob(inputStream.readAllBytes());
-            Foto foto1 = new Foto(prodotto.getIdProdotto(), blob,"Lavandino");
+            Foto foto1 = new Foto(prodotto.getIdProdotto(), blob, "Lavandino");
             fotoDAO.add(foto1);
         } catch (FileNotFoundException e) {
             System.out.println("Foto non trovata");
@@ -79,7 +79,7 @@ public class FotoDAOTest {
         try {
             InputStream inputStream = new FileInputStream(foto);
             java.sql.Blob blob = new javax.sql.rowset.serial.SerialBlob(inputStream.readAllBytes());
-            Foto foto2 = new Foto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), blob,"Sedia");
+            Foto foto2 = new Foto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), blob, "Sedia");
             fotoDAO.add(foto2);
         } catch (FileNotFoundException e) {
             System.out.println("Foto non trovata");
@@ -100,7 +100,7 @@ public class FotoDAOTest {
         try {
             InputStream inputStream = new FileInputStream(foto);
             java.sql.Blob blob = new javax.sql.rowset.serial.SerialBlob(inputStream.readAllBytes());
-            Foto foto2 = new Foto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), blob,"Sedia");
+            Foto foto2 = new Foto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), blob, "Sedia");
             fotoDAO.add(foto2);
         } catch (FileNotFoundException e) {
             System.out.println("Foto non trovata");
@@ -119,6 +119,7 @@ public class FotoDAOTest {
         fotoDAO.removeByNome("Lavandino");
         assert fotoDAO.findByNome("Lavandino") == null;
     }
+
     @Test
     public void removeByNomeTestWrong() {
         fotoDAO.removeByNome("Lavandino");
@@ -130,6 +131,7 @@ public class FotoDAOTest {
         fotoDAO.removeByID(fotoDAO.findByNome("Lavandino").getIdFoto());
         assert fotoDAO.findByNome("Lavandino") == null;
     }
+
     @Test
     public void removeByIdTestWrong() {
         fotoDAO.removeByID(fotoDAO.findByNome("Lavandino").getIdFoto());
@@ -140,6 +142,7 @@ public class FotoDAOTest {
     public void findByNomeTest() {
         assert fotoDAO.findByNome("Lavandino") != null;
     }
+
     @Test
     public void findByNomeTestWrong() {
         assert fotoDAO.findByNome("Lavandino") == null;
@@ -149,6 +152,7 @@ public class FotoDAOTest {
     public void findByIDTest() {
         assert fotoDAO.findByID(fotoDAO.findByNome("Lavandino").getIdFoto()) != null;
     }
+
     @Test
     public void findByIDTestWrong() {
         assert fotoDAO.findByID(fotoDAO.findByNome("Lavandino").getIdFoto()) == null;
@@ -161,6 +165,7 @@ public class FotoDAOTest {
         fotoDAO.update(foto);
         assert fotoDAO.findByNome("Hello") != null;
     }
+
     @Test
     public void updateTestWrong() {
         Foto foto = fotoDAO.findByNome("Lavandino");
@@ -173,6 +178,7 @@ public class FotoDAOTest {
     public void findByProdottoTest() {
         assert fotoDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() >= 2;
     }
+
     @Test
     public void findByProdottoTestWrong() {
         assert fotoDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() < 2;
@@ -182,6 +188,7 @@ public class FotoDAOTest {
     public void checkNomeTest() {
         assert fotoDAO.checkNome("Lavandino");
     }
+
     @Test
     public void checkNomeTestWrong() {
         assert !fotoDAO.checkNome("Lavandino");

@@ -11,7 +11,7 @@ public class TestUtente {
         //stampo tutti gli utenti
         IUtenteDAO utenteDAO = UtenteDAO.getInstance();
         ArrayList<Utente> utenti = utenteDAO.findAll();
-        for(Utente utente : utenti) {
+        for (Utente utente : utenti) {
             System.out.println(utente.toString());
         }
     }

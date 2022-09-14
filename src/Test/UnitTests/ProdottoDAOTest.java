@@ -76,6 +76,7 @@ public class ProdottoDAOTest {
         Prodotto prodotto4 = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
         assert prodotto4.getNome().equals("Sedia Da Ufficio Bianca");
     }
+
     @Test
     public void findbyNomeTestWrong() {
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
@@ -92,6 +93,7 @@ public class ProdottoDAOTest {
     public void findAllTest() {
         assert prodottoDAO.findAll().size() >= 4;
     }
+
     @Test
     public void findAllTestWrong() {
         assert prodottoDAO.findAll().size() < 4;
@@ -103,6 +105,7 @@ public class ProdottoDAOTest {
         prodottoDAO.remove(prodotto);
         assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa") == null;
     }
+
     @Test
     public void removeTestWrong() {
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
@@ -115,6 +118,7 @@ public class ProdottoDAOTest {
         prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
         assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa") == null;
     }
+
     @Test
     public void removeByNomeTestWrong() {
         prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
@@ -128,6 +132,7 @@ public class ProdottoDAOTest {
         prodottoDAO.update(prodotto);
         assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa Modificata").getNome().equals("Sedia Da Ufficio Rossa Modificata");
     }
+
     @Test
     public void updateTestWrong() {
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
@@ -141,6 +146,7 @@ public class ProdottoDAOTest {
         Categoria sedie = categoriaDAO.findByNome("Sedie");
         assert prodottoDAO.findByCategoria(sedie.getIdCategoria()).size() >= 2;
     }
+
     @Test
     public void findByCategoriaTestWrong() {
         Categoria sedie = categoriaDAO.findByNome("Sedie");
@@ -151,6 +157,7 @@ public class ProdottoDAOTest {
     public void checkNomeTest() {
         assert prodottoDAO.checkNome("Sedia Da Ufficio Rossa");
     }
+
     @Test
     public void checkNomeTestWrong() {
         assert !prodottoDAO.checkNome("Sedia Da Ufficio Rossa");

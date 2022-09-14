@@ -40,6 +40,7 @@ public class MagazzinoDAOTest {
         assert magazzino.getMaxCorsia() == 10;
         assert magazzino.getMaxScaffale() == 15;
     }
+
     @Test
     public void findByPuntoVenditaTestWrong() {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
@@ -57,6 +58,7 @@ public class MagazzinoDAOTest {
         assert magazzino.getMaxCorsia() == 20;
         assert magazzino.getMaxScaffale() == 25;
     }
+
     @Test
     public void updateTestWrong() {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
@@ -75,6 +77,7 @@ public class MagazzinoDAOTest {
         magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         assert magazzino == null;
     }
+
     @Test
     public void removeByPuntoVenditaTestWrong() {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
@@ -91,6 +94,7 @@ public class MagazzinoDAOTest {
         assert magazzino.getMaxCorsia() == 14;
         assert magazzino.getMaxScaffale() == 12;
     }
+
     @Test
     public void addTestWrong() {
         magazzinoDAO.removeByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
@@ -107,6 +111,7 @@ public class MagazzinoDAOTest {
         magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         assert magazzino == null;
     }
+
     @Test
     public void removeByIDTestWrong() {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
@@ -119,6 +124,7 @@ public class MagazzinoDAOTest {
     public void findAllTest() {
         assert magazzinoDAO.findAll().size() == puntoVenditaDAO.findAll().size();
     }
+
     @Test
     public void findAllTestWrong() {
         assert magazzinoDAO.findAll().size() != puntoVenditaDAO.findAll().size();

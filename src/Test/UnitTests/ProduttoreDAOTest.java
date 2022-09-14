@@ -28,6 +28,7 @@ public class ProduttoreDAOTest {
         Produttore produttore = produttoreDAO.findByNome("SedieINC");
         assert produttore.getNome().equals("SedieINC");
     }
+
     @Test
     public void findByNomeTestWrong() {
         Produttore produttore = produttoreDAO.findByNome("SedieINC");
@@ -39,6 +40,7 @@ public class ProduttoreDAOTest {
         System.out.println(produttoreDAO.findAll().size());
         assert produttoreDAO.findAll().size() >= 2;
     }
+
     @Test
     public void findAllTestWrong() {
         System.out.println(produttoreDAO.findAll().size());
@@ -52,6 +54,7 @@ public class ProduttoreDAOTest {
         produttoreDAO.update(produttore);
         assert produttore.getNome().equals("TappetiINC");
     }
+
     @Test
     public void updateTestWrong() {
         Produttore produttore = produttoreDAO.findByNome("SedieINC");
@@ -65,6 +68,7 @@ public class ProduttoreDAOTest {
         produttoreDAO.removeByNome("SedieINC");
         assert produttoreDAO.findAll().size() >= 1;
     }
+
     @Test
     public void removeByNomeTestWrong() {
         produttoreDAO.removeByNome("SedieINC");
@@ -75,6 +79,7 @@ public class ProduttoreDAOTest {
     public void checkNomeTest() {
         assert produttoreDAO.checkNome("SedieINC");
     }
+
     @Test
     public void checkNomeTestWrong() {
         assert produttoreDAO.checkNome("SedieINC4");

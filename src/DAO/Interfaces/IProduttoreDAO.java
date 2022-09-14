@@ -6,11 +6,18 @@ import java.util.ArrayList;
 
 public interface IProduttoreDAO {
     Produttore findByNome(String nome);
+
     Produttore findByID(int idProduttore);
+
     boolean checkNome(String nome);
+
     int add(Produttore produttore);
+
     int removeByID(int idProduttore);
+
     int update(Produttore produttore);
+
     int removeByNome(String nome);
+
     ArrayList<Produttore> findAll();
 }
