@@ -46,7 +46,7 @@ public class FornitoreDAOTest {
     @Test
     public void findAllTestWrong() {
         IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
-        assert fornitoreDAO.findAll().size() == 1;
+        assert fornitoreDAO.findAll().size() < 2;
     }
 
     @Test
@@ -78,7 +78,7 @@ public class FornitoreDAOTest {
     public void removeByNameTestWrong() {
         IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
         fornitoreDAO.removeByName("SedieINC");
-        assert fornitoreDAO.findAll().size() == 0;
+        assert fornitoreDAO.findAll().size() < 1;
     }
 
     @Test
