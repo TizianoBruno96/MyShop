@@ -29,7 +29,6 @@ public class MagazzinoDAOTest {
 
     @After
     public void tearDown() throws SQLException {
-
         magazzinoDAO.removeByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         puntoVenditaDAO.removeByIDManager(utenteDAO.findByUsername("Frama19").getIdUtente());
         utenteDAO.removeByUsername("Frama19");
@@ -40,6 +39,12 @@ public class MagazzinoDAOTest {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         assert magazzino.getMaxCorsia() == 10;
         assert magazzino.getMaxScaffale() == 15;
+    }
+    @Test
+    public void findByPuntoVenditaTestWrong() {
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        assert magazzino.getMaxCorsia() != 10;
+        assert magazzino.getMaxScaffale() != 15;
     }
 
     @Test
@@ -52,6 +57,16 @@ public class MagazzinoDAOTest {
         assert magazzino.getMaxCorsia() == 20;
         assert magazzino.getMaxScaffale() == 25;
     }
+    @Test
+    public void updateTestWrong() {
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        magazzino.setMaxCorsia(20);
+        magazzino.setMaxScaffale(25);
+        magazzinoDAO.update(magazzino);
+        magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        assert magazzino.getMaxCorsia() != 20;
+        assert magazzino.getMaxScaffale() != 25;
+    }
 
     @Test
     public void removeByPuntoVenditaTest() {
@@ -59,6 +74,13 @@ public class MagazzinoDAOTest {
         magazzinoDAO.removeByPuntoVendita(magazzino.getIdPuntoVendita());
         magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         assert magazzino == null;
+    }
+    @Test
+    public void removeByPuntoVenditaTestWrong() {
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        magazzinoDAO.removeByPuntoVendita(magazzino.getIdPuntoVendita());
+        magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        assert magazzino != null;
     }
 
     @Test
@@ -69,6 +91,14 @@ public class MagazzinoDAOTest {
         assert magazzino.getMaxCorsia() == 14;
         assert magazzino.getMaxScaffale() == 12;
     }
+    @Test
+    public void addTestWrong() {
+        magazzinoDAO.removeByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        magazzinoDAO.add(new Magazzino(14, 12), puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        assert magazzino.getMaxCorsia() != 14;
+        assert magazzino.getMaxScaffale() != 12;
+    }
 
     @Test
     public void removeByIDTest() {
@@ -77,9 +107,20 @@ public class MagazzinoDAOTest {
         magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
         assert magazzino == null;
     }
+    @Test
+    public void removeByIDTestWrong() {
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        magazzinoDAO.removeByID(magazzino.getIdMagazzino());
+        magazzino = magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdPuntoVendita());
+        assert magazzino != null;
+    }
 
     @Test
     public void findAllTest() {
         assert magazzinoDAO.findAll().size() == puntoVenditaDAO.findAll().size();
+    }
+    @Test
+    public void findAllTestWrong() {
+        assert magazzinoDAO.findAll().size() != puntoVenditaDAO.findAll().size();
     }
 }

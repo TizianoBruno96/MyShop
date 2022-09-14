@@ -32,34 +32,44 @@ public class CategoriaDAOTest {
 
     @Test
     public void findByNameTest() {
-        Categoria categoria = categoriaDAO.findByNome("Informatica");
-        assert categoria.getNome().equals("Informatica");
+        assert categoriaDAO.findByNome("Informatica") != null;
     }
 
     @Test
     public void findByNameTestWrong() {
-        Categoria categoria = categoriaDAO.findByNome("Informatica");
-        assert categoria.getNome().equals("Informatica4");
+        assert categoriaDAO.findByNome("Informatica") == null;
     }
     @Test
     public void findAllTest() {
         categoriaDAO.add(new Categoria("Cucina"));
-        for(Categoria categoria : categoriaDAO.findAll()) {
-            System.out.println(categoria.getNome());
-        }
-        assert categoriaDAO.findAll().size() == 4;
+        assert categoriaDAO.findAll().size() >= 4;
+    }
+    @Test
+    public void findAllTestWrong() {
+        categoriaDAO.add(new Categoria("Cucina"));
+        assert categoriaDAO.findAll().size() == 0;
     }
 
     @Test
     public void findSottoCategorie() {
         categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
-        assert categoriaDAO.findSottoCategorie(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() == 2;
+        assert categoriaDAO.findSottoCategorie(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() >= 2;
+    }
+    @Test
+    public void findSottoCategorieWrong() {
+        categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
+        assert categoriaDAO.findSottoCategorie(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() == 1;
     }
 
     @Test
     public void findByCategoriaPadre() {
         categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
-        assert categoriaDAO.findByCategoriaPadre(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() == 2;
+        assert categoriaDAO.findByCategoriaPadre(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() >= 2;
+    }
+    @Test
+    public void findByCategoriaPadreWrong() {
+        categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
+        assert categoriaDAO.findByCategoriaPadre(categoriaDAO.findByNome("Informatica").getIdCategoria()).size() == 1;
     }
 
     @Test
@@ -68,5 +78,12 @@ public class CategoriaDAOTest {
         categoria.setNome("Informatica2");
         categoriaDAO.update(categoria);
         assert categoriaDAO.findByNome("Informatica2") != null;
+    }
+    @Test
+    public void updateTestWrong() {
+        Categoria categoria = categoriaDAO.findByNome("Informatica");
+        categoria.setNome("Informatica2");
+        categoriaDAO.update(categoria);
+        assert categoriaDAO.findByNome("Informatica2") == null;
     }
 }

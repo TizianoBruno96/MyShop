@@ -66,6 +66,14 @@ public class PosizioniDAOTest {
         posizioneDAO.add(new Posizione(11, 11,0), magazzino.getIdMagazzino());
         assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 101;
     }
+    @Test
+    public void addTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        posizioneDAO.add(new Posizione(11, 11,0), magazzino.getIdMagazzino());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() != 101;
+    }
 
     @Test
     public void removeTest() {
@@ -74,6 +82,14 @@ public class PosizioniDAOTest {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
         posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
         assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 0;
+    }
+    @Test
+    public void removeTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() != 0;
     }
 
     @Test
@@ -90,6 +106,20 @@ public class PosizioniDAOTest {
         posizioneDAO.addProdottoInPosizione(prodotto, 1, 1, magazzino.getIdMagazzino(), 10);
         assert posizioneDAO.find(1, 1, magazzino.getIdMagazzino()).getQuantita() == 10;
     }
+    @Test
+    public void addProdottoInPosizioneTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 1, 1, magazzino.getIdMagazzino(), 10);
+        assert posizioneDAO.find(1, 1, magazzino.getIdMagazzino()).getQuantita() != 10;
+    }
 
     @Test
     public void findByMagazzinoTest() {
@@ -97,6 +127,13 @@ public class PosizioniDAOTest {
         PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
         assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 100;
+    }
+    @Test
+    public void findByMagazzinoTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() != 100;
     }
 
     @Test
@@ -115,6 +152,22 @@ public class PosizioniDAOTest {
         posizioneDAO.addProdottoInPosizione(prodotto, 2, 4, magazzino.getIdMagazzino(), 10);
         assert posizioneDAO.findByProdotto(prodotto).size() == 3;
     }
+    @Test
+    public void findByProdottoTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 1, 1, magazzino.getIdMagazzino(), 10);
+        posizioneDAO.addProdottoInPosizione(prodotto, 1, 2, magazzino.getIdMagazzino(), 10);
+        posizioneDAO.addProdottoInPosizione(prodotto, 2, 4, magazzino.getIdMagazzino(), 10);
+        assert posizioneDAO.findByProdotto(prodotto).size() != 3;
+    }
 
     @Test
     public void findTest() {
@@ -130,6 +183,20 @@ public class PosizioniDAOTest {
         posizioneDAO.addProdottoInPosizione(prodotto, 5, 9, magazzino.getIdMagazzino(), 10);
         assert posizioneDAO.find(5, 9, magazzino.getIdMagazzino()).getQuantita() == 10;
     }
+    @Test
+    public void findTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 5, 9, magazzino.getIdMagazzino(), 10);
+        assert posizioneDAO.find(5, 9, magazzino.getIdMagazzino()).getQuantita() != 10;
+    }
 
     @Test
     public void removeByMagazzinoTest() {
@@ -138,6 +205,14 @@ public class PosizioniDAOTest {
         Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
         posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
         assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() == 0;
+    }
+    @Test
+    public void removeByMagazzinoTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        posizioneDAO.removeByMagazzino(magazzino.getIdMagazzino());
+        assert posizioneDAO.findByMagazzino(magazzino.getIdMagazzino()).size() != 0;
     }
 
     @Test
@@ -155,5 +230,21 @@ public class PosizioniDAOTest {
         Posizione posizione = posizioneDAO.find(5, 9, magazzino.getIdMagazzino());
         posizioneDAO.updateQuantita(posizione, 20);
         assert posizioneDAO.find(5, 9, magazzino.getIdMagazzino()).getQuantita() == 20;
+    }
+    @Test
+    public void updateQuantitaTestWrong() {
+        Utente utente = utenteDAO.findByUsername("Frama19");
+        PuntoVendita puntoVendita = puntoVenditaDAO.findByManager(utente.getIdUtente());
+        Magazzino magazzino = magazzinoDAO.findByPuntoVendita(puntoVendita.getIdPuntoVendita());
+        categoriaDAO.add(new Categoria("Profumi"));
+        Categoria categoria = categoriaDAO.findByNome("Profumi");
+        produttoreDAO.add(new Produttore("Gucci", "www.gucci.com", "Vienna", "Austria"));
+        Produttore produttore = produttoreDAO.findByNome("Gucci");
+        prodottoDAO.add(new Prodotto("Profumo uomo 104", "Profumo per uomini belli e forti come vorresti essere tu", 120.0f), categoria, produttore);
+        Prodotto prodotto = prodottoDAO.findByNome("Profumo uomo 104");
+        posizioneDAO.addProdottoInPosizione(prodotto, 5, 9, magazzino.getIdMagazzino(), 10);
+        Posizione posizione = posizioneDAO.find(5, 9, magazzino.getIdMagazzino());
+        posizioneDAO.updateQuantita(posizione, 20);
+        assert posizioneDAO.find(5, 9, magazzino.getIdMagazzino()).getQuantita() != 20;
     }
 }

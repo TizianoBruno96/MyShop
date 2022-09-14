@@ -8,6 +8,7 @@ public interface IFotoDAO {
     public ArrayList<Foto> findByProdotto(int idProdotto);
     Foto findByID(int idFoto);
     Foto findByNome(String nome);
+    boolean checkNome(String nome);
     int add(Foto foto);
     int removeByID(int idFoto);
     int removeByNome(String nome);
