@@ -42,17 +42,11 @@ public class CategoriaDAOTest {
     @Test
     public void findAllTest() {
         categoriaDAO.add(new Categoria("Cucina"));
-        //for(Categoria categoria : categoriaDAO.findAll()) {
-            //System.out.println(categoria.getNome());
-        //}
         assert categoriaDAO.findAll().size() >= 4;
     }
     @Test
     public void findAllTestWrong() {
         categoriaDAO.add(new Categoria("Cucina"));
-        //for(Categoria categoria : categoriaDAO.findAll()) {
-            //System.out.println(categoria.getNome());
-        //}
         assert categoriaDAO.findAll().size() == 0;
     }
 
