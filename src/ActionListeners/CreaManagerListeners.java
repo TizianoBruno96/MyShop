@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class CreaManagerListeners implements ActionListener {
     public final static String CREAMANAGER_BTN = "CreaManager_btn";
-    private FinestraPrincipale frame;
+    private final FinestraPrincipale frame;
 
     public CreaManagerListeners(FinestraPrincipale frame) {
         this.frame = frame;

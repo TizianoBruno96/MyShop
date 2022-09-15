@@ -8,7 +8,6 @@ import Model.Articoli.Produttore;
 import Model.Categoria;
 
 import javax.sql.rowset.serial.SerialBlob;
-import javax.sql.rowset.serial.SerialException;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -40,9 +39,9 @@ public class InserimentoProdottoBusiness {
         p = prodottoDAO.findByNome(nomeProdotto);
 
         //inserisco la foto
-        try {
-            InputStream inputStream = new FileInputStream(foto);
+        try (InputStream inputStream = new FileInputStream(foto)) {
             Blob blob = new SerialBlob(inputStream.readAllBytes());
+
             //TODO modificare metodo di inserimento della foto
             Foto foto1 = new Foto(p.getIdProdotto(), blob, "Lavandino");
             fotoDAO.add(foto1);

@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CreazioneManagerTableModel extends AbstractTableModel {
-    private List<CreazioneManagerModel> righe;
+    private final List<CreazioneManagerModel> righe;
 
     public CreazioneManagerTableModel(List<CreazioneManagerModel> righe) {
         this.righe = righe;

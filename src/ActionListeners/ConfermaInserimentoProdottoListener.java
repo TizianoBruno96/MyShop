@@ -13,7 +13,7 @@ import java.io.File;
 
 public class ConfermaInserimentoProdottoListener implements ActionListener {
     public static final String CIPL_BTN = "Cinpl_btn";
-    private JTable table;
+    private final JTable table;
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
 
@@ -57,8 +57,8 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Inserire la posizione corsia del prodotto");
                     else if (pScaffale == 0)
                         JOptionPane.showMessageDialog(null, "Inserire la posizione scaffale del prodotto");
-                    //TODO ID magazzino da modificare
-                    else if(posizioneDAO.find(pCorsia, pScaffale, 1).getIdProdotto() != 0)
+                        //TODO ID magazzino da modificare
+                    else if (posizioneDAO.find(pCorsia, pScaffale, 1).getIdProdotto() != 0)
                         JOptionPane.showMessageDialog(null, "Posizione già occupata");
                 } else {
                     InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, disponibilita, pCorsia, pScaffale, foto);

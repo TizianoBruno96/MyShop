@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 
 public class ReadOperation implements IDBOperation {
 
-    private DBConnection connection = DBConnection.getInstance();
-    private String sql;
+    private final DBConnection connection = DBConnection.getInstance();
+    private final String sql;
 
     public ReadOperation(String sql) {
         this.sql = sql;

@@ -19,5 +19,4 @@ public class InserimentoProduttoreBusiness {
         Produttore p = new Produttore(nomeProduttore, sito, citta, nazione);
         produttoreDAO.add(p);
     }
-
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CatalogoProdottiTableModel extends AbstractTableModel {
 
-    private List<CatalogoProdottiModel> righe; //implemento RigaCatalogo in una classe apparte e mi indica cosa deve contenere ogni riga
+    private final List<CatalogoProdottiModel> righe; //implemento RigaCatalogo in una classe apparte e mi indica cosa deve contenere ogni riga
 
     public CatalogoProdottiTableModel(List<CatalogoProdottiModel> intestazione) {
         this.righe = intestazione;

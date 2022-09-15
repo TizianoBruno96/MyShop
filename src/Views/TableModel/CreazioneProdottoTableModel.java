@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CreazioneProdottoTableModel extends AbstractTableModel {
-    private List<InserimentoProdottoModel> righe;
+    private final List<InserimentoProdottoModel> righe;
 
     public CreazioneProdottoTableModel(List<InserimentoProdottoModel> righe) {
         this.righe = righe;

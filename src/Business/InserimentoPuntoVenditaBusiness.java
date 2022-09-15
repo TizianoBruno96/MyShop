@@ -19,10 +19,7 @@ public class InserimentoPuntoVenditaBusiness {
         return istanza;
     }
 
-    public static void InserisciPuntoVendita(String citta, String nome, String indirizzo, int idUtenteManager) {
-        IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
-        IUtenteRegistratoDAO utenteRegistratoDAO = UtenteRegistratoDAO.getInstance();
-
+    public void InserisciPuntoVendita(String citta, String nome, String indirizzo, int idUtenteManager) {
         //Creo e inserisco il punto vendita
         PuntoVendita pv = new PuntoVendita(citta, nome, indirizzo);
         puntoVenditaDAO.add(pv, idUtenteManager);

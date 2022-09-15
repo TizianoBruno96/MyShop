@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InserimentoCategoria extends JPanel {
-    public InserimentoCategoria () {
+    public InserimentoCategoria() {
         setLayout(new BorderLayout());
         List<CreazioneCategoriaModel> righe = new ArrayList<>();
         CreazioneCategoriaModel riga = new CreazioneCategoriaModel();

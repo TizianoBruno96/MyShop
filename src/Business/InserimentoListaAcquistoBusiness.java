@@ -18,13 +18,12 @@ public class InserimentoListaAcquistoBusiness {
         return instance;
     }
 
-    public InserimentoListaAcquistoBusiness InserisciLista(ArrayList<Integer> idProdotti, ArrayList<Integer> quantita) {
+    public void InserisciLista(ArrayList<Integer> idProdotti, ArrayList<Integer> quantita) {
         //ciclo su ambo gli array
         for (int i = 0; i < idProdotti.size(); i++) {
             //creo un nuovo ordineProdotto
             OrdineProdotto op = new OrdineProdotto(idProdotti.get(i), AccessoUtente.getIdPuntoVendita(), quantita.get(i));
             ordineProdottoDAO.add(op);
         }
-        return null;
     }
 }

@@ -1,6 +1,5 @@
 package Test.UnitTests;
 
-import DAO.Interfaces.IPuntoVenditaDAO;
 import DAO.Interfaces.IUtenteDAO;
 import DAO.Interfaces.IUtenteRegistratoDAO;
 import DAO.UtenteDAO;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 public class UtenteRegistratoDAOTest {
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     IUtenteRegistratoDAO utenteRegistratoDAO = DAO.UtenteRegistratoDAO.getInstance();
-    IPuntoVenditaDAO puntoVenditaDAO = DAO.PuntoVenditaDAO.getInstance();
 
     @Before
     public void setUp() {

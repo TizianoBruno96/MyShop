@@ -3,7 +3,6 @@ package ActionListeners;
 import Business.LoginResult;
 import Business.RegistrazioneBusiness;
 import DAO.Interfaces.IUtenteDAO;
-import DAO.PuntoVenditaDAO;
 import DAO.UtenteDAO;
 
 import javax.swing.*;
@@ -12,8 +11,8 @@ import java.awt.event.ActionListener;
 
 public class ConfermaRegistrazioneListener implements ActionListener {
     public final static String CONFERMAREGISTRAZIONE_BTN = "ConfermaRegistrazione_btn";
-    private JTable tabella;
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+    private final JTable tabella;
 
     public ConfermaRegistrazioneListener(JTable tabella) {
         this.tabella = tabella;

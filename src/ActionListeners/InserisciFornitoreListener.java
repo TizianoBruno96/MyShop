@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class InserisciFornitoreListener implements ActionListener {
     public final static String IF_BTN = "If_btn";
-    private FinestraPrincipale frame;
+    private final FinestraPrincipale frame;
 
     public InserisciFornitoreListener(FinestraPrincipale frame) {
         this.frame = frame;

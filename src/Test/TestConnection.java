@@ -9,7 +9,7 @@ public class TestConnection {
         DBUser dbUser = DBUser.getInstance();
 
         try {
-            Class cls = Class.forName("com.mysql.cj.jdbc.Driver");
+            Class<?> cls = Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Ho caricato la classe: " + cls.getName());
         } catch (ClassNotFoundException e) {
             System.out.println("Non ho trovato il driver per MySQL JDBC: " + e.getMessage());
@@ -55,6 +55,7 @@ public class TestConnection {
             }
             try {
                 if (conn != null) {
+                    assert stmt != null;
                     stmt.close();
                 }
             } catch (SQLException e) {

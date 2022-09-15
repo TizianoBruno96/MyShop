@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class InserisciCategoriaListener implements ActionListener {
     public final static String IC_BTN = "Ic_btn";
-    private FinestraPrincipale frame;
+    private final FinestraPrincipale frame;
 
     public InserisciCategoriaListener(FinestraPrincipale frame) {
         this.frame = frame;

@@ -40,8 +40,7 @@ public class FotoDAOTest {
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
 
         File foto = new File("./Resources/Foto/lavandino.jpg");
-        try {
-            InputStream inputStream = new FileInputStream(foto);
+        try (InputStream inputStream = new FileInputStream(foto)) {
             Blob blob = new SerialBlob(inputStream.readAllBytes());
             Foto foto1 = new Foto(prodotto.getIdProdotto(), blob, "Lavandino");
             fotoDAO.add(foto1);
@@ -79,8 +78,7 @@ public class FotoDAOTest {
     public void addTest() {
         File foto = new File("./Resources/Foto/Sedia.jpg");
         System.out.println(foto.getAbsolutePath());
-        try {
-            InputStream inputStream = new FileInputStream(foto);
+        try (InputStream inputStream = new FileInputStream(foto)) {
             java.sql.Blob blob = new javax.sql.rowset.serial.SerialBlob(inputStream.readAllBytes());
             Foto foto2 = new Foto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), blob, "Sedia");
             fotoDAO.add(foto2);
@@ -100,8 +98,7 @@ public class FotoDAOTest {
     public void addTestWrong() {
         File foto = new File("./Resources/Foto/Sedia.jpg");
         System.out.println(foto.getAbsolutePath());
-        try {
-            InputStream inputStream = new FileInputStream(foto);
+        try (InputStream inputStream = new FileInputStream(foto)) {
             java.sql.Blob blob = new javax.sql.rowset.serial.SerialBlob(inputStream.readAllBytes());
             Foto foto2 = new Foto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto(), blob, "Sedia");
             fotoDAO.add(foto2);

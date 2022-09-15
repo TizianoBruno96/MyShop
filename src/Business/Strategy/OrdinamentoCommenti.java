@@ -5,7 +5,7 @@ import Model.Recensione;
 import java.util.List;
 
 public class OrdinamentoCommenti {
-    private List<Recensione> commenti;
+    private final List<Recensione> commenti;
     private IOrdinamentoRecensione strategy;
 
     public OrdinamentoCommenti(List<Recensione> commenti) {

@@ -4,11 +4,10 @@ import Utilities.IntegerExt;
 import Views.Model.RegistrazioneModel;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RegistrazioneTableModel extends AbstractTableModel {
-    private List<RegistrazioneModel> righe;
+    private final List<RegistrazioneModel> righe;
 
     public RegistrazioneTableModel(List<RegistrazioneModel> righe) {
         this.righe = righe;
@@ -75,7 +74,7 @@ public class RegistrazioneTableModel extends AbstractTableModel {
             case 5 -> {
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setEta(Integer.parseInt(value.toString()));
-                }
+            }
             case 6 -> riga.setResidenza(value.toString());
             case 7 -> riga.setProfessione(value.toString());
             case 8 -> riga.setPassword(value.toString());

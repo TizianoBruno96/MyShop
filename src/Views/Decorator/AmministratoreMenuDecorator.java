@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class AmministratoreMenuDecorator extends CustomMenuDecorator {
-    private FinestraPrincipale finestra;
+    private final FinestraPrincipale finestra;
 
     public AmministratoreMenuDecorator(Menu menu, FinestraPrincipale frame) {
         this.menu = menu;

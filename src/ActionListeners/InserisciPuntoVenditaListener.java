@@ -14,7 +14,8 @@ public class InserisciPuntoVenditaListener implements ActionListener {
     public final static String INSERISCIPUNTOVENDITA_BTN = "InserisciPuntoVendita_btn";
     IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
-    private JTable tabella;
+    private final JTable tabella;
+
     public InserisciPuntoVenditaListener(JTable tabella) {
         this.tabella = tabella;
     }
@@ -46,7 +47,7 @@ public class InserisciPuntoVenditaListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Lo username inserito non è un manager");
             else {
                 int idManager = utenteDAO.findByUsername(usernameManager).getIdUtente();
-                InserimentoPuntoVenditaBusiness.InserisciPuntoVendita(citta, nome, indirizzo, idManager);
+                InserimentoPuntoVenditaBusiness.getInstance().InserisciPuntoVendita(citta, nome, indirizzo, idManager);
             }
         }
     }

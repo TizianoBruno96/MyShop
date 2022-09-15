@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CreazioneCategoriaTableModel extends AbstractTableModel {
-    private List<CreazioneCategoriaModel> righe;
+    private final List<CreazioneCategoriaModel> righe;
 
     public CreazioneCategoriaTableModel(List<CreazioneCategoriaModel> righe) {
         this.righe = righe;

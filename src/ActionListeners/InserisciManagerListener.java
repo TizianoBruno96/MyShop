@@ -1,8 +1,6 @@
 package ActionListeners;
 
 import Business.InserimentoManagerBusiness;
-import Business.LoginResult;
-import Business.RegistrazioneBusiness;
 import DAO.Interfaces.IUtenteDAO;
 import DAO.UtenteDAO;
 
@@ -12,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class InserisciManagerListener implements ActionListener {
     public final static String INSERISCIMANAGER_BTN = "InserisciManager_btn";
-    private JTable tabella;
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+    private final JTable tabella;
 
     public InserisciManagerListener(JTable tabella) {
         this.tabella = tabella;

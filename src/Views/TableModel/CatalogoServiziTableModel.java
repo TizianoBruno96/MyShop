@@ -5,11 +5,10 @@ import Utilities.IntegerExt;
 import Views.Model.CatalogoServiziModel;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogoServiziTableModel extends AbstractTableModel {
-    private List<CatalogoServiziModel> righe;
+    private final List<CatalogoServiziModel> righe;
 
     public CatalogoServiziTableModel(List<CatalogoServiziModel> intestazione) {
         this.righe = intestazione;

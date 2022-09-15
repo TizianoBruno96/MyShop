@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class InserisciProduttoreListener implements ActionListener {
     public final static String INSERISCIPRODUTTORE_BTN = "InserisciProduttore_btn";
-    private FinestraPrincipale frame;
+    private final FinestraPrincipale frame;
 
     public InserisciProduttoreListener(FinestraPrincipale frame) {
         this.frame = frame;

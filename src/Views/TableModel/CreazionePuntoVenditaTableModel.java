@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
-    private List<CreazionePuntoVenditaModel> righe;
+    private final List<CreazionePuntoVenditaModel> righe;
 
     public CreazionePuntoVenditaTableModel(List<CreazionePuntoVenditaModel> righe) {
         this.righe = righe;
