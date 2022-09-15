@@ -2,6 +2,7 @@ package DAO;
 
 import DAO.Interfaces.IGuestDAO;
 import DAO.ModelFactory.GuestFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Guest;
 
@@ -32,7 +33,7 @@ public class GuestDAO implements IGuestDAO {
         ArrayList<Guest> guests = new ArrayList<>();
         try {
             while (rs.next()) {
-                guest = new GuestFactory().create(rs);
+                guest = (Guest) ModelFactory.getFactory("GUEST").create(rs);
                 guests.add(guest);
             }
             return guests;
@@ -55,7 +56,7 @@ public class GuestDAO implements IGuestDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             if (rs.next()) {
-                guest = new GuestFactory().create(rs);
+                guest = (Guest) ModelFactory.getFactory("GUEST").create(rs);
                 return guest;
             }
         } catch (SQLException e) {
@@ -76,7 +77,7 @@ public class GuestDAO implements IGuestDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             if (rs.next()) {
-                guest = new GuestFactory().create(rs);
+                guest = (Guest) ModelFactory.getFactory("GUEST").create(rs);
                 return guest;
             }
         } catch (SQLException e) {

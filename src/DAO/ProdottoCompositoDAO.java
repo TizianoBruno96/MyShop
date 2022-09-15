@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IProdottoCompositoDAO;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Prodotto;
 import Model.Articoli.ProdottoComposito;
@@ -33,7 +34,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                prodottoComposito = new ProdottoCompositoFactory().create(rs);
+                prodottoComposito = (ProdottoComposito) ModelFactory.getFactory("PRODOTTO_COMPOSITO").create(rs);
                 return prodottoComposito;
             }
         } catch (SQLException e) {
@@ -56,7 +57,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                prodottoComposito = new ProdottoCompositoFactory().create(rs);
+                prodottoComposito = (ProdottoComposito) ModelFactory.getFactory("PRODOTTO_COMPOSITO").create(rs);
                 return prodottoComposito;
             }
         } catch (SQLException e) {
@@ -79,7 +80,8 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         try {
             ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
             while (rs.next()) {
-                prodottiCompositi.add(new ProdottoCompositoFactory().create(rs));
+                prodottoComposito = (ProdottoComposito) ModelFactory.getFactory("PRODOTTO_COMPOSITO").create(rs);
+                prodottiCompositi.add(prodottoComposito);
             }
             return prodottiCompositi;
         } catch (SQLException e) {
@@ -102,7 +104,8 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         try {
             ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
             while (rs.next()) {
-                prodottiCompositi.add(new ProdottoCompositoFactory().create(rs));
+                prodottoComposito = (ProdottoComposito) ModelFactory.getFactory("PRODOTTO_COMPOSITO").create(rs);
+                prodottiCompositi.add(prodottoComposito);
             }
             return prodottiCompositi;
         } catch (SQLException e) {
@@ -125,7 +128,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodottoComposito = new ProdottoCompositoFactory().create(rs);
+                prodottoComposito = (ProdottoComposito) ModelFactory.getFactory("PRODOTTO_COMPOSITO").create(rs);
                 prodottiCompositi.add(prodottoComposito);
             }
             return prodottiCompositi;

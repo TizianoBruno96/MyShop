@@ -10,6 +10,7 @@ public interface IProduttoreDAO {
     Produttore findByID(int idProduttore);
 
     boolean checkNome(String nome);
+    boolean checkSito(String sito);
 
     int add(Produttore produttore);
 

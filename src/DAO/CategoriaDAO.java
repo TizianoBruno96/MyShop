@@ -14,7 +14,6 @@ public class CategoriaDAO implements ICategoriaDAO {
     private static final CategoriaDAO instance = new CategoriaDAO();
     private Categoria categoria;
     private static ResultSet rs;
-    private ModelFactory modelFactory;
 
     private CategoriaDAO() {
         categoria = null;
@@ -34,7 +33,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                categoria = (Categoria) modelFactory.getFactory("CATEGORIA").create(rs);
+                categoria = (Categoria) ModelFactory.getFactory("CATEGORIA").create(rs);
                 return categoria;
             }
         } catch (SQLException e) {
@@ -57,7 +56,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                categoria = new CategoriaFactory().create(rs);
+                categoria = (Categoria) ModelFactory.getFactory("CATEGORIA").create(rs);
                 return categoria;
             }
         } catch (SQLException e) {
@@ -80,7 +79,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while (rs.next()) {
-                categoria = new CategoriaFactory().create(rs);
+                categoria = (Categoria) ModelFactory.getFactory("CATEGORIA").create(rs);
                 categorie.add(categoria);
             }
             return categorie;
@@ -104,7 +103,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while (rs.next()) {
-                categoria = new CategoriaFactory().create(rs);
+                categoria = (Categoria) ModelFactory.getFactory("CATEGORIA").create(rs);
                 categorie.add(categoria);
             }
             return categorie;
@@ -128,7 +127,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while (rs.next()) {
-                categoria = new CategoriaFactory().create(rs);
+                categoria = (Categoria) ModelFactory.getFactory("CATEGORIA").create(rs);
                 categorie.add(categoria);
             }
             return categorie;
@@ -152,7 +151,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
             while (rs.next()) {
-                categoria = new CategoriaFactory().create(rs);
+                categoria = (Categoria) ModelFactory.getFactory("CATEGORIA").create(rs);
                 categorie.add(categoria);
             }
             return categorie;

@@ -10,16 +10,16 @@ public class ModelFactory {
             case "LISTA_ACQUISTO" -> new ListaAcquistoFactory();
             case "MAGAZZINO" -> new MagazzinoFactory();
             case "ORDINE_PRODOTTO" -> new OrdineProdottoFactory();
-            case "ORDINE_SERVIZIO" -> new CategoriaFactory();
-            case "POSIZIONE" -> new FornitoreFactory();
-            case "PRODOTTO_COMPOSITO" -> new FotoFactory();
-            case "PRODOTTO" -> new GuestFactory();
-            case "PRODUTTORE" -> new ListaAcquistoFactory();
-            case "PUNTO_VENDITA" -> new MagazzinoFactory();
-            case "RECENSIONE" -> new OrdineProdottoFactory();
-            case "SERVIZIO" -> new OrdineServizioFactory();
-            case "UTENTE" -> new PosizioneFactory();
-            case "UTENTE_REGISTRATO" -> new ProdottoCompositoFactory();
+            case "ORDINE_SERVIZIO" -> new OrdineServizioFactory();
+            case "POSIZIONE" -> new PosizioneFactory();
+            case "PRODOTTO_COMPOSITO" -> new ProdottoCompositoFactory();
+            case "PRODOTTO" -> new ProdottoFactory();
+            case "PRODUTTORE" -> new ProduttoreFactory();
+            case "PUNTO_VENDITA" -> new PuntoVenditaFactory();
+            case "RECENSIONE" -> new RecensioneFactory();
+            case "SERVIZIO" -> new ServizioFactory();
+            case "UTENTE" -> new UtenteFactory();
+            case "UTENTE_REGISTRATO" -> new UtenteRegistratoFactory();
             default -> null;
         };
     }

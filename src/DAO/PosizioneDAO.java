@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IPosizioneDAO;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Prodotto;
 import Model.Magazzino;
@@ -34,7 +35,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                posizione = new PosizioneFactory().create(rs);
+                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
                 return posizione;
             }
         } catch (SQLException e) {
@@ -57,7 +58,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                posizione = new PosizioneFactory().create(rs);
+                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
                 return posizione;
             }
         } catch (SQLException e) {
@@ -80,7 +81,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         ArrayList<Posizione> posizioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                posizione = new PosizioneFactory().create(rs);
+                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
                 posizioni.add(posizione);
             }
             return posizioni;
@@ -104,7 +105,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         ArrayList<Posizione> posizioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                posizione = new PosizioneFactory().create(rs);
+                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
                 posizioni.add(posizione);
             }
             return posizioni;
@@ -128,7 +129,7 @@ public class PosizioneDAO implements IPosizioneDAO {
         ArrayList<Posizione> listaPosizioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                posizione = new PosizioneFactory().create(rs);
+                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
                 listaPosizioni.add(posizione);
             }
             return listaPosizioni;

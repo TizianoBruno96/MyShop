@@ -2,6 +2,7 @@ package DAO;
 
 import DAO.Interfaces.IFornitoreDAO;
 import DAO.ModelFactory.FornitoreFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Fornitore;
 
@@ -29,11 +30,10 @@ public class FornitoreDAO implements IFornitoreDAO {
         String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
-
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                fornitore = new FornitoreFactory().create(rs);
+                fornitore = (Fornitore) ModelFactory.getFactory("FORNITORE").create(rs);
                 return fornitore;
             }
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class FornitoreDAO implements IFornitoreDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                fornitore = new FornitoreFactory().create(rs);
+                fornitore = (Fornitore) ModelFactory.getFactory("FORNITORE").create(rs);
                 return fornitore;
             }
         } catch (SQLException e) {
@@ -77,7 +77,6 @@ public class FornitoreDAO implements IFornitoreDAO {
         String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
-
         try {
             rs.next();
             if (rs.getRow() == 1) {
@@ -103,7 +102,7 @@ public class FornitoreDAO implements IFornitoreDAO {
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
             while (rs.next()) {
-                fornitore = new FornitoreFactory().create(rs);
+                fornitore = (Fornitore) ModelFactory.getFactory("FORNITORE").create(rs);
                 fornitori.add(fornitore);
             }
             return fornitori;

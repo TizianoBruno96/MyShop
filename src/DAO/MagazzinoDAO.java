@@ -2,6 +2,7 @@ package DAO;
 
 import DAO.Interfaces.IMagazzinoDAO;
 import DAO.ModelFactory.MagazzinoFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Magazzino;
 
@@ -31,7 +32,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                magazzino = new MagazzinoFactory().create(rs);
+                magazzino = (Magazzino) ModelFactory.getFactory("MAGAZZINO").create(rs);
                 return magazzino;
             }
         } catch (SQLException e) {
@@ -53,7 +54,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                magazzino = new MagazzinoFactory().create(rs);
+                magazzino = (Magazzino) ModelFactory.getFactory("MAGAZZINO").create(rs);
                 return magazzino;
             }
         } catch (SQLException e) {
@@ -76,7 +77,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
         ArrayList<Magazzino> magazzini = new ArrayList<Magazzino>();
         try {
             while (rs.next()) {
-                magazzino = new MagazzinoFactory().create(rs);
+                magazzino = (Magazzino) ModelFactory.getFactory("MAGAZZINO").create(rs);
                 magazzini.add(magazzino);
             }
         } catch (SQLException e) {

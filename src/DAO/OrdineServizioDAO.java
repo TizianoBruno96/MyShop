@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IOrdineServizioDAO;
+import DAO.ModelFactory.ModelFactory;
 import DAO.ModelFactory.OrdineServizioFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Servizio;
@@ -34,7 +35,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory("ORDINE_SERVIZIO").create(rs);
                 ordini.add(ordineServizio);
             }
             return ordini;
@@ -58,7 +59,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory("ORDINE_SERVIZIO").create(rs);
                 ordini.add(ordineServizio);
             }
             return ordini;
@@ -82,7 +83,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory("ORDINE_SERVIZIO").create(rs);
                 ordini.add(ordineServizio);
             }
             return ordini;
@@ -105,7 +106,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             if (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory("ORDINE_SERVIZIO").create(rs);
                 return ordineServizio;
             }
         } catch (SQLException e) {

@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IProdottoDAO;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
@@ -57,7 +58,7 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new ProdottoFactory().create(rs);
+                prodotto = (Prodotto) ModelFactory.getFactory("PRODOTTO").create(rs);
                 prodotti.add(prodotto);
             }
             return prodotti;
@@ -80,7 +81,7 @@ public class ProdottoDAO implements IProdottoDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                prodotto = new ProdottoFactory().create(rs);
+                prodotto = (Prodotto) ModelFactory.getFactory("PRODOTTO").create(rs);
                 return prodotto;
             }
         } catch (SQLException e) {
@@ -103,7 +104,7 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new ProdottoFactory().create(rs);
+                prodotto = (Prodotto) ModelFactory.getFactory("PRODOTTO").create(rs);
                 prodotti.add(prodotto);
             }
             return prodotti;
@@ -127,7 +128,7 @@ public class ProdottoDAO implements IProdottoDAO {
         ArrayList<Prodotto> prodotti = new ArrayList<>();
         try {
             while (rs.next()) {
-                prodotto = new ProdottoFactory().create(rs);
+                prodotto = (Prodotto) ModelFactory.getFactory("PRODOTTO").create(rs);
                 prodotti.add(prodotto);
             }
             return prodotti;

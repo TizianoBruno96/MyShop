@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IUtenteDAO;
+import DAO.ModelFactory.ModelFactory;
 import DAO.ModelFactory.UtenteFactory;
 import DBInterface.Command.*;
 import Model.ListaAcquisto;
@@ -34,7 +35,7 @@ public class UtenteDAO implements IUtenteDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                utente = new UtenteFactory().create(rs);
+                utente = (Utente) ModelFactory.getFactory("UTENTE").create(rs);
                 return utente;
             }
         } catch (SQLException e) {
@@ -57,7 +58,7 @@ public class UtenteDAO implements IUtenteDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                utente = new UtenteFactory().create(rs);
+                utente = (Utente) ModelFactory.getFactory("UTENTE").create(rs);
                 return utente;
             }
         } catch (SQLException e) {
@@ -81,7 +82,7 @@ public class UtenteDAO implements IUtenteDAO {
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             while (rs.next()) {
-                utente = new UtenteFactory().create(rs);
+                utente = (Utente) ModelFactory.getFactory("UTENTE").create(rs);
                 utenti.add(utente);
             }
             return utenti;

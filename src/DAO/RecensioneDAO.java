@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IRecensioneDAO;
+import DAO.ModelFactory.ModelFactory;
 import DAO.ModelFactory.RecensioneFactory;
 import DBInterface.Command.*;
 import Model.Recensione;
@@ -32,7 +33,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory("RECENSIONE").create(rs);
                 return recensione;
             }
         } catch (SQLException e) {
@@ -55,7 +56,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory("RECENSIONE").create(rs);
                 return recensione;
             }
         } catch (SQLException e) {
@@ -77,7 +78,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory("RECENSIONE").create(rs);
                 recensioni.add(recensione);
             }
             return recensioni;
@@ -101,7 +102,7 @@ public class RecensioneDAO implements IRecensioneDAO {
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory("RECENSIONE").create(rs);
                 recensioni.add(recensione);
             }
             return recensioni;

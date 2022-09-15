@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IUtenteRegistratoDAO;
+import DAO.ModelFactory.ModelFactory;
 import DAO.ModelFactory.UtenteRegistratoFactory;
 import DBInterface.Command.*;
 import Model.Utenti.UtenteRegistrato;
@@ -31,7 +32,7 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
         ArrayList<UtenteRegistrato> utenti = new ArrayList<>();
         try {
             while (rs.next()) {
-                utenteRegistrato = new UtenteRegistratoFactory().create(rs);
+                utenteRegistrato = (UtenteRegistrato) ModelFactory.getFactory("UTENTE_REGISTRATO").create(rs);
                 utenti.add(utenteRegistrato);
             }
             return utenti;
@@ -52,7 +53,7 @@ public class UtenteRegistratoDAO implements IUtenteRegistratoDAO {
         ArrayList<UtenteRegistrato> utenti = new ArrayList<>();
         try {
             while (rs.next()) {
-                utenteRegistrato = new UtenteRegistratoFactory().create(rs);
+                utenteRegistrato = (UtenteRegistrato) ModelFactory.getFactory("UTENTE_REGISTRATO").create(rs);
                 utenti.add(utenteRegistrato);
             }
             return utenti;

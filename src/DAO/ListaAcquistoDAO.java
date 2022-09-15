@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.*;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.ListaAcquisto;
 import DAO.ModelFactory.ListaAcquistoFactory;
@@ -32,7 +33,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                listaAcquisto = new ListaAcquistoFactory().create(rs);
+                listaAcquisto = (ListaAcquisto) ModelFactory.getFactory("LISTA_ACQUISTO").create(rs);
                 return listaAcquisto;
             }
         } catch (SQLException e) {
@@ -54,7 +55,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                listaAcquisto = new ListaAcquistoFactory().create(rs);
+                listaAcquisto = (ListaAcquisto) ModelFactory.getFactory("LISTA_ACQUISTO").create(rs);
                 return listaAcquisto;
             }
         } catch (SQLException e) {

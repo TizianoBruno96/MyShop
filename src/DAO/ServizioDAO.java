@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IServizioDAO;
+import DAO.ModelFactory.ModelFactory;
 import DAO.ModelFactory.ServizioFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Fornitore;
@@ -33,7 +34,7 @@ public class ServizioDAO implements IServizioDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                servizio = new ServizioFactory().create(rs);
+                servizio = (Servizio) ModelFactory.getFactory("SERVIZIO").create(rs);
                 return servizio;
             }
         } catch (SQLException e) {
@@ -55,7 +56,7 @@ public class ServizioDAO implements IServizioDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                servizio = new ServizioFactory().create(rs);
+                servizio = (Servizio) ModelFactory.getFactory("SERVIZIO").create(rs);
                 return servizio;
             }
         } catch (SQLException e) {
@@ -77,7 +78,7 @@ public class ServizioDAO implements IServizioDAO {
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
             while (rs.next()) {
-                servizio = new ServizioFactory().create(rs);
+                servizio = (Servizio) ModelFactory.getFactory("SERVIZIO").create(rs);
                 servizi.add(servizio);
             }
             return servizi;
@@ -101,7 +102,7 @@ public class ServizioDAO implements IServizioDAO {
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
             while (rs.next()) {
-                servizio = new ServizioFactory().create(rs);
+                servizio = (Servizio) ModelFactory.getFactory("SERVIZIO").create(rs);
                 servizi.add(servizio);
             }
             return servizi;
@@ -125,7 +126,7 @@ public class ServizioDAO implements IServizioDAO {
         ArrayList<Servizio> servizi = new ArrayList<>();
         try {
             while (rs.next()) {
-                servizio = new ServizioFactory().create(rs);
+                servizio = (Servizio) ModelFactory.getFactory("SERVIZIO").create(rs);
                 servizi.add(servizio);
             }
             return servizi;

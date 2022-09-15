@@ -2,6 +2,7 @@ package DAO;
 
 import DAO.Interfaces.IMagazzinoDAO;
 import DAO.Interfaces.IPuntoVenditaDAO;
+import DAO.ModelFactory.ModelFactory;
 import DAO.ModelFactory.PuntoVenditaFactory;
 import DBInterface.Command.*;
 import Model.Magazzino;
@@ -34,7 +35,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
+                puntoVendita = (PuntoVendita) ModelFactory.getFactory("PUNTO_VENDITA").create(rs);
                 return puntoVendita;
             }
         } catch (SQLException e) {
@@ -56,7 +57,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
+                puntoVendita = (PuntoVendita) ModelFactory.getFactory("PUNTO_VENDITA").create(rs);
                 return puntoVendita;
             }
         } catch (SQLException e) {
@@ -79,7 +80,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
+                puntoVendita = (PuntoVendita) ModelFactory.getFactory("PUNTO_VENDITA").create(rs);
                 return puntoVendita;
             }
         } catch (SQLException e) {
@@ -123,7 +124,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while (rs.next()) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
+                puntoVendita = (PuntoVendita) ModelFactory.getFactory("PUNTO_VENDITA").create(rs);
                 puntiVendita.add(puntoVendita);
             }
             return puntiVendita;
@@ -147,7 +148,7 @@ public class PuntoVenditaDAO implements IPuntoVenditaDAO {
         ArrayList<PuntoVendita> puntiVendita = new ArrayList<>();
         try {
             while (rs.next()) {
-                puntoVendita = new PuntoVenditaFactory().create(rs);
+                puntoVendita = (PuntoVendita) ModelFactory.getFactory("PUNTO_VENDITA").create(rs);
                 puntiVendita.add(puntoVendita);
             }
             return puntiVendita;
