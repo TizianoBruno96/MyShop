@@ -1,6 +1,8 @@
 package Views.TableModel;
 
+import Utilities.FloatExt;
 import Utilities.IntegerExt;
+import Views.AccessoUtente;
 import Views.Model.RigaCatalogoProdotti;
 
 import javax.swing.*;
@@ -102,12 +104,12 @@ public class CatalogoProdottiTableModel extends AbstractTableModel {
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setIdProdotto(Integer.parseInt(value.toString()));
             case 1:
-                riga.setNomeProdotto(value.toString());
+                  riga.setNomeProdotto(value.toString());
             case 2:
                 riga.setDescrizione(value.toString());
             case 3:
-                if (IntegerExt.isParsable(value.toString()))
-                    riga.setCosto(Integer.parseInt(value.toString()));
+                if (FloatExt.isParsable(value.toString()))
+                    riga.setCosto(Float.parseFloat(value.toString()));
             case 4:
                 riga.setNomeProduttore(value.toString());
             case 5:

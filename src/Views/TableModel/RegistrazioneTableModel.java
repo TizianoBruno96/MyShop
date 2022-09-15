@@ -106,6 +106,8 @@ public class RegistrazioneTableModel extends AbstractTableModel {
                 riga.setProfessione(value.toString());
             case 8:
                 riga.setPassword(value.toString());
+            case 9 :
+                riga.setNomePuntoVendita(value.toString());
         }
     }
 

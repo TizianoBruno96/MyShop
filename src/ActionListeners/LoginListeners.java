@@ -18,13 +18,15 @@ public class LoginListeners implements ActionListener {
     private FinestraPrincipale frame;
     private JTextField username;
     private JPasswordField password;
+    private JTextField nomePuntoVendita;
 
     public LoginListeners(FinestraPrincipale frame) {
         this.frame = frame;
     }
-    public LoginListeners(JTextField username, JPasswordField password) {
+    public LoginListeners(JTextField username, JPasswordField password,JTextField nomePuntoVendita) {
         this.username = username;
         this.password = password;
+        this.nomePuntoVendita = nomePuntoVendita;
     }
 
     public void setFrame(FinestraPrincipale frame) {
@@ -38,8 +40,9 @@ public class LoginListeners implements ActionListener {
         if (LOGIN_BTN.equals(azione)) {
             String user = username.getText();
             String pwd = new String(password.getPassword());
+            String nomePuntoV = nomePuntoVendita.getText();
 
-            LoginResult result = LoginBusiness.getInstance().login(user, pwd);
+            LoginResult result = LoginBusiness.getInstance().login(user, pwd,nomePuntoV);
             if (result.getResult() == LoginResult.Result.LOGIN_OK) {
                 frame.mostraPannelloUtenteLoggato(result.getMessage());
                 frame.aggiornaMenuPulsanti();

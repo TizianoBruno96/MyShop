@@ -1,7 +1,10 @@
 package Business;
 
+import DAO.Interfaces.IPuntoVenditaDAO;
 import DAO.Interfaces.IUtenteDAO;
+import DAO.PuntoVenditaDAO;
 import DAO.UtenteDAO;
+import Model.PuntoVendita;
 import Model.Utenti.Utente;
 
 public class RegistrazioneBusiness {
@@ -27,11 +30,10 @@ public class RegistrazioneBusiness {
         u.setProfessione(Professione);
         u.setPassword(Password);
         u.setTipo("CL");
-        /*//associo il punto vendita al cliente
         IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
         PuntoVendita p = puntoVenditaDAO.findByNome(nomePuntoVendita);
 
-        utenteDAO.add(u,p.getIdPuntoVendita());*/
+        utenteDAO.add(u,p.getIdPuntoVendita());
 
         return null;
     }

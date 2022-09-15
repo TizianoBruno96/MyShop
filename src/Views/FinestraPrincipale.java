@@ -20,6 +20,7 @@ public class FinestraPrincipale extends JFrame {
     private JPanel pannelloOvest = new JPanel();
     private JPanel utenteLoggato = new JPanel();
 
+
     public FinestraPrincipale() {
         super("Finestra MyShop");
         this.setSize(1280, 720);
@@ -32,6 +33,7 @@ public class FinestraPrincipale extends JFrame {
         Menu guestMenu = new GuestMenu(this);
         JTextField username = new JTextField(20);
         JPasswordField password = new JPasswordField(20);
+        JTextField nomePuntoVednita = new JTextField(20);
         JButton login = new JButton("Login");
         login.setActionCommand(LoginListeners.LOGIN_BTN);
         JButton registrati = new JButton("Registrati");
@@ -51,6 +53,7 @@ public class FinestraPrincipale extends JFrame {
         //inserisco gli elementi nei pannelli
         pannelloNord.add(username);
         pannelloNord.add(password);
+        pannelloNord.add(nomePuntoVednita);
         pannelloNord.add(login);
         pannelloNord.add(registrati);
         pannelloCentro.add(etichettaCentro1);
@@ -69,7 +72,7 @@ public class FinestraPrincipale extends JFrame {
 
 
         //parte dei listeners
-        LoginListeners loginListeners = new LoginListeners(username, password);
+        LoginListeners loginListeners = new LoginListeners(username, password,nomePuntoVednita);
         loginListeners.setFrame(this);
         login.addActionListener(loginListeners);
 
@@ -180,6 +183,13 @@ public class FinestraPrincipale extends JFrame {
     public void mostraPannelloInserimentoProduttore() {
         pannelloCentro.removeAll();
         pannelloCentro.add(new InserisciProduttorePanel());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloInserimentoFornitore() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new InserisciFornitorePanel());
         repaint();
         validate();
     }
