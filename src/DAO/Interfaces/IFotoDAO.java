@@ -5,7 +5,7 @@ import Model.Articoli.Foto;
 import java.util.ArrayList;
 
 public interface IFotoDAO {
-    public ArrayList<Foto> findByProdotto(int idProdotto);
+    ArrayList<Foto> findByProdotto(int idProdotto);
 
     Foto findByID(int idFoto);
 

@@ -91,4 +91,16 @@ public class CategoriaDAOTest {
         categoriaDAO.update(categoria);
         assert categoriaDAO.findByNome("Informatica2") == null;
     }
+
+    @Test
+    public void findByNomeCategoriaPadre() {
+        categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
+        assert categoriaDAO.findByCategoriaPadre("Informatica").size() >= 2;
+    }
+
+    @Test
+    public void findByNomeCategoriaPadreWrong() {
+        categoriaDAO.addCategoriaFiglia(new Categoria("Cellulare"), categoriaDAO.findByNome("Informatica"));
+        assert categoriaDAO.findByCategoriaPadre("Informatica").size() < 2;
+    }
 }
