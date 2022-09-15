@@ -1,5 +1,6 @@
 package Views.TableModel;
 
+import Utilities.FloatExt;
 import Utilities.IntegerExt;
 import Views.Model.RigaCatalogoServizi;
 
@@ -71,8 +72,8 @@ public class CatalogoServiziTableModel extends AbstractTableModel {
             case 0:
                 riga.setNomeServizio(value.toString());
             case 1:
-                if (IntegerExt.isParsable(value.toString()))
-                    riga.setCosto(Integer.parseInt(value.toString()));
+                if (FloatExt.isParsable(value.toString()))
+                    riga.setCosto(Float.parseFloat(value.toString()));
             case 2:
                 riga.setCategoria(value.toString());
             case 3:

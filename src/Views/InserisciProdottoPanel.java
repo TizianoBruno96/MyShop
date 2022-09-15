@@ -1,5 +1,10 @@
 package Views;
 
+import ActionListeners.ConfermaInserimentoProdottoListeners;
+import ActionListeners.ConfermaInserimentoProduttoriListeners;
+import DAO.Interfaces.IPuntoVenditaDAO;
+import DAO.PuntoVenditaDAO;
+import Model.PuntoVendita;
 import Views.Model.RigaInserisciProdotto;
 import Views.TableModel.InserisciProdottoTableModel;
 
@@ -16,6 +21,11 @@ public class InserisciProdottoPanel extends JPanel {
         RigaInserisciProdotto riga = new RigaInserisciProdotto();
         righe1.add(riga);
 
+       IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
+        PuntoVendita pv = puntoVenditaDAO.findByID(1);
+        riga.setNomePuntoVendita(pv.getNome());
+
+
 
         InserisciProdottoTableModel tableModel = new InserisciProdottoTableModel(righe1);
         JTable tabellaProdotti = new JTable(tableModel);
@@ -25,12 +35,12 @@ public class InserisciProdottoPanel extends JPanel {
 
         JPanel pannelloAzioni = new JPanel();
         pannelloAzioni.setLayout(new FlowLayout());
-        //JButton confermaInserimentoProduttori = new JButton("Conferma inserimento");
-        //confermaInserimentoProduttori.setActionCommand(ConfermaInserimentoProduttoriListeners.CIPL_BTN);
-        //ConfermaInserimentoProduttoriListeners confermaInserimentoProduttoriListeners = new ConfermaInserimentoProduttoriListeners(tabellaProduttore);
-        // confermaInserimentoProduttori.addActionListener(confermaInserimentoProduttoriListeners);
-        //pannelloAzioni.add(confermaInserimentoProduttori);
         JButton confermaInserimentoProdotto = new JButton("Conferma inserimento prodotto");
+        confermaInserimentoProdotto.setActionCommand(ConfermaInserimentoProdottoListeners.CIPL_BTN);
+        ConfermaInserimentoProdottoListeners confermaInserimentoProdottoListeners = new ConfermaInserimentoProdottoListeners(tabellaProdotti);
+        confermaInserimentoProdotto.addActionListener(confermaInserimentoProdottoListeners);
+        pannelloAzioni.add(confermaInserimentoProdotto);
+
         add(pannelloAzioni, BorderLayout.SOUTH);
 
 

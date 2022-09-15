@@ -1,5 +1,6 @@
 package Views.TableModel;
 
+import Utilities.FloatExt;
 import Utilities.IntegerExt;
 import Views.Model.RigaInserisciProdotto;
 
@@ -65,8 +66,8 @@ public class InserisciProdottoTableModel extends AbstractTableModel {
             case 5 -> "Disponibilità";
             case 6 -> "Corsia";
             case 7 -> "Scaffale";
-            case 9 -> "Nome Punto Vendita";
-            case 8 -> "Foto";
+            case 8 -> "Nome Punto Vendita";
+            case 9 -> "Foto";
             default -> null;
         };
     }
@@ -80,8 +81,8 @@ public class InserisciProdottoTableModel extends AbstractTableModel {
             case 1:
                 riga.setDescrizione(value.toString());
             case 2:
-                if (IntegerExt.isParsable(value.toString()))
-                    riga.setCosto(Integer.parseInt(value.toString()));
+                if (FloatExt.isParsable(value.toString()))
+                    riga.setCosto(Float.parseFloat(value.toString()));
             case 3:
                 riga.setNomeProduttore(value.toString());
             case 4:

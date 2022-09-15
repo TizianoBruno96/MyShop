@@ -26,7 +26,6 @@ public class CatalogoProdottiPanel extends JPanel {
         IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
         ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
         IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
-        //IFotoDAO fotoDAO = FotoDAO.getInstance();
         IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
         IMagazzinoDAO magazzinoDAO = MagazzinoDAO.getInstance();
         IRecensioneDAO recensioneDAO = RecensioneDAO.getInstance();
@@ -92,11 +91,13 @@ public class CatalogoProdottiPanel extends JPanel {
 
         JPanel pannelloAzioni = new JPanel();
         pannelloAzioni.setLayout(new FlowLayout());
-        JButton inserimentoLista = new JButton("Inserisci nella lista");
-        inserimentoLista.setActionCommand(InserimentoListaListeners.INSERISCINELLALISTA_BTN);
-        InserimentoListaListeners inserimentoListaListeners = new InserimentoListaListeners(tabella);
-        inserimentoLista.addActionListener(inserimentoListaListeners);
-        pannelloAzioni.add(inserimentoLista);
+        if (AccessoUtente.getTipo()!=null) {
+            JButton inserimentoLista = new JButton("Inserisci nella lista");
+            inserimentoLista.setActionCommand(InserimentoListaListeners.INSERISCINELLALISTA_BTN);
+            InserimentoListaListeners inserimentoListaListeners = new InserimentoListaListeners(tabella);
+            inserimentoLista.addActionListener(inserimentoListaListeners);
+            pannelloAzioni.add(inserimentoLista);
+        }
         add(pannelloAzioni, BorderLayout.SOUTH);
 
 

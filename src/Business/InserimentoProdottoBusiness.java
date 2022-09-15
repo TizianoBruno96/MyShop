@@ -13,22 +13,22 @@ import Model.Articoli.Produttore;
 import Model.Categoria;
 import Model.Posizione;
 
-public class ConfermaInserimentoProdottoBusiness {
-    private static ConfermaInserimentoProdottoBusiness istanza;
+public class InserimentoProdottoBusiness {
+    private static InserimentoProdottoBusiness istanza;
     IProdottoDAO pDAO = ProdottoDAO.getInstance();
     IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
 
-    public static synchronized ConfermaInserimentoProdottoBusiness getInstance() {
+    public static synchronized InserimentoProdottoBusiness getInstance() {
         if (istanza == null) {
-            istanza = new ConfermaInserimentoProdottoBusiness();
+            istanza = new InserimentoProdottoBusiness();
         }
         return istanza;
     }
 
 
-    public ConfermaInserimentoProdottoBusiness confermaProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, int Disponibilita, int pCorsia, int pScaffale) {
+    public InserimentoProdottoBusiness confermaProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, int disponibilita, int pCorsia, int pScaffale) {
         Prodotto p = new Prodotto();
         Posizione pos = new Posizione();
         Produttore pro = new Produttore();
@@ -42,9 +42,11 @@ public class ConfermaInserimentoProdottoBusiness {
         p.setIdProduttore(pro.getIdProduttore());
         c = categoriaDAO.findByNome(categoriaProdotto);
         p.setIdCategoria(c.getIdCategoria());
-        //pos = posizioneDAO.
+        posizioneDAO.addProdottoInPosizione(p,pCorsia,pScaffale,1,disponibilita);
 
-        //
+        pDAO.add(p,c,pro);
+
+
 
 
         return null;

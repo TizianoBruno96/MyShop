@@ -1,9 +1,6 @@
 package Views.Decorator;
 
-import ActionListeners.CreaManagerListeners;
-import ActionListeners.CrearePuntoVenditaListeners;
-import ActionListeners.InserisciProdottoListeners;
-import ActionListeners.InserisciProduttoreListeners;
+import ActionListeners.*;
 import Views.FinestraPrincipale;
 
 import javax.swing.*;
@@ -20,8 +17,9 @@ public class AmministratoreMenuDecorator extends CustomMenuDecorator {
     @Override
     public List<JButton> getPulsanti() {
         pulsanti.addAll(this.menu.getPulsanti());
-        JButton inserisciProdotto = new JButton("Inserisci prodotto");
+        JButton inserisciProdotto = new JButton("Inserisci Prodotto");
         JButton inserisciProduttore = new JButton("Inserisci Produttore");
+        JButton inserisciFornitore = new JButton("Inserisci Fornitore");
         JButton crearePuntoVendita = new JButton("Crea punto vendita");
         JButton creaManager = new JButton("Crea Manager");
 
@@ -30,18 +28,22 @@ public class AmministratoreMenuDecorator extends CustomMenuDecorator {
         inserisciProduttore.setActionCommand(InserisciProduttoreListeners.INSERISCIPRODUTTORE_BTN);
         crearePuntoVendita.setActionCommand(CrearePuntoVenditaListeners.CREAPUNTOVENDITA_BTN);
         creaManager.setActionCommand(CreaManagerListeners.CREAMANAGER_BTN);
+        inserisciFornitore.setActionCommand(InserisciFornitoreListeners.IF_BTN);
 
         InserisciProdottoListeners inserisciProdottoListeners = new InserisciProdottoListeners(finestra);
         InserisciProduttoreListeners inserisciProduttoreListeners = new InserisciProduttoreListeners(finestra);
         CrearePuntoVenditaListeners crearePuntoVenditaListeners = new CrearePuntoVenditaListeners(finestra);
         CreaManagerListeners creaManagerListeners = new CreaManagerListeners(finestra);
+        InserisciFornitoreListeners inserisciFornitoreListeners = new InserisciFornitoreListeners(finestra);
 
         inserisciProdotto.addActionListener(inserisciProdottoListeners);
         inserisciProduttore.addActionListener(inserisciProduttoreListeners);
         crearePuntoVendita.addActionListener(crearePuntoVenditaListeners);
         creaManager.addActionListener(creaManagerListeners);
+        inserisciFornitore.addActionListener(inserisciFornitoreListeners);
 
 
+        pulsanti.add(inserisciFornitore);
         pulsanti.add(inserisciProdotto);
         pulsanti.add(inserisciProduttore);
         pulsanti.add(crearePuntoVendita);

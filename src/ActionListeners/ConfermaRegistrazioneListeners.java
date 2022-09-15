@@ -3,6 +3,7 @@ package ActionListeners;
 import Business.LoginResult;
 import Business.RegistrazioneBusiness;
 import DAO.Interfaces.IUtenteDAO;
+import DAO.PuntoVenditaDAO;
 import DAO.UtenteDAO;
 
 import javax.swing.*;
@@ -41,6 +42,9 @@ public class ConfermaRegistrazioneListeners implements ActionListener {
             String Professione = (String) tabella.getValueAt(0, 7);
             String Password = (String) tabella.getValueAt(0, 8);
             String nomePuntoVendita = (String) tabella.getValueAt(0, 9);
+            if (!PuntoVenditaDAO.getInstance().checkNome(nomePuntoVendita)){
+                JOptionPane.showMessageDialog(null,"Il punto vendita inseriro non esiste");
+            }
 
             RegistrazioneBusiness r = RegistrazioneBusiness.getInstance().confermaRegistrazione(Nome, Cognome, Username, Email, Telefono, Eta, Residenza, Professione, Password, nomePuntoVendita);
 
