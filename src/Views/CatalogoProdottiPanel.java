@@ -1,6 +1,8 @@
 package Views;
 
 import ActionListeners.CarrelloListeners;
+import ActionListeners.ConfermaInserimentoProduttoriListeners;
+import ActionListeners.InserimentoListaListeners;
 import DAO.*;
 import DAO.Interfaces.*;
 import Model.Articoli.Foto;
@@ -93,6 +95,15 @@ public class CatalogoProdottiPanel extends JPanel {
         tabella.setRowHeight(100);
 
 
+
+        JPanel pannelloAzioni = new JPanel();
+        pannelloAzioni.setLayout(new FlowLayout());
+        JButton inserimentoLista = new JButton("Inserisci nella lista");
+        inserimentoLista.setActionCommand(InserimentoListaListeners.INSERISCINELLALISTA_BTN);
+        InserimentoListaListeners inserimentoListaListeners = new InserimentoListaListeners(tabella);
+        inserimentoLista.addActionListener(inserimentoListaListeners);
+        pannelloAzioni.add(inserimentoLista);
+        add(pannelloAzioni,BorderLayout.SOUTH);
 
 
 

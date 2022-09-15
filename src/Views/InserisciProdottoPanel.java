@@ -1,10 +1,9 @@
 package Views;
 
+import ActionListeners.ConfermaInserimentoProduttoriListeners;
 import Views.Model.RigaInserisciProdotto;
-import Views.Model.RigaInserisciProduttore;
-import Views.TableModel.CreaManagerTableModel;
 import Views.TableModel.InserisciProdottoTableModel;
-import Views.TableModel.InserisciProduttoreTableModel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +15,8 @@ public class InserisciProdottoPanel extends JPanel {
         setLayout(new BorderLayout());
         List<RigaInserisciProdotto> righe1 = new ArrayList<>();
 
-
-
-
-
-
+        RigaInserisciProdotto riga = new RigaInserisciProdotto();
+        righe1.add(riga);
 
 
         InserisciProdottoTableModel tableModel = new InserisciProdottoTableModel(righe1);
@@ -28,6 +24,16 @@ public class InserisciProdottoPanel extends JPanel {
         JScrollPane scrollPane1 = new JScrollPane(tabellaProdotti);
         add(scrollPane1,BorderLayout.CENTER);
         tabellaProdotti.setRowHeight(50);
+
+        JPanel pannelloAzioni = new JPanel();
+        pannelloAzioni.setLayout(new FlowLayout());
+        //JButton confermaInserimentoProduttori = new JButton("Conferma inserimento");
+        //confermaInserimentoProduttori.setActionCommand(ConfermaInserimentoProduttoriListeners.CIPL_BTN);
+        //ConfermaInserimentoProduttoriListeners confermaInserimentoProduttoriListeners = new ConfermaInserimentoProduttoriListeners(tabellaProduttore);
+       // confermaInserimentoProduttori.addActionListener(confermaInserimentoProduttoriListeners);
+        //pannelloAzioni.add(confermaInserimentoProduttori);
+        JButton confermaInserimentoProdotto = new JButton("Conferma inserimento prodotto");
+        add(pannelloAzioni,BorderLayout.SOUTH);
 
 
     }

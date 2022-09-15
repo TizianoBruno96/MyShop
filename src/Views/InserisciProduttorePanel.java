@@ -14,10 +14,9 @@ public class InserisciProduttorePanel extends JPanel {
         setLayout(new BorderLayout());
         List<RigaInserisciProduttore> righe = new ArrayList<>();
 
-        for (int i =0;i<10;i++){
             RigaInserisciProduttore riga = new RigaInserisciProduttore();
             righe.add(riga);
-        }
+
 
 
         InserisciProduttoreTableModel tmodel = new InserisciProduttoreTableModel(righe);
@@ -30,8 +29,8 @@ public class InserisciProduttorePanel extends JPanel {
         pannelloAzioni.setLayout(new FlowLayout());
         JButton confermaInserimentoProduttori = new JButton("Conferma inserimento");
         confermaInserimentoProduttori.setActionCommand(ConfermaInserimentoProduttoriListeners.CIPL_BTN);
-       ConfermaInserimentoProduttoriListeners confermaInserimentoProduttoriListeners = new ConfermaInserimentoProduttoriListeners(tabellaProduttore);
-       confermaInserimentoProduttori.addActionListener(confermaInserimentoProduttoriListeners);
+        ConfermaInserimentoProduttoriListeners confermaInserimentoProduttoriListeners = new ConfermaInserimentoProduttoriListeners(tabellaProduttore);
+        confermaInserimentoProduttori.addActionListener(confermaInserimentoProduttoriListeners);
         pannelloAzioni.add(confermaInserimentoProduttori);
         add(pannelloAzioni,BorderLayout.SOUTH);
     }

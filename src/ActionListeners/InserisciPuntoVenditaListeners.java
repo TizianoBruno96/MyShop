@@ -29,9 +29,9 @@ public class InserisciPuntoVenditaListeners implements ActionListener {
         if (INSERISCIPUNTOVENDITA_BTN.equals(azione)) {
             String Citta = (String) tabella.getValueAt(0, 0);
             String Nome = (String) tabella.getValueAt(0, 1);
-            /*if (pDAO.checkNome(Nome)){
+            if (pDAO.checkNome(Nome)){
                 JOptionPane.showMessageDialog(null,"Il nome inserito esiste già");
-            }*/
+            }
             String Indirizzo = (String) tabella.getValueAt(0, 2);
             String UsernameManager = (String) tabella.getValueAt(0,3);
             if (!UtenteDAO.getInstance().isManager(UsernameManager)){
