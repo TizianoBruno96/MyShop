@@ -14,20 +14,20 @@ public class UtenteRegistrato {
         this.idPuntoVendita = idPuntoVendita;
     }
 
-    public void setIdUtente(int idUtenteRegistrato) {
-        this.idUtente = idUtenteRegistrato;
-    }
-
-    public void setIdPuntoVendita(int idPuntoVendita) {
-        this.idPuntoVendita = idPuntoVendita;
-    }
-
     public int getIdUtente() {
         return idUtente;
     }
 
+    public void setIdUtente(int idUtenteRegistrato) {
+        this.idUtente = idUtenteRegistrato;
+    }
+
     public int getIdPuntoVendita() {
         return idPuntoVendita;
+    }
+
+    public void setIdPuntoVendita(int idPuntoVendita) {
+        this.idPuntoVendita = idPuntoVendita;
     }
 
     public String toString() {

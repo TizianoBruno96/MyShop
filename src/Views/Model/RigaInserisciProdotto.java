@@ -11,6 +11,7 @@ public class RigaInserisciProdotto {
     private int Disponibilita;
     private int pCorsia;
     private int pScaffale;
+    private String nomePuntoVendita;
     private ImageIcon foto;
 
     public String getNomeProdotto() {
@@ -83,5 +84,13 @@ public class RigaInserisciProdotto {
 
     public void setFoto(ImageIcon foto) {
         this.foto = foto;
+    }
+
+    public String getNomePuntoVendita() {
+        return nomePuntoVendita;
+    }
+
+    public void setNomePuntoVendita(String nomePuntoVendita) {
+        this.nomePuntoVendita = nomePuntoVendita;
     }
 }

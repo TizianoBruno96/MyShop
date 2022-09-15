@@ -8,21 +8,19 @@ import DAO.Interfaces.IProduttoreDAO;
 import DAO.PosizioneDAO;
 import DAO.ProdottoDAO;
 import DAO.ProduttoreDAO;
-import Model.Articoli.IProdotto;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
 import Model.Categoria;
 import Model.Posizione;
 
 public class ConfermaInserimentoProdottoBusiness {
+    private static ConfermaInserimentoProdottoBusiness istanza;
     IProdottoDAO pDAO = ProdottoDAO.getInstance();
     IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
 
-
-    private static ConfermaInserimentoProdottoBusiness istanza;
-    public static synchronized  ConfermaInserimentoProdottoBusiness getInstance(){
+    public static synchronized ConfermaInserimentoProdottoBusiness getInstance() {
         if (istanza == null) {
             istanza = new ConfermaInserimentoProdottoBusiness();
         }
@@ -30,7 +28,7 @@ public class ConfermaInserimentoProdottoBusiness {
     }
 
 
-    public ConfermaInserimentoProdottoBusiness confermaProdotto( String nomeProdotto,String descrizione,float costo,String nomeProduttore,String categoriaProdotto,int Disponibilita,int pCorsia,int pScaffale){
+    public ConfermaInserimentoProdottoBusiness confermaProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, int Disponibilita, int pCorsia, int pScaffale) {
         Prodotto p = new Prodotto();
         Posizione pos = new Posizione();
         Produttore pro = new Produttore();
@@ -47,7 +45,6 @@ public class ConfermaInserimentoProdottoBusiness {
         //pos = posizioneDAO.
 
         //
-
 
 
         return null;

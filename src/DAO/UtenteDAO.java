@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IUtenteDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.ListaAcquisto;
 import Model.Utenti.Utente;
 import Model.Utenti.UtenteRegistrato;
@@ -13,8 +15,8 @@ import java.util.ArrayList;
 
 public class UtenteDAO implements IUtenteDAO {
     private static final UtenteDAO instance = new UtenteDAO();
-    private Utente utente;
     private static ResultSet rs;
+    private Utente utente;
 
     private UtenteDAO() {
         utente = null;

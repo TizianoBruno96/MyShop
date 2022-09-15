@@ -14,12 +14,12 @@ public class Guest {
         this.IPGuest = IPGuest;
     }
 
-    public void setIPGuest(String IPGuest) {
-        this.IPGuest = IPGuest;
-    }
-
     public String getIPGuest() {
         return IPGuest;
+    }
+
+    public void setIPGuest(String IPGuest) {
+        this.IPGuest = IPGuest;
     }
 
     public int getIdGuest() {

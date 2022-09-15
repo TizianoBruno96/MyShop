@@ -1,7 +1,6 @@
 package DAO.ModelFactory;
 
 import Model.Articoli.Foto;
-import com.mysql.cj.jdbc.Blob;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -15,15 +15,15 @@ public class ConfermaInserimentoProdottoListeners implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
-        if (CIPL_BTN.equals(azione)){
-            String nomeProdotto= (String) table.getValueAt(0,0);
-            String descrizione= (String) table.getValueAt(0,1);
-            String costo= (String) table.getValueAt(0,2);
-            String nomeProduttore= (String) table.getValueAt(0,3);
-            String categoriaProdotto= (String) table.getValueAt(0,4);
-            String Disponibilita= (String) table.getValueAt(0,5);
-            String pCorsia= (String) table.getValueAt(0,6);
-            String pScaffale= (String) table.getValueAt(0,7);
+        if (CIPL_BTN.equals(azione)) {
+            String nomeProdotto = (String) table.getValueAt(0, 0);
+            String descrizione = (String) table.getValueAt(0, 1);
+            String costo = (String) table.getValueAt(0, 2);
+            String nomeProduttore = (String) table.getValueAt(0, 3);
+            String categoriaProdotto = (String) table.getValueAt(0, 4);
+            String Disponibilita = (String) table.getValueAt(0, 5);
+            String pCorsia = (String) table.getValueAt(0, 6);
+            String pScaffale = (String) table.getValueAt(0, 7);
 
         }
     }

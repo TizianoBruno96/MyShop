@@ -19,22 +19,22 @@ public class ConfermaInserimentoProduttoriListeners implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
-        if (CIPL_BTN.equals(azione)){
+        if (CIPL_BTN.equals(azione)) {
             IProduttoreDAO pDAO = ProduttoreDAO.getInstance();
 
-                    String NomeProduttore = (String) tabella.getValueAt(0,0);
-                    if (pDAO.checkNome(NomeProduttore)){
-                        JOptionPane.showMessageDialog(null,"Il produttore inserito esiste già");
-                    }
-                    String Sito = (String) tabella.getValueAt(0,1);
-                    String Citta = (String) tabella.getValueAt(0,2);
-                    String Nazione = (String) tabella.getValueAt(0,3);
+            String NomeProduttore = (String) tabella.getValueAt(0, 0);
+            if (pDAO.checkNome(NomeProduttore)) {
+                JOptionPane.showMessageDialog(null, "Il produttore inserito esiste già");
+            }
+            String Sito = (String) tabella.getValueAt(0, 1);
+            String Citta = (String) tabella.getValueAt(0, 2);
+            String Nazione = (String) tabella.getValueAt(0, 3);
 
-            ConfermaInserimentoProduttoriBusiness c = ConfermaInserimentoProduttoriBusiness.getInstance().InserisciProduttore(NomeProduttore,Sito,Citta,Nazione);
+            ConfermaInserimentoProduttoriBusiness c = ConfermaInserimentoProduttoriBusiness.getInstance().InserisciProduttore(NomeProduttore, Sito, Citta, Nazione);
 
-
-                }
 
         }
 
     }
+
+}

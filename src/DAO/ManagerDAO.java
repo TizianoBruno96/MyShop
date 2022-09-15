@@ -1,7 +1,9 @@
 package DAO;
 
 import DAO.Interfaces.IManagerDAO;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 
 public class ManagerDAO implements IManagerDAO {
     private static final ManagerDAO instance = new ManagerDAO();

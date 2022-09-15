@@ -2,11 +2,13 @@ package DAO;
 
 import DAO.Interfaces.IProdottoDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DAO.ModelFactory.ProdottoFactory;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
 import Model.Categoria;
-import DAO.ModelFactory.ProdottoFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +16,8 @@ import java.util.ArrayList;
 
 public class ProdottoDAO implements IProdottoDAO {
     private static final ProdottoDAO instance = new ProdottoDAO();
-    private Prodotto prodotto;
     private static ResultSet rs;
+    private Prodotto prodotto;
 
     private ProdottoDAO() {
         prodotto = null;

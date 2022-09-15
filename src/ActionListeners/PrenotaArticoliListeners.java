@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PrenotaArticoliListeners implements ActionListener {
-    public final static String PRENOTAARTICOLI_BTN="PrenotaArticoli_btn";
+    public final static String PRENOTAARTICOLI_BTN = "PrenotaArticoli_btn";
     private FinestraPrincipale frame;
 
     public PrenotaArticoliListeners(FinestraPrincipale frame) {

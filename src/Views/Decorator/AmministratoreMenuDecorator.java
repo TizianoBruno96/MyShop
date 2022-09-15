@@ -9,7 +9,7 @@ import Views.FinestraPrincipale;
 import javax.swing.*;
 import java.util.List;
 
-public class AmministratoreMenuDecorator extends CustomMenuDecorator{
+public class AmministratoreMenuDecorator extends CustomMenuDecorator {
     private FinestraPrincipale finestra;
 
     public AmministratoreMenuDecorator(Menu menu, FinestraPrincipale frame) {
@@ -20,7 +20,7 @@ public class AmministratoreMenuDecorator extends CustomMenuDecorator{
     @Override
     public List<JButton> getPulsanti() {
         pulsanti.addAll(this.menu.getPulsanti());
-        JButton inserisciProdotto= new JButton("Inserisci prodotto");
+        JButton inserisciProdotto = new JButton("Inserisci prodotto");
         JButton inserisciProduttore = new JButton("Inserisci Produttore");
         JButton crearePuntoVendita = new JButton("Crea punto vendita");
         JButton creaManager = new JButton("Crea Manager");

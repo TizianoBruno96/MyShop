@@ -6,15 +6,17 @@ import DAO.UtenteDAO;
 import Model.Utenti.Utente;
 
 public class InserisciManagerBusiness {
-    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     private static InserisciManagerBusiness istanza;
-    public static synchronized InserisciManagerBusiness getInstance(){
+    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+
+    public static synchronized InserisciManagerBusiness getInstance() {
         if (istanza == null) {
             istanza = new InserisciManagerBusiness();
         }
         return istanza;
     }
-    public InserisciManagerBusiness InserisciManager(String Nome, String Cognome, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password){
+
+    public InserisciManagerBusiness InserisciManager(String Nome, String Cognome, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password) {
         Utente u = new Utente();
         u.setNome(Nome);
         u.setCognome(Cognome);

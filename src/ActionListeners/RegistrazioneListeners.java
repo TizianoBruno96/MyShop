@@ -2,7 +2,6 @@ package ActionListeners;
 
 import Views.FinestraPrincipale;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +21,7 @@ public class RegistrazioneListeners implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
 
-        if (REGISTRATI_BTN.equals(azione)){
+        if (REGISTRATI_BTN.equals(azione)) {
             frame.mostraPannelloRegistrazione();
         }
     }

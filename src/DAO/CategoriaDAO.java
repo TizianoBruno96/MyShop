@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.ICategoriaDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Categoria;
 
 import java.sql.ResultSet;
@@ -11,8 +13,8 @@ import java.util.ArrayList;
 
 public class CategoriaDAO implements ICategoriaDAO {
     private static final CategoriaDAO instance = new CategoriaDAO();
-    private Categoria categoria;
     private static ResultSet rs;
+    private Categoria categoria;
 
     private CategoriaDAO() {
         categoria = null;

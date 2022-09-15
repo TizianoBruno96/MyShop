@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IPosizioneDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Articoli.Prodotto;
 import Model.Magazzino;
 import Model.Posizione;
@@ -13,8 +15,8 @@ import java.util.ArrayList;
 
 public class PosizioneDAO implements IPosizioneDAO {
     private static final PosizioneDAO instance = new PosizioneDAO();
-    private Posizione posizione;
     private static ResultSet rs;
+    private Posizione posizione;
 
     private PosizioneDAO() {
         posizione = null;

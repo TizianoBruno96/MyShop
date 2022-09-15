@@ -7,10 +7,6 @@ public class Produttore {
     private String Citta;
     private String Nazione;
 
-    public void setIdProduttore(int idProduttore) {
-        this.idProduttore = idProduttore;
-    }
-
     public Produttore() {
         this.idProduttore = 0;
         this.Nome = "";
@@ -27,40 +23,44 @@ public class Produttore {
         this.Nazione = nazione;
     }
 
-    public void setNome(String nome) {
-        Nome = nome;
-    }
-
-    public void setSito(String sitoWeb) {
-        Sito = sitoWeb;
-    }
-
-    public void setCitta(String citta) {
-        Citta = citta;
-    }
-
-    public void setNazione(String nazione) {
-        Nazione = nazione;
-    }
-
     public int getIdProduttore() {
         return idProduttore;
+    }
+
+    public void setIdProduttore(int idProduttore) {
+        this.idProduttore = idProduttore;
     }
 
     public String getNome() {
         return Nome;
     }
 
+    public void setNome(String nome) {
+        Nome = nome;
+    }
+
     public String getSito() {
         return Sito;
+    }
+
+    public void setSito(String sitoWeb) {
+        Sito = sitoWeb;
     }
 
     public String getCitta() {
         return Citta;
     }
 
+    public void setCitta(String citta) {
+        Citta = citta;
+    }
+
     public String getNazione() {
         return Nazione;
+    }
+
+    public void setNazione(String nazione) {
+        Nazione = nazione;
     }
 
     public String toString() {

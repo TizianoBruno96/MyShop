@@ -1,7 +1,6 @@
 package DAO.Interfaces;
 
 import Model.Magazzino;
-import Model.PuntoVendita;
 
 import java.util.ArrayList;
 

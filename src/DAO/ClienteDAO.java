@@ -1,7 +1,9 @@
 package DAO;
 
 import DAO.Interfaces.IClienteDAO;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 
 public class ClienteDAO implements IClienteDAO {
     private static final ClienteDAO instance = new ClienteDAO();

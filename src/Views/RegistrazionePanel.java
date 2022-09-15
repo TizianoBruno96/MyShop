@@ -1,7 +1,6 @@
 package Views;
 
 import ActionListeners.ConfermaRegistrazioneListeners;
-import ActionListeners.RegistrazioneListeners;
 import Views.Model.RigaRegistrazione;
 import Views.TableModel.RegistrazioneTableModel;
 
@@ -23,7 +22,7 @@ public class RegistrazionePanel extends JPanel {
         RegistrazioneTableModel tableModel = new RegistrazioneTableModel(righe);
         JTable tabella = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(tabella);
-        add(scrollPane,BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
         tabella.setRowHeight(20);
 
         JPanel pannelloAzioni = new JPanel();
@@ -33,6 +32,6 @@ public class RegistrazionePanel extends JPanel {
         ConfermaRegistrazioneListeners confermaRegistrazioneListeners = new ConfermaRegistrazioneListeners(tabella);
         confermaRegistrazione.addActionListener(confermaRegistrazioneListeners);
         pannelloAzioni.add(confermaRegistrazione);
-        add(pannelloAzioni,BorderLayout.SOUTH);
+        add(pannelloAzioni, BorderLayout.SOUTH);
     }
 }

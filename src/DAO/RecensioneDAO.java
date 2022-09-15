@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IRecensioneDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Recensione;
 
 import java.sql.ResultSet;
@@ -11,8 +13,8 @@ import java.util.ArrayList;
 
 public class RecensioneDAO implements IRecensioneDAO {
     private static final RecensioneDAO instance = new RecensioneDAO();
-    private Recensione recensione;
     private static ResultSet rs;
+    private Recensione recensione;
 
     private RecensioneDAO() {
         recensione = null;

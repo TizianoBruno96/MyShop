@@ -19,14 +19,6 @@ public class ListaAcquisto {
         this.isPagata = isPagata;
     }
 
-    public void setIdListaAcquisto(int idListaAcquisto) {
-        this.idListaAcquisto = idListaAcquisto;
-    }
-
-    public void setIdUtente(int idUtente) {
-        this.idUtente = idUtente;
-    }
-
     public boolean isPagata() {
         return isPagata;
     }
@@ -35,20 +27,28 @@ public class ListaAcquisto {
         isPagata = pagata;
     }
 
-    public void setCostoTot(float costoTot) {
-        CostoTot = costoTot;
-    }
-
     public int getIdUtente() {
         return idUtente;
+    }
+
+    public void setIdUtente(int idUtente) {
+        this.idUtente = idUtente;
     }
 
     public int getIdListaAcquisto() {
         return idListaAcquisto;
     }
 
+    public void setIdListaAcquisto(int idListaAcquisto) {
+        this.idListaAcquisto = idListaAcquisto;
+    }
+
     public float getCostoTot() {
         return CostoTot;
+    }
+
+    public void setCostoTot(float costoTot) {
+        CostoTot = costoTot;
     }
 
     public String toString() {

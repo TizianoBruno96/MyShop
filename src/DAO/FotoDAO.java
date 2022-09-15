@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IFotoDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Articoli.Foto;
 
 import java.sql.ResultSet;
@@ -12,8 +14,8 @@ import java.util.ArrayList;
 
 public class FotoDAO implements IFotoDAO {
     private static final FotoDAO instance = new FotoDAO();
-    private Foto foto;
     private static ResultSet rs;
+    private Foto foto;
 
     private FotoDAO() {
         foto = null;

@@ -17,12 +17,12 @@ public class Fornitore {
         this.Sito = Sito;
     }
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
-    }
-
     public String getNome() {
         return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
     }
 
     public int getIdFornitore() {

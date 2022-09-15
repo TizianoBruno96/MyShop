@@ -22,36 +22,36 @@ public class Servizio extends Articolo {
         this.setCosto(Costo);
     }
 
-    public void setIdServizio(int idServizio) {
-        this.idServizio = idServizio;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
-    public void setIdFornitore(int idFornitore) {
-        this.idFornitore = idFornitore;
-    }
-
-    public void setNome(String nome) {
-        Nome = nome;
-    }
-
     public int getIdServizio() {
         return idServizio;
+    }
+
+    public void setIdServizio(int idServizio) {
+        this.idServizio = idServizio;
     }
 
     public int getIdCategoria() {
         return idCategoria;
     }
 
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
     public int getIdFornitore() {
         return idFornitore;
     }
 
+    public void setIdFornitore(int idFornitore) {
+        this.idFornitore = idFornitore;
+    }
+
     public String getNome() {
         return Nome;
+    }
+
+    public void setNome(String nome) {
+        Nome = nome;
     }
 
     public String toString() {

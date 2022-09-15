@@ -1,10 +1,7 @@
 package Views;
 
-import ActionListeners.InserisciManagerListeners;
 import ActionListeners.InserisciPuntoVenditaListeners;
-import Views.Model.RigaCreazioneManager;
 import Views.Model.RigaCreazionePuntoVendita;
-import Views.TableModel.CreaManagerTableModel;
 import Views.TableModel.CreaPuntoVenditaTableModel;
 
 import javax.swing.*;
@@ -23,7 +20,7 @@ public class CreaPuntoVenditaPanel extends JPanel {
         CreaPuntoVenditaTableModel tableModel = new CreaPuntoVenditaTableModel(righe);
         JTable tabella = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(tabella);
-        add(scrollPane,BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
         tabella.setRowHeight(50);
 
         JPanel pannelloAzioni = new JPanel();
@@ -33,7 +30,7 @@ public class CreaPuntoVenditaPanel extends JPanel {
         InserisciPuntoVenditaListeners inserisciPuntoVenditaListeners = new InserisciPuntoVenditaListeners(tabella);
         inserisciPuntoVendita.addActionListener(inserisciPuntoVenditaListeners);
         pannelloAzioni.add(inserisciPuntoVendita);
-        add(pannelloAzioni,BorderLayout.SOUTH);
+        add(pannelloAzioni, BorderLayout.SOUTH);
 
     }
 }

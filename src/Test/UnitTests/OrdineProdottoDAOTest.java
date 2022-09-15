@@ -2,9 +2,11 @@ package Test.UnitTests;
 
 import DAO.*;
 import DAO.Interfaces.*;
-import Model.*;
-import Model.Articoli.*;
-import Model.Utenti.*;
+import Model.Articoli.Prodotto;
+import Model.Articoli.Produttore;
+import Model.Categoria;
+import Model.OrdineProdotto;
+import Model.Utenti.Utente;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

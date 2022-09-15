@@ -3,7 +3,9 @@ package DAO;
 import DAO.Interfaces.IMagazzinoDAO;
 import DAO.Interfaces.IPuntoVenditaDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Magazzino;
 import Model.PuntoVendita;
 
@@ -13,8 +15,8 @@ import java.util.ArrayList;
 
 public class PuntoVenditaDAO implements IPuntoVenditaDAO {
     private static final PuntoVenditaDAO instance = new PuntoVenditaDAO();
-    private PuntoVendita puntoVendita;
     private static ResultSet rs;
+    private PuntoVendita puntoVendita;
 
     private PuntoVenditaDAO() {
         puntoVendita = null;

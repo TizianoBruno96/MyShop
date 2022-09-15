@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IProdottoCompositoDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Articoli.Prodotto;
 import Model.Articoli.ProdottoComposito;
 
@@ -12,8 +14,8 @@ import java.util.ArrayList;
 
 public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
     private static final ProdottoCompositoDAO instance = new ProdottoCompositoDAO();
-    private ProdottoComposito prodottoComposito;
     private static ResultSet rs;
+    private ProdottoComposito prodottoComposito;
 
     private ProdottoCompositoDAO() {
         prodottoComposito = null;

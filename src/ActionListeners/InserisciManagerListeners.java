@@ -2,7 +2,6 @@ package ActionListeners;
 
 import Business.InserisciManagerBusiness;
 import Business.LoginResult;
-import Business.RegistrazioneBusiness;
 import DAO.Interfaces.IUtenteDAO;
 import DAO.UtenteDAO;
 
@@ -29,13 +28,13 @@ public class InserisciManagerListeners implements ActionListener {
             String Nome = (String) tabella.getValueAt(0, 0);
             String Cognome = (String) tabella.getValueAt(0, 1);
             String Username = (String) tabella.getValueAt(0, 2);
-            if (uDAO.checkUsername(Username)){
-                JOptionPane.showMessageDialog(null,result.getMessage());
+            if (uDAO.checkUsername(Username)) {
+                JOptionPane.showMessageDialog(null, result.getMessage());
             }
             String Email = (String) tabella.getValueAt(0, 3);
             result.setMessage("L'email inserita esiste già");
-            if (uDAO.checkEmail(Email)){
-                JOptionPane.showMessageDialog(null,result.getMessage());
+            if (uDAO.checkEmail(Email)) {
+                JOptionPane.showMessageDialog(null, result.getMessage());
             }
             String Telefono = (String) tabella.getValueAt(0, 4);
             int Eta = (int) tabella.getValueAt(0, 5);

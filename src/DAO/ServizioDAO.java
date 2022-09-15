@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IServizioDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
 
@@ -12,8 +14,8 @@ import java.util.ArrayList;
 
 public class ServizioDAO implements IServizioDAO {
     private static final ServizioDAO instance = new ServizioDAO();
-    private Servizio servizio;
     private static ResultSet rs;
+    private Servizio servizio;
 
     private ServizioDAO() {
         servizio = null;

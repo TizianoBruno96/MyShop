@@ -40,21 +40,20 @@ public class PuntoVendita {
         this.idUtenteManager = idUtenteManager;
     }
 
-    public void setIdPuntoVendita(int idPuntoVendita) {
-        this.idPuntoVendita = idPuntoVendita;
-    }
-
-    public void setCitta(String citta) {
-        Citta = citta;
-    }
-
     public int getIdPuntoVendita() {
         return idPuntoVendita;
     }
 
+    public void setIdPuntoVendita(int idPuntoVendita) {
+        this.idPuntoVendita = idPuntoVendita;
+    }
 
     public String getCitta() {
         return Citta;
+    }
+
+    public void setCitta(String citta) {
+        Citta = citta;
     }
 
     public String getNome() {

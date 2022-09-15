@@ -26,52 +26,52 @@ public class Posizione {
         this.idProdotto = 0;
     }
 
-    public void setIdPosizione(int idPosizione) {
-        this.idPosizione = idPosizione;
-    }
-
-    public void setIdProdotto(int idProdotto) {
-        this.idProdotto = idProdotto;
-    }
-
-    public void setIdMagazzino(int idMagazzino) {
-        this.idMagazzino = idMagazzino;
-    }
-
     public int getIdPosizione() {
         return idPosizione;
+    }
+
+    public void setIdPosizione(int idPosizione) {
+        this.idPosizione = idPosizione;
     }
 
     public int getpCorsia() {
         return pCorsia;
     }
 
-    public int getpScaffale() {
-        return pScaffale;
-    }
-
-    public int getQuantita() {
-        return Quantita;
-    }
-
-    public int getIdProdotto() {
-        return idProdotto;
-    }
-
-    public int getIdMagazzino() {
-        return idMagazzino;
-    }
-
     public void setpCorsia(int pCorsia) {
         this.pCorsia = pCorsia;
+    }
+
+    public int getpScaffale() {
+        return pScaffale;
     }
 
     public void setpScaffale(int pScaffale) {
         this.pScaffale = pScaffale;
     }
 
+    public int getQuantita() {
+        return Quantita;
+    }
+
     public void setQuantita(int quantita) {
         Quantita = quantita;
+    }
+
+    public int getIdProdotto() {
+        return idProdotto;
+    }
+
+    public void setIdProdotto(int idProdotto) {
+        this.idProdotto = idProdotto;
+    }
+
+    public int getIdMagazzino() {
+        return idMagazzino;
+    }
+
+    public void setIdMagazzino(int idMagazzino) {
+        this.idMagazzino = idMagazzino;
     }
 
     public String toString() {

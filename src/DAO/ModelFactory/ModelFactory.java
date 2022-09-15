@@ -1,25 +1,6 @@
 package DAO.ModelFactory;
 
 public class ModelFactory {
-    public enum ModelType {
-        CATEGORIA,
-        FORNITORE,
-        FOTO,
-        GUEST,
-        LISTA_ACQUISTO,
-        MAGAZZINO,
-        ORDINE_PRODOTTO,
-        ORDINE_SERVIZIO,
-        POSIZIONE,
-        PRODOTTO_COMPOSITO,
-        PRODOTTO,
-        PRODUTTORE,
-        PUNTO_VENDITA,
-        RECENSIONE,
-        SERVIZIO,
-        UTENTE,
-        UTENTE_REGISTRATO
-    }
     public static IFactory getFactory(ModelType type) {
         return switch (type) {
             case CATEGORIA -> new CategoriaFactory();
@@ -40,5 +21,25 @@ public class ModelFactory {
             case UTENTE -> new UtenteFactory();
             case UTENTE_REGISTRATO -> new UtenteRegistratoFactory();
         };
+    }
+
+    public enum ModelType {
+        CATEGORIA,
+        FORNITORE,
+        FOTO,
+        GUEST,
+        LISTA_ACQUISTO,
+        MAGAZZINO,
+        ORDINE_PRODOTTO,
+        ORDINE_SERVIZIO,
+        POSIZIONE,
+        PRODOTTO_COMPOSITO,
+        PRODOTTO,
+        PRODUTTORE,
+        PUNTO_VENDITA,
+        RECENSIONE,
+        SERVIZIO,
+        UTENTE,
+        UTENTE_REGISTRATO
     }
 }

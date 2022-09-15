@@ -14,15 +14,14 @@ public class InserisciProduttorePanel extends JPanel {
         setLayout(new BorderLayout());
         List<RigaInserisciProduttore> righe = new ArrayList<>();
 
-            RigaInserisciProduttore riga = new RigaInserisciProduttore();
-            righe.add(riga);
-
+        RigaInserisciProduttore riga = new RigaInserisciProduttore();
+        righe.add(riga);
 
 
         InserisciProduttoreTableModel tmodel = new InserisciProduttoreTableModel(righe);
         JTable tabellaProduttore = new JTable(tmodel);
         JScrollPane scrollPane2 = new JScrollPane(tabellaProduttore);
-        add(scrollPane2,BorderLayout.CENTER);
+        add(scrollPane2, BorderLayout.CENTER);
         tabellaProduttore.setRowHeight(50);
 
         JPanel pannelloAzioni = new JPanel();
@@ -32,6 +31,6 @@ public class InserisciProduttorePanel extends JPanel {
         ConfermaInserimentoProduttoriListeners confermaInserimentoProduttoriListeners = new ConfermaInserimentoProduttoriListeners(tabellaProduttore);
         confermaInserimentoProduttori.addActionListener(confermaInserimentoProduttoriListeners);
         pannelloAzioni.add(confermaInserimentoProduttori);
-        add(pannelloAzioni,BorderLayout.SOUTH);
+        add(pannelloAzioni, BorderLayout.SOUTH);
     }
 }

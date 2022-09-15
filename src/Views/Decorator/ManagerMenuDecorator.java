@@ -8,8 +8,9 @@ import Views.FinestraPrincipale;
 import javax.swing.*;
 import java.util.List;
 
-public class ManagerMenuDecorator extends CustomMenuDecorator{
+public class ManagerMenuDecorator extends CustomMenuDecorator {
     private FinestraPrincipale finestra;
+
     public ManagerMenuDecorator(Menu menu, FinestraPrincipale finestra) {
         this.menu = menu;
         this.finestra = finestra;

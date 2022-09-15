@@ -1,7 +1,5 @@
 package Views;
 
-import ActionListeners.CarrelloListeners;
-import ActionListeners.ConfermaInserimentoProduttoriListeners;
 import ActionListeners.InserimentoListaListeners;
 import DAO.*;
 import DAO.Interfaces.*;
@@ -17,7 +15,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +35,7 @@ public class CatalogoProdottiPanel extends JPanel {
 
         ArrayList<Prodotto> prodotti = prodottoDAO.findAll();
 
-        for (Prodotto p: prodotti) {
+        for (Prodotto p : prodotti) {
             Categoria categoria = categoriaDAO.findByID(p.getIdCategoria());
             Produttore produttore = produttoreDAO.findByID(p.getIdProduttore());
             RigaCatalogoProdotti riga = new RigaCatalogoProdotti();
@@ -50,33 +47,33 @@ public class CatalogoProdottiPanel extends JPanel {
             riga.setCosto(p.getCosto());
             riga.setNomeProduttore(produttore.getNome());
             riga.setCategoriaProdotto(categoria.getNome());
-            ArrayList<Posizione> posizioni = posizioneDAO.find(p.getIdProdotto(),magazzinoDAO.findByID(1).getIdMagazzino());
-            int quantita=0;
-            for (Posizione pro : posizioni){
+            ArrayList<Posizione> posizioni = posizioneDAO.find(p.getIdProdotto(), magazzinoDAO.findByID(1).getIdMagazzino());
+            int quantita = 0;
+            for (Posizione pro : posizioni) {
                 quantita += pro.getQuantita();
             }
             riga.setpCorsia(posizioni.get(0).getpCorsia());
             riga.setpScaffale(posizioni.get(0).getpScaffale());
             riga.setDisponibilita(quantita);
-            if (recensioneDAO.findByProdotto(p.getIdProdotto()).size()>0) {
+            if (recensioneDAO.findByProdotto(p.getIdProdotto()).size() > 0) {
                 riga.setCommento(recensioneDAO.findByProdotto(p.getIdProdotto()).get(0).getCommento());
                 riga.setVoto(recensioneDAO.findByProdotto(p.getIdProdotto()).get(0).getVoto());
             }
 
 
-            if ( fotoDAO.findByProdotto(p.getIdProdotto()).size()>0) {
+            if (fotoDAO.findByProdotto(p.getIdProdotto()).size() > 0) {
                 Foto foto = fotoDAO.findByProdotto(p.getIdProdotto()).get(0);
                 try {
                     ImageIcon icon = new ImageIcon(ImageIO.read(foto.getValore().getBinaryStream()));
                     Image image = icon.getImage();
-                    Image image2 = image.getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH);
-                    icon=new ImageIcon(image2);
+                    Image image2 = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+                    icon = new ImageIcon(image2);
                     riga.setFoto(icon);
 
                 } catch (IOException e) {
                     //throw new RuntimeException(e);
                     e.printStackTrace();
-                }catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
@@ -86,14 +83,11 @@ public class CatalogoProdottiPanel extends JPanel {
         }
 
 
-
-
         CatalogoProdottiTableModel tableModel = new CatalogoProdottiTableModel(righe);
         JTable tabella = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(tabella);//aggiungo la tabella in un pannello scrollabile
-        add(scrollPane,BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
         tabella.setRowHeight(100);
-
 
 
         JPanel pannelloAzioni = new JPanel();
@@ -103,10 +97,7 @@ public class CatalogoProdottiPanel extends JPanel {
         InserimentoListaListeners inserimentoListaListeners = new InserimentoListaListeners(tabella);
         inserimentoLista.addActionListener(inserimentoListaListeners);
         pannelloAzioni.add(inserimentoLista);
-        add(pannelloAzioni,BorderLayout.SOUTH);
-
-
-
+        add(pannelloAzioni, BorderLayout.SOUTH);
 
 
     }

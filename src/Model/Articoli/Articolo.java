@@ -14,11 +14,11 @@ public class Articolo implements IArticolo {
         this.costo = costo;
     }
 
-    public void setCosto(float costo) {
-        this.costo = costo;
-    }
-
     public float getCosto() {
         return this.costo;
+    }
+
+    public void setCosto(float costo) {
+        this.costo = costo;
     }
 }
