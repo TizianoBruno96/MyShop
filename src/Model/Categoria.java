@@ -11,8 +11,8 @@ public class Categoria {
         this.Nome = "";
     }
 
-    public Categoria(int idCategoria, int idCategoriaPadre, String Nome) {
-        this.idCategoria = idCategoria;
+    public Categoria(String Nome, int idCategoriaPadre) {
+        this.idCategoria = 0;
         this.idCategoriaPadre = idCategoriaPadre;
         this.Nome = Nome;
     }

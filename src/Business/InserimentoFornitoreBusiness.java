@@ -6,6 +6,8 @@ import Model.Articoli.Fornitore;
 
 public class InserimentoFornitoreBusiness {
     private static InserimentoFornitoreBusiness istanza;
+    IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
+
     public static synchronized InserimentoFornitoreBusiness getInstance() {
         if (istanza == null) {
             istanza = new InserimentoFornitoreBusiness();
@@ -13,11 +15,8 @@ public class InserimentoFornitoreBusiness {
         return istanza;
     }
 
-    public InserimentoFornitoreBusiness confermaFornitore(String nome,String sito){
-        IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
-
-        fornitoreDAO.add(new Fornitore(nome,sito));
-
-        return null;
+    public void InserisciFornitore(String nome, String sito) {
+        Fornitore f = new Fornitore(nome, sito);
+        fornitoreDAO.add(f);
     }
 }

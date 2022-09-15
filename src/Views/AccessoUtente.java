@@ -1,15 +1,12 @@
 package Views;
 
 public class AccessoUtente {
-    private static AccessoUtente instance;
 
     private static int idUtente;
-    private static int idPuntoVendita;
-    private static String tipo;
 
-    public static AccessoUtente getInstance() {
-        return instance;
-    }
+    private static int idPuntoVendita;
+
+    private static String tipo;
 
     public static int getIdUtente() {
         return idUtente;

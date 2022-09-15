@@ -23,7 +23,8 @@ public class LoginListeners implements ActionListener {
     public LoginListeners(FinestraPrincipale frame) {
         this.frame = frame;
     }
-    public LoginListeners(JTextField username, JPasswordField password,JTextField nomePuntoVendita) {
+
+    public LoginListeners(JTextField username, JPasswordField password, JTextField nomePuntoVendita) {
         this.username = username;
         this.password = password;
         this.nomePuntoVendita = nomePuntoVendita;
@@ -42,7 +43,7 @@ public class LoginListeners implements ActionListener {
             String pwd = new String(password.getPassword());
             String nomePuntoV = nomePuntoVendita.getText();
 
-            LoginResult result = LoginBusiness.getInstance().login(user, pwd,nomePuntoV);
+            LoginResult result = LoginBusiness.getInstance().login(user, pwd, nomePuntoV);
             if (result.getResult() == LoginResult.Result.LOGIN_OK) {
                 frame.mostraPannelloUtenteLoggato(result.getMessage());
                 frame.aggiornaMenuPulsanti();

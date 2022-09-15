@@ -22,32 +22,35 @@ public class AmministratoreMenuDecorator extends CustomMenuDecorator {
         JButton inserisciFornitore = new JButton("Inserisci Fornitore");
         JButton crearePuntoVendita = new JButton("Crea punto vendita");
         JButton creaManager = new JButton("Crea Manager");
+        JButton creaCategoria = new JButton("Crea Categoria");
 
-
-        inserisciProdotto.setActionCommand(InserisciProdottoListeners.INSERISCIPRODOTTO_BTN);
-        inserisciProduttore.setActionCommand(InserisciProduttoreListeners.INSERISCIPRODUTTORE_BTN);
+        inserisciProdotto.setActionCommand(InserisciProdottoListener.INSERISCIPRODOTTO_BTN);
+        inserisciProduttore.setActionCommand(InserisciProduttoreListener.INSERISCIPRODUTTORE_BTN);
         crearePuntoVendita.setActionCommand(CrearePuntoVenditaListeners.CREAPUNTOVENDITA_BTN);
         creaManager.setActionCommand(CreaManagerListeners.CREAMANAGER_BTN);
-        inserisciFornitore.setActionCommand(InserisciFornitoreListeners.IF_BTN);
+        inserisciFornitore.setActionCommand(InserisciFornitoreListener.IF_BTN);
+        creaCategoria.setActionCommand(InserisciCategoriaListener.IC_BTN);
 
-        InserisciProdottoListeners inserisciProdottoListeners = new InserisciProdottoListeners(finestra);
-        InserisciProduttoreListeners inserisciProduttoreListeners = new InserisciProduttoreListeners(finestra);
+        InserisciProdottoListener inserisciProdottoListener = new InserisciProdottoListener(finestra);
+        InserisciProduttoreListener inserisciProduttoreListener = new InserisciProduttoreListener(finestra);
         CrearePuntoVenditaListeners crearePuntoVenditaListeners = new CrearePuntoVenditaListeners(finestra);
         CreaManagerListeners creaManagerListeners = new CreaManagerListeners(finestra);
-        InserisciFornitoreListeners inserisciFornitoreListeners = new InserisciFornitoreListeners(finestra);
+        InserisciFornitoreListener inserisciFornitoreListener = new InserisciFornitoreListener(finestra);
+        InserisciCategoriaListener inserisciCategoriaListener = new InserisciCategoriaListener(finestra);
 
-        inserisciProdotto.addActionListener(inserisciProdottoListeners);
-        inserisciProduttore.addActionListener(inserisciProduttoreListeners);
+        inserisciProdotto.addActionListener(inserisciProdottoListener);
+        inserisciProduttore.addActionListener(inserisciProduttoreListener);
         crearePuntoVendita.addActionListener(crearePuntoVenditaListeners);
         creaManager.addActionListener(creaManagerListeners);
-        inserisciFornitore.addActionListener(inserisciFornitoreListeners);
-
+        inserisciFornitore.addActionListener(inserisciFornitoreListener);
+        creaCategoria.addActionListener(inserisciCategoriaListener);
 
         pulsanti.add(inserisciFornitore);
         pulsanti.add(inserisciProdotto);
         pulsanti.add(inserisciProduttore);
         pulsanti.add(crearePuntoVendita);
         pulsanti.add(creaManager);
+        pulsanti.add(creaCategoria);
         return pulsanti;
     }
 }

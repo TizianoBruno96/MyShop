@@ -35,7 +35,6 @@ public class ManagerMenuDecorator extends CustomMenuDecorator {
         gestisciUtenti.addActionListener(gestisciUtentiListeners);
 
 
-
         pulsanti.add(rispondiCommenti);
         pulsanti.add(gestisciUtenti);
         return pulsanti;
