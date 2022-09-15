@@ -3,8 +3,8 @@ package DBInterface.Command;
 import DBInterface.DBConnection;
 
 public class WriteOperation implements IDBOperation {
-    private DBConnection connection = DBConnection.getInstance();
-    private String sql;
+    private final DBConnection connection = DBConnection.getInstance();
+    private final String sql;
 
     public WriteOperation(String sql) {
         this.sql = sql;

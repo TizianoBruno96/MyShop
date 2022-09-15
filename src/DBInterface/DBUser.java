@@ -1,7 +1,7 @@
 package DBInterface;
 
 public class DBUser {
-    private static DBUser instance = new DBUser();
+    private static final DBUser instance = new DBUser();
     private String schemaName;
     private String username;
     private String pwd;

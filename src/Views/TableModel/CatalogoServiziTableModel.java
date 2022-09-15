@@ -2,20 +2,19 @@ package Views.TableModel;
 
 import Utilities.FloatExt;
 import Utilities.IntegerExt;
-import Views.Model.RigaCatalogoServizi;
+import Views.Model.CatalogoServiziModel;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogoServiziTableModel extends AbstractTableModel {
-    private List<RigaCatalogoServizi> righe = new ArrayList<>();
+    private final List<CatalogoServiziModel> righe;
 
-    public CatalogoServiziTableModel(List<RigaCatalogoServizi> intestazione) {
+    public CatalogoServiziTableModel(List<CatalogoServiziModel> intestazione) {
         this.righe = intestazione;
     }
 
-    public List<RigaCatalogoServizi> getRighe() {
+    public List<CatalogoServiziModel> getRighe() {
         return righe;
     }
 
@@ -31,7 +30,7 @@ public class CatalogoServiziTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        RigaCatalogoServizi riga = righe.get(rowIndex);
+        CatalogoServiziModel riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return riga.getNomeServizio();
@@ -67,7 +66,7 @@ public class CatalogoServiziTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        RigaCatalogoServizi riga = righe.get(rowIndex);
+        CatalogoServiziModel riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 riga.setNomeServizio(value.toString());

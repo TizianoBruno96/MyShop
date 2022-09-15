@@ -3,8 +3,8 @@ package DBInterface;
 import java.sql.*;
 
 public class DBConnection implements IDBConnection {
-    private static DBUser dbUser = DBUser.getInstance();
-    private static DBConnection instance = new DBConnection();
+    private static final DBUser dbUser = DBUser.getInstance();
+    private static final DBConnection instance = new DBConnection();
     private static Connection conn;
     private static Statement stmt;
     private static ResultSet rs;

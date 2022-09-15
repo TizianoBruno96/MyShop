@@ -1,54 +1,56 @@
 package Business;
 
-import DAO.CategoriaDAO;
-import DAO.Interfaces.ICategoriaDAO;
-import DAO.Interfaces.IPosizioneDAO;
-import DAO.Interfaces.IProdottoDAO;
-import DAO.Interfaces.IProduttoreDAO;
-import DAO.PosizioneDAO;
-import DAO.ProdottoDAO;
-import DAO.ProduttoreDAO;
+import DAO.*;
+import DAO.Interfaces.*;
+import Model.Articoli.Foto;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
 import Model.Categoria;
-import Model.Posizione;
+
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.*;
+import java.sql.Blob;
+import java.sql.SQLException;
 
 public class InserimentoProdottoBusiness {
-    private static InserimentoProdottoBusiness istanza;
-    IProdottoDAO pDAO = ProdottoDAO.getInstance();
+    private static InserimentoProdottoBusiness instance;
+    IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
     IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
+    IFotoDAO fotoDAO = FotoDAO.getInstance();
 
     public static synchronized InserimentoProdottoBusiness getInstance() {
-        if (istanza == null) {
-            istanza = new InserimentoProdottoBusiness();
+        if (instance == null) {
+            instance = new InserimentoProdottoBusiness();
         }
-        return istanza;
+        return instance;
     }
 
+    public void InserisciProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, int disponibilita, int pCorsia, int pScaffale, File foto) {
+        Produttore pro = produttoreDAO.findByNome(nomeProduttore);
+        Categoria c = categoriaDAO.findByNome(categoriaProdotto);
+        Prodotto p = new Prodotto(nomeProdotto, descrizione, costo);
 
-    public InserimentoProdottoBusiness confermaProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, int disponibilita, int pCorsia, int pScaffale) {
-        Prodotto p = new Prodotto();
-        Posizione pos = new Posizione();
-        Produttore pro = new Produttore();
-        Categoria c = new Categoria();
+        //inserisco il prodotto
+        prodottoDAO.add(p, c, pro);
+        //TODO idmagazzino da modificare
+        posizioneDAO.addProdottoInPosizione(p, pCorsia, pScaffale, 1, disponibilita);
+        p = prodottoDAO.findByNome(nomeProdotto);
 
+        //inserisco la foto
+        try (InputStream inputStream = new FileInputStream(foto)) {
+            Blob blob = new SerialBlob(inputStream.readAllBytes());
 
-        p.setNome(nomeProdotto);
-        p.setDescrizione(descrizione);
-        p.setCosto(costo);
-        pro = produttoreDAO.findByNome(nomeProduttore);
-        p.setIdProduttore(pro.getIdProduttore());
-        c = categoriaDAO.findByNome(categoriaProdotto);
-        p.setIdCategoria(c.getIdCategoria());
-        posizioneDAO.addProdottoInPosizione(p,pCorsia,pScaffale,1,disponibilita);
-
-        pDAO.add(p,c,pro);
-
-
-
-
-        return null;
+            //TODO modificare metodo di inserimento della foto
+            Foto foto1 = new Foto(p.getIdProdotto(), blob, "Lavandino");
+            fotoDAO.add(foto1);
+        } catch (SQLException e) {
+            System.out.println("Errore nel database");
+        } catch (FileNotFoundException e) {
+            System.out.println("Foto non trovata");
+        } catch (IOException e) {
+            System.out.println("Errore di I/O");
+        }
     }
 }

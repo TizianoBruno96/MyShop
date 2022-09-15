@@ -10,6 +10,7 @@ import Model.Utenti.Utente;
 public class RegistrazioneBusiness {
     private static RegistrazioneBusiness istanza;
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+    IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
 
     public static synchronized RegistrazioneBusiness getInstance() {
         if (istanza == null) {
@@ -18,24 +19,12 @@ public class RegistrazioneBusiness {
         return istanza;
     }
 
-    public RegistrazioneBusiness confermaRegistrazione(String Nome, String Cognome, String Username, String Email, String Telefono, int Eta, String Residenza, String Professione, String Password, String nomePuntoVendita) {
-        Utente u = new Utente();
-        u.setNome(Nome);
-        u.setCognome(Cognome);
-        u.setUsername(Username);
-        u.setEmail(Email);
-        u.setTelefono(Telefono);
-        u.setEta(Eta);
-        u.setResidenza(Residenza);
-        u.setProfessione(Professione);
-        u.setPassword(Password);
-        u.setTipo("CL");
-        IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
+    public RegistrazioneBusiness confermaRegistrazione(String nome, String cognome, String username, String email, String telefono, int eta, String residenza, String professione, String password, String nomePuntoVendita) {
+        Utente utente = new Utente(nome, cognome, username, email, telefono, eta, residenza, professione, password);
         PuntoVendita p = puntoVenditaDAO.findByNome(nomePuntoVendita);
 
-        utenteDAO.add(u,p.getIdPuntoVendita());
-
+        //inserisco l'utente
+        utenteDAO.add(utente, p.getIdPuntoVendita());
         return null;
     }
-
 }

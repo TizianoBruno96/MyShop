@@ -3,7 +3,6 @@ package Business;
 public class LoginResult {
     private Result result;
 
-
     private String message;
 
     public Result getResult() {
@@ -22,5 +21,5 @@ public class LoginResult {
         this.message = message;
     }
 
-    public enum Result {LOGIN_OK, WRONG_PASSWORD, USER_DOESNT_EXIST,WRONG_PUNTO_VENDITA,UTENTE_NON_REGISTRATO_AL_PUNTOVENDITA}
+    public enum Result {LOGIN_OK, WRONG_PASSWORD, USER_DOESNT_EXIST, WRONG_PUNTO_VENDITA, UTENTE_NON_REGISTRATO_AL_PUNTOVENDITA}
 }

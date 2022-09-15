@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class InserimentoListaListeners implements ActionListener {
     public static final String INSERISCINELLALISTA_BTN = "Inseiscinellalista_btn";
-    private JTable tabella;
+    private final JTable tabella;
 
     public InserimentoListaListeners(JTable tabella) {
         this.tabella = tabella;

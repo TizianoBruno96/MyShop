@@ -7,19 +7,18 @@ import Business.SessionManager;
 import Model.Utenti.Utente;
 import Views.Decorator.Menu;
 import Views.Decorator.*;
+import Views.Panels.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class FinestraPrincipale extends JFrame {
-
+    private final JPanel pannelloNord = new JPanel();
+    private final JPanel pannelloCentro = new JPanel();
+    private final JPanel pannelloSud = new JPanel();
+    private final JPanel pannelloOvest = new JPanel();
+    private final JPanel utenteLoggato = new JPanel();
     JButton logout = new JButton("Logout");
-    private JPanel pannelloNord = new JPanel();
-    private JPanel pannelloCentro = new JPanel();
-    private JPanel pannelloSud = new JPanel();
-    private JPanel pannelloOvest = new JPanel();
-    private JPanel utenteLoggato = new JPanel();
-
 
     public FinestraPrincipale() {
         super("Finestra MyShop");
@@ -31,11 +30,13 @@ public class FinestraPrincipale extends JFrame {
 
         JLabel etichettaCentro1 = new JLabel("Benvenuto nel sistema di MyShop!");
         Menu guestMenu = new GuestMenu(this);
+
         JTextField username = new JTextField(20);
         JPasswordField password = new JPasswordField(20);
         JTextField nomePuntoVednita = new JTextField(20);
         JButton login = new JButton("Login");
         login.setActionCommand(LoginListeners.LOGIN_BTN);
+
         JButton registrati = new JButton("Registrati");
         registrati.setActionCommand(RegistrazioneListeners.REGISTRATI_BTN);
         RegistrazioneListeners registrazioneListeners = new RegistrazioneListeners(this);
@@ -72,7 +73,7 @@ public class FinestraPrincipale extends JFrame {
 
 
         //parte dei listeners
-        LoginListeners loginListeners = new LoginListeners(username, password,nomePuntoVednita);
+        LoginListeners loginListeners = new LoginListeners(username, password, nomePuntoVednita);
         loginListeners.setFrame(this);
         login.addActionListener(loginListeners);
 
@@ -105,24 +106,28 @@ public class FinestraPrincipale extends JFrame {
 
         Utente u = (Utente) SessionManager.getSession().get(SessionManager.LOGGED_USER);
 
-        if (u.getTipo().equals("CL")) {
-            //decoriamo il menu usando il ClienteMenudecorator
-            Menu guestMenu = new GuestMenu(this);
-            Menu clienteMenu = new ClienteMenuDecorator(guestMenu, this);
-            for (JButton btn : clienteMenu.getPulsanti()) {
-                pannelloOvest.add(btn);
+        switch (u.getTipo()) {
+            case "CL" -> {
+                //decoriamo il menu usando il ClienteMenudecorator
+                Menu guestMenu = new GuestMenu(this);
+                Menu clienteMenu = new ClienteMenuDecorator(guestMenu, this);
+                for (JButton btn : clienteMenu.getPulsanti()) {
+                    pannelloOvest.add(btn);
+                }
             }
-        } else if (u.getTipo().equals("MN")) {
-            Menu guestMenu = new GuestMenu(this);
-            Menu managerMenu = new ManagerMenuDecorator(guestMenu, this);
-            for (JButton btn : managerMenu.getPulsanti()) {
-                pannelloOvest.add(btn);
+            case "MN" -> {
+                Menu guestMenu = new GuestMenu(this);
+                Menu managerMenu = new ManagerMenuDecorator(guestMenu, this);
+                for (JButton btn : managerMenu.getPulsanti()) {
+                    pannelloOvest.add(btn);
+                }
             }
-        } else if (u.getTipo().equals("AM")) {
-            Menu guestMenu = new GuestMenu(this);
-            Menu amministratoreMenu = new AmministratoreMenuDecorator(guestMenu, this);
-            for (JButton btn : amministratoreMenu.getPulsanti()) {
-                pannelloOvest.add(btn);
+            case "AM" -> {
+                Menu guestMenu = new GuestMenu(this);
+                Menu amministratoreMenu = new AmministratoreMenuDecorator(guestMenu, this);
+                for (JButton btn : amministratoreMenu.getPulsanti()) {
+                    pannelloOvest.add(btn);
+                }
             }
         }
 
@@ -132,14 +137,14 @@ public class FinestraPrincipale extends JFrame {
 
     public void mostraCatalogoProdotti() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CatalogoProdottiPanel());
+        pannelloCentro.add(new CatalogoProdotti());
         repaint();
         validate();
     }
 
     public void mostraPannelloRegistrazione() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new RegistrazionePanel());
+        pannelloCentro.add(new Registrazione());
         repaint();
         validate();
     }
@@ -154,42 +159,49 @@ public class FinestraPrincipale extends JFrame {
 
     public void mostraCatalogoServizi() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CatalogoServiziPanel());
+        pannelloCentro.add(new CatalogoServizi());
         repaint();
         validate();
     }
 
     public void mostraPannelloCreazioneManager() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CreaManagerPanel());
+        pannelloCentro.add(new CreaManager());
         repaint();
         validate();
     }
 
     public void mostraPannelloCreazionePuntoVendita() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CreaPuntoVenditaPanel());
+        pannelloCentro.add(new CreaPuntoVendita());
         repaint();
         validate();
     }
 
     public void mostraPannelloInserimentoProdotto() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new InserisciProdottoPanel());
+        pannelloCentro.add(new InserimentoProdotto());
         repaint();
         validate();
     }
 
     public void mostraPannelloInserimentoProduttore() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new InserisciProduttorePanel());
+        pannelloCentro.add(new InserimentoProduttore());
         repaint();
         validate();
     }
 
     public void mostraPannelloInserimentoFornitore() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new InserisciFornitorePanel());
+        pannelloCentro.add(new InserimentoFornitore());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloInserimentoCategoria() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new InserimentoCategoria());
         repaint();
         validate();
     }

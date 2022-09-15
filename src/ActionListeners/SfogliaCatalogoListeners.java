@@ -27,5 +27,4 @@ public class SfogliaCatalogoListeners implements ActionListener {
             frame.mostraCatalogoServizi();
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package ActionListeners;
 
-import Views.Model.RigaCatalogoProdotti;
+import Views.Model.CatalogoProdottiModel;
 import Views.TableModel.CatalogoProdottiTableModel;
 
 import javax.swing.*;
@@ -22,13 +22,10 @@ public class CarrelloListeners implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int[] righeSelezionate = tabella.getSelectedRows();
-        for (int i = 0; i < righeSelezionate.length; i++) {
+        for (int j : righeSelezionate) {
             CatalogoProdottiTableModel tModel = (CatalogoProdottiTableModel) tabella.getModel();
-            RigaCatalogoProdotti rigaSelezionata = tModel.getRighe().get(righeSelezionate[i]);
+            CatalogoProdottiModel rigaSelezionata = tModel.getRighe().get(j);
             System.out.println("Nome Prodotto :" + rigaSelezionata.getNomeProdotto());
-
         }
-
-
     }
 }
