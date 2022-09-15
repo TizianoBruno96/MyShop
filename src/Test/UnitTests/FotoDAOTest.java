@@ -34,7 +34,7 @@ public class FotoDAOTest {
         prodottoDAO.add(new Prodotto("Sedia Da Ufficio Rossa", "Sedia da ufficio", 10.5f), sedie, SedieINC);
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
 
-        File foto = new File("C:\\Users\\Msi\\OneDrive\\Immagini\\Catture di schermata\\Screenshot (129).png");
+        File foto = new File("./Resources/Foto/lavandino.jpg");
         try {
             InputStream inputStream = new FileInputStream(foto);
             java.sql.Blob blob = new javax.sql.rowset.serial.SerialBlob(inputStream.readAllBytes());

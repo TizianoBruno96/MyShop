@@ -14,6 +14,7 @@ public interface IUtenteDAO {
     boolean isManager(String username);
     boolean checkUtente(String username, String password);
     boolean checkUsername(String username);
+    boolean checkEmail(String email);
     int add(Utente utente, int idPuntoVendita);
     int add(Utente utente);
     int removeByUsername(String username) throws SQLException;

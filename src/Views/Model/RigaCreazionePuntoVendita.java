@@ -4,7 +4,8 @@ public class RigaCreazionePuntoVendita {
     private String Citta;
     private String Nome;
     private String Indirizzo;
-    private int idUtenteManager;
+    private String UsernameManager;
+
 
     public String getCitta() {
         return Citta;
@@ -30,11 +31,11 @@ public class RigaCreazionePuntoVendita {
         Indirizzo = indirizzo;
     }
 
-    public int getIdUtenteManager() {
-        return idUtenteManager;
+    public String getUsernameManager() {
+        return UsernameManager;
     }
 
-    public void setIdUtenteManager(int idUtenteManager) {
-        this.idUtenteManager = idUtenteManager;
+    public void setUsernameManager(String usernameManager) {
+        UsernameManager = usernameManager;
     }
 }

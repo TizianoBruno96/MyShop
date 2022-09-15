@@ -23,13 +23,13 @@ public class FinestraPrincipale extends JFrame {
 
     public FinestraPrincipale() {
         super("Finestra MyShop");
-        this.setSize(1000,500);
+        this.setSize(1280,720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //istanzio gli elementi da inserire nei pannelli
 
 
-        JLabel etichettaCentro1 = new JLabel("Benvenuto nel sistema di MyShop!\nIn questa schermata puoi decidere se effettuare il login oppure navigare nei cataloghi.");
+        JLabel etichettaCentro1 = new JLabel("Benvenuto nel sistema di MyShop!");
         Menu guestMenu = new GuestMenu(this);
         JTextField username = new JTextField(20);
         JPasswordField password = new JPasswordField(20);
@@ -168,6 +168,20 @@ public class FinestraPrincipale extends JFrame {
     public void mostraPannelloCreazionePuntoVendita() {
         pannelloCentro.removeAll();
         pannelloCentro.add(new CreaPuntoVenditaPanel());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloInserimentoProdotto(){
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new InserisciProdottoPanel());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloInserimentoProduttore() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new InserisciProduttorePanel());
         repaint();
         validate();
     }

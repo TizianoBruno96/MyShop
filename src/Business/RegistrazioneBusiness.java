@@ -29,15 +29,12 @@ public class RegistrazioneBusiness {
         u.setProfessione(Professione);
         u.setPassword(Password);
         u.setTipo("CL");
-        //associo il punto vendita al cliente
+        /*//associo il punto vendita al cliente
         IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
-        //PuntoVendita p = puntoVenditaDAO.findByNome(nomePuntoVendita);
+        PuntoVendita p = puntoVenditaDAO.findByNome(nomePuntoVendita);
 
-        /*f (p == null){
+        utenteDAO.add(u,p.getIdPuntoVendita());*/
 
-        }
-        utenteDAO.add(u,p.getIdPuntoVendita());
-*/
         return null;
     }
 

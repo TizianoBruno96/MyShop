@@ -2,8 +2,7 @@ package Views.Model;
 
 import javax.swing.*;
 
-public class RigaCatalogoProdotti {
-    private int IdProdotto;
+public class RigaInserisciProdotto {
     private String nomeProdotto;
     private String descrizione;
     private float costo;
@@ -12,17 +11,7 @@ public class RigaCatalogoProdotti {
     private int Disponibilita;
     private int pCorsia;
     private int pScaffale;
-    private String commento;
-    private int voto;
     private ImageIcon foto;
-
-    public int getIdProdotto() {
-        return IdProdotto;
-    }
-
-    public void setIdProdotto(int idProdotto) {
-        IdProdotto = idProdotto;
-    }
 
     public String getNomeProdotto() {
         return nomeProdotto;
@@ -70,22 +59,6 @@ public class RigaCatalogoProdotti {
 
     public void setDisponibilita(int disponibilita) {
         Disponibilita = disponibilita;
-    }
-
-    public String getCommento() {
-        return commento;
-    }
-
-    public void setCommento(String commento) {
-        this.commento = commento;
-    }
-
-    public int getVoto() {
-        return voto;
-    }
-
-    public void setVoto(int voto) {
-        this.voto = voto;
     }
 
     public int getpCorsia() {

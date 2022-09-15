@@ -38,7 +38,7 @@ public class CreaPuntoVenditaTableModel extends AbstractTableModel {
             case 2:
                 return riga.getIndirizzo();
             case 3:
-                return riga.getIdUtenteManager();
+                return riga.getUsernameManager();
         }
         return null;
     }
@@ -49,7 +49,7 @@ public class CreaPuntoVenditaTableModel extends AbstractTableModel {
             case 0 : return "Città";
             case 1 : return "Nome";
             case 2 : return "Indirizzo";
-            case 3 : return "ID Manager";
+            case 3 : return "Username Manager";
         }
         return null;
     }
@@ -65,8 +65,7 @@ public class CreaPuntoVenditaTableModel extends AbstractTableModel {
             case 2:
                 riga.setIndirizzo(value.toString());
             case 3 :
-                if (IntegerExt.isParsable(value.toString()))
-                    riga.setIdUtenteManager(Integer.parseInt(value.toString()));
+                riga.setUsernameManager(value.toString());
         }
     }
 
