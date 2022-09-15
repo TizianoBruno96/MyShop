@@ -84,4 +84,16 @@ public class ProduttoreDAOTest {
     public void checkNomeTestWrong() {
         assert produttoreDAO.checkNome("SedieINC4");
     }
+
+    @Test
+    public void checkSitoTest() {
+        Produttore produttore = produttoreDAO.findByNome("SedieINC");
+        assert produttoreDAO.checkSito(produttore.getSito());
+    }
+
+    @Test
+    public void checkSitoTestWrong() {
+        Produttore produttore = produttoreDAO.findByNome("SedieINC");
+        assert produttoreDAO.checkSito(produttore.getSito() + "4");
+    }
 }

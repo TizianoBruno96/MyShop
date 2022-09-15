@@ -1,9 +1,9 @@
 package DAO;
 
 import DAO.Interfaces.*;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.ListaAcquisto;
-import DAO.ModelFactory.ListaAcquistoFactory;
 import Model.OrdineProdotto;
 import Model.OrdineServizio;
 
@@ -27,12 +27,12 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public ListaAcquisto findByIDUtente(int IdUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM ListaAcquisto WHERE IdUtente = " + IdUtente;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                listaAcquisto = new ListaAcquistoFactory().create(rs);
+                listaAcquisto = (ListaAcquisto) ModelFactory.getFactory(ModelFactory.ModelType.LISTA_ACQUISTO).create(rs);
                 return listaAcquisto;
             }
         } catch (SQLException e) {
@@ -49,12 +49,12 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public ListaAcquisto findByID(int IdListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM ListaAcquisto WHERE IdListaAcquisto = " + IdListaAcquisto;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                listaAcquisto = new ListaAcquistoFactory().create(rs);
+                listaAcquisto = (ListaAcquisto) ModelFactory.getFactory(ModelFactory.ModelType.LISTA_ACQUISTO).create(rs);
                 return listaAcquisto;
             }
         } catch (SQLException e) {
@@ -72,7 +72,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int add(ListaAcquisto listaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO ListaAcquisto (IdUtente, CostoTotale, isPagata) VALUES (" + listaAcquisto.getIdUtente() + ", " + listaAcquisto.getCostoTot() + ", " + listaAcquisto.isPagata() + ")";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -80,7 +80,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int removeByIDUtente(int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM ListaAcquisto WHERE IdUtente = " + idUtente;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -88,7 +88,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int removeByID(int idListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM ListaAcquisto WHERE IdListaAcquisto = " + idListaAcquisto;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -96,7 +96,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int update(ListaAcquisto listaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE ListaAcquisto SET CostoTotale = " + listaAcquisto.getCostoTot() + ", isPagata = " + listaAcquisto.isPagata() + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -104,7 +104,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
     public int updateCostoTot(ListaAcquisto listaAcquisto, int costoTot) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE ListaAcquisto SET CostoTotale = " + costoTot + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -124,9 +124,8 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
             tot += servizioDAO.findByID(o.getIdServizio()).getCosto();
         }
 
-
         String sql = "UPDATE ListaAcquisto SET CostoTotale = " + tot + " WHERE IdListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }

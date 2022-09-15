@@ -1,10 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IClienteDAO;
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.RemoveOperation;
-import DBInterface.Command.WriteOperation;
+import DBInterface.Command.*;
 
 public class ClienteDAO implements IClienteDAO {
     private static final ClienteDAO instance = new ClienteDAO();
@@ -17,7 +14,7 @@ public class ClienteDAO implements IClienteDAO {
     public int add(int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO Cliente (idUtente) VALUES (" + idUtente + ")";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -25,7 +22,7 @@ public class ClienteDAO implements IClienteDAO {
     public int remove(int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Cliente WHERE idUtente = " + idUtente;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }

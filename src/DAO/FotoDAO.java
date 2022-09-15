@@ -1,11 +1,8 @@
 package DAO;
 
 import DAO.Interfaces.IFotoDAO;
-import DAO.ModelFactory.FotoFactory;
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.ReadOperation;
-import DBInterface.Command.WriteOperation;
+import DAO.ModelFactory.ModelFactory;
+import DBInterface.Command.*;
 import Model.Articoli.Foto;
 
 import java.sql.ResultSet;
@@ -31,12 +28,12 @@ public class FotoDAO implements IFotoDAO {
     public Foto findByID(int idFoto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM foto WHERE idFoto = " + idFoto;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                foto = new FotoFactory().create(rs);
+                foto = (Foto) ModelFactory.getFactory(ModelFactory.ModelType.FOTO).create(rs);
                 return foto;
             }
         } catch (SQLException e) {
@@ -54,12 +51,12 @@ public class FotoDAO implements IFotoDAO {
     public Foto findByNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM foto WHERE nome = '" + nome + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                foto = new FotoFactory().create(rs);
+                foto = (Foto) ModelFactory.getFactory(ModelFactory.ModelType.FOTO).create(rs);
                 return foto;
             }
         } catch (SQLException e) {
@@ -77,7 +74,7 @@ public class FotoDAO implements IFotoDAO {
     public boolean checkNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM foto WHERE nome = '" + nome + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -99,12 +96,12 @@ public class FotoDAO implements IFotoDAO {
     public ArrayList<Foto> findByProdotto(int idProdotto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Foto WHERE idProdotto = " + idProdotto;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Foto> fotoList = new ArrayList<Foto>();
         try {
             while (rs.next()) {
-                foto = new FotoFactory().create(rs);
+                foto = (Foto) ModelFactory.getFactory(ModelFactory.ModelType.FOTO).create(rs);
                 fotoList.add(foto);
             }
             return fotoList;
@@ -123,7 +120,7 @@ public class FotoDAO implements IFotoDAO {
     public int add(Foto foto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO Foto (Nome, Valore, idProdotto) VALUES ('" + foto.getNome() + "', '" + foto.getValore() + "', '" + foto.getIdProdotto() + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -131,7 +128,7 @@ public class FotoDAO implements IFotoDAO {
     public int removeByID(int idFoto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Foto WHERE idFoto = " + idFoto;
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -139,7 +136,7 @@ public class FotoDAO implements IFotoDAO {
     public int removeByNome(String Nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Foto WHERE Nome = '" + Nome + "'";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -147,7 +144,7 @@ public class FotoDAO implements IFotoDAO {
     public int update(Foto foto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Foto SET Nome = '" + foto.getNome() + "' WHERE idFoto = " + foto.getIdFoto();
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }

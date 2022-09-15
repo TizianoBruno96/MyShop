@@ -1,7 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IUtenteDAO;
-import DAO.ModelFactory.UtenteFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.ListaAcquisto;
 import Model.Utenti.Utente;
@@ -29,12 +29,12 @@ public class UtenteDAO implements IUtenteDAO {
     public Utente findByID(int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE IdUtente = " + idUtente;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                utente = new UtenteFactory().create(rs);
+                utente = (Utente) ModelFactory.getFactory(ModelFactory.ModelType.UTENTE).create(rs);
                 return utente;
             }
         } catch (SQLException e) {
@@ -52,12 +52,12 @@ public class UtenteDAO implements IUtenteDAO {
     public Utente findByUsername(String username) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Username = '" + username + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                utente = new UtenteFactory().create(rs);
+                utente = (Utente) ModelFactory.getFactory(ModelFactory.ModelType.UTENTE).create(rs);
                 return utente;
             }
         } catch (SQLException e) {
@@ -76,12 +76,12 @@ public class UtenteDAO implements IUtenteDAO {
     public ArrayList<Utente> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             while (rs.next()) {
-                utente = new UtenteFactory().create(rs);
+                utente = (Utente) ModelFactory.getFactory(ModelFactory.ModelType.UTENTE).create(rs);
                 utenti.add(utente);
             }
             return utenti;
@@ -100,7 +100,7 @@ public class UtenteDAO implements IUtenteDAO {
     public boolean isCliente(String username) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Username = '" + username + "' AND Tipo = 'CL'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -122,7 +122,7 @@ public class UtenteDAO implements IUtenteDAO {
     public boolean isAmministratore(String username) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Username = '" + username + "' AND Tipo = 'AM'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -144,7 +144,7 @@ public class UtenteDAO implements IUtenteDAO {
     public boolean isManager(String username) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Username = '" + username + "' AND Tipo = 'MN'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -166,7 +166,7 @@ public class UtenteDAO implements IUtenteDAO {
     public boolean checkUtente(String username, String password) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Username = '" + username + "' AND Password = '" + password + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -188,7 +188,7 @@ public class UtenteDAO implements IUtenteDAO {
     public boolean checkUsername(String username) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Username = '" + username + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -210,7 +210,7 @@ public class UtenteDAO implements IUtenteDAO {
     public boolean checkEmail(String email) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Utente WHERE Email = '" + email + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -232,7 +232,7 @@ public class UtenteDAO implements IUtenteDAO {
     public int add(Utente utente, int idPuntoVendita) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO utente (Nome, Cognome, Username, Email, Telefono, Eta, Residenza, Professione, Password, Tipo) VALUES ('" + utente.getNome() + "', '" + utente.getCognome() + "', '" + utente.getUsername() + "', '" + utente.getEmail() + "', '" + utente.getTelefono() + "', " + utente.getEta() + ", '" + utente.getResidenza() + "', '" + utente.getProfessione() + "', '" + utente.getPassword() + "', '" + utente.getTipo() + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         int rowCount = executor.executeOperation(operation).getAffectedRows();
 
         //inserisco la tabella di tipo dell'utente
@@ -261,7 +261,7 @@ public class UtenteDAO implements IUtenteDAO {
     public int add(Utente utente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO utente (Nome, Cognome, Username, Email, Telefono, Eta, Residenza, Professione, Password, Tipo) VALUES ('" + utente.getNome() + "', '" + utente.getCognome() + "', '" + utente.getUsername() + "', '" + utente.getEmail() + "', '" + utente.getTelefono() + "', " + utente.getEta() + ", '" + utente.getResidenza() + "', '" + utente.getProfessione() + "', '" + utente.getPassword() + "', '" + utente.getTipo() + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         int rowCount = executor.executeOperation(operation).getAffectedRows();
 
         Utente utente1 = this.findByUsername(utente.getUsername());
@@ -307,7 +307,7 @@ public class UtenteDAO implements IUtenteDAO {
 
         //rimuovo l'utente
         String sql = "DELETE FROM utente WHERE idUtente = " + utente.getIdUtente();
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         rowCount += executor.executeOperation(operation).getAffectedRows();
         return rowCount;
     }
@@ -316,7 +316,7 @@ public class UtenteDAO implements IUtenteDAO {
     public int update(Utente utente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Utente SET Nome = '" + utente.getNome() + "', Cognome = '" + utente.getCognome() + "', Username = '" + utente.getUsername() + "', Email = '" + utente.getEmail() + "', Telefono = '" + utente.getTelefono() + "', Eta = " + utente.getEta() + ", Residenza = '" + utente.getResidenza() + "', Professione = '" + utente.getProfessione() + "', Password = '" + utente.getPassword() + "', Tipo = '" + utente.getTipo() + "' WHERE idUtente = '" + utente.getIdUtente() + "';";
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -328,7 +328,7 @@ public class UtenteDAO implements IUtenteDAO {
 
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Utente SET Tipo = '" + tipo + "' WHERE Username = '" + username + "';";
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         int rowCount = executor.executeOperation(operation).getAffectedRows();
 
         //Aggiorno la tabella di tipo dell'utente
