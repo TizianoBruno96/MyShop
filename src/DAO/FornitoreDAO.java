@@ -32,7 +32,7 @@ public class FornitoreDAO implements IFornitoreDAO {
 
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 fornitore = new FornitoreFactory().create(rs);
                 return fornitore;
             }
@@ -56,7 +56,7 @@ public class FornitoreDAO implements IFornitoreDAO {
 
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 fornitore = new FornitoreFactory().create(rs);
                 return fornitore;
             }
@@ -72,6 +72,29 @@ public class FornitoreDAO implements IFornitoreDAO {
     }
 
     @Override
+    public boolean checkNome(String nome) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+
+        try {
+            rs.next();
+            if (rs.getRow() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
     public ArrayList<Fornitore> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore";
@@ -79,7 +102,7 @@ public class FornitoreDAO implements IFornitoreDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 fornitore = new FornitoreFactory().create(rs);
                 fornitori.add(fornitore);
             }

@@ -84,6 +84,12 @@ public class ListaAcquistoDAOTest {
     }
 
     @Test
+    public void findByIDUtenteTestWrong() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        assert listaAcquisto.getIdUtente() != utenteDAO.findByUsername("Frama19").getIdUtente();
+    }
+
+    @Test
     public void findByIDTest() {
         ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
         ListaAcquisto listaAcquisto1 = listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto());
@@ -91,12 +97,28 @@ public class ListaAcquistoDAOTest {
     }
 
     @Test
-    public void removeByIDUtenteTest() throws SQLException {
+    public void findByIDTestWrong() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        ListaAcquisto listaAcquisto1 = listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto());
+        assert listaAcquisto1.getIdListaAcquisto() != listaAcquisto.getIdListaAcquisto();
+    }
+
+    @Test
+    public void removeByIDUtenteTest() {
         utenteDAO.add(new Utente("Mauro", "Maurizi", "Maurotizi", "Mauro4492@gmail.com", "3394326546", 23, "Via del bosco 19", "imprenditore", "Giorgio"), 1);
         Utente utente = utenteDAO.findByUsername("Maurotizi");
         ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utente.getIdUtente());
         listaAcquistoDAO.removeByID(listaAcquisto.getIdListaAcquisto());
         assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()) == null;
+    }
+
+    @Test
+    public void removeByIDUtenteTestWrong() {
+        utenteDAO.add(new Utente("Mauro", "Maurizi", "Maurotizi", "Mauro4492@gmail.com", "3394326546", 23, "Via del bosco 19", "imprenditore", "Giorgio"), 1);
+        Utente utente = utenteDAO.findByUsername("Maurotizi");
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utente.getIdUtente());
+        listaAcquistoDAO.removeByID(listaAcquisto.getIdListaAcquisto());
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()) != null;
     }
 
     @Test
@@ -108,18 +130,42 @@ public class ListaAcquistoDAOTest {
     }
 
     @Test
+    public void removeByIDTestWrong() throws SQLException {
+        utenteDAO.add(new Utente("Mauro", "Maurizi", "Maurotizi", "Mauro4492@gmail.com", "3394326546", 23, "Via del bosco 19", "imprenditore", "Giorgio"), 1);
+        Utente utente = utenteDAO.findByUsername("Maurotizi");
+        utenteDAO.removeByUsername("Maurotizi");
+        assert listaAcquistoDAO.findByIDUtente(utente.getIdUtente()) != null;
+    }
+
+    @Test
     public void updateTest() {
         ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
         listaAcquisto.setCostoTot(100);
         listaAcquistoDAO.update(listaAcquisto);
-        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() == 100;
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() >= 100;
+    }
+
+    @Test
+    public void updateTestWrong() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        listaAcquisto.setCostoTot(100);
+        listaAcquistoDAO.update(listaAcquisto);
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() < 100;
     }
 
     @Test
     public void updateCostoTotTest() {
         ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
         listaAcquistoDAO.updateCostoTot(listaAcquisto);
-        System.out.println(listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot());
+        //System.out.println(listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot());
         assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() == 141.4f;
+    }
+
+    @Test
+    public void updateCostoTotTestWrong() {
+        ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        listaAcquistoDAO.updateCostoTot(listaAcquisto);
+        //System.out.println(listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot());
+        assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() != 141.4f;
     }
 }

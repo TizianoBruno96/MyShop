@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class UtenteDAOTest {
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+
     @Before
     public void setUp() throws SQLException {
         utenteDAO.add(new Utente("Francesca", "Maurizi", "Frama19", "francesca1922@gmail.com", "3394287546", 19, "Via del bosco 19", "estetista", "Gomorra"), 1);
@@ -32,6 +33,7 @@ public class UtenteDAOTest {
         Utente utente = utenteDAO.findByUsername("Frama19");
         assert utente.getUsername().equals("Frama19");
     }
+
     @Test
     public void findByUsernameTestWrong() {
         Utente utente = utenteDAO.findByUsername("Frama19");
@@ -43,6 +45,7 @@ public class UtenteDAOTest {
         utenteDAO.add(new Utente("Francesco", "Marroni", "Gigiux12", "Francesco.Marroni@Studenti.unisalento.it", "0832759618", 20, "Via del bosco 20", "muratore", "Giorgio", "MN"));
         assert utenteDAO.findByUsername("Gigiux12") != null;
     }
+
     @Test
     public void addTestWrong() {
         utenteDAO.add(new Utente("Francesco", "Marroni", "Gigiux12", "Francesco.Marroni@Studenti.unisalento.it", "0832759618", 20, "Via del bosco 20", "muratore", "Giorgio", "MN"));
@@ -54,6 +57,7 @@ public class UtenteDAOTest {
         ArrayList<Utente> utenti = utenteDAO.findAll();
         assert utenti.size() >= 5;
     }
+
     @Test
     public void findAllTestWrong() {
         ArrayList<Utente> utenti = utenteDAO.findAll();
@@ -67,6 +71,7 @@ public class UtenteDAOTest {
         utenteDAO.update(utente);
         assert utente.getPassword().equals("Giuseppe");
     }
+
     @Test
     public void updateTestWrong() {
         Utente utente = utenteDAO.findByUsername("Frama19");
@@ -80,6 +85,7 @@ public class UtenteDAOTest {
         utenteDAO.removeByUsername("Frama19");
         assert utenteDAO.findByUsername("Frama19") == null;
     }
+
     @Test
     public void removeByUsernameTestWrong() throws SQLException {
         utenteDAO.removeByUsername("Frama19");
@@ -95,6 +101,7 @@ public class UtenteDAOTest {
         utenteDAO.updateTipo("Frama19", "AM");
         assert utenteDAO.findByUsername("Frama19").getTipo().equals("AM");
     }
+
     @Test
     public void updateTipoTestWrong() throws SQLException {
         utenteDAO.updateTipo("Frama19", "MN");
@@ -109,6 +116,7 @@ public class UtenteDAOTest {
     public void checkUsernameTest() {
         assert utenteDAO.checkUsername("Frama19");
     }
+
     @Test
     public void checkUsernameTestWrong() {
         assert utenteDAO.checkUsername("Frama19120");
@@ -118,6 +126,7 @@ public class UtenteDAOTest {
     public void checkUtenteTest() {
         assert utenteDAO.checkUtente("Frama19", "Gomorra");
     }
+
     @Test
     public void checkUtenteTestWrong() {
         assert !utenteDAO.checkUtente("Frama19", "Gomorra");
@@ -127,6 +136,7 @@ public class UtenteDAOTest {
     public void isManagerTest() {
         assert !utenteDAO.isManager("Frama19");
     }
+
     @Test
     public void isManagerTestWrong() {
         assert utenteDAO.isManager("Frama19");
@@ -136,6 +146,7 @@ public class UtenteDAOTest {
     public void isAmministratoreTest() {
         assert !utenteDAO.isAmministratore("Frama19");
     }
+
     @Test
     public void isAmministratoreTestWrong() {
         assert utenteDAO.isAmministratore("Frama19");
@@ -145,6 +156,7 @@ public class UtenteDAOTest {
     public void isClienteTest() {
         assert utenteDAO.isCliente("Frama19");
     }
+
     @Test
     public void isClienteTestWrong() {
         assert !utenteDAO.isCliente("Frama19");
@@ -154,6 +166,7 @@ public class UtenteDAOTest {
     public void checkEmailTest() {
         assert utenteDAO.checkEmail("francesca1922@gmail.com");
     }
+
     @Test
     public void checkEmailTestWrong() {
         assert !utenteDAO.checkEmail("francesca1922@gmail.com");

@@ -78,21 +78,51 @@ public class ProdottoDAOTest {
     }
 
     @Test
+    public void findbyNomeTestWrong() {
+        Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        assert prodotto.getNome().equals("Sedia Da Ufficio Rossa3");
+        Prodotto prodotto2 = prodottoDAO.findByNome("Tavolo Da Ufficio Magenta");
+        assert prodotto2.getNome().equals("Tavolo Da Ufficio Magenta1");
+        Prodotto prodotto3 = prodottoDAO.findByNome("Tavolo Da Ufficio Blu");
+        assert prodotto3.getNome().equals("Tavolo Da Ufficio Blu4");
+        Prodotto prodotto4 = prodottoDAO.findByNome("Sedia Da Ufficio Bianca");
+        assert prodotto4.getNome().equals("Sedia Da Ufficio Bianca5");
+    }
+
+    @Test
     public void findAllTest() {
-        assert prodottoDAO.findAll().size() == 4;
+        assert prodottoDAO.findAll().size() >= 4;
+    }
+
+    @Test
+    public void findAllTestWrong() {
+        assert prodottoDAO.findAll().size() < 4;
     }
 
     @Test
     public void removeTest() {
         Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
         prodottoDAO.remove(prodotto);
-        assert prodottoDAO.findAll().size() == 3;
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa") == null;
+    }
+
+    @Test
+    public void removeTestWrong() {
+        Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        prodottoDAO.remove(prodotto);
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null;
     }
 
     @Test
     public void removeByNomeTest() {
         prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
-        assert prodottoDAO.findAll().size() == 3;
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa") == null;
+    }
+
+    @Test
+    public void removeByNomeTestWrong() {
+        prodottoDAO.removeByNome("Sedia Da Ufficio Rossa");
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa") != null;
     }
 
     @Test
@@ -104,8 +134,32 @@ public class ProdottoDAOTest {
     }
 
     @Test
+    public void updateTestWrong() {
+        Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        prodotto.setNome("Sedia Da Ufficio Rossa Modificata");
+        prodottoDAO.update(prodotto);
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa Modificata").getNome().equals("Sedia Da Ufficio Rossa Modificata4");
+    }
+
+    @Test
     public void findByCategoriaTest() {
         Categoria sedie = categoriaDAO.findByNome("Sedie");
-        assert prodottoDAO.findByCategoria(sedie.getIdCategoria()).size() == 2;
+        assert prodottoDAO.findByCategoria(sedie.getIdCategoria()).size() >= 2;
+    }
+
+    @Test
+    public void findByCategoriaTestWrong() {
+        Categoria sedie = categoriaDAO.findByNome("Sedie");
+        assert prodottoDAO.findByCategoria(sedie.getIdCategoria()).size() < 2;
+    }
+
+    @Test
+    public void checkNomeTest() {
+        assert prodottoDAO.checkNome("Sedia Da Ufficio Rossa");
+    }
+
+    @Test
+    public void checkNomeTestWrong() {
+        assert !prodottoDAO.checkNome("Sedia Da Ufficio Rossa");
     }
 }

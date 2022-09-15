@@ -33,7 +33,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 ordineServizio = new OrdineServizioFactory().create(rs);
                 ordini.add(ordineServizio);
             }
@@ -57,7 +57,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 ordineServizio = new OrdineServizioFactory().create(rs);
                 ordini.add(ordineServizio);
             }
@@ -81,7 +81,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 ordineServizio = new OrdineServizioFactory().create(rs);
                 ordini.add(ordineServizio);
             }
@@ -104,7 +104,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
         IDBOperation operation = new ReadOperation(sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
-            if(rs.next()) {
+            if (rs.next()) {
                 ordineServizio = new OrdineServizioFactory().create(rs);
                 return ordineServizio;
             }

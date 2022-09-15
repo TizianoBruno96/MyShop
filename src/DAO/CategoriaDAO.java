@@ -31,7 +31,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 categoria = new CategoriaFactory().create(rs);
                 return categoria;
             }
@@ -54,7 +54,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 categoria = new CategoriaFactory().create(rs);
                 return categoria;
             }
@@ -77,7 +77,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 categoria = new CategoriaFactory().create(rs);
                 categorie.add(categoria);
             }
@@ -101,7 +101,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 categoria = new CategoriaFactory().create(rs);
                 categorie.add(categoria);
             }
@@ -125,7 +125,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 categoria = new CategoriaFactory().create(rs);
                 categorie.add(categoria);
             }
@@ -149,7 +149,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Categoria> categorie = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 categoria = new CategoriaFactory().create(rs);
                 categorie.add(categoria);
             }
@@ -170,7 +170,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         DBOperationExecutor executor = new DBOperationExecutor();
 
         int rowCount;
-        if(categoria.getIdCategoriaPadre() == null) {
+        if (categoria.getIdCategoriaPadre() == null) {
             String sql = "INSERT INTO Categoria (Nome, idCategoriaPadre) VALUES ('" + categoria.getNome() + "', NULL)";
             IDBOperation operation = new WriteOperation(sql);
             rowCount = executor.executeOperation(operation).getAffectedRows();

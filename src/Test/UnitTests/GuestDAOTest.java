@@ -24,7 +24,7 @@ public class GuestDAOTest {
         if (guestDAO.findByIP("193.165.2.3") != null)
             guestDAO.removeByID(guestDAO.findByIP("193.165.2.3").getIdGuest());
 
-        if(guestDAO.findByIP("195.162.0.1") != null)
+        if (guestDAO.findByIP("195.162.0.1") != null)
             guestDAO.removeByID(guestDAO.findByIP("195.162.0.1").getIdGuest());
 
         if (guestDAO.findByIP("192.169.1.1") != null)
@@ -33,7 +33,12 @@ public class GuestDAOTest {
 
     @Test
     public void testFindAll() {
-        assert guestDAO.findAll().size() == 2;
+        assert guestDAO.findAll().size() >= 2;
+    }
+
+    @Test
+    public void testFindAllWrong() {
+        assert guestDAO.findAll().size() < 2;
     }
 
     @Test
@@ -42,8 +47,18 @@ public class GuestDAOTest {
     }
 
     @Test
+    public void testFindByIPWrong() {
+        assert guestDAO.findByIP("192.168.1.1").getIPGuest().equals("192.168.1.142");
+    }
+
+    @Test
     public void testFindByID() {
         assert guestDAO.findByID(guestDAO.findByIP("192.168.1.1").getIdGuest()).getIPGuest().equals("192.168.1.1");
+    }
+
+    @Test
+    public void testFindByIDWrong() {
+        assert guestDAO.findByID(guestDAO.findByIP("192.168.1.1").getIdGuest()).getIPGuest().equals("192.168.1.145");
     }
 
     @Test
@@ -53,9 +68,21 @@ public class GuestDAOTest {
     }
 
     @Test
+    public void addTestWrong() {
+        guestDAO.add(new Guest("195.162.0.1"));
+        assert guestDAO.findByIP("195.162.0.1") == null;
+    }
+
+    @Test
     public void removeByIPTest() {
         guestDAO.removeByIP("192.168.1.1");
         assert guestDAO.findByIP("192.168.1.1") == null;
+    }
+
+    @Test
+    public void removeByIPTestWrong() {
+        guestDAO.removeByIP("192.168.1.1");
+        assert guestDAO.findByIP("192.168.1.1") != null;
     }
 
     @Test
@@ -65,11 +92,26 @@ public class GuestDAOTest {
     }
 
     @Test
+    public void removeByIDTestWrong() {
+        guestDAO.removeByID(guestDAO.findByIP("192.168.1.1").getIdGuest());
+        assert guestDAO.findByIP("192.168.1.1") != null;
+    }
+
+    @Test
     public void updateTest() {
         Guest guest = guestDAO.findByIP("192.168.1.1");
         guest.setIPGuest("192.169.1.1");
         guestDAO.update(guest);
         assert guestDAO.findByIP("192.169.1.1") != null;
         assert guestDAO.findByIP("192.168.1.1") == null;
+    }
+
+    @Test
+    public void updateTestWrong() {
+        Guest guest = guestDAO.findByIP("192.168.1.1");
+        guest.setIPGuest("192.169.1.1");
+        guestDAO.update(guest);
+        assert guestDAO.findByIP("192.169.1.1555") != null;
+        assert guestDAO.findByIP("192.168.1.4142") == null;
     }
 }

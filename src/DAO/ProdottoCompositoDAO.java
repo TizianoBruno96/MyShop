@@ -32,7 +32,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 prodottoComposito = new ProdottoCompositoFactory().create(rs);
                 return prodottoComposito;
             }
@@ -55,7 +55,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 prodottoComposito = new ProdottoCompositoFactory().create(rs);
                 return prodottoComposito;
             }
@@ -78,7 +78,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
-            while(rs.next()) {
+            while (rs.next()) {
                 prodottiCompositi.add(new ProdottoCompositoFactory().create(rs));
             }
             return prodottiCompositi;
@@ -101,7 +101,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
-            while(rs.next()) {
+            while (rs.next()) {
                 prodottiCompositi.add(new ProdottoCompositoFactory().create(rs));
             }
             return prodottiCompositi;
@@ -124,7 +124,7 @@ public class ProdottoCompositoDAO implements IProdottoCompositoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<ProdottoComposito> prodottiCompositi = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 prodottoComposito = new ProdottoCompositoFactory().create(rs);
                 prodottiCompositi.add(prodottoComposito);
             }

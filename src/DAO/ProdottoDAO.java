@@ -33,7 +33,7 @@ public class ProdottoDAO implements IProdottoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 prodotto = new ProdottoFactory().create(rs);
                 return prodotto;
             }
@@ -79,7 +79,7 @@ public class ProdottoDAO implements IProdottoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 prodotto = new ProdottoFactory().create(rs);
                 return prodotto;
             }
@@ -194,5 +194,26 @@ public class ProdottoDAO implements IProdottoDAO {
         String sql = "DELETE FROM Prodotto WHERE idProdotto = " + prodotto.getIdProdotto() + " AND Nome = '" + prodotto.getNome() + "' AND Descrizione = '" + prodotto.getDescrizione() + "' AND Costo = " + prodotto.getCosto() + " AND IdCategoria = " + prodotto.getIdCategoria() + " AND IdProduttore = " + prodotto.getIdProduttore();
         IDBOperation operation = new RemoveOperation(sql);
         return executor.executeOperation(operation).getAffectedRows();
+    }
+
+    @Override
+    public boolean checkNome(String nome) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Prodotto WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return false;
     }
 }

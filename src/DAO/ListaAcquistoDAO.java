@@ -31,7 +31,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 listaAcquisto = new ListaAcquistoFactory().create(rs);
                 return listaAcquisto;
             }
@@ -53,7 +53,7 @@ public class ListaAcquistoDAO implements IListaAcquistoDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 listaAcquisto = new ListaAcquistoFactory().create(rs);
                 return listaAcquisto;
             }

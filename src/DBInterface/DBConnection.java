@@ -62,7 +62,7 @@ public class DBConnection implements IDBConnection {
 
     @Override
     public void close() {
-        if(rs != null) {
+        if (rs != null) {
             try {
                 rs.close();
             } catch (SQLException e) {

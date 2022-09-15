@@ -33,7 +33,7 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 utente = new UtenteFactory().create(rs);
                 return utente;
             }
@@ -56,7 +56,7 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 utente = new UtenteFactory().create(rs);
                 return utente;
             }
@@ -80,7 +80,7 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 utente = new UtenteFactory().create(rs);
                 utenti.add(utente);
             }
@@ -104,7 +104,7 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -126,7 +126,7 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -148,7 +148,7 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -170,7 +170,7 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -192,7 +192,29 @@ public class UtenteDAO implements IUtenteDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Utente WHERE Email = '" + email + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if (rs.getRow() == 1) {
                 return true;
             }
         } catch (SQLException e) {
@@ -242,12 +264,9 @@ public class UtenteDAO implements IUtenteDAO {
 
         utente = this.findByUsername(utente.getUsername());
         switch (utente.getTipo()) {
-            case "AM" ->
-                    rowCount += amministratoreDAO.add(utente.getIdUtente());
-            case "MN" ->
-                    rowCount += managerDAO.add(utente.getIdUtente());
-            default ->
-                    rowCount += clienteDAO.add(utente.getIdUtente());
+            case "AM" -> rowCount += amministratoreDAO.add(utente.getIdUtente());
+            case "MN" -> rowCount += managerDAO.add(utente.getIdUtente());
+            default -> rowCount += clienteDAO.add(utente.getIdUtente());
 
         }
         //Associo l'utente al punto vendita
@@ -273,10 +292,8 @@ public class UtenteDAO implements IUtenteDAO {
         ManagerDAO managerDAO = ManagerDAO.getInstance();
         AmministratoreDAO amministratoreDAO = AmministratoreDAO.getInstance();
         switch (utente.getTipo()) {
-            case "AM" ->
-                    rowCount += amministratoreDAO.add(utente1.getIdUtente());
-            case "MN" ->
-                    rowCount += managerDAO.add(utente1.getIdUtente());
+            case "AM" -> rowCount += amministratoreDAO.add(utente1.getIdUtente());
+            case "MN" -> rowCount += managerDAO.add(utente1.getIdUtente());
         }
         //creo la lista di acquisto dell'utente
         ListaAcquistoDAO listaAcquistoDAO = ListaAcquistoDAO.getInstance();
@@ -301,12 +318,9 @@ public class UtenteDAO implements IUtenteDAO {
         ManagerDAO managerDAO = ManagerDAO.getInstance();
         AmministratoreDAO amministratoreDAO = AmministratoreDAO.getInstance();
         switch (utente.getTipo()) {
-            case "AM" ->
-                    rowCount += amministratoreDAO.remove(utente.getIdUtente());
-            case "MN" ->
-                    rowCount += managerDAO.remove(utente.getIdUtente());
-            default ->
-                    rowCount += clienteDAO.remove(utente.getIdUtente());
+            case "AM" -> rowCount += amministratoreDAO.remove(utente.getIdUtente());
+            case "MN" -> rowCount += managerDAO.remove(utente.getIdUtente());
+            default -> rowCount += clienteDAO.remove(utente.getIdUtente());
         }
 
         //rimuovo la tabella utenteRegistrato

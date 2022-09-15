@@ -31,7 +31,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 produttore = new ProduttoreFactory().create(rs);
                 return produttore;
             }
@@ -54,7 +54,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
-            if(rs.getRow() == 1) {
+            if (rs.getRow() == 1) {
                 produttore = new ProduttoreFactory().create(rs);
                 return produttore;
             }
@@ -70,6 +70,28 @@ public class ProduttoreDAO implements IProduttoreDAO {
     }
 
     @Override
+    public boolean checkNome(String nome) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Produttore WHERE Nome = '" + nome + "'";
+        IDBOperation operation = new ReadOperation(sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if (rs.getRow() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
     public ArrayList<Produttore> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Produttore";
@@ -77,7 +99,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Produttore> produttori = new ArrayList<>();
         try {
-            while(rs.next()) {
+            while (rs.next()) {
                 produttore = new ProduttoreFactory().create(rs);
                 produttori.add(produttore);
             }

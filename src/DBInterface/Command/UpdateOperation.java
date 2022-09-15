@@ -2,7 +2,7 @@ package DBInterface.Command;
 
 import DBInterface.DBConnection;
 
-public class UpdateOperation implements IDBOperation{
+public class UpdateOperation implements IDBOperation {
     private DBConnection connection = DBConnection.getInstance();
     private String sql;
 
