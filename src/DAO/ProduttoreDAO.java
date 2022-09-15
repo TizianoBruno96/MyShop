@@ -1,9 +1,9 @@
 package DAO;
 
 import DAO.Interfaces.IProduttoreDAO;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Produttore;
-import DAO.ModelFactory.ProduttoreFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,12 +27,12 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public Produttore findByNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Produttore WHERE Nome = '" + nome + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                produttore = new ProduttoreFactory().create(rs);
+                produttore = (Produttore) ModelFactory.getFactory(ModelFactory.ModelType.PRODUTTORE).create(rs);
                 return produttore;
             }
         } catch (SQLException e) {
@@ -50,12 +50,12 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public Produttore findByID(int idProduttore) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Produttore WHERE idProduttore = '" + idProduttore + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                produttore = new ProduttoreFactory().create(rs);
+                produttore = (Produttore) ModelFactory.getFactory(ModelFactory.ModelType.PRODUTTORE).create(rs);
                 return produttore;
             }
         } catch (SQLException e) {
@@ -73,7 +73,29 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public boolean checkNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Produttore WHERE Nome = '" + nome + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
+        rs = executor.executeOperation(operation).getResultSet();
+        try {
+            rs.next();
+            if (rs.getRow() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            //handle any errors
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkSito(String sito) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "SELECT * FROM Produttore WHERE Sito = '" + sito + "'";
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
@@ -95,12 +117,12 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public ArrayList<Produttore> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Produttore";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Produttore> produttori = new ArrayList<>();
         try {
             while (rs.next()) {
-                produttore = new ProduttoreFactory().create(rs);
+                produttore = (Produttore) ModelFactory.getFactory(ModelFactory.ModelType.PRODUTTORE).create(rs);
                 produttori.add(produttore);
             }
             return produttori;
@@ -119,7 +141,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public int add(Produttore produttore) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO Produttore (Nome, Citta, Nazione, Sito) VALUES ('" + produttore.getNome() + "', '" + produttore.getCitta() + "', '" + produttore.getNazione() + "', '" + produttore.getSito() + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -127,7 +149,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public int removeByID(int idProduttore) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Produttore WHERE idProduttore = '" + idProduttore + "'";
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -135,7 +157,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public int update(Produttore produttore) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Produttore SET Nome = '" + produttore.getNome() + "', Citta = '" + produttore.getCitta() + "', Nazione = '" + produttore.getNazione() + "', Sito = '" + produttore.getSito() + "' WHERE idProduttore = " + produttore.getIdProduttore();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -143,7 +165,7 @@ public class ProduttoreDAO implements IProduttoreDAO {
     public int removeByNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Produttore WHERE Nome = '" + nome + "'";
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }
