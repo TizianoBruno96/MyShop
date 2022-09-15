@@ -1,5 +1,9 @@
 package ActionListeners;
 
+import Business.ConfermaInserimentoProduttoriBusiness;
+import DAO.Interfaces.IProduttoreDAO;
+import DAO.ProduttoreDAO;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,24 +20,21 @@ public class ConfermaInserimentoProduttoriListeners implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
         if (CIPL_BTN.equals(azione)){
-            /*for (int i=0;i<10;i++){
-                for (int j =0;j<10;j++){
-                    String NomeProduttore = (String) tabella.getValueAt(i,j);
-                    String Sito = (String) tabella.getValueAt(i,j);
-                    String Citta = (String) tabella.getValueAt(i,j);
-                    String Nazione = (String) tabella.getValueAt(i,j);
-                }
-            }*/
+            IProduttoreDAO pDAO = ProduttoreDAO.getInstance();
 
-            /*int[] righeSelezionate = tabella.getSelectedRows();
-            System.out.println(righeSelezionate[0]);
-            CatalogoTableModel tModel = (CatalogoTableModel) tabella.getModel();
-            for(int i=0;i<righeSelezionate.length;i++) {
-                RigaCatalogo rigaSelezionata = tModel.getRighe().get(righeSelezionate[i]);
-                System.out.println("ID prodotto selezionato: "+rigaSelezionata.getIdProdotto());
-            }
-        }*/
+                    String NomeProduttore = (String) tabella.getValueAt(0,0);
+                    if (pDAO.checkNome(NomeProduttore)){
+                        JOptionPane.showMessageDialog(null,"Il produttore inserito esiste già");
+                    }
+                    String Sito = (String) tabella.getValueAt(0,1);
+                    String Citta = (String) tabella.getValueAt(0,2);
+                    String Nazione = (String) tabella.getValueAt(0,3);
+
+            ConfermaInserimentoProduttoriBusiness c = ConfermaInserimentoProduttoriBusiness.getInstance().InserisciProduttore(NomeProduttore,Sito,Citta,Nazione);
+
+
+                }
+
         }
 
     }
-}

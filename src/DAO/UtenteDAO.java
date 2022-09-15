@@ -228,27 +228,7 @@ public class UtenteDAO implements IUtenteDAO {
         return false;
     }
 
-    @Override
-    public boolean checkEmail(String email) {
-        DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM Utente WHERE Email = '" + email + "'";
-        IDBOperation operation = new ReadOperation(sql);
-        rs = executor.executeOperation(operation).getResultSet();
-        try {
-            rs.next();
-            if(rs.getRow() == 1) {
-                return true;
-            }
-        } catch (SQLException e) {
-            //handle any errors
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } catch (NullPointerException e) {
-            System.out.println("NullPointerException: " + e.getMessage());
-        }
-        return false;
-    }
+
 
     @Override
     public int add(Utente utente, int idPuntoVendita) {

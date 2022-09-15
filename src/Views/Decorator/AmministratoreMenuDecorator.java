@@ -20,8 +20,8 @@ public class AmministratoreMenuDecorator extends CustomMenuDecorator{
     @Override
     public List<JButton> getPulsanti() {
         pulsanti.addAll(this.menu.getPulsanti());
-        JButton inserisciProdotto= new JButton("Inserisci prodotti");
-        JButton inserisciProduttore = new JButton("Inserisci Produttori");
+        JButton inserisciProdotto= new JButton("Inserisci prodotto");
+        JButton inserisciProduttore = new JButton("Inserisci Produttore");
         JButton crearePuntoVendita = new JButton("Crea punto vendita");
         JButton creaManager = new JButton("Crea Manager");
 
