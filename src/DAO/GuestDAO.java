@@ -1,7 +1,6 @@
 package DAO;
 
 import DAO.Interfaces.IGuestDAO;
-import DAO.ModelFactory.GuestFactory;
 import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Guest;
@@ -28,12 +27,12 @@ public class GuestDAO implements IGuestDAO {
     public ArrayList<Guest> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Guest";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Guest> guests = new ArrayList<>();
         try {
             while (rs.next()) {
-                guest = (Guest) ModelFactory.getFactory("GUEST").create(rs);
+                guest = (Guest) ModelFactory.getFactory(ModelFactory.ModelType.GUEST).create(rs);
                 guests.add(guest);
             }
             return guests;
@@ -52,11 +51,11 @@ public class GuestDAO implements IGuestDAO {
     public Guest findByID(int id) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Guest WHERE idGuest = " + id;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             if (rs.next()) {
-                guest = (Guest) ModelFactory.getFactory("GUEST").create(rs);
+                guest = (Guest) ModelFactory.getFactory(ModelFactory.ModelType.GUEST).create(rs);
                 return guest;
             }
         } catch (SQLException e) {
@@ -73,11 +72,11 @@ public class GuestDAO implements IGuestDAO {
     public Guest findByIP(String IP) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Guest WHERE IP = '" + IP + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             if (rs.next()) {
-                guest = (Guest) ModelFactory.getFactory("GUEST").create(rs);
+                guest = (Guest) ModelFactory.getFactory(ModelFactory.ModelType.GUEST).create(rs);
                 return guest;
             }
         } catch (SQLException e) {
@@ -95,7 +94,7 @@ public class GuestDAO implements IGuestDAO {
     public int add(Guest guest) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO Guest (IP) VALUES ('" + guest.getIPGuest() + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -103,7 +102,7 @@ public class GuestDAO implements IGuestDAO {
     public int removeByID(int id) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Guest WHERE idGuest = " + id;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -111,7 +110,7 @@ public class GuestDAO implements IGuestDAO {
     public int removeByIP(String IP) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Guest WHERE IP = '" + IP + "'";
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -119,7 +118,7 @@ public class GuestDAO implements IGuestDAO {
     public int update(Guest guest) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Guest SET IP = '" + guest.getIPGuest() + "' WHERE idGuest = " + guest.getIdGuest();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }

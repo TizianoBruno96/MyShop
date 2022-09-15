@@ -6,7 +6,6 @@ import DBInterface.Command.*;
 import Model.Articoli.Prodotto;
 import Model.Magazzino;
 import Model.Posizione;
-import DAO.ModelFactory.PosizioneFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,12 +29,12 @@ public class PosizioneDAO implements IPosizioneDAO {
     public Posizione findByID(int IdPosizione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE IdPosizione = " + IdPosizione;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
+                posizione = (Posizione) ModelFactory.getFactory(ModelFactory.ModelType.POSIZIONE).create(rs);
                 return posizione;
             }
         } catch (SQLException e) {
@@ -53,12 +52,12 @@ public class PosizioneDAO implements IPosizioneDAO {
     public Posizione find(int pCorsia, int pScaffale, int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE pCorsia = " + pCorsia + " AND pScaffale = " + pScaffale + " AND IdMagazzino = " + idMagazzino;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
+                posizione = (Posizione) ModelFactory.getFactory(ModelFactory.ModelType.POSIZIONE).create(rs);
                 return posizione;
             }
         } catch (SQLException e) {
@@ -76,12 +75,12 @@ public class PosizioneDAO implements IPosizioneDAO {
     public ArrayList<Posizione> findByProdotto(Prodotto prodotto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE IdProdotto = " + prodotto.getIdProdotto();
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Posizione> posizioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
+                posizione = (Posizione) ModelFactory.getFactory(ModelFactory.ModelType.POSIZIONE).create(rs);
                 posizioni.add(posizione);
             }
             return posizioni;
@@ -100,12 +99,12 @@ public class PosizioneDAO implements IPosizioneDAO {
     public ArrayList<Posizione> find(int idProdotto, int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE IdProdotto = " + idProdotto + " AND IdMagazzino = " + idMagazzino;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Posizione> posizioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
+                posizione = (Posizione) ModelFactory.getFactory(ModelFactory.ModelType.POSIZIONE).create(rs);
                 posizioni.add(posizione);
             }
             return posizioni;
@@ -124,12 +123,12 @@ public class PosizioneDAO implements IPosizioneDAO {
     public ArrayList<Posizione> findByMagazzino(int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Posizione WHERE IdMagazzino = " + idMagazzino;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Posizione> listaPosizioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                posizione = (Posizione) ModelFactory.getFactory("POSIZIONE").create(rs);
+                posizione = (Posizione) ModelFactory.getFactory(ModelFactory.ModelType.POSIZIONE).create(rs);
                 listaPosizioni.add(posizione);
             }
             return listaPosizioni;
@@ -159,7 +158,7 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int addProdottoInPosizione(Prodotto prodotto, int corsia, int scaffale, int idMagazzino, int quantita) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Posizione SET IdProdotto = " + prodotto.getIdProdotto() + ", Quantita = " + quantita + " WHERE IdMagazzino = " + idMagazzino + " AND pCorsia = " + corsia + " AND pScaffale = " + scaffale;
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -167,7 +166,7 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int add(Posizione posizione, int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO Posizione (pCorsia, pScaffale, Quantita, idProdotto, idMagazzino) VALUES ('" + posizione.getpCorsia() + "', '" + posizione.getpScaffale() + "', '" + posizione.getQuantita() + "', NULL, '" + idMagazzino + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -175,7 +174,7 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int removeByID(int idPosizione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Posizione WHERE idPosizione = " + idPosizione;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -183,7 +182,7 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int removeByMagazzino(int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Posizione WHERE idMagazzino = " + idMagazzino;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -191,7 +190,7 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int update(Posizione posizione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Posizione SET pCorsia = " + posizione.getpCorsia() + ", pScaffale = " + posizione.getpScaffale() + ", Quantita = " + posizione.getQuantita() + ", idProdotto = " + posizione.getIdProdotto() + " WHERE idPosizione = " + posizione.getIdPosizione();
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -199,7 +198,7 @@ public class PosizioneDAO implements IPosizioneDAO {
     public int updateQuantita(Posizione posizione, int quantita) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Posizione SET Quantita = " + quantita + " WHERE idPosizione = " + posizione.getIdPosizione();
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }
