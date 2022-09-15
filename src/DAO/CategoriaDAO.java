@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.ICategoriaDAO;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Categoria;
 import DAO.ModelFactory.CategoriaFactory;
@@ -13,6 +14,7 @@ public class CategoriaDAO implements ICategoriaDAO {
     private static final CategoriaDAO instance = new CategoriaDAO();
     private Categoria categoria;
     private static ResultSet rs;
+    private ModelFactory modelFactory;
 
     private CategoriaDAO() {
         categoria = null;
@@ -32,7 +34,7 @@ public class CategoriaDAO implements ICategoriaDAO {
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                categoria = new CategoriaFactory().create(rs);
+                categoria = (Categoria) modelFactory.getFactory("CATEGORIA").create(rs);
                 return categoria;
             }
         } catch (SQLException e) {
