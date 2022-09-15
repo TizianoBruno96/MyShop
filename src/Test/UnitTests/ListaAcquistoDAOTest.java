@@ -157,7 +157,6 @@ public class ListaAcquistoDAOTest {
     public void updateCostoTotTest() {
         ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
         listaAcquistoDAO.updateCostoTot(listaAcquisto);
-        //System.out.println(listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot());
         assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() == 141.4f;
     }
 
@@ -165,7 +164,6 @@ public class ListaAcquistoDAOTest {
     public void updateCostoTotTestWrong() {
         ListaAcquisto listaAcquisto = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
         listaAcquistoDAO.updateCostoTot(listaAcquisto);
-        //System.out.println(listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot());
         assert listaAcquistoDAO.findByID(listaAcquisto.getIdListaAcquisto()).getCostoTot() != 141.4f;
     }
 }

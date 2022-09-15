@@ -1,7 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IOrdineServizioDAO;
-import DAO.ModelFactory.OrdineServizioFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Servizio;
 import Model.ListaAcquisto;
@@ -29,12 +29,12 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public ArrayList<OrdineServizio> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM OrdineServizio";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory(ModelFactory.ModelType.ORDINE_SERVIZIO).create(rs);
                 ordini.add(ordineServizio);
             }
             return ordini;
@@ -53,12 +53,12 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public ArrayList<OrdineServizio> findByIDServizio(int idServizio) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM OrdineServizio WHERE idServizio = " + idServizio;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory(ModelFactory.ModelType.ORDINE_SERVIZIO).create(rs);
                 ordini.add(ordineServizio);
             }
             return ordini;
@@ -77,12 +77,12 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public ArrayList<OrdineServizio> findByIDListaAcquisto(int idListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM OrdineServizio WHERE idListaAcquisto = " + idListaAcquisto;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<OrdineServizio> ordini = new ArrayList<>();
         try {
             while (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory(ModelFactory.ModelType.ORDINE_SERVIZIO).create(rs);
                 ordini.add(ordineServizio);
             }
             return ordini;
@@ -101,11 +101,11 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public OrdineServizio find(Servizio servizio, ListaAcquisto listaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM OrdineServizio WHERE idServizio = " + servizio.getIdServizio() + " AND idListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             if (rs.next()) {
-                ordineServizio = new OrdineServizioFactory().create(rs);
+                ordineServizio = (OrdineServizio) ModelFactory.getFactory(ModelFactory.ModelType.ORDINE_SERVIZIO).create(rs);
                 return ordineServizio;
             }
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public int add(OrdineServizio ordineServizio) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO OrdineServizio (idServizio, idListaAcquisto) VALUES (" + ordineServizio.getIdServizio() + ", " + ordineServizio.getIdListaAcquisto() + ")";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -131,7 +131,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public int removeByIDServizio(int idServizio) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM OrdineServizio WHERE idServizio = " + idServizio;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -139,7 +139,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public int removeByIDListaAcquisto(int idListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM OrdineServizio WHERE idListaAcquisto = " + idListaAcquisto;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -147,7 +147,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public int removeByID(int idServizio, int idListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM OrdineServizio WHERE idServizio = " + idServizio + " AND idListaAcquisto = " + idListaAcquisto;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -155,7 +155,7 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     public int update(Servizio servizio) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE OrdineServizio SET idServizio = " + servizio.getIdServizio() + " WHERE idServizio = " + servizio.getIdServizio();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }

@@ -162,4 +162,48 @@ public class ProdottoDAOTest {
     public void checkNomeTestWrong() {
         assert !prodottoDAO.checkNome("Sedia Da Ufficio Rossa");
     }
+
+    @Test
+    public void findByProduttoreTest() {
+        Produttore sedie = produttoreDAO.findByNome("SedieINC");
+        assert prodottoDAO.findByProduttore(sedie.getIdProduttore()).size() >= 2;
+    }
+
+    @Test
+    public void findByProduttoreTestWrong() {
+        Produttore sedie = produttoreDAO.findByNome("SedieINC");
+        assert prodottoDAO.findByProduttore(sedie.getIdProduttore()).size() < 2;
+    }
+
+    @Test
+    public void updateCategoriaTest() {
+        Categoria tavoli = categoriaDAO.findByNome("Tavoli");
+        Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        prodottoDAO.updateCategoria(prodotto, tavoli);
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdCategoria() == tavoli.getIdCategoria();
+    }
+
+    @Test
+    public void updateCategoriaTestWrong() {
+        Categoria tavoli = categoriaDAO.findByNome("Tavoli");
+        Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        prodottoDAO.updateCategoria(prodotto, tavoli);
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdCategoria() != tavoli.getIdCategoria();
+    }
+
+    @Test
+    public void updateProduttoreTest() {
+        Produttore sedie = produttoreDAO.findByNome("SedieINC");
+        Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        prodottoDAO.updateProduttore(prodotto, sedie);
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProduttore() == sedie.getIdProduttore();
+    }
+
+    @Test
+    public void updateProduttoreTestWrong() {
+        Produttore sedie = produttoreDAO.findByNome("SedieINC");
+        Prodotto prodotto = prodottoDAO.findByNome("Sedia Da Ufficio Rossa");
+        prodottoDAO.updateProduttore(prodotto, sedie);
+        assert prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProduttore() != sedie.getIdProduttore();
+    }
 }

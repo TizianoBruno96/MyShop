@@ -1,7 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IRecensioneDAO;
-import DAO.ModelFactory.RecensioneFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Recensione;
 
@@ -27,12 +27,12 @@ public class RecensioneDAO implements IRecensioneDAO {
     public Recensione findByID(int idRecensione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Recensione WHERE IdRecensione = " + idRecensione;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory(ModelFactory.ModelType.RECENSIONE).create(rs);
                 return recensione;
             }
         } catch (SQLException e) {
@@ -50,12 +50,12 @@ public class RecensioneDAO implements IRecensioneDAO {
     public Recensione find(int idProdotto, int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Recensione WHERE IdProdotto = " + idProdotto + " AND IdUtente = " + idUtente;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory(ModelFactory.ModelType.RECENSIONE).create(rs);
                 return recensione;
             }
         } catch (SQLException e) {
@@ -72,12 +72,12 @@ public class RecensioneDAO implements IRecensioneDAO {
     public ArrayList<Recensione> findByProdotto(int idProdotto) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Recensione WHERE IdProdotto = " + idProdotto;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory(ModelFactory.ModelType.RECENSIONE).create(rs);
                 recensioni.add(recensione);
             }
             return recensioni;
@@ -96,12 +96,12 @@ public class RecensioneDAO implements IRecensioneDAO {
     public ArrayList<Recensione> findByUtente(int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Recensione WHERE IdUtente = " + idUtente;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Recensione> recensioni = new ArrayList<>();
         try {
             while (rs.next()) {
-                recensione = new RecensioneFactory().create(rs);
+                recensione = (Recensione) ModelFactory.getFactory(ModelFactory.ModelType.RECENSIONE).create(rs);
                 recensioni.add(recensione);
             }
             return recensioni;
@@ -120,7 +120,7 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int add(Recensione recensione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO Recensione (Voto, Commento, Data, IdProdotto, IdUtente) VALUES (" + recensione.getVoto() + ", '" + recensione.getCommento() + "', '" + recensione.getData() + "', " + recensione.getIdProdotto() + ", " + recensione.getIdUtente() + ")";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -128,7 +128,7 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int update(Recensione recensione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Recensione SET Voto = " + recensione.getVoto() + ", Commento = '" + recensione.getCommento() + "', Data = '" + recensione.getData() + "' WHERE idProdotto = " + recensione.getIdProdotto() + " AND idUtente = " + recensione.getIdUtente() + " AND idRecensione = " + recensione.getIdRecensione();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -136,7 +136,7 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int remove(int idRecensione) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Recensione WHERE idRecensione = " + idRecensione;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -144,7 +144,7 @@ public class RecensioneDAO implements IRecensioneDAO {
     public int removeByProdottoAndUtente(int idProdotto, int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Recensione WHERE idProdotto = " + idProdotto + " AND idUtente = " + idUtente;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }
