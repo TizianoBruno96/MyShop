@@ -1,7 +1,5 @@
 package Model.Articoli;
 
-import com.mysql.cj.jdbc.Blob;
-
 public class Foto {
     private int idFoto;
     private int idProdotto;
@@ -26,8 +24,16 @@ public class Foto {
         return idFoto;
     }
 
+    public void setIdFoto(int idFoto) {
+        this.idFoto = idFoto;
+    }
+
     public int getIdProdotto() {
         return idProdotto;
+    }
+
+    public void setIdProdotto(int idProdotto) {
+        this.idProdotto = idProdotto;
     }
 
     public java.sql.Blob getValore() {
@@ -36,14 +42,6 @@ public class Foto {
 
     public void setValore(java.sql.Blob Valore) {
         this.Valore = Valore;
-    }
-
-    public void setIdFoto(int idFoto) {
-        this.idFoto = idFoto;
-    }
-
-    public void setIdProdotto(int idProdotto) {
-        this.idProdotto = idProdotto;
     }
 
     public String getNome() {

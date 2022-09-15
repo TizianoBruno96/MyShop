@@ -5,25 +5,24 @@ import ActionListeners.LogoutListeners;
 import ActionListeners.RegistrazioneListeners;
 import Business.SessionManager;
 import Model.Utenti.Utente;
-import Views.Decorator.*;
 import Views.Decorator.Menu;
+import Views.Decorator.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class FinestraPrincipale extends JFrame {
 
+    JButton logout = new JButton("Logout");
     private JPanel pannelloNord = new JPanel();
     private JPanel pannelloCentro = new JPanel();
     private JPanel pannelloSud = new JPanel();
     private JPanel pannelloOvest = new JPanel();
-    private JPanel utenteLoggato =new JPanel();
-
-    JButton logout = new JButton("Logout");
+    private JPanel utenteLoggato = new JPanel();
 
     public FinestraPrincipale() {
         super("Finestra MyShop");
-        this.setSize(1280,720);
+        this.setSize(1280, 720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //istanzio gli elementi da inserire nei pannelli
@@ -41,11 +40,10 @@ public class FinestraPrincipale extends JFrame {
         registrati.addActionListener(registrazioneListeners);
 
 
-
         //setto i layout di ogni singolo pannello
         pannelloNord.setLayout(new FlowLayout());
-        pannelloCentro.setLayout(new GridLayout(2,1));
-        pannelloOvest.setLayout(new GridLayout(10,1));
+        pannelloCentro.setLayout(new GridLayout(2, 1));
+        pannelloOvest.setLayout(new GridLayout(10, 1));
         pannelloSud.setLayout(new FlowLayout());
         utenteLoggato.setLayout(new FlowLayout());
 
@@ -57,21 +55,21 @@ public class FinestraPrincipale extends JFrame {
         pannelloNord.add(registrati);
         pannelloCentro.add(etichettaCentro1);
         pannelloSud.add(new JLabel("Interfaccia grafica per il progetto di PIS"));
-        for (JButton btn : guestMenu.getPulsanti()){
+        for (JButton btn : guestMenu.getPulsanti()) {
             pannelloOvest.add(btn);
         }
 
 
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
-        c.add(pannelloNord,BorderLayout.NORTH);
-        c.add(pannelloCentro,BorderLayout.CENTER);
-        c.add(pannelloOvest,BorderLayout.WEST);
-        c.add(pannelloSud,BorderLayout.SOUTH);
+        c.add(pannelloNord, BorderLayout.NORTH);
+        c.add(pannelloCentro, BorderLayout.CENTER);
+        c.add(pannelloOvest, BorderLayout.WEST);
+        c.add(pannelloSud, BorderLayout.SOUTH);
 
 
         //parte dei listeners
-        LoginListeners loginListeners = new LoginListeners(username,password);
+        LoginListeners loginListeners = new LoginListeners(username, password);
         loginListeners.setFrame(this);
         login.addActionListener(loginListeners);
 
@@ -91,7 +89,7 @@ public class FinestraPrincipale extends JFrame {
         utenteLoggato.removeAll();
         utenteLoggato.add(new JLabel(message));
         utenteLoggato.add(logout);
-        add(utenteLoggato,BorderLayout.NORTH);
+        add(utenteLoggato, BorderLayout.NORTH);
 
         //per il refresh
         repaint();
@@ -104,23 +102,23 @@ public class FinestraPrincipale extends JFrame {
 
         Utente u = (Utente) SessionManager.getSession().get(SessionManager.LOGGED_USER);
 
-        if (u.getTipo().equals("CL")){
+        if (u.getTipo().equals("CL")) {
             //decoriamo il menu usando il ClienteMenudecorator
             Menu guestMenu = new GuestMenu(this);
-            Menu clienteMenu = new ClienteMenuDecorator(guestMenu,this);
-            for (JButton btn : clienteMenu.getPulsanti()){
+            Menu clienteMenu = new ClienteMenuDecorator(guestMenu, this);
+            for (JButton btn : clienteMenu.getPulsanti()) {
                 pannelloOvest.add(btn);
             }
-        }else if (u.getTipo().equals("MN")) {
+        } else if (u.getTipo().equals("MN")) {
             Menu guestMenu = new GuestMenu(this);
-            Menu managerMenu = new ManagerMenuDecorator(guestMenu,this);
-            for (JButton btn : managerMenu.getPulsanti()){
+            Menu managerMenu = new ManagerMenuDecorator(guestMenu, this);
+            for (JButton btn : managerMenu.getPulsanti()) {
                 pannelloOvest.add(btn);
             }
-        }else if (u.getTipo().equals("AM")){
+        } else if (u.getTipo().equals("AM")) {
             Menu guestMenu = new GuestMenu(this);
-            Menu amministratoreMenu = new AmministratoreMenuDecorator(guestMenu,this);
-            for (JButton btn : amministratoreMenu.getPulsanti()){
+            Menu amministratoreMenu = new AmministratoreMenuDecorator(guestMenu, this);
+            for (JButton btn : amministratoreMenu.getPulsanti()) {
                 pannelloOvest.add(btn);
             }
         }
@@ -129,14 +127,14 @@ public class FinestraPrincipale extends JFrame {
         validate();
     }
 
-    public void mostraCatalogoProdotti(){
+    public void mostraCatalogoProdotti() {
         pannelloCentro.removeAll();
         pannelloCentro.add(new CatalogoProdottiPanel());
         repaint();
         validate();
     }
 
-    public void mostraPannelloRegistrazione(){
+    public void mostraPannelloRegistrazione() {
         pannelloCentro.removeAll();
         pannelloCentro.add(new RegistrazionePanel());
         repaint();
@@ -172,7 +170,7 @@ public class FinestraPrincipale extends JFrame {
         validate();
     }
 
-    public void mostraPannelloInserimentoProdotto(){
+    public void mostraPannelloInserimentoProdotto() {
         pannelloCentro.removeAll();
         pannelloCentro.add(new InserisciProdottoPanel());
         repaint();

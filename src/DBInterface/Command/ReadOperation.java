@@ -7,12 +7,11 @@ import java.sql.ResultSet;
 public class ReadOperation implements IDBOperation {
 
     private DBConnection connection = DBConnection.getInstance();
+    private String sql;
 
     public ReadOperation(String sql) {
         this.sql = sql;
     }
-
-    private String sql;
 
     @Override
     public DBOperationResult execute() {

@@ -20,10 +20,10 @@ public class SfogliaCatalogoListeners implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String azione =e.getActionCommand();
-        if (SFOGLIACATALOGOPRODOTTI_BTN.equals(azione)){
+        String azione = e.getActionCommand();
+        if (SFOGLIACATALOGOPRODOTTI_BTN.equals(azione)) {
             frame.mostraCatalogoProdotti();
-        }else if (SFOGLIACATALOGOSERVIZI_BTN.equals(azione)){
+        } else if (SFOGLIACATALOGOSERVIZI_BTN.equals(azione)) {
             frame.mostraCatalogoServizi();
         }
     }

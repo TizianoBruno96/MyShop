@@ -1,8 +1,9 @@
 package Business;
 
 public class LoginResult {
-    public enum Result {LOGIN_OK,WRONG_PASSWORD,USER_DOESNT_EXIST};
     private Result result;
+
+    ;
     private String message;
 
     public Result getResult() {
@@ -20,4 +21,6 @@ public class LoginResult {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public enum Result {LOGIN_OK, WRONG_PASSWORD, USER_DOESNT_EXIST}
 }

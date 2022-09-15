@@ -32,44 +32,44 @@ public class Prodotto extends Articolo implements IProdotto {
         this.setCosto(Costo);
     }
 
-    public void setIdProdotto(int idProdotto) {
-        this.idProdotto = idProdotto;
-    }
-
-    public void setIdProduttore(int idProduttore) {
-        this.idProduttore = idProduttore;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
-    public void setNome(String nome) {
-        Nome = nome;
-    }
-
-    public void setDescrizione(String descrizione) {
-        Descrizione = descrizione;
-    }
-
     public int getIdProdotto() {
         return idProdotto;
+    }
+
+    public void setIdProdotto(int idProdotto) {
+        this.idProdotto = idProdotto;
     }
 
     public String getNome() {
         return Nome;
     }
 
+    public void setNome(String nome) {
+        Nome = nome;
+    }
+
     public String getDescrizione() {
         return Descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        Descrizione = descrizione;
     }
 
     public int getIdProduttore() {
         return idProduttore;
     }
 
+    public void setIdProduttore(int idProduttore) {
+        this.idProduttore = idProduttore;
+    }
+
     public int getIdCategoria() {
         return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public String toString() {

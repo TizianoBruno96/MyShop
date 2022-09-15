@@ -1,10 +1,13 @@
 package Test.UnitTests;
 
-import DAO.*;
+import DAO.CategoriaDAO;
+import DAO.FotoDAO;
 import DAO.Interfaces.ICategoriaDAO;
 import DAO.Interfaces.IFotoDAO;
 import DAO.Interfaces.IProdottoDAO;
 import DAO.Interfaces.IProduttoreDAO;
+import DAO.ProdottoDAO;
+import DAO.ProduttoreDAO;
 import Model.Articoli.Foto;
 import Model.Articoli.Prodotto;
 import Model.Articoli.Produttore;
@@ -13,10 +16,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Blob;
-import javax.sql.rowset.serial.SerialException;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 import java.io.*;
+import java.sql.Blob;
 import java.sql.SQLException;
 
 public class FotoDAOTest {

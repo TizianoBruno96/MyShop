@@ -1,8 +1,6 @@
 package Business.FactoryMethod;
 
 public class NotificationFactory {
-    public enum NotificationType {SMS, PUSH, EMAIL}
-
     public static Notifica getNotification(NotificationType type) {
         switch (type) {
             case SMS:
@@ -15,4 +13,6 @@ public class NotificationFactory {
                 return null;
         }
     }
+
+    public enum NotificationType {SMS, PUSH, EMAIL}
 }

@@ -2,12 +2,10 @@ package Views;
 
 import DAO.CategoriaDAO;
 import DAO.FornitoreDAO;
-import DAO.RecensioneDAO;
 import DAO.ServizioDAO;
 import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
 import Model.Categoria;
-import Model.Recensione;
 import Views.Model.RigaCatalogoServizi;
 import Views.TableModel.CatalogoServiziTableModel;
 
@@ -23,7 +21,7 @@ public class CatalogoServiziPanel extends JPanel {
 
         ArrayList<Servizio> servizi = ServizioDAO.getInstance().findAll();
 
-        for (Servizio s : servizi){
+        for (Servizio s : servizi) {
             Categoria categoria = CategoriaDAO.getInstance().findByID(s.getIdCategoria());
             Fornitore fornitore = FornitoreDAO.getInstance().findByID(s.getIdFornitore());
             //Recensione recensione = RecensioneDAO.getInstance().findByProdotto();
@@ -40,12 +38,10 @@ public class CatalogoServiziPanel extends JPanel {
         }
 
 
-
-
         CatalogoServiziTableModel tableModel = new CatalogoServiziTableModel(righe);
         JTable tabella = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(tabella);
-        add(scrollPane,BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
         tabella.setRowHeight(50);
     }
 }

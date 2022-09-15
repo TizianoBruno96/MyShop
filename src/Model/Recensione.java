@@ -28,14 +28,6 @@ public class Recensione {
         this.data = new java.sql.Date(new Date().getTime());
     }
 
-    public void setIdRecensione(int idRecensione) {
-        this.idRecensione = idRecensione;
-    }
-
-    public void setIdProdotto(int idProdotto) {
-        this.idProdotto = idProdotto;
-    }
-
     public int getIdUtente() {
         return idUtente;
     }
@@ -48,8 +40,16 @@ public class Recensione {
         return idRecensione;
     }
 
+    public void setIdRecensione(int idRecensione) {
+        this.idRecensione = idRecensione;
+    }
+
     public int getIdProdotto() {
         return idProdotto;
+    }
+
+    public void setIdProdotto(int idProdotto) {
+        this.idProdotto = idProdotto;
     }
 
     public int getVoto() {

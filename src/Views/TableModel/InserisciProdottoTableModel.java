@@ -1,8 +1,6 @@
 package Views.TableModel;
 
 import Utilities.IntegerExt;
-import Views.Model.RigaCatalogoProdotti;
-import Views.Model.RigaCreazionePuntoVendita;
 import Views.Model.RigaInserisciProdotto;
 
 import javax.swing.table.AbstractTableModel;
@@ -23,7 +21,7 @@ public class InserisciProdottoTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -47,30 +45,34 @@ public class InserisciProdottoTableModel extends AbstractTableModel {
             case 7:
                 return riga.getpScaffale();
             case 8:
+                return riga.getNomePuntoVendita();
+            case 9:
                 return riga.getFoto();
+
         }
         return null;
     }
 
 
     @Override
-    public String getColumnName(int columnIndex){
-        switch (columnIndex){
-            case 0 : return "Nome Prodotto";
-            case 1 : return "Descrizione";
-            case 2 : return "Costo";
-            case 3 : return "Nome Produttore";
-            case 4 : return "Categoria";
-            case 5 : return "Disponibilità";
-            case 6 : return "Corsia";
-            case 7 : return "Scaffale";
-            case 8 : return "Foto";
-        }
-        return null;
+    public String getColumnName(int columnIndex) {
+        return switch (columnIndex) {
+            case 0 -> "Nome Prodotto";
+            case 1 -> "Descrizione";
+            case 2 -> "Costo";
+            case 3 -> "Nome Produttore";
+            case 4 -> "Categoria";
+            case 5 -> "Disponibilità";
+            case 6 -> "Corsia";
+            case 7 -> "Scaffale";
+            case 9 -> "Nome Punto Vendita";
+            case 8 -> "Foto";
+            default -> null;
+        };
     }
 
     @Override
-    public void setValueAt(Object value,int rowIndex, int columnIndex){
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
         RigaInserisciProdotto riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
@@ -80,7 +82,7 @@ public class InserisciProdottoTableModel extends AbstractTableModel {
             case 2:
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setCosto(Integer.parseInt(value.toString()));
-            case 3 :
+            case 3:
                 riga.setNomeProduttore(value.toString());
             case 4:
                 riga.setCategoriaProdotto(value.toString());
@@ -90,7 +92,7 @@ public class InserisciProdottoTableModel extends AbstractTableModel {
             case 6:
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setpCorsia(Integer.parseInt(value.toString()));
-            case 7 :
+            case 7:
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setpScaffale(Integer.parseInt(value.toString()));
         }
@@ -99,10 +101,8 @@ public class InserisciProdottoTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0 ;
+        return columnIndex >= 0;
     }
-
-
 
 
 }

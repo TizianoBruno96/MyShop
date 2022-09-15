@@ -20,36 +20,36 @@ public class Magazzino {
         this.maxScaffale = maxScaffale;
     }
 
-    public void setIdMagazzino(int idMagazzino) {
-        this.idMagazzino = idMagazzino;
-    }
-
-    public void setIdPuntoVendita(int idPuntoVendita) {
-        this.idPuntoVendita = idPuntoVendita;
-    }
-
-    public void setMaxCorsia(int maxCorsia) {
-        this.maxCorsia = maxCorsia;
-    }
-
-    public void setMaxScaffale(int maxScaffale) {
-        this.maxScaffale = maxScaffale;
-    }
-
     public int getIdMagazzino() {
         return idMagazzino;
+    }
+
+    public void setIdMagazzino(int idMagazzino) {
+        this.idMagazzino = idMagazzino;
     }
 
     public int getIdPuntoVendita() {
         return idPuntoVendita;
     }
 
+    public void setIdPuntoVendita(int idPuntoVendita) {
+        this.idPuntoVendita = idPuntoVendita;
+    }
+
     public int getMaxCorsia() {
         return maxCorsia;
     }
 
+    public void setMaxCorsia(int maxCorsia) {
+        this.maxCorsia = maxCorsia;
+    }
+
     public int getMaxScaffale() {
         return maxScaffale;
+    }
+
+    public void setMaxScaffale(int maxScaffale) {
+        this.maxScaffale = maxScaffale;
     }
 
     public String toString() {

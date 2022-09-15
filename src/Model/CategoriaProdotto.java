@@ -19,28 +19,28 @@ public class CategoriaProdotto implements ICategoria {
         this.Nome = Nome;
     }
 
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
-    public void setIdCategoriaPadre(int idCategoriaPadre) {
-        this.idCategoriaPadre = idCategoriaPadre;
-    }
-
-    public void setNome(String Nome) {
-        this.Nome = Nome;
-    }
-
     public int getIdCategoria() {
         return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public int getIdCategoriaPadre() {
         return idCategoriaPadre;
     }
 
+    public void setIdCategoriaPadre(int idCategoriaPadre) {
+        this.idCategoriaPadre = idCategoriaPadre;
+    }
+
     public String getNome() {
         return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
     }
 
     public String toString() {

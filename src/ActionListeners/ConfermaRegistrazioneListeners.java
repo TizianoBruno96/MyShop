@@ -4,7 +4,6 @@ import Business.LoginResult;
 import Business.RegistrazioneBusiness;
 import DAO.Interfaces.IUtenteDAO;
 import DAO.UtenteDAO;
-import Model.Utenti.Utente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,26 +23,26 @@ public class ConfermaRegistrazioneListeners implements ActionListener {
         IUtenteDAO uDAO = UtenteDAO.getInstance();
         LoginResult result = new LoginResult();
         result.setMessage("L'username inserito esista già");
-        if (CONFERMAREGISTRAZIONE_BTN.equals(azione)){
-            String Nome = (String) tabella.getValueAt(0,0);
-            String Cognome = (String) tabella.getValueAt(0,1);
-            String Username = (String) tabella.getValueAt(0,2);
-            if (uDAO.checkUsername(Username)){
-                JOptionPane.showMessageDialog(null,result.getMessage());
+        if (CONFERMAREGISTRAZIONE_BTN.equals(azione)) {
+            String Nome = (String) tabella.getValueAt(0, 0);
+            String Cognome = (String) tabella.getValueAt(0, 1);
+            String Username = (String) tabella.getValueAt(0, 2);
+            if (uDAO.checkUsername(Username)) {
+                JOptionPane.showMessageDialog(null, result.getMessage());
             }
-            String Email = (String) tabella.getValueAt(0,3);
+            String Email = (String) tabella.getValueAt(0, 3);
             result.setMessage("L'email inserita esiste già");
-            if (uDAO.checkEmail(Email)){
-                JOptionPane.showMessageDialog(null,result.getMessage());
+            if (uDAO.checkEmail(Email)) {
+                JOptionPane.showMessageDialog(null, result.getMessage());
             }
-            String Telefono = (String) tabella.getValueAt(0,4);
-            int Eta = (int) tabella.getValueAt(0,5);
-            String Residenza = (String) tabella.getValueAt(0,6);
-            String Professione = (String) tabella.getValueAt(0,7);
-            String Password = (String) tabella.getValueAt(0,8);
-            String nomePuntoVendita = (String) tabella.getValueAt(0,9);
+            String Telefono = (String) tabella.getValueAt(0, 4);
+            int Eta = (int) tabella.getValueAt(0, 5);
+            String Residenza = (String) tabella.getValueAt(0, 6);
+            String Professione = (String) tabella.getValueAt(0, 7);
+            String Password = (String) tabella.getValueAt(0, 8);
+            String nomePuntoVendita = (String) tabella.getValueAt(0, 9);
 
-            RegistrazioneBusiness r = RegistrazioneBusiness.getInstance().confermaRegistrazione(Nome,Cognome,Username,Email,Telefono,Eta,Residenza,Professione,Password,nomePuntoVendita);
+            RegistrazioneBusiness r = RegistrazioneBusiness.getInstance().confermaRegistrazione(Nome, Cognome, Username, Email, Telefono, Eta, Residenza, Professione, Password, nomePuntoVendita);
 
         }
 

@@ -20,7 +20,7 @@ public class InserisciProdottoListeners implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
-        if (INSERISCIPRODOTTO_BTN.equals(azione)){
+        if (INSERISCIPRODOTTO_BTN.equals(azione)) {
             frame.mostraPannelloInserimentoProdotto();
         }
 

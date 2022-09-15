@@ -5,9 +5,9 @@ import DBInterface.IDBConnection;
 import java.sql.ResultSet;
 
 public class Cliente {
-    int idCliente;
     private static IDBConnection connection;
     private static ResultSet rs;
+    int idCliente;
 
     public Cliente(int idCliente) {
         this.idCliente = idCliente;

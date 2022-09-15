@@ -1,7 +1,7 @@
 package Business.AbstractFactory;
 
-import Model.CategoriaProdotto;
 import Model.Articoli.Prodotto;
+import Model.CategoriaProdotto;
 
 public class ProdottoFactory implements AbstractFactory {
     @Override

@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IOrdineServizioDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Articoli.Servizio;
 import Model.ListaAcquisto;
 import Model.OrdineServizio;
@@ -13,8 +15,8 @@ import java.util.ArrayList;
 
 public class OrdineServizioDAO implements IOrdineServizioDAO {
     private static final OrdineServizioDAO instance = new OrdineServizioDAO();
-    private OrdineServizio ordineServizio;
     private static ResultSet rs;
+    private OrdineServizio ordineServizio;
 
     private OrdineServizioDAO() {
         ordineServizio = null;

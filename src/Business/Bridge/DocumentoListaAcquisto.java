@@ -6,7 +6,6 @@ import DAO.Interfaces.IProdottoDAO;
 import DAO.Interfaces.IServizioDAO;
 import DAO.OrdineProdottoDAO;
 import DAO.OrdineServizioDAO;
-
 import Model.Articoli.Prodotto;
 import Model.Articoli.Servizio;
 import Model.ListaAcquisto;

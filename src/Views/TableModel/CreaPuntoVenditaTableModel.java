@@ -1,12 +1,8 @@
 package Views.TableModel;
 
-import Utilities.IntegerExt;
-import Views.Model.RigaCreazioneManager;
 import Views.Model.RigaCreazionePuntoVendita;
-import Views.Model.RigaRegistrazione;
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,18 +40,22 @@ public class CreaPuntoVenditaTableModel extends AbstractTableModel {
     }
 
     @Override
-    public String getColumnName(int columnIndex){
-        switch (columnIndex){
-            case 0 : return "Città";
-            case 1 : return "Nome";
-            case 2 : return "Indirizzo";
-            case 3 : return "Username Manager";
+    public String getColumnName(int columnIndex) {
+        switch (columnIndex) {
+            case 0:
+                return "Città";
+            case 1:
+                return "Nome";
+            case 2:
+                return "Indirizzo";
+            case 3:
+                return "Username Manager";
         }
         return null;
     }
 
     @Override
-    public void setValueAt(Object value,int rowIndex, int columnIndex){
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
         RigaCreazionePuntoVendita riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
@@ -64,7 +64,7 @@ public class CreaPuntoVenditaTableModel extends AbstractTableModel {
                 riga.setNome(value.toString());
             case 2:
                 riga.setIndirizzo(value.toString());
-            case 3 :
+            case 3:
                 riga.setUsernameManager(value.toString());
         }
     }
@@ -72,7 +72,7 @@ public class CreaPuntoVenditaTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0 ;
+        return columnIndex >= 0;
     }
 
 }

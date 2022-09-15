@@ -1,10 +1,8 @@
 package Views.Decorator;
 
-import ActionListeners.InserimentoListaListeners;
 import ActionListeners.LasciaFeedbackListeners;
 import ActionListeners.PrenotaArticoliListeners;
 import Views.FinestraPrincipale;
-import com.sun.security.auth.module.JndiLoginModule;
 
 import javax.swing.*;
 import java.util.List;

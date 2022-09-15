@@ -1,10 +1,7 @@
 package Views;
 
-import ActionListeners.ConfermaRegistrazioneListeners;
 import ActionListeners.InserisciManagerListeners;
 import Views.Model.RigaCreazioneManager;
-import Views.Model.RigaRegistrazione;
-import Views.TableModel.CatalogoProdottiTableModel;
 import Views.TableModel.CreaManagerTableModel;
 
 import javax.swing.*;
@@ -23,7 +20,7 @@ public class CreaManagerPanel extends JPanel {
         CreaManagerTableModel tableModel = new CreaManagerTableModel(righe);
         JTable tabella = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(tabella);
-        add(scrollPane,BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
         tabella.setRowHeight(50);
 
         JPanel pannelloAzioni = new JPanel();
@@ -33,7 +30,7 @@ public class CreaManagerPanel extends JPanel {
         InserisciManagerListeners inserisciManagerListeners = new InserisciManagerListeners(tabella);
         inserisciManager.addActionListener(inserisciManagerListeners);
         pannelloAzioni.add(inserisciManager);
-        add(pannelloAzioni,BorderLayout.SOUTH);
+        add(pannelloAzioni, BorderLayout.SOUTH);
 
 
     }

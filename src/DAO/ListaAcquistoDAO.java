@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.*;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.ListaAcquisto;
 import Model.OrdineProdotto;
 import Model.OrdineServizio;
@@ -12,8 +14,8 @@ import java.sql.SQLException;
 
 public class ListaAcquistoDAO implements IListaAcquistoDAO {
     private static final ListaAcquistoDAO instance = new ListaAcquistoDAO();
-    private ListaAcquisto listaAcquisto;
     private static ResultSet rs;
+    private ListaAcquisto listaAcquisto;
 
     private ListaAcquistoDAO() {
         listaAcquisto = null;

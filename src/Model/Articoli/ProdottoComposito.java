@@ -18,12 +18,12 @@ public class ProdottoComposito extends Prodotto implements IProdotto {
         return idProdottoPadre;
     }
 
-    public int getIdProdottoFiglio() {
-        return idProdottoFiglio;
-    }
-
     public void setIdProdottoPadre(int idProdottoPadre) {
         this.idProdottoPadre = idProdottoPadre;
+    }
+
+    public int getIdProdottoFiglio() {
+        return idProdottoFiglio;
     }
 
     public void setIdProdottoFiglio(int idProdottoFiglio) {

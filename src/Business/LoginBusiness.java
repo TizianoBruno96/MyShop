@@ -5,11 +5,11 @@ import DAO.UtenteDAO;
 import Model.Utenti.Utente;
 
 public class LoginBusiness {
-    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
-
     //utilizzo il singleton
     private static LoginBusiness instance;
-    public static synchronized LoginBusiness getInstance(){
+    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+
+    public static synchronized LoginBusiness getInstance() {
         if (instance == null) {
             instance = new LoginBusiness();
         }
@@ -17,7 +17,7 @@ public class LoginBusiness {
     }
 
     //creo una classe LoginResult che mi indica lo stato del login
-    public LoginResult login(String username , String password) {
+    public LoginResult login(String username, String password) {
 
         LoginResult result = new LoginResult();
 

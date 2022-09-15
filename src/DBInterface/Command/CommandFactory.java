@@ -1,13 +1,6 @@
 package DBInterface.Command;
 
 public class CommandFactory {
-    public enum CommandType {
-        WRITE,
-        READ,
-        UPDATE,
-        REMOVE
-    }
-
     public static IDBOperation getCommand(CommandType type, String sql) {
         switch (type) {
             case WRITE:
@@ -21,5 +14,12 @@ public class CommandFactory {
             default:
                 return null;
         }
+    }
+
+    public enum CommandType {
+        WRITE,
+        READ,
+        UPDATE,
+        REMOVE
     }
 }

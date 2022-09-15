@@ -1,12 +1,6 @@
 package Business.AbstractFactory;
 
 public class FactoryProvider {
-    public enum FactoryType {
-        PRODOTTO,
-        SERVIZIO,
-        PRODOTTO_COMPOSITO
-    }
-
     public static AbstractFactory getFactory(FactoryType type) {
         switch (type) {
             case PRODOTTO:
@@ -18,5 +12,11 @@ public class FactoryProvider {
             default:
                 return null;
         }
+    }
+
+    public enum FactoryType {
+        PRODOTTO,
+        SERVIZIO,
+        PRODOTTO_COMPOSITO
     }
 }

@@ -2,7 +2,9 @@ package DAO;
 
 import DAO.Interfaces.IFornitoreDAO;
 import DAO.ModelFactory.ModelFactory;
-import DBInterface.Command.*;
+import DBInterface.Command.CommandFactory;
+import DBInterface.Command.DBOperationExecutor;
+import DBInterface.Command.IDBOperation;
 import Model.Articoli.Fornitore;
 
 import java.sql.ResultSet;
@@ -11,8 +13,8 @@ import java.util.ArrayList;
 
 public class FornitoreDAO implements IFornitoreDAO {
     private static final FornitoreDAO instance = new FornitoreDAO();
-    private Fornitore fornitore;
     private static ResultSet rs;
+    private Fornitore fornitore;
 
     private FornitoreDAO() {
         fornitore = null;

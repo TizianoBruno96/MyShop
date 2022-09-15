@@ -42,39 +42,49 @@ public class RegistrazioneTableModel extends AbstractTableModel {
                 return riga.getEmail();
             case 4:
                 return riga.getTelefono();
-            case 5 :
+            case 5:
                 return riga.getEta();
-            case 6 :
+            case 6:
                 return riga.getResidenza();
-            case 7 :
+            case 7:
                 return riga.getProfessione();
-            case 8 :
+            case 8:
                 return riga.getPassword();
-            case 9 :
+            case 9:
                 return riga.getNomePuntoVendita();
         }
         return null;
     }
 
     @Override
-    public String getColumnName(int columnIndex){
-        switch (columnIndex){
-            case 0 : return "Nome";
-            case 1 : return "Cognome";
-            case 2 : return "Username";
-            case 3 : return "E-mail";
-            case 4 : return "Telefono";
-            case 5 : return "Età";
-            case 6 : return "Residenza";
-            case 7 : return "Professione";
-            case 8 : return "Password";
-            case 9 : return "Nome Punto Vendita";
+    public String getColumnName(int columnIndex) {
+        switch (columnIndex) {
+            case 0:
+                return "Nome";
+            case 1:
+                return "Cognome";
+            case 2:
+                return "Username";
+            case 3:
+                return "E-mail";
+            case 4:
+                return "Telefono";
+            case 5:
+                return "Età";
+            case 6:
+                return "Residenza";
+            case 7:
+                return "Professione";
+            case 8:
+                return "Password";
+            case 9:
+                return "Nome Punto Vendita";
         }
         return null;
     }
 
     @Override
-    public void setValueAt(Object value,int rowIndex, int columnIndex){
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
         RigaRegistrazione riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
@@ -102,9 +112,8 @@ public class RegistrazioneTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0 ;
+        return columnIndex >= 0;
     }
-
 
 
 }

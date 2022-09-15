@@ -56,6 +56,10 @@ public class Utente {
         return idUtente;
     }
 
+    public void setIdUtente(int idUtente) {
+        this.idUtente = idUtente;
+    }
+
     public String getNome() {
         return Nome;
     }
@@ -64,12 +68,12 @@ public class Utente {
         this.Nome = Nome;
     }
 
-    public void setCognome(String Cognome) {
-        this.Cognome = Cognome;
-    }
-
     public String getCognome() {
         return Cognome;
+    }
+
+    public void setCognome(String Cognome) {
+        this.Cognome = Cognome;
     }
 
     public String getUsername() {
@@ -134,10 +138,6 @@ public class Utente {
 
     public void setTipo(String tipo) {
         Tipo = tipo;
-    }
-
-    public void setIdUtente(int idUtente) {
-        this.idUtente = idUtente;
     }
 
     public String toString() {

@@ -10,14 +10,14 @@ public class CreaManagerListeners implements ActionListener {
     private FinestraPrincipale frame;
 
     public CreaManagerListeners(FinestraPrincipale frame) {
-        this.frame = frame ;
+        this.frame = frame;
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
-        if (CREAMANAGER_BTN.equals(azione)){
+        if (CREAMANAGER_BTN.equals(azione)) {
             frame.mostraPannelloCreazioneManager();
         }
 
