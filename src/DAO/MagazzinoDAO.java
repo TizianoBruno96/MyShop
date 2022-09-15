@@ -1,7 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IMagazzinoDAO;
-import DAO.ModelFactory.MagazzinoFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Magazzino;
 
@@ -26,12 +26,12 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public Magazzino findByID(int IdMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Magazzino WHERE IdMagazzino = " + IdMagazzino;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                magazzino = new MagazzinoFactory().create(rs);
+                magazzino = (Magazzino) ModelFactory.getFactory(ModelFactory.ModelType.MAGAZZINO).create(rs);
                 return magazzino;
             }
         } catch (SQLException e) {
@@ -48,12 +48,12 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public Magazzino findByPuntoVendita(int IdPuntoVendita) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Magazzino WHERE IdPuntoVendita = " + IdPuntoVendita;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                magazzino = new MagazzinoFactory().create(rs);
+                magazzino = (Magazzino) ModelFactory.getFactory(ModelFactory.ModelType.MAGAZZINO).create(rs);
                 return magazzino;
             }
         } catch (SQLException e) {
@@ -71,12 +71,12 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public ArrayList<Magazzino> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM Magazzino";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Magazzino> magazzini = new ArrayList<Magazzino>();
         try {
             while (rs.next()) {
-                magazzino = new MagazzinoFactory().create(rs);
+                magazzino = (Magazzino) ModelFactory.getFactory(ModelFactory.ModelType.MAGAZZINO).create(rs);
                 magazzini.add(magazzino);
             }
         } catch (SQLException e) {
@@ -97,7 +97,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
             return -1;
         }
         String sql = "INSERT INTO Magazzino (idPuntoVendita, maxCorsia, maxScaffale) VALUES ('" + idPuntoVendita + "', '" + magazzino.getMaxCorsia() + "', '" + magazzino.getMaxScaffale() + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -105,7 +105,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public int removeByID(int idMagazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Magazzino WHERE idMagazzino = '" + idMagazzino + "'";
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -113,7 +113,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public int removeByPuntoVendita(int idPuntoVendita) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Magazzino WHERE idPuntoVendita = '" + idPuntoVendita + "'";
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -121,7 +121,7 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public int update(Magazzino magazzino) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Magazzino SET idPuntoVendita = '" + magazzino.getIdPuntoVendita() + "', maxCorsia = '" + magazzino.getMaxCorsia() + "', maxScaffale = '" + magazzino.getMaxScaffale() + "' WHERE idMagazzino = '" + magazzino.getIdMagazzino() + "'";
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }

@@ -1,7 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IFornitoreDAO;
-import DAO.ModelFactory.FornitoreFactory;
+import DAO.ModelFactory.ModelFactory;
 import DBInterface.Command.*;
 import Model.Articoli.Fornitore;
 
@@ -27,13 +27,12 @@ public class FornitoreDAO implements IFornitoreDAO {
     public Fornitore findByNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
-
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                fornitore = new FornitoreFactory().create(rs);
+                fornitore = (Fornitore) ModelFactory.getFactory(ModelFactory.ModelType.FORNITORE).create(rs);
                 return fornitore;
             }
         } catch (SQLException e) {
@@ -51,13 +50,13 @@ public class FornitoreDAO implements IFornitoreDAO {
     public Fornitore findByID(int idFornitore) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore WHERE idFornitore = " + idFornitore;
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
 
         try {
             rs.next();
             if (rs.getRow() == 1) {
-                fornitore = new FornitoreFactory().create(rs);
+                fornitore = (Fornitore) ModelFactory.getFactory(ModelFactory.ModelType.FORNITORE).create(rs);
                 return fornitore;
             }
         } catch (SQLException e) {
@@ -75,9 +74,8 @@ public class FornitoreDAO implements IFornitoreDAO {
     public boolean checkNome(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore WHERE nome = '" + nome + "'";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
-
         try {
             rs.next();
             if (rs.getRow() == 1) {
@@ -98,12 +96,12 @@ public class FornitoreDAO implements IFornitoreDAO {
     public ArrayList<Fornitore> findAll() {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "SELECT * FROM fornitore";
-        IDBOperation operation = new ReadOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         ArrayList<Fornitore> fornitori = new ArrayList<>();
         try {
             while (rs.next()) {
-                fornitore = new FornitoreFactory().create(rs);
+                fornitore = (Fornitore) ModelFactory.getFactory(ModelFactory.ModelType.FORNITORE).create(rs);
                 fornitori.add(fornitore);
             }
             return fornitori;
@@ -122,7 +120,7 @@ public class FornitoreDAO implements IFornitoreDAO {
     public int add(Fornitore fornitore) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO fornitore (nome, sito) VALUES ('" + fornitore.getNome() + "', '" + fornitore.getSito() + "')";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -130,7 +128,7 @@ public class FornitoreDAO implements IFornitoreDAO {
     public int removeByName(String nome) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Fornitore WHERE Nome = '" + nome + "'";
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -138,7 +136,7 @@ public class FornitoreDAO implements IFornitoreDAO {
     public int update(Fornitore fornitore) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "UPDATE Fornitore SET Nome = '" + fornitore.getNome() + "' WHERE idFornitore = " + fornitore.getIdFornitore();
-        IDBOperation operation = new UpdateOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.UPDATE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }

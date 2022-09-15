@@ -1,10 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IAmministratoreDAO;
-import DBInterface.Command.DBOperationExecutor;
-import DBInterface.Command.IDBOperation;
-import DBInterface.Command.RemoveOperation;
-import DBInterface.Command.WriteOperation;
+import DBInterface.Command.*;
 
 public class AmministratoreDAO implements IAmministratoreDAO {
     private static final AmministratoreDAO instance = new AmministratoreDAO();
@@ -17,7 +14,7 @@ public class AmministratoreDAO implements IAmministratoreDAO {
     public int add(int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "INSERT INTO Amministratore (idUtente) VALUES (" + idUtente + ")";
-        IDBOperation operation = new WriteOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.WRITE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 
@@ -25,7 +22,7 @@ public class AmministratoreDAO implements IAmministratoreDAO {
     public int remove(int idUtente) {
         DBOperationExecutor executor = new DBOperationExecutor();
         String sql = "DELETE FROM Amministratore WHERE idUtente = " + idUtente;
-        IDBOperation operation = new RemoveOperation(sql);
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
 }
