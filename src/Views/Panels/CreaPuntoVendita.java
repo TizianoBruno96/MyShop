@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaInserimentoiPuntoVenditaListener;
+import ActionListeners.ConfermaInserimentoPuntoVenditaListener;
 import Views.Model.CreazionePuntoVenditaModel;
 import Views.TableModel.CreazionePuntoVenditaTableModel;
 
@@ -26,9 +26,9 @@ public class CreaPuntoVendita extends JPanel {
         JPanel pannelloAzioni = new JPanel();
         pannelloAzioni.setLayout(new FlowLayout());
         JButton inserisciPuntoVendita = new JButton("Inserisci Punto Vendita");
-        inserisciPuntoVendita.setActionCommand(ConfermaInserimentoiPuntoVenditaListener.INSERISCIPUNTOVENDITA_BTN);
-        ConfermaInserimentoiPuntoVenditaListener confermaInserimentoiPuntoVenditaListeners = new ConfermaInserimentoiPuntoVenditaListener(tabella);
-        inserisciPuntoVendita.addActionListener(confermaInserimentoiPuntoVenditaListeners);
+        inserisciPuntoVendita.setActionCommand(ConfermaInserimentoPuntoVenditaListener.INSERISCIPUNTOVENDITA_BTN);
+        ConfermaInserimentoPuntoVenditaListener confermaInserimentoPuntoVenditaListeners = new ConfermaInserimentoPuntoVenditaListener(tabella);
+        inserisciPuntoVendita.addActionListener(confermaInserimentoPuntoVenditaListeners);
         pannelloAzioni.add(inserisciPuntoVendita);
         add(pannelloAzioni, BorderLayout.SOUTH);
 

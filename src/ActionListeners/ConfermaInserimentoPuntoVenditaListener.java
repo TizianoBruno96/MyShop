@@ -10,13 +10,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ConfermaInserimentoiPuntoVenditaListener implements ActionListener {
+public class ConfermaInserimentoPuntoVenditaListener implements ActionListener {
     public final static String INSERISCIPUNTOVENDITA_BTN = "InserisciPuntoVendita_btn";
     IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     private final JTable tabella;
 
-    public ConfermaInserimentoiPuntoVenditaListener(JTable tabella) {
+    public ConfermaInserimentoPuntoVenditaListener(JTable tabella) {
         this.tabella = tabella;
     }
 
