@@ -108,7 +108,7 @@ public class CatalogoProdottiTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return AccessoUtente.getTipo().equals("AM");
+        return AccessoUtente.getTipo() != null && AccessoUtente.getTipo().equals("AM");
     }
 
 

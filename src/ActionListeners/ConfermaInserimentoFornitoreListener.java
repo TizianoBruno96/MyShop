@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class ConfermaInserimentoFornitoreListener implements ActionListener {
     public static final String CIF_BTN = "Cif_btn";
-    IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
     private final JTable tabella;
+    IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
 
     public ConfermaInserimentoFornitoreListener(JTable tabella) {
         this.tabella = tabella;

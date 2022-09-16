@@ -1,9 +1,10 @@
 package Views.Panels;
 
-import ActionListeners.OrdineProdottoListener;
 import ActionListeners.OrdineServizioListener;
 import DAO.CategoriaDAO;
 import DAO.FornitoreDAO;
+import DAO.Interfaces.ICategoriaDAO;
+import DAO.Interfaces.IFornitoreDAO;
 import DAO.ServizioDAO;
 import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
@@ -18,16 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogoServizi extends JPanel {
+    ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
+    IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
+    ServizioDAO servizioDAO = ServizioDAO.getInstance();
+
     public CatalogoServizi() {
         setLayout(new BorderLayout());
         List<CatalogoServiziModel> righe = new ArrayList<>();
 
-        ArrayList<Servizio> servizi = ServizioDAO.getInstance().findAll();
+        ArrayList<Servizio> servizi = servizioDAO.findAll();
 
         for (Servizio s : servizi) {
-            Categoria categoria = CategoriaDAO.getInstance().findByID(s.getIdCategoria());
-            Fornitore fornitore = FornitoreDAO.getInstance().findByID(s.getIdFornitore());
-            //Recensione recensione = RecensioneDAO.getInstance().findByProdotto();
+            Categoria categoria = categoriaDAO.findByID(s.getIdCategoria());
+            Fornitore fornitore = fornitoreDAO.findByID(s.getIdFornitore());
 
             CatalogoServiziModel riga = new CatalogoServiziModel();
 
@@ -36,7 +40,6 @@ public class CatalogoServizi extends JPanel {
             riga.setCategoria(categoria.getNome());
             riga.setFornitore(fornitore.getNome());
             riga.setIdServizio(s.getIdServizio());
-            //riga.setCommento(s.);
             righe.add(riga);
         }
 
@@ -60,5 +63,6 @@ public class CatalogoServizi extends JPanel {
             }
             pannelloAzioni.add(inserimentoLista);
         }
+        add(pannelloAzioni, BorderLayout.SOUTH);
     }
 }

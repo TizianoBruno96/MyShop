@@ -1,5 +1,6 @@
 package Business;
 
+import DAO.Interfaces.IListaAcquistoDAO;
 import DAO.Interfaces.IOrdineServizioDAO;
 import DAO.OrdineServizioDAO;
 import Model.OrdineServizio;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class OrdineServizioBusiness {
     private static OrdineServizioBusiness instance;
     IOrdineServizioDAO ordineServizioDAO = OrdineServizioDAO.getInstance();
+    IListaAcquistoDAO listaAcquistoDAO = DAO.ListaAcquistoDAO.getInstance();
 
     public static synchronized OrdineServizioBusiness getInstance() {
         if (instance == null) {
@@ -19,11 +21,12 @@ public class OrdineServizioBusiness {
     }
 
     public void InserisciLista(ArrayList<Integer> idServizi) {
+        int idLista = listaAcquistoDAO.findByIDUtente(AccessoUtente.getIdUtente()).getIdListaAcquisto();
 
         //ciclo sull'array
         for (int i = 0; i < idServizi.size(); i++) {
             //creo un nuovo ordineServizio
-            OrdineServizio os = new OrdineServizio(idServizi.get(i), AccessoUtente.getIdPuntoVendita());
+            OrdineServizio os = new OrdineServizio(idServizi.get(i), idLista);
             ordineServizioDAO.add(os);
         }
     }

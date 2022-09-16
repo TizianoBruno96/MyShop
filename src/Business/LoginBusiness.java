@@ -53,10 +53,10 @@ public class LoginBusiness {
                 result.setMessage("Nome punto vendita non valido");
                 return result;
             }
+            pv = puntoVenditaDAO.findByNome(nomePuntoVendita);
+            AccessoUtente.setIdPuntoVendita(pv.getIdPuntoVendita());
         }
 
-        pv = puntoVenditaDAO.findByNome(nomePuntoVendita);
-        AccessoUtente.setIdPuntoVendita(pv.getIdPuntoVendita());
         AccessoUtente.setIdUtente(u.getIdUtente());
         AccessoUtente.setTipo(u.getTipo());
 

@@ -211,4 +211,11 @@ public class FinestraPrincipale extends JFrame {
         repaint();
         validate();
     }
+
+    public void mostraPannelloSfogliaCarrello() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new SfogliaCarrello());
+        repaint();
+        validate();
+    }
 }
