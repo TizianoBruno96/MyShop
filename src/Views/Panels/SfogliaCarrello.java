@@ -77,7 +77,7 @@ public class SfogliaCarrello extends JPanel {
                 //stampo la foto
                 try {
                     ImageIcon icon = new ImageIcon(ImageIO.read(foto.getValore().getBinaryStream()));
-                    Image image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+                    Image image = icon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
                     if (image != null) {
                         icon = new ImageIcon(image);
                     }
@@ -112,6 +112,7 @@ public class SfogliaCarrello extends JPanel {
         p.add(new JLabel("Prodotti"), BorderLayout.NORTH);
         JTable tableProdotti = new JTable(new CarrelloProdottiTableModel(righeProdotti));
         p.add(new JScrollPane(tableProdotti), BorderLayout.CENTER);
+        tableProdotti.setRowHeight(50);
         add(p, BorderLayout.WEST);
 
         //aggiungo la tabella dei servizi
@@ -120,12 +121,13 @@ public class SfogliaCarrello extends JPanel {
         p2.add(new JLabel("Servizi"), BorderLayout.NORTH);
         JTable tableServizi = new JTable(new CatalogoServiziTableModel(righeServizi));
         p2.add(new JScrollPane(tableServizi), BorderLayout.CENTER);
+        tableServizi.setRowHeight(50);
         add(p2, BorderLayout.EAST);
 
         //mostro il costo totale
         listaAcquistoDAO.updateCostoTot(ls);
         ls = listaAcquistoDAO.findByID(ls.getIdListaAcquisto());
-        add(new JLabel("Costo totale: " + ls.getCostoTot()), BorderLayout.SOUTH);
+        add(new JLabel("Costo totale: " + ls.getCostoTot() + "€"), BorderLayout.SOUTH);
 
         //aggiungo pulsante di acquisto
         JPanel pannelloAzioni = new JPanel();

@@ -30,6 +30,10 @@ public class ConfermaRimozioneListener implements ActionListener {
             CarrelloProdottiTableModel prodottiTableModel = (CarrelloProdottiTableModel) tableProdotti.getModel();
             CatalogoServiziTableModel serviziTableModel = (CatalogoServiziTableModel) tableServizi.getModel();
 
+            if (prodottiSelectedRows.length == 0 && serviziSelectedRows.length == 0) {
+                JOptionPane.showMessageDialog(null, "Nessun elemento selezionato");
+                return;
+            }
 
             ArrayList<Integer> idProdotti = new ArrayList<>();
             ArrayList<Integer> idServizi = new ArrayList<>();

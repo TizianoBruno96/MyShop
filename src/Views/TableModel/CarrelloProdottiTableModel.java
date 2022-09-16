@@ -4,6 +4,7 @@ import Utilities.FloatExt;
 import Utilities.IntegerExt;
 import Views.Model.CarrelloProdottiModel;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -85,5 +86,11 @@ public class CarrelloProdottiTableModel extends AbstractTableModel {
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
+    }
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        if (columnIndex == 7) return ImageIcon.class;
+        return Object.class;
     }
 }
