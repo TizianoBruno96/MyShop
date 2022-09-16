@@ -116,6 +116,4 @@ public class CatalogoProdottiTableModel extends AbstractTableModel {
         if (columnIndex == 11) return ImageIcon.class;
         return Object.class;
     }
-
-
 }

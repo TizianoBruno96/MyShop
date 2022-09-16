@@ -130,7 +130,6 @@ public class FinestraPrincipale extends JFrame {
                 }
             }
         }
-
         repaint();
         validate();
     }

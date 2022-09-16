@@ -1,7 +1,6 @@
 package Views.TableModel;
 
 import Utilities.FloatExt;
-import Utilities.IntegerExt;
 import Views.Model.InserimentoProdottoModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -77,6 +76,6 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return columnIndex != 5;
     }
 }

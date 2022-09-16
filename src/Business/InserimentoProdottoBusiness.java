@@ -15,7 +15,6 @@ import java.sql.SQLException;
 public class InserimentoProdottoBusiness {
     private static InserimentoProdottoBusiness instance;
     IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
-    IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
     IFotoDAO fotoDAO = FotoDAO.getInstance();
@@ -27,7 +26,7 @@ public class InserimentoProdottoBusiness {
         return instance;
     }
 
-    public void InserisciProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, File foto, String nomeFoto) {
+    public void InserisciProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, String fotopath, String nomeFoto) {
         Produttore pro = produttoreDAO.findByNome(nomeProduttore);
         Categoria c = categoriaDAO.findByNome(categoriaProdotto);
         Prodotto p = new Prodotto(nomeProdotto, descrizione, costo);
@@ -37,6 +36,7 @@ public class InserimentoProdottoBusiness {
         p = prodottoDAO.findByNome(nomeProdotto);
 
         //inserisco la foto
+        File foto = new File(fotopath);
         try (InputStream inputStream = new FileInputStream(foto)) {
             Blob blob = new SerialBlob(inputStream.readAllBytes());
             Foto foto1 = new Foto(p.getIdProdotto(), blob, nomeFoto);

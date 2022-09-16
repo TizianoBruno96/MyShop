@@ -50,8 +50,13 @@ public class CatalogoProdotti extends JPanel {
             for (Posizione pro : posizioni) {
                 quantita += pro.getQuantita();
             }
-            riga.setpCorsia(posizioni.get(0).getpCorsia());
-            riga.setpScaffale(posizioni.get(0).getpScaffale());
+            if (posizioni.size() == 0) {
+                riga.setpCorsia(0);
+                riga.setpScaffale(0);
+            } else {
+                riga.setpCorsia(posizioni.get(0).getpCorsia());
+                riga.setpScaffale(posizioni.get(0).getpScaffale());
+            }
             riga.setDisponibilita(quantita);
             if (recensioneDAO.findByProdotto(p.getIdProdotto()).size() > 0) {
                 riga.setCommento(recensioneDAO.findByProdotto(p.getIdProdotto()).get(0).getCommento());
@@ -61,18 +66,18 @@ public class CatalogoProdotti extends JPanel {
 
             if (fotoDAO.findByProdotto(p.getIdProdotto()).size() > 0) {
                 Foto foto = fotoDAO.findByProdotto(p.getIdProdotto()).get(0);
+                //stampo la foto
                 try {
                     ImageIcon icon = new ImageIcon(ImageIO.read(foto.getValore().getBinaryStream()));
-                    Image image = icon.getImage();
-                    Image image2 = image.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-                    icon = new ImageIcon(image2);
+                    Image image = icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+                    if (image != null) {
+                        icon = new ImageIcon(image);
+                    }
                     riga.setFoto(icon);
-
                 } catch (IOException e) {
-                    //throw new RuntimeException(e);
-                    e.printStackTrace();
+                    System.out.println("Errore caricamento immagine");
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    System.out.println("Errore caricamento immagine da database");
                 }
             }
 

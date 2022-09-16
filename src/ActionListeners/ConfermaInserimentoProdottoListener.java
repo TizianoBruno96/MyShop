@@ -15,7 +15,6 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
     public static final String CIPL_BTN = "Cinpl_btn";
     private final JTable table;
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
-    IPosizioneDAO posizioneDAO = PosizioneDAO.getInstance();
 
     public ConfermaInserimentoProdottoListener(JTable table) {
         this.table = table;
@@ -32,7 +31,6 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
             String categoriaProdotto = (String) table.getValueAt(0, 4);
             String fotoPath = (String) table.getValueAt(0, 5);
             String nomeFoto = (String) table.getValueAt(0, 6);
-            File foto = new File(fotoPath);
 
             //Controllo che i campi non siano vuoti e che il produttore non esista già
             if (nomeProdotto == null || nomeProdotto.equals(""))
@@ -47,7 +45,11 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire il nome del produttore");
             else if (categoriaProdotto == null || categoriaProdotto.equals(""))
                 JOptionPane.showMessageDialog(null, "Inserire la categoria del prodotto");
-            else InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, foto, nomeFoto);
+            else if (fotoPath == null || fotoPath.equals(""))
+                JOptionPane.showMessageDialog(null, "Inserire il percorso della foto");
+            else if (nomeFoto == null || nomeFoto.equals(""))
+                JOptionPane.showMessageDialog(null, "Inserire il nome della foto del prodotto");
+            else InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, fotoPath, nomeFoto);
         }
     }
 }
