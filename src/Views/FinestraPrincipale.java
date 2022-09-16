@@ -4,6 +4,7 @@ import ActionListeners.LoginListeners;
 import ActionListeners.LogoutListeners;
 import ActionListeners.RegistrazioneListener;
 import Business.SessionManager;
+import Model.Articoli.Prodotto;
 import Model.Utenti.Utente;
 import Views.Decorator.Menu;
 import Views.Decorator.*;
@@ -136,7 +137,7 @@ public class FinestraPrincipale extends JFrame {
 
     public void mostraCatalogoProdotti() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CatalogoProdotti());
+        pannelloCentro.add(new CatalogoProdotti(this));
         repaint();
         validate();
     }
@@ -222,6 +223,13 @@ public class FinestraPrincipale extends JFrame {
     public void mostraPannelloGestioneUtenti() {
         pannelloCentro.removeAll();
         pannelloCentro.add(new ListaUtenti());
+        repaint();
+        validate();
+    }
+
+    public void mostraPaginaProdotto(Prodotto prodotto) {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new PaginaProdotto(prodotto));
         repaint();
         validate();
     }

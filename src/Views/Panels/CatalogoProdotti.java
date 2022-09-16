@@ -1,6 +1,7 @@
 package Views.Panels;
 
 import ActionListeners.OrdineProdottoListener;
+import ActionListeners.PaginaProdottoListener;
 import DAO.*;
 import DAO.Interfaces.*;
 import Model.Articoli.Foto;
@@ -9,6 +10,7 @@ import Model.Articoli.Produttore;
 import Model.Categoria;
 import Model.Posizione;
 import Views.AccessoUtente;
+import Views.FinestraPrincipale;
 import Views.Model.CatalogoProdottiModel;
 import Views.TableModel.CatalogoProdottiTableModel;
 
@@ -29,7 +31,7 @@ public class CatalogoProdotti extends JPanel {
     IRecensioneDAO recensioneDAO = RecensioneDAO.getInstance();
     IFotoDAO fotoDAO = FotoDAO.getInstance();
 
-    public CatalogoProdotti() {
+    public CatalogoProdotti(FinestraPrincipale frame) {
         setLayout(new BorderLayout());
         List<CatalogoProdottiModel> righe = new ArrayList<>();
         ArrayList<Prodotto> prodotti = prodottoDAO.findAll();
@@ -106,6 +108,12 @@ public class CatalogoProdotti extends JPanel {
             }
             pannelloAzioni.add(inserimentoLista);
         }
+        //aggiungo un pulsante per accedere alla pagina del prodotto
+        JButton dettagliProdotto = new JButton("Dettagli Prodotto");
+        dettagliProdotto.setActionCommand(PaginaProdottoListener.PPL_BTN);
+        PaginaProdottoListener paginaProdottoListener = new PaginaProdottoListener(tabella, frame);
+        dettagliProdotto.addActionListener(paginaProdottoListener);
+        pannelloAzioni.add(dettagliProdotto);
         add(pannelloAzioni, BorderLayout.SOUTH);
     }
 }

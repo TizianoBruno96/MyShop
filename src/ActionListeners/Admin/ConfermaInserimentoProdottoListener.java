@@ -47,8 +47,10 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire la categoria del prodotto");
             else if (categoriaDAO.findByNome(categoriaProdotto) == null)
                 JOptionPane.showMessageDialog(null, "La categoria inserita non esiste");
-            else
+            else {
                 InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, fotoPath, nomeFoto);
+                JOptionPane.showMessageDialog(null, "Prodotto inserito con successo");
+            }
         }
     }
 }

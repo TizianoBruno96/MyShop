@@ -1,9 +1,6 @@
 package Business;
 
-import DAO.Interfaces.IListaAcquistoDAO;
-import DAO.Interfaces.IOrdineProdottoDAO;
-import DAO.Interfaces.IOrdineServizioDAO;
-import DAO.Interfaces.IUtenteDAO;
+import DAO.Interfaces.*;
 import DAO.ListaAcquistoDAO;
 import DAO.OrdineProdottoDAO;
 import DAO.OrdineServizioDAO;
@@ -16,6 +13,7 @@ public class RimozioneUtenteBusiness {
     IOrdineServizioDAO ordineServizioDAO = OrdineServizioDAO.getInstance();
     IOrdineProdottoDAO ordineProdottoDAO = OrdineProdottoDAO.getInstance();
     IListaAcquistoDAO listaAcquistoDAO = ListaAcquistoDAO.getInstance();
+    IRecensioneDAO recensioneDAO = DAO.RecensioneDAO.getInstance();
 
     public static RimozioneUtenteBusiness getInstance() {
         if (instance == null) {
@@ -28,6 +26,7 @@ public class RimozioneUtenteBusiness {
         ListaAcquisto ls = listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername(username).getIdUtente());
 
         try {
+            recensioneDAO.removeByUtente(utenteDAO.findByUsername(username).getIdUtente());
             ordineServizioDAO.removeByIDListaAcquisto(ls.getIdListaAcquisto());
             ordineProdottoDAO.removeByIDListaAcquisto(ls.getIdListaAcquisto());
             utenteDAO.removeByUsername(username);

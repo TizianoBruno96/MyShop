@@ -31,8 +31,10 @@ public class ConfermaInserimentoFornitoreListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire il sito del fornitore");
             else if (fornitoreDAO.checkNome(nomeFornitore))
                 JOptionPane.showMessageDialog(null, "Il fornitore inserito esiste già");
-            else
+            else {
                 InserimentoFornitoreBusiness.getInstance().InserisciFornitore(nomeFornitore, sito);
+                JOptionPane.showMessageDialog(null, "Fornitore inserito con successo");
+            }
         }
     }
 }

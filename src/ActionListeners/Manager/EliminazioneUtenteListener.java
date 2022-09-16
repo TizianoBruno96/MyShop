@@ -32,6 +32,7 @@ public class EliminazioneUtenteListener implements ActionListener {
                 int dialogResult = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler eliminare l'utente " + model.getNome() + " " + model.getCognome() + "?", "Attenzione", dialogButton);
                 if (dialogResult == JOptionPane.YES_OPTION) {
                     RimozioneUtenteBusiness.getInstance().rimuoviUtente(model.getUsername());
+                    JOptionPane.showMessageDialog(null, "Utente eliminato con successo!");
                 }
             }
         }

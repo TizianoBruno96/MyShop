@@ -149,4 +149,20 @@ public class RecensioneDAO implements IRecensioneDAO {
         IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
         return executor.executeOperation(operation).getAffectedRows();
     }
+
+    @Override
+    public int removeByProdotto(int idProdotto) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Recensione WHERE idProdotto = " + idProdotto;
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
+        return executor.executeOperation(operation).getAffectedRows();
+    }
+
+    @Override
+    public int removeByUtente(int idUtente) {
+        DBOperationExecutor executor = new DBOperationExecutor();
+        String sql = "DELETE FROM Recensione WHERE idUtente = " + idUtente;
+        IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.REMOVE, sql);
+        return executor.executeOperation(operation).getAffectedRows();
+    }
 }

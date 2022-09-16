@@ -32,8 +32,10 @@ public class ConfermaInserimentoCategoriaListener implements ActionListener {
             else {
                 if (nomeCategoriaPadre == null)
                     InserimentoCategoriaBusiness.getInstance().InserisciCategoria(nomeCategoria);
-                else
+                else {
                     InserimentoCategoriaBusiness.getInstance().InserisciCategoria(nomeCategoria, categoriaDAO.findByNome(nomeCategoriaPadre).getIdCategoria());
+                    JOptionPane.showMessageDialog(null, "Categoria inserita con successo");
+                }
             }
         }
     }

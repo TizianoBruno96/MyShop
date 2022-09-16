@@ -77,6 +77,7 @@ public class Recensione {
     }
 
     public String toString() {
-        return "Recensione [idRecensione=" + idRecensione + ", voto=" + voto + ", commento=" + commento + ", idProdotto=" + idProdotto + "]";
+        return "Recensione [idRecensione=" + idRecensione + ", voto=" + voto + ", commento=" + commento + ", idProdotto="
+                + idProdotto + ", idUtente=" + idUtente + ", data=" + data + "]";
     }
 }

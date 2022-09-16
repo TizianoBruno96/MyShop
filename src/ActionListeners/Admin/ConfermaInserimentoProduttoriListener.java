@@ -37,8 +37,10 @@ public class ConfermaInserimentoProduttoriListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire la nazione del produttore");
             else if (produttoreDAO.findByNome(NomeProduttore) != null)
                 JOptionPane.showMessageDialog(null, "Il produttore inserito esiste già");
-            else
+            else {
                 InserimentoProduttoreBusiness.getInstance().InserisciProduttore(NomeProduttore, Sito, Citta, Nazione);
+                JOptionPane.showMessageDialog(null, "Produttore inserito con successo");
+            }
         }
     }
 }

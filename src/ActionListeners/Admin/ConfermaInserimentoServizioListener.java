@@ -49,6 +49,7 @@ public class ConfermaInserimentoServizioListener implements ActionListener {
                 Categoria categoria = categoriaDAO.findByNome(nomecategoria);
                 Fornitore fornitore = fornitoreDAO.findByNome(nomefornitore);
                 InserimentoServizioBusiness.getInstance().InserisciServizio(nome, costo, fornitore.getIdFornitore(), categoria.getIdCategoria());
+                JOptionPane.showMessageDialog(null, "Servizio inserito con successo");
             }
         }
     }

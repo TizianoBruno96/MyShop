@@ -61,6 +61,7 @@ public class ConfermaRegistrazioneListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire il nome del punto vendita");
             } else {
                 RegistrazioneBusiness.getInstance().confermaRegistrazione(nome, cognome, username, email, telefono, eta, residenza, professione, password, nomePuntoVendita);
+                JOptionPane.showMessageDialog(null, "Registrazione effettuata con successo");
             }
         }
     }

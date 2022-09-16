@@ -57,6 +57,7 @@ public class ConfermaInserimentoManagerListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire la password");
             } else {
                 InserimentoManagerBusiness.getInstance().InserisciManager(nome, cognome, username, email, telefono, eta, residenza, professione, password);
+                JOptionPane.showMessageDialog(null, "Manager inserito con successo");
             }
         }
     }
