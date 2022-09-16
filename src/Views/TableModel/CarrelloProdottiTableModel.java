@@ -84,6 +84,6 @@ public class CarrelloProdottiTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 6;
+        return false;
     }
 }

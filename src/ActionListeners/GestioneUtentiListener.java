@@ -19,6 +19,10 @@ public class GestioneUtentiListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String azione = e.getActionCommand();
 
+        if (GESTISCIUTENTI_BTN.equals(azione)) {
+            frame.mostraPannelloGestioneUtenti();
+        }
     }
 }

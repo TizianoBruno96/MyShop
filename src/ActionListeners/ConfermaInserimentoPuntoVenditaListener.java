@@ -3,8 +3,11 @@ package ActionListeners;
 import Business.InserimentoPuntoVenditaBusiness;
 import DAO.Interfaces.IPuntoVenditaDAO;
 import DAO.Interfaces.IUtenteDAO;
+import DAO.Interfaces.IUtenteRegistratoDAO;
 import DAO.PuntoVenditaDAO;
 import DAO.UtenteDAO;
+import DAO.UtenteRegistratoDAO;
+import Model.Utenti.Utente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +17,7 @@ public class ConfermaInserimentoPuntoVenditaListener implements ActionListener {
     public final static String INSERISCIPUNTOVENDITA_BTN = "InserisciPuntoVendita_btn";
     IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
+    IUtenteRegistratoDAO utenteRegistratoDAO = UtenteRegistratoDAO.getInstance();
     private final JTable tabella;
 
     public ConfermaInserimentoPuntoVenditaListener(JTable tabella) {
@@ -47,11 +51,13 @@ public class ConfermaInserimentoPuntoVenditaListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Lo username inserito non esiste");
             else if (!utenteDAO.findByUsername(usernameManager).getTipo().equals("MN"))
                 JOptionPane.showMessageDialog(null, "Lo username inserito non è un manager");
+            else if (utenteRegistratoDAO.findByUtente(utenteDAO.findByUsername(usernameManager).getIdUtente()) != null)
+                JOptionPane.showMessageDialog(null, "Il manager inserito è già manager di un altro punto vendita");
             else if (maxCorsia==0 || maxScaffale==0)
                 JOptionPane.showMessageDialog(null,"Inserire valori accettabili per la grandezza del magazzino");
             else {
                 int idManager = utenteDAO.findByUsername(usernameManager).getIdUtente();
-                InserimentoPuntoVenditaBusiness.getInstance().InserisciPuntoVendita(citta, nome, indirizzo, idManager,maxCorsia,maxScaffale);
+                InserimentoPuntoVenditaBusiness.getInstance().InserisciPuntoVendita(citta, nome, indirizzo, idManager, maxCorsia, maxScaffale);
             }
         }
     }

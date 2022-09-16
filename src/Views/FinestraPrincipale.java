@@ -218,4 +218,11 @@ public class FinestraPrincipale extends JFrame {
         repaint();
         validate();
     }
+
+    public void mostraPannelloGestioneUtenti() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new ListaUtenti());
+        repaint();
+        validate();
+    }
 }
