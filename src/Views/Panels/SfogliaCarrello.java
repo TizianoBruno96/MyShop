@@ -42,7 +42,7 @@ public class SfogliaCarrello extends JPanel {
         setLayout(new BorderLayout());
         List<CarrelloProdottiModel> righeProdotti = new ArrayList<>();
         List<CatalogoServiziModel> righeServizi = new ArrayList<>();
-        ListaAcquisto ls = listaAcquistoDAO.findByID(AccessoUtente.getIdUtente());
+        ListaAcquisto ls = listaAcquistoDAO.findByIDUtente(AccessoUtente.getIdUtente());
 
         ArrayList<OrdineServizio> ordiniServizio = ordineServizioDAO.findByIDListaAcquisto(ls.getIdListaAcquisto());
         ArrayList<OrdineProdotto> ordiniProdotto = ordineProdottoDAO.findByListaAcquisto(ls.getIdListaAcquisto());

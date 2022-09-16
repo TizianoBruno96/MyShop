@@ -1,5 +1,7 @@
 package Views.TableModel;
 
+import Utilities.FloatExt;
+import Utilities.IntegerExt;
 import Views.Model.CarrelloProdottiModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -55,6 +57,29 @@ public class CarrelloProdottiTableModel extends AbstractTableModel {
             case 7 -> "Foto";
             default -> null;
         };
+    }
+
+    @Override
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        CarrelloProdottiModel riga = righe.get(rowIndex);
+        switch (columnIndex) {
+            case 0 ->{
+                if (IntegerExt.isParsable(value.toString()))
+                    riga.setIdProdotto(Integer.parseInt(value.toString()));
+            }
+            case 1 -> riga.setNomeProdotto(value.toString());
+            case 2 -> riga.setDescrizione(value.toString());
+            case 3 -> {
+                if (FloatExt.isParsable(value.toString()))
+                    riga.setCosto(Float.parseFloat(value.toString()));
+            }
+            case 4 -> riga.setNomeProduttore(value.toString());
+            case 5 -> riga.setNomeCategoria(value.toString());
+            case 6 -> {
+                if (IntegerExt.isParsable(value.toString()))
+                    riga.setQuantita(Integer.parseInt(value.toString()));
+            }
+        }
     }
 
     @Override
