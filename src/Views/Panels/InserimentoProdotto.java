@@ -22,7 +22,6 @@ public class InserimentoProdotto extends JPanel {
 
         IPuntoVenditaDAO puntoVenditaDAO = PuntoVenditaDAO.getInstance();
         PuntoVendita pv = puntoVenditaDAO.findByID(1);
-        riga.setNomePuntoVendita(pv.getNome());
 
 
         CreazioneProdottoTableModel tableModel = new CreazioneProdottoTableModel(righe1);
@@ -40,7 +39,5 @@ public class InserimentoProdotto extends JPanel {
         pannelloAzioni.add(confermaInserimentoProdotto);
 
         add(pannelloAzioni, BorderLayout.SOUTH);
-
-
     }
 }

@@ -21,7 +21,7 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 10;
+        return 7;
     }
 
     @Override
@@ -33,15 +33,11 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
             case 2 -> riga.getCosto();
             case 3 -> riga.getNomeProduttore();
             case 4 -> riga.getCategoriaProdotto();
-            case 5 -> riga.getDisponibilita();
-            case 6 -> riga.getpCorsia();
-            case 7 -> riga.getpScaffale();
-            case 8 -> riga.getNomePuntoVendita();
-            case 9 -> riga.getFoto();
+            case 5 -> riga.getFotoPath();
+            case 6 -> riga.getNomeFoto();
             default -> null;
         };
     }
-
 
     @Override
     public String getColumnName(int columnIndex) {
@@ -51,11 +47,8 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
             case 2 -> "Costo";
             case 3 -> "Nome Produttore";
             case 4 -> "Categoria";
-            case 5 -> "Disponibilità";
-            case 6 -> "Corsia";
-            case 7 -> "Scaffale";
-            case 8 -> "Nome Punto Vendita";
-            case 9 -> "Foto";
+            case 5 -> "Path della Foto";
+            case 6 -> "Nome della Foto";
             default -> null;
         };
     }
@@ -76,22 +69,14 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
             case 4:
                 riga.setCategoriaProdotto(value.toString());
             case 5:
-                if (IntegerExt.isParsable(value.toString()))
-                    riga.setDisponibilita(Integer.parseInt(value.toString()));
+                riga.setFotoPath(value.toString());
             case 6:
-                if (IntegerExt.isParsable(value.toString()))
-                    riga.setpCorsia(Integer.parseInt(value.toString()));
-            case 7:
-                if (IntegerExt.isParsable(value.toString()))
-                    riga.setpScaffale(Integer.parseInt(value.toString()));
+                riga.setNomeFoto(value.toString());
         }
     }
-
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return columnIndex >= 0;
     }
-
-
 }

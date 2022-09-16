@@ -1,18 +1,13 @@
 package Views.Model;
 
-import javax.swing.*;
-
 public class InserimentoProdottoModel {
     private String nomeProdotto;
     private String descrizione;
     private float costo;
     private String nomeProduttore;
     private String categoriaProdotto;
-    private int Disponibilita;
-    private int pCorsia;
-    private int pScaffale;
-    private String nomePuntoVendita;
-    private ImageIcon foto;
+    private String fotoPath;
+    private String nomeFoto;
 
     public String getNomeProdotto() {
         return nomeProdotto;
@@ -54,43 +49,19 @@ public class InserimentoProdottoModel {
         this.categoriaProdotto = categoriaProdotto;
     }
 
-    public int getDisponibilita() {
-        return Disponibilita;
+    public String getFotoPath() {
+        return fotoPath;
     }
 
-    public void setDisponibilita(int disponibilita) {
-        Disponibilita = disponibilita;
+    public void setFotoPath(String fotoPath) {
+        this.fotoPath = fotoPath;
     }
 
-    public int getpCorsia() {
-        return pCorsia;
+    public String getNomeFoto() {
+        return nomeFoto;
     }
 
-    public void setpCorsia(int pCorsia) {
-        this.pCorsia = pCorsia;
-    }
-
-    public int getpScaffale() {
-        return pScaffale;
-    }
-
-    public void setpScaffale(int pScaffale) {
-        this.pScaffale = pScaffale;
-    }
-
-    public ImageIcon getFoto() {
-        return foto;
-    }
-
-    public void setFoto(ImageIcon foto) {
-        this.foto = foto;
-    }
-
-    public String getNomePuntoVendita() {
-        return nomePuntoVendita;
-    }
-
-    public void setNomePuntoVendita(String nomePuntoVendita) {
-        this.nomePuntoVendita = nomePuntoVendita;
+    public void setNomeFoto(String nomeFoto) {
+        this.nomeFoto = nomeFoto;
     }
 }

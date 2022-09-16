@@ -30,10 +30,8 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
             float costo = (float) table.getValueAt(0, 2);
             String nomeProduttore = (String) table.getValueAt(0, 3);
             String categoriaProdotto = (String) table.getValueAt(0, 4);
-            int disponibilita = (int) table.getValueAt(0, 5);
-            int pCorsia = (int) table.getValueAt(0, 6);
-            int pScaffale = (int) table.getValueAt(0, 7);
-            String fotoPath = (String) table.getValueAt(0, 8);
+            String fotoPath = (String) table.getValueAt(0, 5);
+            String nomeFoto = (String) table.getValueAt(0, 6);
             File foto = new File(fotoPath);
 
             //Controllo che i campi non siano vuoti e che il produttore non esista già
@@ -49,21 +47,7 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire il nome del produttore");
             else if (categoriaProdotto == null || categoriaProdotto.equals(""))
                 JOptionPane.showMessageDialog(null, "Inserire la categoria del prodotto");
-            else {
-                if (disponibilita != 0 || pCorsia != 0 || pScaffale != 0) {
-                    if (disponibilita == 0)
-                        JOptionPane.showMessageDialog(null, "Inserire la disponibilità del prodotto");
-                    else if (pCorsia == 0)
-                        JOptionPane.showMessageDialog(null, "Inserire la posizione corsia del prodotto");
-                    else if (pScaffale == 0)
-                        JOptionPane.showMessageDialog(null, "Inserire la posizione scaffale del prodotto");
-                        //TODO ID magazzino da modificare
-                    else if (posizioneDAO.find(pCorsia, pScaffale, 1).getIdProdotto() != 0)
-                        JOptionPane.showMessageDialog(null, "Posizione già occupata");
-                } else {
-                    InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, disponibilita, pCorsia, pScaffale, foto);
-                }
-            }
+            else InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, foto, nomeFoto);
         }
     }
 }

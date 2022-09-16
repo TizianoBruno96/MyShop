@@ -27,23 +27,19 @@ public class InserimentoProdottoBusiness {
         return instance;
     }
 
-    public void InserisciProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, int disponibilita, int pCorsia, int pScaffale, File foto) {
+    public void InserisciProdotto(String nomeProdotto, String descrizione, float costo, String nomeProduttore, String categoriaProdotto, File foto, String nomeFoto) {
         Produttore pro = produttoreDAO.findByNome(nomeProduttore);
         Categoria c = categoriaDAO.findByNome(categoriaProdotto);
         Prodotto p = new Prodotto(nomeProdotto, descrizione, costo);
 
         //inserisco il prodotto
         prodottoDAO.add(p, c, pro);
-        //TODO idmagazzino da modificare
-        posizioneDAO.addProdottoInPosizione(p, pCorsia, pScaffale, 1, disponibilita);
         p = prodottoDAO.findByNome(nomeProdotto);
 
         //inserisco la foto
         try (InputStream inputStream = new FileInputStream(foto)) {
             Blob blob = new SerialBlob(inputStream.readAllBytes());
-
-            //TODO modificare metodo di inserimento della foto
-            Foto foto1 = new Foto(p.getIdProdotto(), blob, "Lavandino");
+            Foto foto1 = new Foto(p.getIdProdotto(), blob, nomeFoto);
             fotoDAO.add(foto1);
         } catch (SQLException e) {
             System.out.println("Errore nel database");
