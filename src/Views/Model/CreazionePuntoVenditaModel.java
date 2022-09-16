@@ -5,6 +5,8 @@ public class CreazionePuntoVenditaModel {
     private String Nome;
     private String Indirizzo;
     private String UsernameManager;
+    private int maxCorsia;
+    private int maxScaffale;
 
 
     public String getCitta() {
@@ -37,5 +39,21 @@ public class CreazionePuntoVenditaModel {
 
     public void setUsernameManager(String usernameManager) {
         UsernameManager = usernameManager;
+    }
+
+    public int getMaxCorsia() {
+        return maxCorsia;
+    }
+
+    public void setMaxCorsia(int maxCorsia) {
+        this.maxCorsia = maxCorsia;
+    }
+
+    public int getMaxScaffale() {
+        return maxScaffale;
+    }
+
+    public void setMaxScaffale(int maxScaffale) {
+        this.maxScaffale = maxScaffale;
     }
 }
