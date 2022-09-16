@@ -1,6 +1,6 @@
 package Views.Model;
 
-public class InserimentoProdottoModel {
+public class CreazioneProdottoModel {
     private String nomeProdotto;
     private String descrizione;
     private float costo;

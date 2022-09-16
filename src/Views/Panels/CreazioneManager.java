@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.InserisciManagerListener;
+import ActionListeners.ConfermaInserimentoManagerListener;
 import Views.Model.CreazioneManagerModel;
 import Views.TableModel.CreazioneManagerTableModel;
 
@@ -9,8 +9,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreaManager extends JPanel {
-    public CreaManager() {
+public class CreazioneManager extends JPanel {
+    public CreazioneManager() {
         setLayout(new BorderLayout());
         List<CreazioneManagerModel> righe = new ArrayList<>();
 
@@ -26,9 +26,9 @@ public class CreaManager extends JPanel {
         JPanel pannelloAzioni = new JPanel();
         pannelloAzioni.setLayout(new FlowLayout());
         JButton inserisciManager = new JButton("Inserisci Manager");
-        inserisciManager.setActionCommand(InserisciManagerListener.INSERISCIMANAGER_BTN);
-        InserisciManagerListener inserisciManagerListener = new InserisciManagerListener(tabella);
-        inserisciManager.addActionListener(inserisciManagerListener);
+        inserisciManager.setActionCommand(ConfermaInserimentoManagerListener.INSERISCIMANAGER_BTN);
+        ConfermaInserimentoManagerListener confermaInserimentoManagerListener = new ConfermaInserimentoManagerListener(tabella);
+        inserisciManager.addActionListener(confermaInserimentoManagerListener);
         pannelloAzioni.add(inserisciManager);
         add(pannelloAzioni, BorderLayout.SOUTH);
 

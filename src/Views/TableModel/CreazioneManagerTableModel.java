@@ -1,6 +1,7 @@
 package Views.TableModel;
 
 import Utilities.IntegerExt;
+import Views.AccessoUtente;
 import Views.Model.CreazioneManagerModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -103,7 +104,7 @@ public class CreazioneManagerTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo().equals("AM");
     }
 
 

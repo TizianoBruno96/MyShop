@@ -1,7 +1,6 @@
 package Views.Decorator;
 
-import ActionListeners.LasciaFeedbackListeners;
-import ActionListeners.PrenotaArticoliListeners;
+import ActionListeners.RecensioneListener;
 import Views.FinestraPrincipale;
 
 import javax.swing.*;
@@ -23,13 +22,13 @@ public class ClienteMenuDecorator extends CustomMenuDecorator {
 
 
 
-        lasciaFeedback.setActionCommand(LasciaFeedbackListeners.LASCIAFEEDBACK_BTN);
+        lasciaFeedback.setActionCommand(RecensioneListener.LASCIAFEEDBACK_BTN);
 
 
-        LasciaFeedbackListeners lasciaFeedbackListeners = new LasciaFeedbackListeners(finestra);
+        RecensioneListener recensioneListener = new RecensioneListener(finestra);
 
 
-        lasciaFeedback.addActionListener(lasciaFeedbackListeners);
+        lasciaFeedback.addActionListener(recensioneListener);
 
 
 

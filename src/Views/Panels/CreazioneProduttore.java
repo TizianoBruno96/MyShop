@@ -1,7 +1,7 @@
 package Views.Panels;
 
 import ActionListeners.ConfermaInserimentoProduttoriListener;
-import Views.Model.InserimentoProduttoreModel;
+import Views.Model.CreazioneProduttoreModel;
 import Views.TableModel.CreazioneProduttoreTableModel;
 
 import javax.swing.*;
@@ -9,12 +9,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InserimentoProduttore extends JPanel {
-    public InserimentoProduttore() {
+public class CreazioneProduttore extends JPanel {
+    public CreazioneProduttore() {
         setLayout(new BorderLayout());
-        List<InserimentoProduttoreModel> righe = new ArrayList<>();
+        List<CreazioneProduttoreModel> righe = new ArrayList<>();
 
-        InserimentoProduttoreModel riga = new InserimentoProduttoreModel();
+        CreazioneProduttoreModel riga = new CreazioneProduttoreModel();
         righe.add(riga);
 
 

@@ -1,14 +1,15 @@
 package Views.TableModel;
 
-import Views.Model.InserimentoFornitoreModel;
+import Views.AccessoUtente;
+import Views.Model.CreazioneFornitoreModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CreazioneFornitoreTableModel extends AbstractTableModel {
-    private final List<InserimentoFornitoreModel> righe;
+    private final List<CreazioneFornitoreModel> righe;
 
-    public CreazioneFornitoreTableModel(List<InserimentoFornitoreModel> righe) {
+    public CreazioneFornitoreTableModel(List<CreazioneFornitoreModel> righe) {
         this.righe = righe;
     }
 
@@ -24,7 +25,7 @@ public class CreazioneFornitoreTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        InserimentoFornitoreModel riga = righe.get(rowIndex);
+        CreazioneFornitoreModel riga = righe.get(rowIndex);
         return switch (columnIndex) {
             case 0 -> riga.getNome();
             case 1 -> riga.getSito();
@@ -43,7 +44,7 @@ public class CreazioneFornitoreTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        InserimentoFornitoreModel riga = righe.get(rowIndex);
+        CreazioneFornitoreModel riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 riga.setNome(value.toString());
@@ -56,8 +57,6 @@ public class CreazioneFornitoreTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo().equals("AM");
     }
-
-
 }

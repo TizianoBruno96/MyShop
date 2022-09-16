@@ -5,12 +5,12 @@ import Views.FinestraPrincipale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SfogliaCatalogoListeners implements ActionListener {
+public class SfogliaCatalogoListener implements ActionListener {
     public final static String SFOGLIACATALOGOPRODOTTI_BTN = "SfogliacatalogoProdtti_btn";
     public final static String SFOGLIACATALOGOSERVIZI_BTN = "SfogliacatalogoServizi_btn";
     private FinestraPrincipale frame;
 
-    public SfogliaCatalogoListeners(FinestraPrincipale frame) {
+    public SfogliaCatalogoListener(FinestraPrincipale frame) {
         this.frame = frame;
     }
 

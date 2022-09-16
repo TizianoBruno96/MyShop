@@ -1,5 +1,6 @@
 package Views.TableModel;
 
+import Views.AccessoUtente;
 import Views.Model.CreazioneCategoriaModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -53,6 +54,6 @@ public class CreazioneCategoriaTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo().equals("AM");
     }
 }

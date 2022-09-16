@@ -1,25 +1,21 @@
 package Views.Panels;
 
 import ActionListeners.ConfermaInserimentoProdottoListener;
-import ActionListeners.InserisciFotoListener;
-import DAO.Interfaces.IPuntoVenditaDAO;
-import DAO.PuntoVenditaDAO;
-import Model.PuntoVendita;
-import Views.Model.InserimentoProdottoModel;
+import ActionListeners.CreazioneFotoListener;
+import Views.Model.CreazioneProdottoModel;
 import Views.TableModel.CreazioneProdottoTableModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InserimentoProdotto extends JPanel {
-    public InserimentoProdotto() {
+public class CreazioneProdotto extends JPanel {
+    public CreazioneProdotto() {
         setLayout(new BorderLayout());
-        List<InserimentoProdottoModel> righe1 = new ArrayList<>();
+        List<CreazioneProdottoModel> righe1 = new ArrayList<>();
 
-        InserimentoProdottoModel riga = new InserimentoProdottoModel();
+        CreazioneProdottoModel riga = new CreazioneProdottoModel();
         righe1.add(riga);
 
         CreazioneProdottoTableModel tableModel = new CreazioneProdottoTableModel(righe1);
@@ -40,9 +36,9 @@ public class InserimentoProdotto extends JPanel {
         //pannello di inserimento foto
         JFileChooser fileChooser = new JFileChooser();
         JButton aggiungiFoto = new JButton("Aggiungi foto");
-        aggiungiFoto.setActionCommand(InserisciFotoListener.INFO_BTN);
-        InserisciFotoListener inserisciFotoListener = new InserisciFotoListener(tabellaProdotti, fileChooser);
-        aggiungiFoto.addActionListener(inserisciFotoListener);
+        aggiungiFoto.setActionCommand(CreazioneFotoListener.INFO_BTN);
+        CreazioneFotoListener creazioneFotoListener = new CreazioneFotoListener(tabellaProdotti, fileChooser);
+        aggiungiFoto.addActionListener(creazioneFotoListener);
         pannelloAzioni.add(aggiungiFoto);
 
         add(pannelloAzioni, BorderLayout.SOUTH);

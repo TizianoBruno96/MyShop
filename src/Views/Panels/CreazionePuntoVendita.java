@@ -9,8 +9,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreaPuntoVendita extends JPanel {
-    public CreaPuntoVendita() {
+public class CreazionePuntoVendita extends JPanel {
+    public CreazionePuntoVendita() {
         setLayout(new BorderLayout());
         List<CreazionePuntoVenditaModel> righe = new ArrayList<>();
 

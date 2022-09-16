@@ -5,11 +5,11 @@ import Views.FinestraPrincipale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CrearePuntoVenditaListeners implements ActionListener {
-    public static final String CREAPUNTOVENDITA_BTN = "CreaPuntoVendita_btn";
+public class RegistrazioneListener implements ActionListener {
+    public final static String REGISTRATI_BTN = "Registrati_btn";
     private FinestraPrincipale frame;
 
-    public CrearePuntoVenditaListeners(FinestraPrincipale frame) {
+    public RegistrazioneListener(FinestraPrincipale frame) {
         this.frame = frame;
     }
 
@@ -20,8 +20,9 @@ public class CrearePuntoVenditaListeners implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
-        if (CREAPUNTOVENDITA_BTN.equals(azione)) {
-            frame.mostraPannelloCreazionePuntoVendita();
+
+        if (REGISTRATI_BTN.equals(azione)) {
+            frame.mostraPannelloRegistrazione();
         }
     }
 }

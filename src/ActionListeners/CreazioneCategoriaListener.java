@@ -5,18 +5,18 @@ import Views.FinestraPrincipale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InserisciFornitoreListener implements ActionListener {
-    public final static String IF_BTN = "If_btn";
+public class CreazioneCategoriaListener implements ActionListener {
+    public final static String IC_BTN = "Ic_btn";
     private final FinestraPrincipale frame;
 
-    public InserisciFornitoreListener(FinestraPrincipale frame) {
+    public CreazioneCategoriaListener(FinestraPrincipale frame) {
         this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
-        if (IF_BTN.equals(azione))
-            frame.mostraPannelloInserimentoFornitore();
+        if (IC_BTN.equals(azione))
+            frame.mostraPannelloInserimentoCategoria();
     }
 }

@@ -5,11 +5,11 @@ import Views.FinestraPrincipale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InserisciProdottoListener implements ActionListener {
+public class CreazioneProdottoListener implements ActionListener {
     public final static String INSERISCIPRODOTTO_BTN = "InserisciProdotto_btn";
     private FinestraPrincipale frame;
 
-    public InserisciProdottoListener(FinestraPrincipale frame) {
+    public CreazioneProdottoListener(FinestraPrincipale frame) {
         this.frame = frame;
     }
 

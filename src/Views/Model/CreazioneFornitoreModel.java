@@ -1,6 +1,6 @@
 package Views.Model;
 
-public class InserimentoFornitoreModel {
+public class CreazioneFornitoreModel {
     private String nome;
     private String sito;
 

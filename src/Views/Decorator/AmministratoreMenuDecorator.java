@@ -17,39 +17,44 @@ public class AmministratoreMenuDecorator extends CustomMenuDecorator {
     @Override
     public List<JButton> getPulsanti() {
         pulsanti.addAll(this.menu.getPulsanti());
-        JButton inserisciProdotto = new JButton("Inserisci Prodotto");
-        JButton inserisciProduttore = new JButton("Inserisci Produttore");
-        JButton inserisciFornitore = new JButton("Inserisci Fornitore");
+        JButton creaProdotto = new JButton("Crea Prodotto");
+        JButton creaProduttore = new JButton("Crea Produttore");
+        JButton creaFornitore = new JButton("Crea Fornitore");
         JButton crearePuntoVendita = new JButton("Crea punto vendita");
         JButton creaManager = new JButton("Crea Manager");
         JButton creaCategoria = new JButton("Crea Categoria");
+        JButton creaServizio = new JButton("Crea Servizio");
 
-        inserisciProdotto.setActionCommand(InserisciProdottoListener.INSERISCIPRODOTTO_BTN);
-        inserisciProduttore.setActionCommand(InserisciProduttoreListener.INSERISCIPRODUTTORE_BTN);
-        crearePuntoVendita.setActionCommand(CrearePuntoVenditaListeners.CREAPUNTOVENDITA_BTN);
-        creaManager.setActionCommand(CreaManagerListeners.CREAMANAGER_BTN);
-        inserisciFornitore.setActionCommand(InserisciFornitoreListener.IF_BTN);
-        creaCategoria.setActionCommand(InserisciCategoriaListener.IC_BTN);
+        creaProdotto.setActionCommand(CreazioneProdottoListener.INSERISCIPRODOTTO_BTN);
+        creaProduttore.setActionCommand(CreazioneProduttoreListener.INSERISCIPRODUTTORE_BTN);
+        crearePuntoVendita.setActionCommand(CreazionePuntoVenditaListeners.CREAPUNTOVENDITA_BTN);
+        creaManager.setActionCommand(CreazioneManagerListener.CREAMANAGER_BTN);
+        creaFornitore.setActionCommand(CreazioneFornitoreListener.IF_BTN);
+        creaCategoria.setActionCommand(CreazioneCategoriaListener.IC_BTN);
+        creaServizio.setActionCommand(CreazioneServizioListener.CSL_BTN);
 
-        InserisciProdottoListener inserisciProdottoListener = new InserisciProdottoListener(finestra);
-        InserisciProduttoreListener inserisciProduttoreListener = new InserisciProduttoreListener(finestra);
-        CrearePuntoVenditaListeners crearePuntoVenditaListeners = new CrearePuntoVenditaListeners(finestra);
-        CreaManagerListeners creaManagerListeners = new CreaManagerListeners(finestra);
-        InserisciFornitoreListener inserisciFornitoreListener = new InserisciFornitoreListener(finestra);
-        InserisciCategoriaListener inserisciCategoriaListener = new InserisciCategoriaListener(finestra);
+        CreazioneProdottoListener creazioneProdottoListener = new CreazioneProdottoListener(finestra);
+        CreazioneProduttoreListener creazioneProduttoreListener = new CreazioneProduttoreListener(finestra);
+        CreazionePuntoVenditaListeners creazionePuntoVenditaListeners = new CreazionePuntoVenditaListeners(finestra);
+        CreazioneManagerListener creaManagerListeners = new CreazioneManagerListener(finestra);
+        CreazioneFornitoreListener creazioneFornitoreListener = new CreazioneFornitoreListener(finestra);
+        CreazioneCategoriaListener creazioneCategoriaListener = new CreazioneCategoriaListener(finestra);
+        CreazioneServizioListener creazioneServizioListener = new CreazioneServizioListener(finestra);
 
-        inserisciProdotto.addActionListener(inserisciProdottoListener);
-        inserisciProduttore.addActionListener(inserisciProduttoreListener);
-        crearePuntoVendita.addActionListener(crearePuntoVenditaListeners);
+        creaProdotto.addActionListener(creazioneProdottoListener);
+        creaProduttore.addActionListener(creazioneProduttoreListener);
+        crearePuntoVendita.addActionListener(creazionePuntoVenditaListeners);
         creaManager.addActionListener(creaManagerListeners);
-        inserisciFornitore.addActionListener(inserisciFornitoreListener);
-        creaCategoria.addActionListener(inserisciCategoriaListener);
+        creaFornitore.addActionListener(creazioneFornitoreListener);
+        creaCategoria.addActionListener(creazioneCategoriaListener);
+        creaServizio.addActionListener(creazioneServizioListener);
 
-        pulsanti.add(inserisciFornitore);
-        pulsanti.add(inserisciProdotto);
-        pulsanti.add(inserisciProduttore);
-        pulsanti.add(crearePuntoVendita);
         pulsanti.add(creaManager);
+        pulsanti.add(crearePuntoVendita);
+        pulsanti.add(creaProdotto);
+        pulsanti.add(creaServizio);
+        pulsanti.add(creaProduttore);
+        pulsanti.add(creaFornitore);
         pulsanti.add(creaCategoria);
         return pulsanti;
     }

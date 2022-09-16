@@ -1,15 +1,16 @@
 package Views.TableModel;
 
 import Utilities.FloatExt;
-import Views.Model.InserimentoProdottoModel;
+import Views.AccessoUtente;
+import Views.Model.CreazioneProdottoModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CreazioneProdottoTableModel extends AbstractTableModel {
-    private final List<InserimentoProdottoModel> righe;
+    private final List<CreazioneProdottoModel> righe;
 
-    public CreazioneProdottoTableModel(List<InserimentoProdottoModel> righe) {
+    public CreazioneProdottoTableModel(List<CreazioneProdottoModel> righe) {
         this.righe = righe;
     }
 
@@ -25,7 +26,7 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        InserimentoProdottoModel riga = righe.get(rowIndex);
+        CreazioneProdottoModel riga = righe.get(rowIndex);
         return switch (columnIndex) {
             case 0 -> riga.getNomeProdotto();
             case 1 -> riga.getDescrizione();
@@ -54,7 +55,7 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        InserimentoProdottoModel riga = righe.get(rowIndex);
+        CreazioneProdottoModel riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 riga.setNomeProdotto(value.toString());
@@ -76,6 +77,6 @@ public class CreazioneProdottoTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex != 5;
+        return columnIndex != 5 || AccessoUtente.getTipo().equals("AM");
     }
 }

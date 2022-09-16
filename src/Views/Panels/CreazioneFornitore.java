@@ -1,7 +1,7 @@
 package Views.Panels;
 
 import ActionListeners.ConfermaInserimentoFornitoreListener;
-import Views.Model.InserimentoFornitoreModel;
+import Views.Model.CreazioneFornitoreModel;
 import Views.TableModel.CreazioneFornitoreTableModel;
 
 import javax.swing.*;
@@ -9,12 +9,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InserimentoFornitore extends JPanel {
-    public InserimentoFornitore() {
+public class CreazioneFornitore extends JPanel {
+    public CreazioneFornitore() {
         setLayout(new BorderLayout());
-        List<InserimentoFornitoreModel> righe = new ArrayList<>();
+        List<CreazioneFornitoreModel> righe = new ArrayList<>();
 
-        InserimentoFornitoreModel riga = new InserimentoFornitoreModel();
+        CreazioneFornitoreModel riga = new CreazioneFornitoreModel();
         righe.add(riga);
 
         CreazioneFornitoreTableModel tableModel = new CreazioneFornitoreTableModel(righe);

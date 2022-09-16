@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.InserimentoListaListeners;
+import ActionListeners.OrdineProdottoListener;
 import DAO.*;
 import DAO.Interfaces.*;
 import Model.Articoli.Foto;
@@ -95,19 +95,17 @@ public class CatalogoProdotti extends JPanel {
         JPanel pannelloAzioni = new JPanel();
         pannelloAzioni.setLayout(new FlowLayout());
         if (AccessoUtente.getTipo() != null) {
-            JButton inserimentoLista = new JButton("Crea ordine");
-            inserimentoLista.setActionCommand(InserimentoListaListeners.INSERISCINELLALISTA_BTN);
-            InserimentoListaListeners inserimentoListaListeners = new InserimentoListaListeners(tabella);
-            inserimentoLista.addActionListener(inserimentoListaListeners);
+            JButton inserimentoLista = new JButton("Inserisci nel carrello");
+            inserimentoLista.setActionCommand(OrdineProdottoListener.ORDINEPRODOTTO_BTN);
+            OrdineProdottoListener ordineProdottoListener = new OrdineProdottoListener(tabella);
+            inserimentoLista.addActionListener(ordineProdottoListener);
+
             if (AccessoUtente.getTipo().equals("MN")){
                 JButton rifornisciMagazzino = new JButton("Rifornisci Magazzino");
                 pannelloAzioni.add(rifornisciMagazzino);
             }
             pannelloAzioni.add(inserimentoLista);
-
         }
         add(pannelloAzioni, BorderLayout.SOUTH);
-
-
     }
 }

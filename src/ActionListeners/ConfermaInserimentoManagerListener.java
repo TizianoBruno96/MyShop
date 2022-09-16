@@ -8,12 +8,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InserisciManagerListener implements ActionListener {
+public class ConfermaInserimentoManagerListener implements ActionListener {
     public final static String INSERISCIMANAGER_BTN = "InserisciManager_btn";
     IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     private final JTable tabella;
 
-    public InserisciManagerListener(JTable tabella) {
+    public ConfermaInserimentoManagerListener(JTable tabella) {
         this.tabella = tabella;
     }
 

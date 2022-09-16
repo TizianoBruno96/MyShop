@@ -7,13 +7,13 @@ import Views.AccessoUtente;
 
 import java.util.ArrayList;
 
-public class InserimentoListaAcquistoBusiness {
-    private static InserimentoListaAcquistoBusiness instance;
+public class OrdineProdottoBusiness {
+    private static OrdineProdottoBusiness instance;
     IOrdineProdottoDAO ordineProdottoDAO = OrdineProdottoDAO.getInstance();
 
-    public static synchronized InserimentoListaAcquistoBusiness getInstance() {
+    public static synchronized OrdineProdottoBusiness getInstance() {
         if (instance == null) {
-            instance = new InserimentoListaAcquistoBusiness();
+            instance = new OrdineProdottoBusiness();
         }
         return instance;
     }

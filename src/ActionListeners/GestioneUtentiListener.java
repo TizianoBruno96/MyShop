@@ -5,11 +5,11 @@ import Views.FinestraPrincipale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LasciaFeedbackListeners implements ActionListener {
-    public final static String LASCIAFEEDBACK_BTN = "LasciaFeedback_btn";
+public class GestioneUtentiListener implements ActionListener {
+    public final static String GESTISCIUTENTI_BTN = "GestisciUtenti_btn";
     private FinestraPrincipale frame;
 
-    public LasciaFeedbackListeners(FinestraPrincipale frame) {
+    public GestioneUtentiListener(FinestraPrincipale frame) {
         this.frame = frame;
     }
 

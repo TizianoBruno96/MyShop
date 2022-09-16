@@ -1,14 +1,15 @@
 package Views.TableModel;
 
-import Views.Model.InserimentoProduttoreModel;
+import Views.AccessoUtente;
+import Views.Model.CreazioneProduttoreModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CreazioneProduttoreTableModel extends AbstractTableModel {
-    private final List<InserimentoProduttoreModel> righe;
+    private final List<CreazioneProduttoreModel> righe;
 
-    public CreazioneProduttoreTableModel(List<InserimentoProduttoreModel> righe) {
+    public CreazioneProduttoreTableModel(List<CreazioneProduttoreModel> righe) {
         this.righe = righe;
     }
 
@@ -24,7 +25,7 @@ public class CreazioneProduttoreTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        InserimentoProduttoreModel riga = righe.get(rowIndex);
+        CreazioneProduttoreModel riga = righe.get(rowIndex);
         return switch (columnIndex) {
             case 0 -> riga.getNomeProduttore();
             case 1 -> riga.getSito();
@@ -47,7 +48,7 @@ public class CreazioneProduttoreTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        InserimentoProduttoreModel riga = righe.get(rowIndex);
+        CreazioneProduttoreModel riga = righe.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 riga.setNomeProduttore(value.toString());
@@ -63,7 +64,7 @@ public class CreazioneProduttoreTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo().equals("AM");
     }
 
 

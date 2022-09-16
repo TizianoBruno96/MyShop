@@ -5,11 +5,11 @@ import Views.FinestraPrincipale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PrenotaArticoliListeners implements ActionListener {
-    public final static String PRENOTAARTICOLI_BTN = "PrenotaArticoli_btn";
+public class RecensioneListener implements ActionListener {
+    public final static String LASCIAFEEDBACK_BTN = "LasciaFeedback_btn";
     private FinestraPrincipale frame;
 
-    public PrenotaArticoliListeners(FinestraPrincipale frame) {
+    public RecensioneListener(FinestraPrincipale frame) {
         this.frame = frame;
     }
 

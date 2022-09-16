@@ -1,11 +1,14 @@
 package Views.Panels;
 
+import ActionListeners.OrdineProdottoListener;
+import ActionListeners.OrdineServizioListener;
 import DAO.CategoriaDAO;
 import DAO.FornitoreDAO;
 import DAO.ServizioDAO;
 import Model.Articoli.Fornitore;
 import Model.Articoli.Servizio;
 import Model.Categoria;
+import Views.AccessoUtente;
 import Views.Model.CatalogoServiziModel;
 import Views.TableModel.CatalogoServiziTableModel;
 
@@ -43,5 +46,19 @@ public class CatalogoServizi extends JPanel {
         JScrollPane scrollPane = new JScrollPane(tabella);
         add(scrollPane, BorderLayout.CENTER);
         tabella.setRowHeight(50);
+
+        JPanel pannelloAzioni = new JPanel();
+        pannelloAzioni.setLayout(new FlowLayout());
+        if (AccessoUtente.getTipo() != null) {
+            JButton inserimentoLista = new JButton("Inserisci nel carrello");
+            inserimentoLista.setActionCommand(OrdineServizioListener.ORDINESERVIZIO_BTN);
+            OrdineServizioListener ordineServizioListener = new OrdineServizioListener(tabella);
+            inserimentoLista.addActionListener(ordineServizioListener);
+            if (AccessoUtente.getTipo().equals("MN")){
+                JButton rifornisciMagazzino = new JButton("Rifornisci Magazzino");
+                pannelloAzioni.add(rifornisciMagazzino);
+            }
+            pannelloAzioni.add(inserimentoLista);
+        }
     }
 }

@@ -5,12 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class InserisciFotoListener implements ActionListener {
+public class CreazioneFotoListener implements ActionListener {
     public static final String INFO_BTN = "InFo_btn";
     private final JTable table;
     private final JFileChooser fileChooser;
 
-    public InserisciFotoListener(JTable table, JFileChooser fileChooser) {
+    public CreazioneFotoListener(JTable table, JFileChooser fileChooser) {
         this.table = table;
         this.fileChooser = fileChooser;
     }

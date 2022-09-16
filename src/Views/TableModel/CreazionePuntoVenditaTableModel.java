@@ -2,6 +2,7 @@ package Views.TableModel;
 
 import Utilities.FloatExt;
 import Utilities.IntegerExt;
+import Views.AccessoUtente;
 import Views.Model.CreazionePuntoVenditaModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -75,7 +76,6 @@ public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo().equals("AM");
     }
-
 }

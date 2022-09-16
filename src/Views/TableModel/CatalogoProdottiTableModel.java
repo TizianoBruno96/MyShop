@@ -2,6 +2,7 @@ package Views.TableModel;
 
 import Utilities.FloatExt;
 import Utilities.IntegerExt;
+import Views.AccessoUtente;
 import Views.Model.CatalogoProdottiModel;
 
 import javax.swing.*;
@@ -107,7 +108,7 @@ public class CatalogoProdottiTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo().equals("AM");
     }
 
 
