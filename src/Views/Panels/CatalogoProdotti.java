@@ -91,11 +91,16 @@ public class CatalogoProdotti extends JPanel {
         JPanel pannelloAzioni = new JPanel();
         pannelloAzioni.setLayout(new FlowLayout());
         if (AccessoUtente.getTipo() != null) {
-            JButton inserimentoLista = new JButton("Inserisci nella lista");
+            JButton inserimentoLista = new JButton("Crea ordine");
             inserimentoLista.setActionCommand(InserimentoListaListeners.INSERISCINELLALISTA_BTN);
             InserimentoListaListeners inserimentoListaListeners = new InserimentoListaListeners(tabella);
             inserimentoLista.addActionListener(inserimentoListaListeners);
+            if (AccessoUtente.getTipo().equals("MN")){
+                JButton rifornisciMagazzino = new JButton("Rifornisci Magazzino");
+                pannelloAzioni.add(rifornisciMagazzino);
+            }
             pannelloAzioni.add(inserimentoLista);
+
         }
         add(pannelloAzioni, BorderLayout.SOUTH);
 

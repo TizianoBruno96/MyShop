@@ -1,5 +1,7 @@
 package Views.TableModel;
 
+import Utilities.FloatExt;
+import Utilities.IntegerExt;
 import Views.Model.CreazionePuntoVenditaModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -19,7 +21,7 @@ public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 6;
     }
 
     @Override
@@ -30,6 +32,8 @@ public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
             case 1 -> riga.getNome();
             case 2 -> riga.getIndirizzo();
             case 3 -> riga.getUsernameManager();
+            case 4 -> riga.getMaxCorsia();
+            case 5 -> riga.getMaxScaffale();
             default -> null;
         };
     }
@@ -41,6 +45,8 @@ public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
             case 1 -> "Nome";
             case 2 -> "Indirizzo";
             case 3 -> "Username Manager";
+            case 4 -> "Numero max corsie magazzino";
+            case 5 -> "Numero max scaffali magazzino";
             default -> null;
         };
     }
@@ -57,6 +63,12 @@ public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
                 riga.setIndirizzo(value.toString());
             case 3:
                 riga.setUsernameManager(value.toString());
+            case 4 :
+                if (IntegerExt.isParsable(value.toString()))
+                    riga.setMaxCorsia(Integer.parseInt(value.toString()));
+            case 5 :
+                if (IntegerExt.isParsable(value.toString()))
+                    riga.setMaxScaffale(Integer.parseInt(value.toString()));
         }
     }
 
