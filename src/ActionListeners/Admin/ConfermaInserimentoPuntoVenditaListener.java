@@ -1,4 +1,4 @@
-package ActionListeners;
+package ActionListeners.Admin;
 
 import Business.InserimentoPuntoVenditaBusiness;
 import DAO.Interfaces.IPuntoVenditaDAO;

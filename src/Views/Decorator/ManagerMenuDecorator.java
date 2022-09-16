@@ -1,7 +1,7 @@
 package Views.Decorator;
 
-import ActionListeners.GestioneUtentiListener;
-import ActionListeners.RispondiCommentiListener;
+import ActionListeners.Manager.GestioneUtentiListener;
+import ActionListeners.Manager.RispondiCommentiListener;
 import Views.FinestraPrincipale;
 
 import javax.swing.*;

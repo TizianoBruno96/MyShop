@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.EliminazioneUtenteListener;
+import ActionListeners.Manager.EliminazioneUtenteListener;
 import DAO.Interfaces.IUtenteDAO;
 import DAO.Interfaces.IUtenteRegistratoDAO;
 import DAO.UtenteDAO;

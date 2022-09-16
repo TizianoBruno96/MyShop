@@ -1,6 +1,6 @@
 package Views.Decorator;
 
-import ActionListeners.*;
+import ActionListeners.Admin.*;
 import Views.FinestraPrincipale;
 
 import javax.swing.*;

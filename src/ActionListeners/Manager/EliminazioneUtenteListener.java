@@ -1,4 +1,4 @@
-package ActionListeners;
+package ActionListeners.Manager;
 
 import Business.RimozioneUtenteBusiness;
 import Views.Model.ListaUtentiModel;

@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaInserimentoPuntoVenditaListener;
+import ActionListeners.Admin.ConfermaInserimentoPuntoVenditaListener;
 import Views.Model.CreazionePuntoVenditaModel;
 import Views.TableModel.CreazionePuntoVenditaTableModel;
 

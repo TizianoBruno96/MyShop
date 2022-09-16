@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaInserimentoFornitoreListener;
+import ActionListeners.Admin.ConfermaInserimentoFornitoreListener;
 import Views.Model.CreazioneFornitoreModel;
 import Views.TableModel.CreazioneFornitoreTableModel;
 

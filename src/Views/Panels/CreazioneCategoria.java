@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaInserimentoCategoriaListener;
+import ActionListeners.Admin.ConfermaInserimentoCategoriaListener;
 import Views.Model.CreazioneCategoriaModel;
 import Views.TableModel.CreazioneCategoriaTableModel;
 

@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaInserimentoProduttoriListener;
+import ActionListeners.Admin.ConfermaInserimentoProduttoriListener;
 import Views.Model.CreazioneProduttoreModel;
 import Views.TableModel.CreazioneProduttoreTableModel;
 

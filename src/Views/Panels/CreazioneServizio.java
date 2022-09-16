@@ -1,6 +1,6 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaInserimentoServizioListener;
+import ActionListeners.Admin.ConfermaInserimentoServizioListener;
 import Views.Model.CreazioneServizioModel;
 import Views.TableModel.CreazioneServizioTableModel;
 

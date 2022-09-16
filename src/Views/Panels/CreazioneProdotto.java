@@ -1,7 +1,7 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaInserimentoProdottoListener;
-import ActionListeners.CreazioneFotoListener;
+import ActionListeners.Admin.ConfermaInserimentoProdottoListener;
+import ActionListeners.Admin.CreazioneFotoListener;
 import Views.Model.CreazioneProdottoModel;
 import Views.TableModel.CreazioneProdottoTableModel;
 
