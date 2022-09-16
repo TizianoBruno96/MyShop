@@ -1,7 +1,6 @@
 package Views.TableModel;
 
 import Utilities.IntegerExt;
-import Views.AccessoUtente;
 import Views.Model.RegistrazioneModel;
 
 import javax.swing.table.AbstractTableModel;

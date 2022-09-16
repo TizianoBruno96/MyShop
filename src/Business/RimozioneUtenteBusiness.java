@@ -9,7 +9,6 @@ import DAO.OrdineProdottoDAO;
 import DAO.OrdineServizioDAO;
 import DAO.UtenteDAO;
 import Model.ListaAcquisto;
-import Model.Utenti.Utente;
 
 public class RimozioneUtenteBusiness {
     private static RimozioneUtenteBusiness instance;

@@ -1,7 +1,6 @@
 package DAO.Interfaces;
 
 import Model.Articoli.Servizio;
-import Model.ListaAcquisto;
 import Model.OrdineServizio;
 
 import java.util.ArrayList;

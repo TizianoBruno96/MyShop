@@ -1,9 +1,6 @@
 package ActionListeners;
 
 import Business.RimozioneUtenteBusiness;
-import DAO.Interfaces.IUtenteDAO;
-import DAO.UtenteDAO;
-import Model.Utenti.Utente;
 import Views.Model.ListaUtentiModel;
 import Views.TableModel.ListaUtentiTableModel;
 
@@ -14,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class EliminazioneUtenteListener implements ActionListener {
     public final static String EUL_BTN = "eul_btn";
-    private JTable tabellaUtenti;
+    private final JTable tabellaUtenti;
 
     public EliminazioneUtenteListener(JTable tabellaUtenti) {
         this.tabellaUtenti = tabellaUtenti;

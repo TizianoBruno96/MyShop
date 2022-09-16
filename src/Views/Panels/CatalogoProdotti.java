@@ -100,7 +100,7 @@ public class CatalogoProdotti extends JPanel {
             OrdineProdottoListener ordineProdottoListener = new OrdineProdottoListener(tabella);
             inserimentoLista.addActionListener(ordineProdottoListener);
 
-            if (AccessoUtente.getTipo().equals("MN")){
+            if (AccessoUtente.getTipo().equals("MN")) {
                 JButton rifornisciMagazzino = new JButton("Rifornisci Magazzino");
                 pannelloAzioni.add(rifornisciMagazzino);
             }

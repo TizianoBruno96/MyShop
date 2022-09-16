@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class ConfermaInserimentoManagerListener implements ActionListener {
     public final static String INSERISCIMANAGER_BTN = "InserisciManager_btn";
-    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     private final JTable tabella;
+    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
 
     public ConfermaInserimentoManagerListener(JTable tabella) {
         this.tabella = tabella;

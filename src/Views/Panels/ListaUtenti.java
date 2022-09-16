@@ -1,6 +1,5 @@
 package Views.Panels;
 
-import ActionListeners.ConfermaRimozioneListener;
 import ActionListeners.EliminazioneUtenteListener;
 import DAO.Interfaces.IUtenteDAO;
 import DAO.Interfaces.IUtenteRegistratoDAO;
@@ -28,7 +27,7 @@ public class ListaUtenti extends JPanel {
 
         for (UtenteRegistrato utenteRegistrato : utentiRegistrati) {
             Utente utente = utenteDAO.findByID(utenteRegistrato.getIdUtente());
-            if(utenteRegistrato.getIdUtente() != AccessoUtente.getIdUtente()) {
+            if (utenteRegistrato.getIdUtente() != AccessoUtente.getIdUtente()) {
                 ListaUtentiModel riga = new ListaUtentiModel();
 
                 riga.setIdUtente(utenteRegistrato.getIdUtente());

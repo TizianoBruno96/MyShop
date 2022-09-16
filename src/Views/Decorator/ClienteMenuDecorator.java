@@ -21,7 +21,6 @@ public class ClienteMenuDecorator extends CustomMenuDecorator {
         JButton lasciaFeedback = new JButton("Lasciare feedback");
 
 
-
         lasciaFeedback.setActionCommand(RecensioneListener.LASCIAFEEDBACK_BTN);
 
 
@@ -29,7 +28,6 @@ public class ClienteMenuDecorator extends CustomMenuDecorator {
 
 
         lasciaFeedback.addActionListener(recensioneListener);
-
 
 
         pulsanti.add(lasciaFeedback);

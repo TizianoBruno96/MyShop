@@ -6,9 +6,11 @@ import DAO.CategoriaDAO;
 import DAO.FornitoreDAO;
 import DAO.Interfaces.*;
 import DAO.OrdineServizioDAO;
-import Model.*;
 import Model.Articoli.*;
+import Model.Categoria;
 import Model.ListaAcquisto;
+import Model.OrdineProdotto;
+import Model.OrdineServizio;
 import Views.AccessoUtente;
 import Views.Model.CarrelloProdottiModel;
 import Views.Model.CatalogoServiziModel;
@@ -35,7 +37,7 @@ public class SfogliaCarrello extends JPanel {
     IFotoDAO fotoDAO = DAO.FotoDAO.getInstance();
 
     public SfogliaCarrello() {
-        if(AccessoUtente.getTipo() == null){
+        if (AccessoUtente.getTipo() == null) {
             JOptionPane.showMessageDialog(null, "Non sei loggato");
             return;
         }

@@ -26,11 +26,11 @@ public class InserimentoPuntoVenditaBusiness {
         return istanza;
     }
 
-    public void InserisciPuntoVendita(String citta, String nome, String indirizzo, int idUtenteManager, int maxCorsia,int maxScaffale) {
+    public void InserisciPuntoVendita(String citta, String nome, String indirizzo, int idUtenteManager, int maxCorsia, int maxScaffale) {
         //Creo e inserisco il punto vendita
         PuntoVendita pv = new PuntoVendita(citta, nome, indirizzo);
-        Magazzino m = new Magazzino(maxCorsia,maxScaffale);
-        puntoVenditaDAO.add(pv,m, idUtenteManager);
+        Magazzino m = new Magazzino(maxCorsia, maxScaffale);
+        puntoVenditaDAO.add(pv, m, idUtenteManager);
         posizioneDAO.addPosizioniInMagazzino(magazzinoDAO.findByPuntoVendita(puntoVenditaDAO.findByManager(idUtenteManager).getIdPuntoVendita()));
 
         //Aggiorno il manager

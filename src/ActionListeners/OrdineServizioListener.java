@@ -21,7 +21,7 @@ public class OrdineServizioListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String azione = e.getActionCommand();
 
-        if(ORDINESERVIZIO_BTN.equals(azione)) {
+        if (ORDINESERVIZIO_BTN.equals(azione)) {
             int[] selectedRows = table.getSelectedRows();
             CatalogoServiziTableModel tModel = (CatalogoServiziTableModel) table.getModel();
 

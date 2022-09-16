@@ -6,7 +6,6 @@ import DBInterface.Command.CommandFactory;
 import DBInterface.Command.DBOperationExecutor;
 import DBInterface.Command.IDBOperation;
 import Model.Articoli.Servizio;
-import Model.ListaAcquisto;
 import Model.OrdineServizio;
 
 import java.sql.ResultSet;

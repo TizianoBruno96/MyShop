@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class ConfermaInserimentoProduttoriListener implements ActionListener {
     public final static String CIPL_BTN = "confermaInserimentoProduttori_btn";
-    IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     private final JTable tabella;
+    IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
 
     public ConfermaInserimentoProduttoriListener(JTable tabella) {
         this.tabella = tabella;

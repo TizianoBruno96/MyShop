@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class ConfermaInserimentoCategoriaListener implements ActionListener {
     public static final String CIC_BTN = "Cic_btn";
-    ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
     private final JTable tabella;
+    ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
 
     public ConfermaInserimentoCategoriaListener(JTable tabella) {
         this.tabella = tabella;

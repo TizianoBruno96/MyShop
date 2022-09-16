@@ -2,7 +2,6 @@ package Views.Decorator;
 
 import ActionListeners.SfogliaCarrelloListener;
 import ActionListeners.SfogliaCatalogoListener;
-import Views.AccessoUtente;
 import Views.FinestraPrincipale;
 
 import javax.swing.*;

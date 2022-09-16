@@ -63,7 +63,7 @@ public class CarrelloProdottiTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         CarrelloProdottiModel riga = righe.get(rowIndex);
         switch (columnIndex) {
-            case 0 ->{
+            case 0 -> {
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setIdProdotto(Integer.parseInt(value.toString()));
             }

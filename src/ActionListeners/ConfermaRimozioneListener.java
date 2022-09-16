@@ -33,12 +33,12 @@ public class ConfermaRimozioneListener implements ActionListener {
 
             ArrayList<Integer> idProdotti = new ArrayList<>();
             ArrayList<Integer> idServizi = new ArrayList<>();
-            for(int i : prodottiSelectedRows) {
+            for (int i : prodottiSelectedRows) {
                 CarrelloProdottiModel prodotto = prodottiTableModel.getRighe().get(i);
                 idProdotti.add(prodotto.getIdProdotto());
             }
 
-            for(int i : serviziSelectedRows) {
+            for (int i : serviziSelectedRows) {
                 CatalogoServiziModel servizio = serviziTableModel.getRighe().get(i);
                 idServizi.add(servizio.getIdServizio());
             }

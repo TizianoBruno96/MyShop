@@ -57,7 +57,7 @@ public class CatalogoServizi extends JPanel {
             inserimentoLista.setActionCommand(OrdineServizioListener.ORDINESERVIZIO_BTN);
             OrdineServizioListener ordineServizioListener = new OrdineServizioListener(tabella);
             inserimentoLista.addActionListener(ordineServizioListener);
-            if (AccessoUtente.getTipo().equals("MN")){
+            if (AccessoUtente.getTipo().equals("MN")) {
                 JButton rifornisciMagazzino = new JButton("Rifornisci Magazzino");
                 pannelloAzioni.add(rifornisciMagazzino);
             }

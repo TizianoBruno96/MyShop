@@ -3,15 +3,12 @@ package ActionListeners;
 import Business.InserimentoProdottoBusiness;
 import DAO.CategoriaDAO;
 import DAO.Interfaces.ICategoriaDAO;
-import DAO.Interfaces.IPosizioneDAO;
 import DAO.Interfaces.IProduttoreDAO;
-import DAO.PosizioneDAO;
 import DAO.ProduttoreDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class ConfermaInserimentoProdottoListener implements ActionListener {
     public static final String CIPL_BTN = "Cinpl_btn";
@@ -50,7 +47,8 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire la categoria del prodotto");
             else if (categoriaDAO.findByNome(categoriaProdotto) == null)
                 JOptionPane.showMessageDialog(null, "La categoria inserita non esiste");
-            else InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, fotoPath, nomeFoto);
+            else
+                InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, fotoPath, nomeFoto);
         }
     }
 }

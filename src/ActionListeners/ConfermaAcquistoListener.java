@@ -1,14 +1,6 @@
 package ActionListeners;
 
 import Business.ConfermaAcquistoBusiness;
-import DAO.Interfaces.IListaAcquistoDAO;
-import DAO.Interfaces.IOrdineProdottoDAO;
-import DAO.Interfaces.IOrdineServizioDAO;
-import DAO.ListaAcquistoDAO;
-import DAO.OrdineProdottoDAO;
-import DAO.OrdineServizioDAO;
-import Model.ListaAcquisto;
-import Views.AccessoUtente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,8 +10,8 @@ public class ConfermaAcquistoListener implements ActionListener {
     public final static String CAL_BTN = "Cal_btn";
 
 
-
-    public ConfermaAcquistoListener() {}
+    public ConfermaAcquistoListener() {
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

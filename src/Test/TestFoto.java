@@ -5,7 +5,9 @@ import DAO.Interfaces.IFotoDAO;
 import Model.Articoli.Foto;
 
 import javax.sql.rowset.serial.SerialBlob;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Scanner;

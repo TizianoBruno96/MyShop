@@ -36,8 +36,7 @@ public class OrdineProdottoBusiness {
                 op = ordineProdottoDAO.find(prodotto, listaAcquisto);
                 op.setQuantita(quantita.get(i));
                 ordineProdottoDAO.update(op);
-            }
-            else ordineProdottoDAO.add(op);
+            } else ordineProdottoDAO.add(op);
         }
     }
 }

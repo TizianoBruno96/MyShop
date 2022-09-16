@@ -1,7 +1,6 @@
 package Views.TableModel;
 
 import Utilities.FloatExt;
-import Views.AccessoUtente;
 import Views.Model.CreazioneServizioModel;
 
 import javax.swing.table.AbstractTableModel;
