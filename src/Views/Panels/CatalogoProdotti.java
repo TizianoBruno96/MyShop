@@ -66,6 +66,7 @@ public class CatalogoProdotti extends JPanel {
 
             if (fotoDAO.findByProdotto(p.getIdProdotto()).size() > 0) {
                 Foto foto = fotoDAO.findByProdotto(p.getIdProdotto()).get(0);
+                //TODO: sistemare input delle foto, l'inserimento del blob non funziona
                 //stampo la foto
                 try {
                     ImageIcon icon = new ImageIcon(ImageIO.read(foto.getValore().getBinaryStream()));
@@ -80,9 +81,7 @@ public class CatalogoProdotti extends JPanel {
                     System.out.println("Errore caricamento immagine da database");
                 }
             }
-
             righe.add(riga);
-
         }
 
 

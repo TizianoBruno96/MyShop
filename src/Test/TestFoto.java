@@ -15,16 +15,14 @@ public class TestFoto {
         IFotoDAO fotoDAO = FotoDAO.getInstance();
 
 
-
         Scanner in = new Scanner(System.in);
         System.out.println("Inserisci il path della foto");
         String path = in.nextLine();
         System.out.println("Inserisci il nome della foto");
         String nome = in.nextLine();
-        File foto = new File(path);
-        try (InputStream inputStream = new FileInputStream(foto)) {
+        try (FileInputStream inputStream = new FileInputStream(path)) {
             Blob blob = new SerialBlob(inputStream.readAllBytes());
-            Foto foto1 = new Foto(5599, blob, nome);
+            Foto foto1 = new Foto(5600, blob, nome);
             fotoDAO.add(foto1);
         } catch (SQLException e) {
             System.out.println("Errore nel database");

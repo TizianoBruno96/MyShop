@@ -35,18 +35,20 @@ public class InserimentoProdottoBusiness {
         prodottoDAO.add(p, c, pro);
         p = prodottoDAO.findByNome(nomeProdotto);
 
+        //TODO inserimento foto non funzionante
         //inserisco la foto
-        File foto = new File(fotopath);
-        try (InputStream inputStream = new FileInputStream(foto)) {
-            Blob blob = new SerialBlob(inputStream.readAllBytes());
-            Foto foto1 = new Foto(p.getIdProdotto(), blob, nomeFoto);
-            fotoDAO.add(foto1);
-        } catch (SQLException e) {
-            System.out.println("Errore nel database");
-        } catch (FileNotFoundException e) {
-            System.out.println("Foto non trovata");
-        } catch (IOException e) {
-            System.out.println("Errore di I/O");
+        if (fotopath != null && nomeFoto != null) {
+            try (FileInputStream inputStream = new FileInputStream(fotopath)) {
+                Blob blob = new SerialBlob(inputStream.readAllBytes());
+                Foto foto1 = new Foto(p.getIdProdotto(), blob, nomeFoto);
+                fotoDAO.add(foto1);
+            } catch (SQLException e) {
+                System.out.println("Errore nel database");
+            } catch (FileNotFoundException e) {
+                System.out.println("Foto non trovata");
+            } catch (IOException e) {
+                System.out.println("Errore di I/O");
+            }
         }
     }
 }

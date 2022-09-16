@@ -1,6 +1,8 @@
 package ActionListeners;
 
 import Business.InserimentoProdottoBusiness;
+import DAO.CategoriaDAO;
+import DAO.Interfaces.ICategoriaDAO;
 import DAO.Interfaces.IPosizioneDAO;
 import DAO.Interfaces.IProduttoreDAO;
 import DAO.PosizioneDAO;
@@ -15,6 +17,7 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
     public static final String CIPL_BTN = "Cinpl_btn";
     private final JTable table;
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
+    ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
 
     public ConfermaInserimentoProdottoListener(JTable table) {
         this.table = table;
@@ -45,10 +48,8 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire il nome del produttore");
             else if (categoriaProdotto == null || categoriaProdotto.equals(""))
                 JOptionPane.showMessageDialog(null, "Inserire la categoria del prodotto");
-            else if (fotoPath == null || fotoPath.equals(""))
-                JOptionPane.showMessageDialog(null, "Inserire il percorso della foto");
-            else if (nomeFoto == null || nomeFoto.equals(""))
-                JOptionPane.showMessageDialog(null, "Inserire il nome della foto del prodotto");
+            else if (categoriaDAO.findByNome(categoriaProdotto) == null)
+                JOptionPane.showMessageDialog(null, "La categoria inserita non esiste");
             else InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, fotoPath, nomeFoto);
         }
     }
