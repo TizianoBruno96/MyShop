@@ -3,7 +3,9 @@ package ActionListeners.Admin;
 import Business.InserimentoProdottoBusiness;
 import DAO.CategoriaDAO;
 import DAO.Interfaces.ICategoriaDAO;
+import DAO.Interfaces.IProdottoDAO;
 import DAO.Interfaces.IProduttoreDAO;
+import DAO.ProdottoDAO;
 import DAO.ProduttoreDAO;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
     private final JTable table;
     IProduttoreDAO produttoreDAO = ProduttoreDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
-
+    IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
     public ConfermaInserimentoProdottoListener(JTable table) {
         this.table = table;
     }
@@ -49,7 +51,12 @@ public class ConfermaInserimentoProdottoListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "La categoria inserita non esiste");
             else {
                 InserimentoProdottoBusiness.getInstance().InserisciProdotto(nomeProdotto, descrizione, costo, nomeProduttore, categoriaProdotto, fotoPath, nomeFoto);
-                JOptionPane.showMessageDialog(null, "Prodotto inserito con successo");
+
+                //check finale sul corretto inserimento del prodotto
+                if (prodottoDAO.findByNome(nomeProdotto) != null)
+                    JOptionPane.showMessageDialog(null, "Prodotto inserito correttamente");
+                else
+                    JOptionPane.showMessageDialog(null, "Errore nell'inserimento del prodotto");
             }
         }
     }

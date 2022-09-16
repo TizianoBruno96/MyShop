@@ -39,7 +39,12 @@ public class ConfermaInserimentoProduttoriListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Il produttore inserito esiste già");
             else {
                 InserimentoProduttoreBusiness.getInstance().InserisciProduttore(NomeProduttore, Sito, Citta, Nazione);
-                JOptionPane.showMessageDialog(null, "Produttore inserito con successo");
+
+                //check finale sul corretto inserimento del produttore
+                if (produttoreDAO.findByNome(NomeProduttore) != null)
+                    JOptionPane.showMessageDialog(null, "Il produttore è stato inserito correttamente");
+                else
+                    JOptionPane.showMessageDialog(null, "Errore nell'inserimento del produttore");
             }
         }
     }

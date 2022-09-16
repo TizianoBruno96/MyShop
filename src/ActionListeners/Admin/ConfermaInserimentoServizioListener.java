@@ -5,6 +5,8 @@ import DAO.CategoriaDAO;
 import DAO.FornitoreDAO;
 import DAO.Interfaces.ICategoriaDAO;
 import DAO.Interfaces.IFornitoreDAO;
+import DAO.Interfaces.IServizioDAO;
+import DAO.ServizioDAO;
 import Model.Articoli.Fornitore;
 import Model.Categoria;
 
@@ -17,6 +19,7 @@ public class ConfermaInserimentoServizioListener implements ActionListener {
     private final JTable table;
     IFornitoreDAO fornitoreDAO = FornitoreDAO.getInstance();
     ICategoriaDAO categoriaDAO = CategoriaDAO.getInstance();
+    IServizioDAO servizioDAO = ServizioDAO.getInstance();
 
     public ConfermaInserimentoServizioListener(JTable table) {
         this.table = table;
@@ -46,10 +49,13 @@ public class ConfermaInserimentoServizioListener implements ActionListener {
             else if (categoriaDAO.findByNome(nomecategoria) == null)
                 JOptionPane.showMessageDialog(null, "La categoria inserita non esiste");
             else {
-                Categoria categoria = categoriaDAO.findByNome(nomecategoria);
-                Fornitore fornitore = fornitoreDAO.findByNome(nomefornitore);
-                InserimentoServizioBusiness.getInstance().InserisciServizio(nome, costo, fornitore.getIdFornitore(), categoria.getIdCategoria());
-                JOptionPane.showMessageDialog(null, "Servizio inserito con successo");
+                InserimentoServizioBusiness.getInstance().InserisciServizio(nome, costo, nomefornitore, nomecategoria);
+
+                //check finale sul corretto inserimento del servizio
+                if (servizioDAO.checkNome(nome))
+                    JOptionPane.showMessageDialog(null, "Servizio inserito con successo");
+                else
+                    JOptionPane.showMessageDialog(null, "Errore nell'inserimento del servizio");
             }
         }
     }

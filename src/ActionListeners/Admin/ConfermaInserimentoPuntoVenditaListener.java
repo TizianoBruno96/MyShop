@@ -57,7 +57,13 @@ public class ConfermaInserimentoPuntoVenditaListener implements ActionListener {
             else {
                 int idManager = utenteDAO.findByUsername(usernameManager).getIdUtente();
                 InserimentoPuntoVenditaBusiness.getInstance().InserisciPuntoVendita(citta, nome, indirizzo, idManager, maxCorsia, maxScaffale);
-                JOptionPane.showMessageDialog(null, "Punto vendita inserito con successo");
+
+                //check finale sul corretto inserimento del punto vendita
+                if (puntoVenditaDAO.findByNome(nome) != null) {
+                    JOptionPane.showMessageDialog(null, "Punto vendita inserito con successo");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Errore nell'inserimento del punto vendita");
+                }
             }
         }
     }

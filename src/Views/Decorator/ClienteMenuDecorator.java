@@ -17,10 +17,6 @@ public class ClienteMenuDecorator extends CustomMenuDecorator {
     public List<JButton> getPulsanti() {
         pulsanti.addAll(this.menu.getPulsanti());
         //aggiungo i pulsanti con le funzioni del cliente
-        JButton lasciaFeedback = new JButton("Lasciare feedback");
-
-
-        pulsanti.add(lasciaFeedback);
 
         return pulsanti;
     }

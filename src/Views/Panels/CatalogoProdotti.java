@@ -1,5 +1,6 @@
 package Views.Panels;
 
+import ActionListeners.Admin.InserimentoProdottoInPuntoVenditaListener;
 import ActionListeners.OrdineProdottoListener;
 import ActionListeners.PaginaProdottoListener;
 import DAO.*;
@@ -37,17 +38,24 @@ public class CatalogoProdotti extends JPanel {
         ArrayList<Prodotto> prodotti = prodottoDAO.findAll();
 
         for (Prodotto p : prodotti) {
-            Categoria categoria = categoriaDAO.findByID(p.getIdCategoria());
-            Produttore produttore = produttoreDAO.findByID(p.getIdProduttore());
             CatalogoProdottiModel riga = new CatalogoProdottiModel();
 
             riga.setIdProdotto(p.getIdProdotto());
             riga.setNomeProdotto(p.getNome());
             riga.setDescrizione(p.getDescrizione());
             riga.setCosto(p.getCosto());
-            riga.setNomeProduttore(produttore.getNome());
-            riga.setCategoriaProdotto(categoria.getNome());
-            ArrayList<Posizione> posizioni = posizioneDAO.find(p.getIdProdotto(), magazzinoDAO.findByID(1).getIdMagazzino());
+            riga.setNomeProduttore(produttoreDAO.findByID(p.getIdProduttore()).getNome());
+            riga.setCategoriaProdotto(categoriaDAO.findByID(p.getIdCategoria()).getNome());
+
+            ArrayList<Posizione> posizioni;
+
+            //if (AccessoUtente.getTipo().equals("AM") || AccessoUtente.getTipo() == null) {
+                posizioni = posizioneDAO.find(p.getIdProdotto(), magazzinoDAO.findByPuntoVendita(1).getIdMagazzino());
+            //} else {
+            //    posizioni = posizioneDAO.find(p.getIdProdotto(), magazzinoDAO.findByPuntoVendita(AccessoUtente.getIdPuntoVendita()).getIdMagazzino());
+            //}
+
+
             int quantita = 0;
             for (Posizione pro : posizioni) {
                 quantita += pro.getQuantita();
@@ -65,7 +73,7 @@ public class CatalogoProdotti extends JPanel {
                 riga.setVoto(recensioneDAO.findByProdotto(p.getIdProdotto()).get(0).getVoto());
             }
 
-
+            //inserimento foto
             if (fotoDAO.findByProdotto(p.getIdProdotto()).size() > 0) {
                 Foto foto = fotoDAO.findByProdotto(p.getIdProdotto()).get(0);
                 //TODO: sistemare input delle foto, l'inserimento del blob non funziona
@@ -108,12 +116,23 @@ public class CatalogoProdotti extends JPanel {
             }
             pannelloAzioni.add(inserimentoLista);
         }
+
         //aggiungo un pulsante per accedere alla pagina del prodotto
         JButton dettagliProdotto = new JButton("Dettagli Prodotto");
         dettagliProdotto.setActionCommand(PaginaProdottoListener.PPL_BTN);
         PaginaProdottoListener paginaProdottoListener = new PaginaProdottoListener(tabella, frame);
         dettagliProdotto.addActionListener(paginaProdottoListener);
         pannelloAzioni.add(dettagliProdotto);
+
+        //aggiungo un pannello per l'inserimento del prodotto nel punto vendita per l'admin
+        if (AccessoUtente.getTipo() == "AM") {
+            JButton inserimentoProdottoInPuntoVendita = new JButton("Inserisci Prodotto nel Punto Vendita");
+            inserimentoProdottoInPuntoVendita.setActionCommand(InserimentoProdottoInPuntoVenditaListener.IPIPV_BTN);
+            InserimentoProdottoInPuntoVenditaListener inserimentoProdottoInPuntoVenditaListener = new InserimentoProdottoInPuntoVenditaListener(tabella);
+            inserimentoProdottoInPuntoVendita.addActionListener(inserimentoProdottoInPuntoVenditaListener);
+            pannelloAzioni.add(inserimentoProdottoInPuntoVendita);
+        }
+
         add(pannelloAzioni, BorderLayout.SOUTH);
     }
 }
