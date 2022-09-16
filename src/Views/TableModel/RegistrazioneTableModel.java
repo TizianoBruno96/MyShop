@@ -86,6 +86,6 @@ public class RegistrazioneTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return AccessoUtente.getTipo().equals("AM");
+        return true;
     }
 }

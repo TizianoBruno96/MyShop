@@ -24,9 +24,11 @@ public class OrdineServizioBusiness {
         int idLista = listaAcquistoDAO.findByIDUtente(AccessoUtente.getIdUtente()).getIdListaAcquisto();
 
         //ciclo sull'array
-        for (int i = 0; i < idServizi.size(); i++) {
+        for (Integer integer : idServizi) {
             //creo un nuovo ordineServizio
-            OrdineServizio os = new OrdineServizio(idServizi.get(i), idLista);
+            OrdineServizio os = new OrdineServizio(integer, idLista);
+            //controllo che l'ordine non esista già
+            if (ordineServizioDAO.find(integer, idLista) != null) return;
             ordineServizioDAO.add(os);
         }
     }

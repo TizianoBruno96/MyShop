@@ -13,7 +13,7 @@ public interface IOrdineServizioDAO {
 
     ArrayList<OrdineServizio> findByIDListaAcquisto(int idListaAcquisto);
 
-    OrdineServizio find(Servizio servizio, ListaAcquisto listaAcquisto);
+    OrdineServizio find(int idServizio, int idlistaAcquisto);
 
     int add(OrdineServizio ordineServizio);
 

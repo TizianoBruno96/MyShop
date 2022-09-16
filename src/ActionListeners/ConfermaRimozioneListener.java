@@ -1,13 +1,6 @@
 package ActionListeners;
 
 import Business.ConfermaRimozioneBusiness;
-import DAO.Interfaces.IListaAcquistoDAO;
-import DAO.Interfaces.IOrdineProdottoDAO;
-import DAO.Interfaces.IOrdineServizioDAO;
-import DAO.OrdineProdottoDAO;
-import DAO.OrdineServizioDAO;
-import Model.ListaAcquisto;
-import Views.AccessoUtente;
 import Views.Model.CarrelloProdottiModel;
 import Views.Model.CatalogoServiziModel;
 import Views.TableModel.CarrelloProdottiTableModel;

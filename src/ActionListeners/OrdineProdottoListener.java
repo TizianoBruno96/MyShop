@@ -30,7 +30,10 @@ public class OrdineProdottoListener implements ActionListener {
             for (int j : righeSelezionate) {
                 CatalogoProdottiModel rigaSelezionata = tModel.getRighe().get(j);
                 idProdotti.add(rigaSelezionata.getIdProdotto());
-                quantita.add(rigaSelezionata.getDisponibilita());
+                //chiedo quanti prodotti vuole ordinare
+                String quantitaOrdinata = JOptionPane.showInputDialog("Inserisci la quantità da ordinare per il prodotto " + rigaSelezionata.getNomeProdotto());
+                int quantitaOrdinataInt = Integer.parseInt(quantitaOrdinata);
+                quantita.add(quantitaOrdinataInt);
             }
 
             OrdineProdottoBusiness.getInstance().InserisciLista(idProdotti, quantita);

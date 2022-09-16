@@ -34,8 +34,7 @@ public class OrdineProdottoBusiness {
             OrdineProdotto op = new OrdineProdotto(idProdotti.get(i), listaAcquisto.getIdListaAcquisto(), quantita.get(i));
             if (ordineProdottoDAO.find(prodotto, listaAcquisto) != null) {
                 op = ordineProdottoDAO.find(prodotto, listaAcquisto);
-                int quantitaAttuale = op.getQuantita();
-                op.setQuantita(quantitaAttuale + 1);
+                op.setQuantita(quantita.get(i));
                 ordineProdottoDAO.update(op);
             }
             else ordineProdottoDAO.add(op);

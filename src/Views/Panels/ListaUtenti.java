@@ -1,5 +1,7 @@
 package Views.Panels;
 
+import ActionListeners.ConfermaRimozioneListener;
+import ActionListeners.EliminazioneUtenteListener;
 import DAO.Interfaces.IUtenteDAO;
 import DAO.Interfaces.IUtenteRegistratoDAO;
 import DAO.UtenteDAO;
@@ -48,5 +50,15 @@ public class ListaUtenti extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
         table.setRowHeight(50);
+
+        //inserisco un pulsante per eliminare l'utente selezionato
+        JPanel pannelloAzioni = new JPanel();
+        pannelloAzioni.setLayout(new FlowLayout());
+        JButton eliminaUtente = new JButton("Elimina utente");
+        eliminaUtente.setActionCommand(EliminazioneUtenteListener.EUL_BTN);
+        EliminazioneUtenteListener eliminazioneUtenteListener = new EliminazioneUtenteListener(table);
+        eliminaUtente.addActionListener(eliminazioneUtenteListener);
+        pannelloAzioni.add(eliminaUtente);
+        add(pannelloAzioni, BorderLayout.SOUTH);
     }
 }
