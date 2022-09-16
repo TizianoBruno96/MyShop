@@ -1,10 +1,11 @@
 package ActionListeners;
 
-import DAO.Interfaces.*;
+import Business.ConfermaRimozioneBusiness;
+import DAO.Interfaces.IListaAcquistoDAO;
+import DAO.Interfaces.IOrdineProdottoDAO;
+import DAO.Interfaces.IOrdineServizioDAO;
 import DAO.OrdineProdottoDAO;
 import DAO.OrdineServizioDAO;
-import DAO.ProdottoDAO;
-import DAO.ServizioDAO;
 import Model.ListaAcquisto;
 import Views.AccessoUtente;
 import Views.Model.CarrelloProdottiModel;
@@ -15,16 +16,13 @@ import Views.TableModel.CatalogoServiziTableModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ConfermaRimozioneListener implements ActionListener {
     public final static String CRL_BTN = "crl_btn";
-    private JTable tableProdotti;
-    private JTable tableServizi;
-    IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
-    IServizioDAO servizioDAO = ServizioDAO.getInstance();
-    IOrdineProdottoDAO ordineProdottoDAO = OrdineProdottoDAO.getInstance();
-    IOrdineServizioDAO ordineServizioDAO = OrdineServizioDAO.getInstance();
-    IListaAcquistoDAO listaAcquistoDAO = DAO.ListaAcquistoDAO.getInstance();
+    private final JTable tableProdotti;
+    private final JTable tableServizi;
+
     public ConfermaRimozioneListener(JTable tableProdotti, JTable tableServizi) {
         this.tableProdotti = tableProdotti;
         this.tableServizi = tableServizi;
@@ -39,17 +37,20 @@ public class ConfermaRimozioneListener implements ActionListener {
             CarrelloProdottiTableModel prodottiTableModel = (CarrelloProdottiTableModel) tableProdotti.getModel();
             CatalogoServiziTableModel serviziTableModel = (CatalogoServiziTableModel) tableServizi.getModel();
 
-            ListaAcquisto ls = listaAcquistoDAO.findByIDUtente(AccessoUtente.getIdUtente());
 
+            ArrayList<Integer> idProdotti = new ArrayList<>();
+            ArrayList<Integer> idServizi = new ArrayList<>();
             for(int i : prodottiSelectedRows) {
                 CarrelloProdottiModel prodotto = prodottiTableModel.getRighe().get(i);
-                ordineProdottoDAO.removeByID(prodotto.getIdProdotto(), ls.getIdListaAcquisto());
+                idProdotti.add(prodotto.getIdProdotto());
             }
 
             for(int i : serviziSelectedRows) {
                 CatalogoServiziModel servizio = serviziTableModel.getRighe().get(i);
-                ordineServizioDAO.removeByID(servizio.getIdServizio(), ls.getIdListaAcquisto());
+                idServizi.add(servizio.getIdServizio());
             }
+
+            ConfermaRimozioneBusiness.getInstance().confermaRimozione(idProdotti, idServizi);
         }
     }
 }
