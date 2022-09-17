@@ -176,12 +176,12 @@ public class FotoDAOTest {
 
     @Test
     public void findByProdottoTest() {
-        assert fotoDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() >= 2;
+        assert fotoDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() == 1 ;
     }
 
     @Test
     public void findByProdottoTestWrong() {
-        assert fotoDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() < 2;
+        assert fotoDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() > 1;
     }
 
     @Test
