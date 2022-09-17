@@ -135,4 +135,6 @@ public class CatalogoProdotti extends JPanel {
 
         add(pannelloAzioni, BorderLayout.SOUTH);
     }
+
+
 }
