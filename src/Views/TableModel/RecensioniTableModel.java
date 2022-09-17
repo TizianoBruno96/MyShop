@@ -12,6 +12,9 @@ public class RecensioniTableModel extends AbstractTableModel {
     public RecensioniTableModel(List<RecensioniModel> righe) {
         this.righe = righe;
     }
+    public List<RecensioniModel> getRighe() {
+        return righe;
+    }
 
     @Override
     public int getRowCount() {

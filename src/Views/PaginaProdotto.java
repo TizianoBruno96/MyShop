@@ -1,5 +1,6 @@
 package Views;
 
+import ActionListeners.EliminaRecensioneListener;
 import ActionListeners.ScritturaRecensioneListener;
 import DAO.CategoriaDAO;
 import DAO.Interfaces.*;
@@ -115,6 +116,18 @@ public class PaginaProdotto extends JPanel {
             pannelloRecensione.add(scriviRecensione);
             pannelloRecensione.add(scrollPane);
             this.add(pannelloRecensione);
+        }
+
+        //aggiungo un pulsante per eliminare le recensioni
+        if (AccessoUtente.getTipo() != null && AccessoUtente.getTipo().equals("AM") || AccessoUtente.getTipo() != null && AccessoUtente.getTipo().equals("MN")) {
+            JButton eliminaRecensione = new JButton("Elimina recensione");
+            JPanel pannelloEliminaRecensione = new JPanel();
+            EliminaRecensioneListener eliminaRecensioneListener = new EliminaRecensioneListener(recensioniTable);
+            eliminaRecensione.addActionListener(eliminaRecensioneListener);
+            eliminaRecensione.setActionCommand(EliminaRecensioneListener.ERL_BTN);
+            pannelloEliminaRecensione.add(eliminaRecensione);
+            pannelloEliminaRecensione.add(scrollPane);
+            this.add(pannelloEliminaRecensione);
         }
     }
 }

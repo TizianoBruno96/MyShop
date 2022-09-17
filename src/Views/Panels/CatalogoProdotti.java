@@ -1,5 +1,6 @@
 package Views.Panels;
 
+import ActionListeners.Admin.EliminaProdottoListener;
 import ActionListeners.Admin.InserimentoProdottoInPuntoVenditaListener;
 import ActionListeners.OrdineProdottoListener;
 import ActionListeners.PaginaProdottoListener;
@@ -7,8 +8,6 @@ import DAO.*;
 import DAO.Interfaces.*;
 import Model.Articoli.Foto;
 import Model.Articoli.Prodotto;
-import Model.Articoli.Produttore;
-import Model.Categoria;
 import Model.Posizione;
 import Views.AccessoUtente;
 import Views.FinestraPrincipale;
@@ -48,12 +47,7 @@ public class CatalogoProdotti extends JPanel {
             riga.setCategoriaProdotto(categoriaDAO.findByID(p.getIdCategoria()).getNome());
 
             ArrayList<Posizione> posizioni;
-
-            //if (AccessoUtente.getTipo().equals("AM") || AccessoUtente.getTipo() == null) {
-                posizioni = posizioneDAO.find(p.getIdProdotto(), magazzinoDAO.findByPuntoVendita(1).getIdMagazzino());
-            //} else {
-            //    posizioni = posizioneDAO.find(p.getIdProdotto(), magazzinoDAO.findByPuntoVendita(AccessoUtente.getIdPuntoVendita()).getIdMagazzino());
-            //}
+            posizioni = posizioneDAO.find(p.getIdProdotto(), magazzinoDAO.findByPuntoVendita(1).getIdMagazzino());
 
 
             int quantita = 0;
@@ -97,7 +91,7 @@ public class CatalogoProdotti extends JPanel {
 
         CatalogoProdottiTableModel tableModel = new CatalogoProdottiTableModel(righe);
         JTable tabella = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(tabella);//aggiungo la tabella in un pannello scrollabile
+        JScrollPane scrollPane = new JScrollPane(tabella); //aggiungo la tabella in un pannello scrollabile
         add(scrollPane, BorderLayout.CENTER);
         tabella.setRowHeight(100);
 
@@ -124,17 +118,30 @@ public class CatalogoProdotti extends JPanel {
         dettagliProdotto.addActionListener(paginaProdottoListener);
         pannelloAzioni.add(dettagliProdotto);
 
-        //aggiungo un pannello per l'inserimento del prodotto nel punto vendita per l'admin
-        if (AccessoUtente.getTipo() == "AM") {
+        //inserisciProdottoInPuntoVenditaButton(pannelloAzioni, tabella);
+
+        add(pannelloAzioni, BorderLayout.SOUTH);
+    }
+
+    //aggiungo un pulsante per l'inserimento del prodotto nel punto vendita per l'admin
+    /*public void inserisciProdottoInPuntoVenditaButton(JPanel pannelloAzioni, JTable tabella) {
+        if(AccessoUtente.getTipo() != null && AccessoUtente.getTipo().equals("AM")) {
             JButton inserimentoProdottoInPuntoVendita = new JButton("Inserisci Prodotto nel Punto Vendita");
             inserimentoProdottoInPuntoVendita.setActionCommand(InserimentoProdottoInPuntoVenditaListener.IPIPV_BTN);
             InserimentoProdottoInPuntoVenditaListener inserimentoProdottoInPuntoVenditaListener = new InserimentoProdottoInPuntoVenditaListener(tabella);
             inserimentoProdottoInPuntoVendita.addActionListener(inserimentoProdottoInPuntoVenditaListener);
             pannelloAzioni.add(inserimentoProdottoInPuntoVendita);
         }
+    }*/
 
-        add(pannelloAzioni, BorderLayout.SOUTH);
+    //aggiungo un pulsante per eliminare un prodotto
+    public void eliminaProdottoButton(JPanel pannelloAzioni, JTable tabella) {
+        if(AccessoUtente.getTipo() != null && AccessoUtente.getTipo().equals("AM")) {
+            JButton eliminaProdotto = new JButton("Elimina Prodotto");
+            eliminaProdotto.setActionCommand(EliminaProdottoListener.EPL_BTN);
+            EliminaProdottoListener eliminaProdottoListener = new EliminaProdottoListener(tabella);
+            eliminaProdotto.addActionListener(eliminaProdottoListener);
+            pannelloAzioni.add(eliminaProdotto);
+        }
     }
-
-
 }

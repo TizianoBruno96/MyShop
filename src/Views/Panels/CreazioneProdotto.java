@@ -41,6 +41,8 @@ public class CreazioneProdotto extends JPanel {
         aggiungiFoto.addActionListener(creazioneFotoListener);
         pannelloAzioni.add(aggiungiFoto);
 
+
+
         add(pannelloAzioni, BorderLayout.SOUTH);
     }
 }
