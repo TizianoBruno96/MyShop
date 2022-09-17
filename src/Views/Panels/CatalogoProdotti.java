@@ -118,6 +118,7 @@ public class CatalogoProdotti extends JPanel {
         dettagliProdotto.addActionListener(paginaProdottoListener);
         pannelloAzioni.add(dettagliProdotto);
 
+        eliminaProdottoButton(pannelloAzioni, tabella);
         //inserisciProdottoInPuntoVenditaButton(pannelloAzioni, tabella);
 
         add(pannelloAzioni, BorderLayout.SOUTH);

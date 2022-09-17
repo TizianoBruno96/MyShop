@@ -1,10 +1,9 @@
 package ActionListeners.Admin;
 
 import Business.EliminaProdottoBusiness;
-import DAO.CategoriaDAO;
+import DAO.Interfaces.IProdottoDAO;
+import DAO.ProdottoDAO;
 import Views.Model.CatalogoProdottiModel;
-import Views.Model.CatalogoServiziModel;
-import Views.Panels.CatalogoProdotti;
 import Views.TableModel.CatalogoProdottiTableModel;
 
 import javax.swing.*;
@@ -14,7 +13,7 @@ import java.awt.event.ActionListener;
 public class EliminaProdottoListener implements ActionListener {
     public static final String EPL_BTN = "epl_btn";
     private final JTable tabellaProdotti;
-
+    IProdottoDAO prodottoDAO = ProdottoDAO.getInstance();
 
     public EliminaProdottoListener(JTable tabellaProdotti) {
         this.tabellaProdotti = tabellaProdotti;
@@ -36,6 +35,15 @@ public class EliminaProdottoListener implements ActionListener {
                     idProdotti[i] = prodotto.getIdProdotto();
                 }
                 EliminaProdottoBusiness.getInstance().eliminaProdotto(idProdotti);
+
+                //check finale sulla corretta eliminazione del prodotto
+                for (int idProdotto : idProdotti) {
+                    if (prodottoDAO.findByID(idProdotto) == null) {
+                        JOptionPane.showMessageDialog(null, "Prodotto eliminato correttamente");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Errore nell'eliminazione del prodotto");
+                    }
+                }
             }
         }
     }
