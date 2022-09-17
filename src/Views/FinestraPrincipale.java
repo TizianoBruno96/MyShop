@@ -2,8 +2,9 @@ package Views;
 
 import ActionListeners.LoginListeners;
 import ActionListeners.LogoutListeners;
-import ActionListeners.RegistrazioneListeners;
+import ActionListeners.RegistrazioneListener;
 import Business.SessionManager;
+import Model.Articoli.Prodotto;
 import Model.Utenti.Utente;
 import Views.Decorator.Menu;
 import Views.Decorator.*;
@@ -38,9 +39,9 @@ public class FinestraPrincipale extends JFrame {
         login.setActionCommand(LoginListeners.LOGIN_BTN);
 
         JButton registrati = new JButton("Registrati");
-        registrati.setActionCommand(RegistrazioneListeners.REGISTRATI_BTN);
-        RegistrazioneListeners registrazioneListeners = new RegistrazioneListeners(this);
-        registrati.addActionListener(registrazioneListeners);
+        registrati.setActionCommand(RegistrazioneListener.REGISTRATI_BTN);
+        RegistrazioneListener registrazioneListener = new RegistrazioneListener(this);
+        registrati.addActionListener(registrazioneListener);
 
 
         //setto i layout di ogni singolo pannello
@@ -130,14 +131,13 @@ public class FinestraPrincipale extends JFrame {
                 }
             }
         }
-
         repaint();
         validate();
     }
 
     public void mostraCatalogoProdotti() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CatalogoProdotti());
+        pannelloCentro.add(new CatalogoProdotti(this));
         repaint();
         validate();
     }
@@ -166,42 +166,70 @@ public class FinestraPrincipale extends JFrame {
 
     public void mostraPannelloCreazioneManager() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CreaManager());
+        pannelloCentro.add(new CreazioneManager());
         repaint();
         validate();
     }
 
     public void mostraPannelloCreazionePuntoVendita() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new CreaPuntoVendita());
+        pannelloCentro.add(new CreazionePuntoVendita());
         repaint();
         validate();
     }
 
     public void mostraPannelloInserimentoProdotto() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new InserimentoProdotto());
+        pannelloCentro.add(new CreazioneProdotto());
         repaint();
         validate();
     }
 
     public void mostraPannelloInserimentoProduttore() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new InserimentoProduttore());
+        pannelloCentro.add(new CreazioneProduttore());
         repaint();
         validate();
     }
 
     public void mostraPannelloInserimentoFornitore() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new InserimentoFornitore());
+        pannelloCentro.add(new CreazioneFornitore());
         repaint();
         validate();
     }
 
     public void mostraPannelloInserimentoCategoria() {
         pannelloCentro.removeAll();
-        pannelloCentro.add(new InserimentoCategoria());
+        pannelloCentro.add(new CreazioneCategoria());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloInserimentoServizio() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new CreazioneServizio());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloSfogliaCarrello() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new SfogliaCarrello());
+        repaint();
+        validate();
+    }
+
+    public void mostraPannelloGestioneUtenti() {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new ListaUtenti());
+        repaint();
+        validate();
+    }
+
+    public void mostraPaginaProdotto(Prodotto prodotto) {
+        pannelloCentro.removeAll();
+        pannelloCentro.add(new PaginaProdotto(prodotto));
         repaint();
         validate();
     }

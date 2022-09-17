@@ -151,4 +151,28 @@ public class RecensioneDAOTest {
     public void findByUtenteTestWrong() {
         assert recensioneDAO.findByUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).size() < 1;
     }
+
+    @Test
+    public void removeByUtenteTest() {
+        recensioneDAO.removeByUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        assert recensioneDAO.findByUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).size() == 0;
+    }
+
+    @Test
+    public void removeByUtenteTestWrong() {
+        recensioneDAO.removeByUtente(utenteDAO.findByUsername("Frama19").getIdUtente());
+        assert recensioneDAO.findByUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).size() != 0;
+    }
+
+    @Test
+    public void removeByProdottoTest() {
+        recensioneDAO.removeByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto());
+        assert recensioneDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() == 0;
+    }
+
+    @Test
+    public void removeByProdottoTestWrong() {
+        recensioneDAO.removeByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto());
+        assert recensioneDAO.findByProdotto(prodottoDAO.findByNome("Sedia Da Ufficio Rossa").getIdProdotto()).size() != 0;
+    }
 }

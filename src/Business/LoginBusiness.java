@@ -46,13 +46,6 @@ public class LoginBusiness {
         Utente u = utenteDAO.findByUsername(username);
 
         PuntoVendita pv = null;
-        if (!nomePuntoVendita.equals("")) {
-            pv = puntoVenditaDAO.findByNome(nomePuntoVendita);
-            AccessoUtente.setIdPuntoVendita(pv.getIdPuntoVendita());
-        }
-        AccessoUtente.setIdUtente(u.getIdUtente());
-        AccessoUtente.setTipo(u.getTipo());
-
         //controllo che il nome del punto vendita sia valido
         if (!u.getTipo().equals("AM")) {
             if (!puntoVenditaDAO.checkNome(nomePuntoVendita)) {
@@ -60,7 +53,12 @@ public class LoginBusiness {
                 result.setMessage("Nome punto vendita non valido");
                 return result;
             }
+            pv = puntoVenditaDAO.findByNome(nomePuntoVendita);
+            AccessoUtente.setIdPuntoVendita(pv.getIdPuntoVendita());
         }
+
+        AccessoUtente.setIdUtente(u.getIdUtente());
+        AccessoUtente.setTipo(u.getTipo());
 
         //se l'utente non è registrato a questo punto vendita ritorna messaggio d'errore
         if (!checkRegistrazione(u.getTipo(), pv, u.getIdUtente())) {

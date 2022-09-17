@@ -20,4 +20,8 @@ public interface IRecensioneDAO {
     int remove(int idRecensione);
 
     int removeByProdottoAndUtente(int idProdotto, int idUtente);
+
+    int removeByProdotto(int idProdotto);
+
+    int removeByUtente(int idUtente);
 }

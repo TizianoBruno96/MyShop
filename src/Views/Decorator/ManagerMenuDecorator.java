@@ -1,7 +1,7 @@
 package Views.Decorator;
 
-import ActionListeners.GestisciUtentiListeners;
-import ActionListeners.RispondiCommentiListeners;
+import ActionListeners.Manager.GestioneUtentiListener;
+import ActionListeners.Manager.RispondiCommentiListener;
 import Views.FinestraPrincipale;
 
 import javax.swing.*;
@@ -23,16 +23,16 @@ public class ManagerMenuDecorator extends CustomMenuDecorator {
         JButton gestisciUtenti = new JButton("Gestisci utenti ");
 
 
-        rispondiCommenti.setActionCommand(RispondiCommentiListeners.RISPONDICOMMENTI_BTN);
-        gestisciUtenti.setActionCommand(GestisciUtentiListeners.GESTISCIUTENTI_BTN);
+        rispondiCommenti.setActionCommand(RispondiCommentiListener.RISPONDICOMMENTI_BTN);
+        gestisciUtenti.setActionCommand(GestioneUtentiListener.GESTISCIUTENTI_BTN);
 
 
-        RispondiCommentiListeners rispondiCommentiListeners = new RispondiCommentiListeners(finestra);
-        GestisciUtentiListeners gestisciUtentiListeners = new GestisciUtentiListeners(finestra);
+        RispondiCommentiListener rispondiCommentiListener = new RispondiCommentiListener(finestra);
+        GestioneUtentiListener gestioneUtentiListener = new GestioneUtentiListener(finestra);
 
 
-        rispondiCommenti.addActionListener(rispondiCommentiListeners);
-        gestisciUtenti.addActionListener(gestisciUtentiListeners);
+        rispondiCommenti.addActionListener(rispondiCommentiListener);
+        gestisciUtenti.addActionListener(gestioneUtentiListener);
 
 
         pulsanti.add(rispondiCommenti);

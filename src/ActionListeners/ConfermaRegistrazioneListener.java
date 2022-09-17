@@ -11,8 +11,8 @@ import java.awt.event.ActionListener;
 
 public class ConfermaRegistrazioneListener implements ActionListener {
     public final static String CONFERMAREGISTRAZIONE_BTN = "ConfermaRegistrazione_btn";
-    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
     private final JTable tabella;
+    IUtenteDAO utenteDAO = UtenteDAO.getInstance();
 
     public ConfermaRegistrazioneListener(JTable tabella) {
         this.tabella = tabella;
@@ -61,6 +61,12 @@ public class ConfermaRegistrazioneListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Inserire il nome del punto vendita");
             } else {
                 RegistrazioneBusiness.getInstance().confermaRegistrazione(nome, cognome, username, email, telefono, eta, residenza, professione, password, nomePuntoVendita);
+                //check finale per vedere se l'utente è stato registrato correttamente
+                if (utenteDAO.checkUsername(username)) {
+                    JOptionPane.showMessageDialog(null, "Registrazione avvenuta con successo");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Registrazione fallita");
+                }
             }
         }
     }

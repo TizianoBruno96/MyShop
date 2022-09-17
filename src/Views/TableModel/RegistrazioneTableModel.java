@@ -85,8 +85,6 @@ public class RegistrazioneTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return true;
     }
-
-
 }

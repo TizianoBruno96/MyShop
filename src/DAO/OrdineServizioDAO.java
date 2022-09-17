@@ -6,7 +6,6 @@ import DBInterface.Command.CommandFactory;
 import DBInterface.Command.DBOperationExecutor;
 import DBInterface.Command.IDBOperation;
 import Model.Articoli.Servizio;
-import Model.ListaAcquisto;
 import Model.OrdineServizio;
 
 import java.sql.ResultSet;
@@ -100,9 +99,9 @@ public class OrdineServizioDAO implements IOrdineServizioDAO {
     }
 
     @Override
-    public OrdineServizio find(Servizio servizio, ListaAcquisto listaAcquisto) {
+    public OrdineServizio find(int idServizio, int idListaAcquisto) {
         DBOperationExecutor executor = new DBOperationExecutor();
-        String sql = "SELECT * FROM OrdineServizio WHERE idServizio = " + servizio.getIdServizio() + " AND idListaAcquisto = " + listaAcquisto.getIdListaAcquisto();
+        String sql = "SELECT * FROM OrdineServizio WHERE idServizio = " + idServizio + " AND idListaAcquisto = " + idListaAcquisto;
         IDBOperation operation = CommandFactory.getCommand(CommandFactory.CommandType.READ, sql);
         rs = executor.executeOperation(operation).getResultSet();
         try {

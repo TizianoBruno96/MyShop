@@ -2,6 +2,7 @@ package Views.TableModel;
 
 import Utilities.FloatExt;
 import Utilities.IntegerExt;
+import Views.AccessoUtente;
 import Views.Model.CatalogoServiziModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -31,36 +32,26 @@ public class CatalogoServiziTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         CatalogoServiziModel riga = righe.get(rowIndex);
-        switch (columnIndex) {
-            case 0:
-                return riga.getNomeServizio();
-            case 1:
-                return riga.getCosto();
-            case 2:
-                return riga.getCategoria();
-            case 3:
-                return riga.getFornitore();
-            case 4:
-                return riga.getIdServizio();
-        }
-        return null;
+        return switch (columnIndex) {
+            case 0 -> riga.getNomeServizio();
+            case 1 -> riga.getCosto();
+            case 2 -> riga.getCategoria();
+            case 3 -> riga.getFornitore();
+            case 4 -> riga.getIdServizio();
+            default -> null;
+        };
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        switch (columnIndex) {
-            case 0:
-                return "Nome Servizio";
-            case 1:
-                return "Costo(€)";
-            case 2:
-                return "Categoria";
-            case 3:
-                return "Fornitore";
-            case 4:
-                return "Id Servizio";
-        }
-        return null;
+        return switch (columnIndex) {
+            case 0 -> "Nome Servizio";
+            case 1 -> "Costo(€)";
+            case 2 -> "Categoria";
+            case 3 -> "Fornitore";
+            case 4 -> "Id Servizio";
+            default -> null;
+        };
     }
 
 
@@ -81,12 +72,10 @@ public class CatalogoServiziTableModel extends AbstractTableModel {
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setIdServizio(Integer.parseInt(value.toString()));
         }
-
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo() != null && AccessoUtente.getTipo().equals("AM");
     }
-
 }

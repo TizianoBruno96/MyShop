@@ -80,12 +80,12 @@ public class OrdineServizioDAOTest {
 
     @Test
     public void findTest() {
-        assert ordineServizioDAO.find(servizioDAO.findByNome("Montaggio"), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())) != null;
+        assert ordineServizioDAO.find(servizioDAO.findByNome("Montaggio").getIdServizio(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()) != null;
     }
 
     @Test
     public void findTestWrong() {
-        assert ordineServizioDAO.find(servizioDAO.findByNome("Montaggio"), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente())) == null;
+        assert ordineServizioDAO.find(servizioDAO.findByNome("Montaggio").getIdServizio(), listaAcquistoDAO.findByIDUtente(utenteDAO.findByUsername("Frama19").getIdUtente()).getIdListaAcquisto()) == null;
     }
 
     @Test

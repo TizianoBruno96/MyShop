@@ -21,6 +21,10 @@ import java.util.List;
 public class DocumentoListaAcquisto extends Documento {
 
     private final ListaAcquisto lista;
+    IOrdineProdottoDAO ordineProdottoDAO = OrdineProdottoDAO.getInstance();
+    IOrdineServizioDAO ordineServizioDAO = OrdineServizioDAO.getInstance();
+    IProdottoDAO prodottoDAO = DAO.ProdottoDAO.getInstance();
+    IServizioDAO servizioDAO = DAO.ServizioDAO.getInstance();
 
     public DocumentoListaAcquisto(ListaAcquisto lista, IPdfAPI IPdfAPI) {
         super(IPdfAPI);
@@ -29,10 +33,7 @@ public class DocumentoListaAcquisto extends Documento {
 
     @Override
     public void invia(String indirizzo) {
-        IOrdineProdottoDAO ordineProdottoDAO = OrdineProdottoDAO.getInstance();
-        IOrdineServizioDAO ordineServizioDAO = OrdineServizioDAO.getInstance();
-        IProdottoDAO prodottoDAO = DAO.ProdottoDAO.getInstance();
-        IServizioDAO servizioDAO = DAO.ServizioDAO.getInstance();
+
 
         //Creo le liste di ordini
         List<OrdineProdotto> ordiniProdotto = ordineProdottoDAO.findByListaAcquisto(lista.getIdListaAcquisto());

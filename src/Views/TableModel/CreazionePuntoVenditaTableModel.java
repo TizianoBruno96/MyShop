@@ -1,7 +1,7 @@
 package Views.TableModel;
 
-import Utilities.FloatExt;
 import Utilities.IntegerExt;
+import Views.AccessoUtente;
 import Views.Model.CreazionePuntoVenditaModel;
 
 import javax.swing.table.AbstractTableModel;
@@ -63,10 +63,10 @@ public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
                 riga.setIndirizzo(value.toString());
             case 3:
                 riga.setUsernameManager(value.toString());
-            case 4 :
+            case 4:
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setMaxCorsia(Integer.parseInt(value.toString()));
-            case 5 :
+            case 5:
                 if (IntegerExt.isParsable(value.toString()))
                     riga.setMaxScaffale(Integer.parseInt(value.toString()));
         }
@@ -75,7 +75,6 @@ public class CreazionePuntoVenditaTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex >= 0;
+        return AccessoUtente.getTipo().equals("AM");
     }
-
 }

@@ -8,8 +8,8 @@ public class CategoriaProdotto implements ICategoria {
     private String Nome;
 
     public CategoriaProdotto() {
-        this.idCategoria = -1;
-        this.idCategoriaPadre = -1;
+        this.idCategoria = 0;
+        this.idCategoriaPadre = 0;
         this.Nome = "";
     }
 
