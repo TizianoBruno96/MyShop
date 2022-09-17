@@ -30,11 +30,19 @@ public class ConfermaInserimentoCategoriaListener implements ActionListener {
             } else if (categoriaDAO.findByNome(nomeCategoria) != null)
                 JOptionPane.showMessageDialog(null, "La categoria inserita esiste già");
             else {
-                if (nomeCategoriaPadre == null)
+                if (nomeCategoriaPadre == null) {
                     InserimentoCategoriaBusiness.getInstance().InserisciCategoria(nomeCategoria);
+                    //check finale sul corretto inserimento della categoria
+                    if (categoriaDAO.findByNome(nomeCategoria) != null) {
+                        JOptionPane.showMessageDialog(null, "Categoria inserita correttamente");
+                    }
+                }
                 else {
                     InserimentoCategoriaBusiness.getInstance().InserisciCategoria(nomeCategoria, categoriaDAO.findByNome(nomeCategoriaPadre).getIdCategoria());
-                    JOptionPane.showMessageDialog(null, "Categoria inserita con successo");
+                    //check finale sul corretto inserimento della categoria
+                    if (categoriaDAO.findByNome(nomeCategoria) != null) {
+                        JOptionPane.showMessageDialog(null, "Categoria inserita correttamente");
+                    }
                 }
             }
         }

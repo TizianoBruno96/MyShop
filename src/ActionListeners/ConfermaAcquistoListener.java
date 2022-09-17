@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 public class ConfermaAcquistoListener implements ActionListener {
     public final static String CAL_BTN = "Cal_btn";
 
-
     public ConfermaAcquistoListener() {
     }
 
