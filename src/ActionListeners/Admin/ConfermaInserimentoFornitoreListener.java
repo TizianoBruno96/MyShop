@@ -36,6 +36,7 @@ public class ConfermaInserimentoFornitoreListener implements ActionListener {
                 //check finale sul corretto inserimento del fornitore
                 if (fornitoreDAO.checkNome(nomeFornitore))
                     JOptionPane.showMessageDialog(null, "Fornitore inserito correttamente");
+                else JOptionPane.showMessageDialog(null, "Errore nell'inserimento del fornitore");
             }
         }
     }

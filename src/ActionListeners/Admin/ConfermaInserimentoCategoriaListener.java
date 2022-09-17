@@ -42,6 +42,8 @@ public class ConfermaInserimentoCategoriaListener implements ActionListener {
                     //check finale sul corretto inserimento della categoria
                     if (categoriaDAO.findByNome(nomeCategoria) != null) {
                         JOptionPane.showMessageDialog(null, "Categoria inserita correttamente");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Errore nell'inserimento della categoria");
                     }
                 }
             }
